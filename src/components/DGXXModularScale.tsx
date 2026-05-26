@@ -29,7 +29,7 @@ const COL = {
 
 const DGXXModularScale: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const setScaleRef = useRef<(s: Scale) => void>(() => {});
+  const setScaleRef = useRef<(s: Scale) => void>(() => { });
 
   const [scale, setScale] = useState<Scale>('pod');
   const [powerValue, setPowerValue] = useState(5);
@@ -541,7 +541,7 @@ const DGXXModularScale: React.FC = () => {
         ))}
       </div>
 
-     
+
     </div>
   );
 };

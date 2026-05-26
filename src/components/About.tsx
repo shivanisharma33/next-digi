@@ -288,8 +288,9 @@ const About = () => {
             </div>
 
             <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-black relative z-10 max-w-6xl">
-              Vertically Integrated <span className="text-brand-yellow font-semibold">AI</span> <br />
-              <span className="text-brand-yellow font-semibold">Infrastructure</span> at Scale.
+              Vertically Integrated <br />
+              <span className="text-brand-yellow font-semibold">AI Infrastructure</span> <br />
+              at Scale.
             </h2>
 
             <div className="space-y-6 max-w-5xl mx-auto">

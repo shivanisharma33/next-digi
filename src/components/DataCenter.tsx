@@ -172,9 +172,9 @@ const DataCenter = () => {
                 { label: '', text: 'Supports 80kW+ per-rack GPU power envelopes', color: '#f5c518' },
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-[#f5c518] mt-1">→</span>
-                  <p className="text-white/70 text-sm font-semibold">
-                    {item.label && <span className="text-white mr-2">{item.label}</span>}
+                  <ArrowRight size={16} className="mt-0.5 shrink-0 text-[#f5c518]" />
+                  <p className="text-white text-sm font-semibold">
+                    {item.label && <span className="mr-2 text-white">{item.label}</span>}
                     {item.text}
                   </p>
                 </li>
@@ -196,8 +196,10 @@ const DataCenter = () => {
 
         <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="flex flex-col items-center text-center mb-20">
-            <div className="inline-flex items-center gap-4 mb-8">
-              <span className="text-[10px] font-semibold tracking-[0.4em] uppercase text-white/40">01 / Facility Architecture</span>
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl mb-8">
+              <span className="w-8 h-[2px] bg-[#f5c518] shrink-0" />
+              <span className="w-1.5 h-[2px] bg-white/20 shrink-0" />
+              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/80">01 / Facility Architecture</span>
             </div>
             <h2 className="text-[clamp(2.5rem,6vw,6rem)] font-semibold leading-[0.9] tracking-tighter uppercase text-white mb-8">
               BUILT FOR AI, <br />
@@ -279,8 +281,10 @@ const DataCenter = () => {
       <section className="bg-[#f7f7f5] py-16 px-6 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col items-center text-center mb-20">
-            <div className="inline-flex items-center gap-4 mb-8">
-              <span className="text-[10px] font-semibold tracking-[0.4em] uppercase text-black/40">02 / Technical Specification</span>
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-black/10 bg-black/5 backdrop-blur-xl mb-8">
+              <span className="w-8 h-[2px] bg-[#f5c518] shrink-0" />
+              <span className="w-1.5 h-[2px] bg-black/20 shrink-0" />
+              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-black/80">02 / Technical Specification</span>
             </div>
             <h2 className="text-[clamp(2.5rem,6vw,6rem)] font-semibold leading-[0.9] tracking-tighter uppercase text-black mb-8">
               FULL-STACK FACILITY <br />
@@ -337,8 +341,10 @@ const DataCenter = () => {
         <div className="max-w-[1400px] mx-auto relative z-10">
           {/* Centered Heading and Intro */}
           <div className="flex flex-col items-center text-center mb-24">
-            <div className="inline-flex items-center gap-4 mb-8">
-              <span className="text-[10px] font-semibold tracking-[0.4em] uppercase text-white/40">Why DigiPowerX</span>
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl mb-8">
+              <span className="w-8 h-[2px] bg-[#f5c518] shrink-0" />
+              <span className="w-1.5 h-[2px] bg-white/20 shrink-0" />
+              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/80">Why DigiPowerX</span>
             </div>
             <h2 className="text-[clamp(2.5rem,5vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-10">
               THE ADVANTAGE IS <br />

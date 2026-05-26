@@ -464,27 +464,60 @@ export default function Services() {
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200 border border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-b border-gray-200">
             {[
               { title: "Owned Power", desc: "Sub-$0.05/kWh cost structure flows through to every layer of colocation and compute." },
               { title: "Speed to Capacity", desc: "Existing substations and load studies eliminate the primary bottleneck for deployments." },
               { title: "Vertical Integration", desc: "One company owns every layer — no finger-pointing between utility and compute." },
               { title: "Multi-Layer", desc: "Consume power, space, and compute independently or as an integrated package." }
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-4 lg:p-10 bg-white group hover:bg-black transition-all duration-500"
-              >
-                <span className="text-[10px] font-semibold text-[#f5c518] mb-3 lg:mb-6 block">0{i + 1}</span>
-                <h4 className="text-base lg:text-2xl font-semibold uppercase tracking-tight text-black group-hover:text-white mb-2 lg:mb-5 transition-colors">{item.title}</h4>
-                <p className="text-gray-500 text-[12px] leading-relaxed font-medium group-hover:text-gray-400 transition-colors">{item.desc}</p>
-                <div className="mt-4 lg:mt-10 h-1 w-8 bg-[#f5c518] group-hover:w-full transition-all duration-700 origin-left" />
-              </motion.div>
-            ))}
+            ].map((item, i) => {
+              // Determine precise responsive border styles to avoid outer borders
+              let borderClass = "";
+              if (i === 0) {
+                borderClass = "border-b md:border-r lg:border-b-0 border-gray-200";
+              } else if (i === 1) {
+                borderClass = "border-b lg:border-r lg:border-b-0 border-gray-200";
+              } else if (i === 2) {
+                borderClass = "border-b md:border-r md:border-b-0 lg:border-r lg:border-b-0 border-gray-200";
+              } else {
+                borderClass = "border-none";
+              }
+
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className={`pt-8 pb-8 px-6 lg:pt-10 lg:pb-10 lg:pl-10 lg:pr-8 bg-white group hover:bg-gray-50/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-100/50 transition-all duration-300 ease-out cursor-default ${borderClass}`}
+                >
+                  <div className="flex flex-col h-full justify-between">
+                    <div>
+                      {/* Golden-Yellow Number */}
+                      <span className="text-[12px] lg:text-[13px] font-bold text-[#f5c518] tracking-[0.2em] block">
+                        0{i + 1}
+                      </span>
+
+                      {/* Bold, Clean Heading - Standardized height across columns to align paragraphs */}
+                      <h4 className="text-[22px] lg:text-[28px] font-bold uppercase tracking-tight text-black leading-[1.15] mt-4 lg:mt-5 md:h-[60px] lg:h-[72px]">
+                        {item.title}
+                      </h4>
+
+                      {/* Refined Description text with matching wrapping */}
+                      <p className="text-gray-500 text-[14px] lg:text-[15px] leading-relaxed font-medium mt-4 lg:mt-5 max-w-[280px] lg:max-w-[300px]">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    {/* Micro-interactive Yellow Bar with equal margin spacing */}
+                    <div className="mt-4 lg:mt-5">
+                      <div className="h-[4px] w-9 bg-[#f5c518] group-hover:w-14 transition-all duration-300 ease-out origin-left" />
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
