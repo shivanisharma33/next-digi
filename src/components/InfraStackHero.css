@@ -1,0 +1,1066 @@
+/* InfraStackHero — DigiPower X isometric infrastructure stack hero */
+
+#infra-stack-hero {
+  --black: #060708;
+  --line: #272d36;
+  --line2: #1c2028;
+  --white: #f4f5f7;
+  --gray: #8f96a1;
+  --gray2: #575f6b;
+  --yellow: #ffc629;
+  --ybright: #ffd84d;
+  --gold: #c9920e;
+  --yglow: rgba(255, 198, 41, 0.55);
+  --yglow2: rgba(255, 198, 41, 0.22);
+  --cycle: 7s;
+
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  /* Remove the full viewport constraint to avoid bottom extra space */
+  display: flex;
+  align-items: flex-start;
+  padding: clamp(120px, 8.5vw, 160px) clamp(18px, 4vw, 72px) 24px;
+  /* Reduced bottom padding */
+  background: transparent;
+  color: var(--white);
+  font-family: 'Sora', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Stunning subtle background ambient glow behind the left content */
+#infra-stack-hero::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -15%;
+  width: 55%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(255, 198, 41, 0.07) 0%, transparent 70%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#infra-stack-hero .ish-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.68fr) 1fr;
+  gap: clamp(20px, 3vw, 52px);
+  align-items: flex-start;
+}
+
+#infra-stack-hero .ish-left {
+  max-width: 520px;
+}
+
+#infra-stack-hero .ish-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  padding: 8px 18px 8px 14px;
+  margin-top: 10px;
+  /* Safe space to clear sticky navbar and provide excellent top-heading padding */
+  margin-bottom: 28px;
+  border: 1px solid rgba(255, 198, 41, 0.35);
+  border-radius: 100px;
+  background: linear-gradient(90deg, rgba(255, 198, 41, 0.08) 0%, rgba(255, 198, 41, 0.03) 100%);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    0 0 12px rgba(255, 198, 41, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#infra-stack-hero .ish-eyebrow:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: var(--ybright);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 0 20px rgba(255, 198, 41, 0.15);
+}
+
+#infra-stack-hero .ish-eyebrow .ish-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 10px var(--yglow);
+  animation: ish-pDot 2.4s ease-in-out infinite;
+}
+
+@keyframes ish-pDot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .3;
+    transform: scale(.65);
+  }
+}
+
+#infra-stack-hero .ish-headline {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#infra-stack-hero .ish-headline .ish-acc {
+  background: linear-gradient(135deg, var(--ybright) 0%, var(--yellow) 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(255, 198, 41, 0.2));
+  display: inline-block;
+}
+
+#infra-stack-hero .ish-sub {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.7;
+  color: rgba(244, 245, 247, 0.72);
+  font-weight: 300;
+  max-width: 440px;
+  margin-bottom: clamp(36px, 4.5vw, 56px);
+  border-left: 2px solid var(--yellow);
+  padding-left: 18px;
+  transition: border-color 0.4s ease;
+}
+
+#infra-stack-hero .ish-sub:hover {
+  border-color: var(--ybright);
+}
+
+/* ── CTA buttons ──────────────────────────────────────── */
+#infra-stack-hero .ish-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: clamp(48px, 6vw, 76px);
+}
+
+#infra-stack-hero .ish-btn {
+  font-family: 'Archivo', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+#infra-stack-hero .ish-btn.primary {
+  background: linear-gradient(135deg, var(--ybright) 0%, var(--yellow) 100%);
+  color: #060708;
+  box-shadow: 0 4px 20px rgba(255, 198, 41, 0.15);
+}
+
+#infra-stack-hero .ish-btn.primary:hover {
+  background: linear-gradient(135deg, #ffffff 0%, var(--ybright) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(255, 198, 41, 0.35);
+}
+
+#infra-stack-hero .ish-btn.secondary {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(244, 245, 247, 0.15);
+  color: var(--white);
+  backdrop-filter: blur(8px);
+}
+
+#infra-stack-hero .ish-btn.secondary:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  background: rgba(255, 198, 41, 0.05);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 198, 41, 0.1);
+}
+
+#infra-stack-hero .ish-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ── Stats row ────────────────────────────────────────── */
+#infra-stack-hero .ish-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  border-top: none;
+  padding-top: 0;
+  max-width: 580px;
+}
+
+#infra-stack-hero .ish-stat {
+  background: linear-gradient(180deg, rgba(39, 45, 54, 0.25) 0%, rgba(28, 32, 40, 0.12) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 18px 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+}
+
+#infra-stack-hero .ish-stat:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 198, 41, 0.35);
+  background: linear-gradient(180deg, rgba(39, 45, 54, 0.4) 0%, rgba(28, 32, 40, 0.2) 100%);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(255, 198, 41, 0.08);
+}
+
+#infra-stack-hero .ish-stat:first-child {
+  padding-left: 20px;
+}
+
+#infra-stack-hero .ish-stat:last-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding-right: 20px;
+}
+
+#infra-stack-hero .ish-stat:last-child:hover {
+  border-color: rgba(255, 198, 41, 0.35);
+}
+
+#infra-stack-hero .ish-stat-value {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: clamp(24px, 2.4vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--yellow);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  text-shadow: 0 0 12px rgba(255, 198, 41, 0.2);
+}
+
+#infra-stack-hero .ish-stat-unit {
+  font-size: clamp(10px, 0.8vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+#infra-stack-hero .ish-stat-label {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 8px;
+}
+
+#infra-stack-hero .ish-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 540px;
+  /* Reduced min-height to match the SVG stage and remove bottom empty space */
+  overflow: visible;
+}
+
+#infra-stack-hero .ish-stage {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 820 / 860;
+  flex-shrink: 0;
+}
+
+#infra-stack-hero .ish-points {
+  position: absolute;
+  right: calc(100% + 24px);
+  top: 0;
+  bottom: 0;
+  width: clamp(148px, 15vw, 208px);
+  pointer-events: auto;
+  z-index: 5;
+}
+
+#infra-stack-hero .ish-point {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 6px 14px 6px 12px;
+  cursor: pointer;
+  transition: opacity .3s ease;
+  text-align: right;
+}
+
+#infra-stack-hero .ish-point::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 17%;
+  width: 2px;
+  height: 66%;
+  border-radius: 2px;
+  background: var(--line);
+  transition: background .4s ease, box-shadow .4s ease, height .4s ease, top .4s ease;
+}
+
+#infra-stack-hero .ish-point:hover .ish-ptitle {
+  opacity: 0.85;
+}
+
+#infra-stack-hero .ish-point.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#infra-stack-hero .ish-point.active::before {
+  background: var(--yellow);
+  box-shadow: 0 0 12px var(--yglow);
+  height: 76%;
+  top: 12%;
+}
+
+#infra-stack-hero .ish-pnum {
+  display: block;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--gray2);
+  margin-bottom: 3px;
+  transition: color .4s ease;
+}
+
+#infra-stack-hero .ish-point.active .ish-pnum {
+  color: var(--yellow);
+}
+
+#infra-stack-hero .ish-ptitle {
+  display: block;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.24;
+  color: var(--gray);
+  transition: color .4s ease;
+}
+
+#infra-stack-hero .ish-point.active .ish-ptitle {
+  color: var(--white);
+}
+
+#infra-stack-hero .ish-pdesc-wrap {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: max-height .52s cubic-bezier(.2, .7, .2, 1), opacity .4s ease, margin-top .35s ease;
+}
+
+#infra-stack-hero .ish-point.active .ish-pdesc-wrap {
+  max-height: 160px;
+  opacity: 1;
+  margin-top: 8px;
+}
+
+#infra-stack-hero .ish-pdesc {
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--gray2);
+  font-weight: 300;
+  transition: color .4s ease;
+}
+
+#infra-stack-hero .ish-point.active .ish-pdesc {
+  color: var(--gray);
+}
+
+#infra-stack-hero .ish-pbar {
+  height: 1.5px;
+  background: var(--line2);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+#infra-stack-hero .ish-pbar span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--ybright));
+}
+
+#infra-stack-hero .ish-point.active .ish-pbar span {
+  animation: ish-fillBar var(--cycle, 7s) linear forwards;
+}
+
+@keyframes ish-fillBar {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+#infra-stack-hero .ish-glow {
+  position: absolute;
+  left: 50%;
+  width: 58%;
+  height: 28%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(255, 198, 41, 0.26), transparent 70%);
+  filter: blur(44px);
+  pointer-events: none;
+  transition: top .72s cubic-bezier(.4, 0, .2, 1);
+  z-index: 0;
+}
+
+#infra-stack-hero .ish-pxfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+#infra-stack-hero .ish-px {
+  position: absolute;
+  background: var(--yellow);
+  border-radius: 1px;
+  opacity: 0;
+  box-shadow: 0 0 9px var(--yglow);
+}
+
+@keyframes ish-pxRise {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(.5);
+  }
+
+  15% {
+    opacity: .9;
+  }
+
+  85% {
+    opacity: .5;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-110px) scale(.9);
+  }
+}
+
+#infra-stack-hero .ish-meta {
+  position: absolute;
+  bottom: -2px;
+  right: 2px;
+  z-index: 4;
+  font-family: 'Archivo', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--gray2);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#infra-stack-hero .ish-meta .ish-live {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 8px var(--yglow);
+  animation: ish-pDot 1.8s ease-in-out infinite;
+}
+
+/* ══ SVG INFRASTRUCTURE CLASSES ══ */
+#infra-stack-hero .iso-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+#infra-stack-hero .lt {
+  fill: #4a5568;
+}
+
+#infra-stack-hero .lm {
+  fill: #272f3e;
+}
+
+#infra-stack-hero .ld {
+  fill: #161c27;
+}
+
+#infra-stack-hero .lh {
+  fill: #5a6478;
+}
+
+#infra-stack-hero .pt {
+  fill: #242a36;
+}
+
+#infra-stack-hero .pd {
+  fill: #161b24;
+}
+
+#infra-stack-hero .pf {
+  fill: #0f1319;
+}
+
+#infra-stack-hero .ps {
+  fill: url(#sheenG);
+}
+
+#infra-stack-hero .pe {
+  stroke: #505c74;
+  stroke-width: 1.4;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+#infra-stack-hero .se {
+  stroke: #4a5268;
+  stroke-width: 1;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+#infra-stack-hero .sg {
+  stroke: #30374a;
+  stroke-width: 0.7;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+#infra-stack-hero .sol {
+  fill: #16202e;
+}
+
+#infra-stack-hero .tb {
+  fill: #36404f;
+}
+
+#infra-stack-hero .cb {
+  fill: #222a3c;
+}
+
+#infra-stack-hero .ct {
+  fill: #2e3850;
+}
+
+#infra-stack-hero .ce {
+  stroke: #5a6480;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+#infra-stack-hero .ig {
+  opacity: 0.16;
+  transition: opacity .6s ease;
+}
+
+#infra-stack-hero .gls {
+  stroke: var(--yellow);
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 4px var(--yglow2));
+}
+
+#infra-stack-hero .gls-fill {
+  fill: url(#gY);
+  filter: drop-shadow(0 0 4px var(--yglow2));
+}
+
+#infra-stack-hero .pls {
+  fill: var(--ybright);
+  filter: drop-shadow(0 0 6px var(--yellow));
+}
+
+#infra-stack-hero .pxl {
+  fill: var(--yellow);
+}
+
+#infra-stack-hero .wn {
+  fill: var(--yellow);
+}
+
+#infra-stack-hero .rk {
+  stroke: #2a3040;
+  stroke-width: 0.9;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+#infra-stack-hero .blink {
+  fill: var(--yellow);
+  animation: ish-blink 2s steps(1) infinite;
+}
+
+#infra-stack-hero .blink:nth-of-type(2n) {
+  animation-delay: -.7s;
+}
+
+#infra-stack-hero .blink:nth-of-type(3n) {
+  animation-delay: -1.25s;
+}
+
+@keyframes ish-blink {
+
+  0%,
+  62%,
+  100% {
+    opacity: 1;
+  }
+
+  64%,
+  80% {
+    opacity: .12;
+  }
+}
+
+#infra-stack-hero .scan {
+  fill: var(--yellow);
+  opacity: 0;
+}
+
+#infra-stack-hero .connector {
+  stroke: #2f3640;
+  stroke-width: 1.15;
+  stroke-dasharray: 2 5;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+#infra-stack-hero .connector.flowing {
+  stroke: rgba(255, 198, 41, .52);
+  animation: ish-flow .8s linear infinite;
+}
+
+@keyframes ish-flow {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+
+#infra-stack-hero .beam {
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+
+#infra-stack-hero .lg {
+  transition: opacity .6s ease, filter .6s ease;
+}
+
+#infra-stack-hero .lg.inactive {
+  opacity: .38;
+  filter: saturate(.28) brightness(.78);
+}
+
+#infra-stack-hero .lg.active {
+  opacity: 1;
+  filter: saturate(1.1) brightness(1.08) drop-shadow(0 14px 40px rgba(0, 0, 0, .6));
+}
+
+#infra-stack-hero .lg.active .pe {
+  stroke: var(--yellow);
+  transition: stroke .52s ease;
+}
+
+#infra-stack-hero .lg.active .pt {
+  fill: #28240e;
+  transition: fill .52s ease;
+}
+
+#infra-stack-hero .lg.active .pd {
+  fill: #1c1a0a;
+}
+
+#infra-stack-hero .lg.active .pf {
+  fill: #14120a;
+}
+
+#infra-stack-hero .lg.active .ps {
+  fill: url(#sheenYG);
+}
+
+#infra-stack-hero .lg.active .lt {
+  fill: #5e6e88;
+  transition: fill .4s ease;
+}
+
+#infra-stack-hero .lg.active .lm {
+  fill: #333d52;
+  transition: fill .4s ease;
+}
+
+#infra-stack-hero .lg.active .ld {
+  fill: #1e2535;
+  transition: fill .4s ease;
+}
+
+#infra-stack-hero .lg.active .ig {
+  opacity: 1;
+  animation: ish-igniteReveal .5s ease forwards;
+}
+
+@keyframes ish-igniteReveal {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+#infra-stack-hero .lg.active .scan {
+  opacity: 1;
+  animation: ish-scanAnim 3.2s linear infinite;
+}
+
+@keyframes ish-scanAnim {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: .85;
+  }
+
+  88% {
+    opacity: .85;
+  }
+
+  100% {
+    transform: translateY(64px);
+    opacity: 0;
+  }
+}
+
+#infra-stack-hero .lg.active .pt {
+  animation: ish-platPulse .55s ease-out;
+}
+
+@keyframes ish-platPulse {
+  0% {
+    filter: brightness(1);
+  }
+
+  30% {
+    filter: brightness(1.35);
+  }
+
+  100% {
+    filter: brightness(1);
+  }
+}
+
+#infra-stack-hero .lflt {
+  animation: ish-floaty 9s ease-in-out infinite;
+}
+
+#infra-stack-hero .lf2 {
+  animation-delay: -2.2s;
+}
+
+#infra-stack-hero .lf3 {
+  animation-delay: -4.4s;
+}
+
+#infra-stack-hero .lf4 {
+  animation-delay: -6.6s;
+}
+
+@keyframes ish-floaty {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+#infra-stack-hero .rotor {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ish-spin 7.5s linear infinite;
+}
+
+@keyframes ish-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 1060px) {
+  #infra-stack-hero .ish-inner {
+    grid-template-columns: 1fr;
+  }
+
+  #infra-stack-hero .ish-left {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    order: 2;
+  }
+
+  #infra-stack-hero .ish-cta {
+    justify-content: center;
+  }
+
+  #infra-stack-hero .ish-stats {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  #infra-stack-hero .ish-right {
+    order: 1;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    min-height: auto;
+  }
+
+  #infra-stack-hero .ish-stage {
+    max-width: 480px;
+    width: 100%;
+    aspect-ratio: auto;
+    height: auto;
+  }
+
+  /* The SVG host div is the 3rd child, but let's be safe and target it via the dangerouslySetInnerHTML wrapper */
+  #infra-stack-hero .ish-stage>div[style*="width: 100%"] {
+    aspect-ratio: 820 / 860;
+  }
+
+  #infra-stack-hero .ish-points {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0;
+    margin-top: 16px;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  #infra-stack-hero .ish-point {
+    position: static;
+    max-width: calc(50% - 6px);
+    flex: 1 1 calc(50% - 6px);
+    text-align: left;
+  }
+
+  #infra-stack-hero .ish-point::before {
+    display: none;
+  }
+
+  #infra-stack-hero .ish-ptitle {
+    font-size: 11px;
+  }
+
+  #infra-stack-hero .ish-pdesc {
+    font-size: 9.5px;
+  }
+}
+
+@media (max-width: 640px) {
+  #infra-stack-hero {
+    padding: 100px 14px 40px;
+  }
+
+  #infra-stack-hero .ish-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
+  }
+
+  #infra-stack-hero .ish-stat {
+    padding: 16px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #infra-stack-hero .ish-stat-value {
+    justify-content: center;
+  }
+
+  #infra-stack-hero .ish-stat-label {
+    text-align: center;
+  }
+
+  #infra-stack-hero .ish-stat:first-child {
+    padding-left: 20px;
+  }
+
+  #infra-stack-hero .ish-stat:last-child {
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding-right: 20px;
+  }
+
+  #infra-stack-hero .ish-right {
+    gap: 16px;
+  }
+
+  #infra-stack-hero .ish-points {
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  #infra-stack-hero .ish-point {
+    max-width: calc(50% - 4px);
+    flex: 1 1 calc(50% - 4px);
+  }
+
+  #infra-stack-hero .ish-ptitle {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  #infra-stack-hero .lflt,
+  #infra-stack-hero .rotor,
+  #infra-stack-hero .pls,
+  #infra-stack-hero .scan,
+  #infra-stack-hero .blink,
+  #infra-stack-hero .connector.flowing,
+  #infra-stack-hero .ish-px,
+  #infra-stack-hero .ish-eyebrow .ish-dot,
+  #infra-stack-hero .ish-meta .ish-live {
+    animation: none !important;
+  }
+
+  #infra-stack-hero .lg.active .ig {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  #infra-stack-hero .ish-eyebrow,
+  #infra-stack-hero .ish-headline,
+  #infra-stack-hero .ish-headline .ish-acc,
+  #infra-stack-hero .ish-sub,
+  #infra-stack-hero .ish-cta,
+  #infra-stack-hero .ish-stats {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* ── Hero text reveal on mount ────────────────────────────── */
+@keyframes ish-reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ish-reveal-wipe {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes ish-acc-glow {
+  from {
+    filter: drop-shadow(0 2px 8px rgba(255, 198, 41, 0)) brightness(0.6);
+  }
+  60% {
+    filter: drop-shadow(0 2px 18px rgba(255, 198, 41, 0.6)) brightness(1.25);
+  }
+  to {
+    filter: drop-shadow(0 2px 8px rgba(255, 198, 41, 0.2)) brightness(1);
+  }
+}
+
+#infra-stack-hero .ish-eyebrow,
+#infra-stack-hero .ish-sub,
+#infra-stack-hero .ish-cta,
+#infra-stack-hero .ish-stats {
+  opacity: 0;
+  animation: ish-reveal-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#infra-stack-hero .ish-headline {
+  opacity: 0;
+  animation: ish-reveal-wipe 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#infra-stack-hero .ish-eyebrow {
+  animation-delay: 0.1s;
+}
+
+#infra-stack-hero .ish-headline {
+  animation-delay: 0.25s;
+}
+
+#infra-stack-hero .ish-headline .ish-acc {
+  animation: ish-acc-glow 1.6s ease-out 1.1s forwards;
+}
+
+#infra-stack-hero .ish-sub {
+  animation-delay: 0.6s;
+}
+
+#infra-stack-hero .ish-cta {
+  animation-delay: 0.8s;
+}
+
+#infra-stack-hero .ish-stats {
+  animation-delay: 0.95s;
+}

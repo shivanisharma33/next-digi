@@ -1,0 +1,400 @@
+
+/* DemiPage.css — Precise replication of the high-fidelity industrial design */
+
+:root {
+  --black: #060708;
+  --line: #272d36;
+  --line2: #1c2028;
+  --white: #f4f5f7;
+  --gray: #8f96a1;
+  --gray2: #575f6b;
+  --yellow: #ffc629;
+  --ybright: #ffd84d;
+  --gold: #c9920e;
+  --yglow: rgba(255, 198, 41, 0.55);
+  --yglow2: rgba(255, 198, 41, 0.22);
+}
+
+.demi-page {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Sora', sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.demi-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(1400px 900px at 68% 44%, rgba(255, 198, 41, 0.07) 0%, transparent 65%),
+    radial-gradient(700px 600px at 8% 88%, rgba(255, 198, 41, 0.03) 0%, transparent 68%);
+}
+
+.demi-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  padding: clamp(32px, 3.5vw, 56px) clamp(18px, 4vw, 72px) 40px;
+  background: #060708;
+}
+
+.demi-section::before {
+  content: "";
+  position: absolute;
+  inset: -100px;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.013) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.013) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: radial-gradient(ellipse 120% 120% at 62% 48%, black 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 120% 120% at 62% 48%, black 0%, transparent 80%);
+}
+
+.demi-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.68fr) 1fr;
+  gap: clamp(20px, 3vw, 52px);
+  align-items: flex-start;
+}
+
+.demi-left {
+  max-width: 480px;
+}
+
+.demi-plink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--yellow);
+  text-decoration: none;
+  margin-top: 8px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(255, 198, 41, 0.26);
+  width: fit-content;
+  transition: gap .22s ease, border-color .22s ease;
+}
+
+.demi-plink:hover {
+  gap: 8px;
+  border-color: var(--yellow);
+}
+
+.demi-pbar {
+  height: 1.5px;
+  background: var(--line2);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.demi-pbar span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--ybright));
+}
+
+.demi-point.active .demi-pbar span {
+  animation: demi-fillBar 7s linear forwards;
+}
+
+@keyframes demi-fillBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.demi-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  padding: 6px 14px 6px 11px;
+  margin-bottom: 22px;
+  border: 1px solid rgba(255, 198, 41, 0.24);
+  border-radius: 100px;
+  background: rgba(255, 198, 41, 0.042);
+}
+
+.demi-eyebrow .demi-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 10px var(--yglow);
+  animation: demi-pDot 2.4s ease-in-out infinite;
+}
+
+@keyframes demi-pDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .3; transform: scale(.65); }
+}
+
+.demi-headline {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 10;
+}
+
+.demi-headline .demi-acc {
+  color: var(--yellow);
+}
+
+.demi-sub {
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.65;
+  color: var(--gray);
+  font-weight: 500;
+  max-width: 420px;
+}
+
+.demi-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 700px;
+  overflow: visible;
+}
+
+.demi-stage {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 820/860;
+  flex-shrink: 0;
+}
+
+.demi-points {
+  position: absolute;
+  left: calc(min(580px, 100%) + 14px);
+  top: 0;
+  bottom: 0;
+  width: clamp(148px, 15vw, 208px);
+  pointer-events: auto;
+}
+
+.demi-point {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 6px 12px 6px 14px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.demi-point[data-layer="4"] { top: 12%; }
+.demi-point[data-layer="3"] { top: 28%; }
+.demi-point[data-layer="2"] { top: 48%; }
+.demi-point[data-layer="1"] { top: 72%; }
+
+.demi-point::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 17%;
+  width: 2px;
+  height: 66%;
+  border-radius: 2px;
+  background: var(--line);
+  transition: background .4s ease, box-shadow .4s ease, height .4s ease, top .4s ease;
+}
+
+.demi-point.active::before {
+  background: var(--yellow);
+  box-shadow: 0 0 12px var(--yglow);
+  height: 76%;
+  top: 12%;
+}
+
+.demi-pnum {
+  display: block;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--gray2);
+  margin-bottom: 3px;
+  transition: color .4s ease;
+}
+
+.demi-point.active .demi-pnum {
+  color: var(--yellow);
+}
+
+.demi-ptitle {
+  display: block;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.24;
+  color: var(--gray);
+  transition: color .4s ease;
+}
+
+.demi-point.active .demi-ptitle {
+  color: var(--white);
+}
+
+.demi-pdesc-wrap {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: max-height .52s cubic-bezier(.2, .7, .2, 1), opacity .4s ease, margin-top .35s ease;
+}
+
+.demi-point.active .demi-pdesc-wrap {
+  max-height: 160px;
+  opacity: 1;
+  margin-top: 8px;
+}
+
+.demi-pdesc {
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--gray2);
+  font-weight: 500;
+  transition: color .4s ease;
+}
+
+.demi-point.active .demi-pdesc {
+  color: var(--gray);
+}
+
+.demi-glow {
+  position: absolute;
+  left: 50%;
+  width: 58%;
+  height: 28%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(255, 198, 41, 0.26), transparent 70%);
+  filter: blur(44px);
+  pointer-events: none;
+  transition: top .72s cubic-bezier(.4, 0, .2, 1);
+  z-index: 0;
+}
+
+.demi-pxfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.demi-px {
+  position: absolute;
+  background: var(--yellow);
+  border-radius: 1px;
+  opacity: 0;
+  box-shadow: 0 0 9px var(--yglow);
+}
+
+@keyframes demi-pxRise {
+  0% { opacity: 0; transform: translateY(28px) scale(.5); }
+  15% { opacity: .9; }
+  85% { opacity: .5; }
+  100% { opacity: 0; transform: translateY(-110px) scale(.9); }
+}
+
+.demi-meta {
+  position: absolute;
+  bottom: -2px;
+  right: 2px;
+  z-index: 4;
+  font-family: 'Archivo', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--gray2);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.demi-meta .demi-live {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 8px var(--yglow);
+  animation: demi-pDot 1.8s ease-in-out infinite;
+}
+
+/* SVG Classes — Consistent with the provided snippet */
+.demi-iso-svg { width: 100%; height: 100%; overflow: visible; display: block; position: relative; z-index: 2; }
+.demi-lt { fill: #4a5568; }
+.demi-lm { fill: #272f3e; }
+.demi-ld { fill: #161c27; }
+.demi-lh { fill: #5a6478; }
+.demi-pt { fill: #242a36; }
+.demi-pd { fill: #161b24; }
+.demi-pf { fill: #0f1319; }
+.demi-ps { fill: url(#sheenG); }
+.demi-pe { stroke: #505c74; stroke-width: 1.4; fill: none; vector-effect: non-scaling-stroke; }
+.demi-ig { opacity: 0.16; transition: opacity .6s ease; }
+.demi-gls { stroke: var(--yellow); fill: none; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px var(--yglow2)); }
+.demi-pls { fill: var(--ybright); filter: drop-shadow(0 0 6px var(--yellow)); }
+.demi-blink { fill: var(--yellow); animation: demi-blink 2s steps(1) infinite; }
+@keyframes demi-blink { 0%, 62%, 100% { opacity: 1; } 64%, 80% { opacity: .12; } }
+.demi-connector { stroke: #2f3640; stroke-width: 1.15; stroke-dasharray: 2 5; fill: none; vector-effect: non-scaling-stroke; }
+.demi-beam { opacity: 0; transition: opacity .7s ease; }
+.demi-lg { transition: opacity .6s ease, filter .6s ease; }
+.demi-lg.inactive { opacity: .38; filter: saturate(.28) brightness(.78); }
+.demi-lg.active { opacity: 1; filter: saturate(1.1) brightness(1.08) drop-shadow(0 14px 40px rgba(0, 0, 0, .6)); }
+.demi-lg.active .demi-pe { stroke: var(--yellow); transition: stroke .52s ease; }
+.demi-lg.active .demi-pt { fill: #28240e; transition: fill .52s ease; }
+.demi-lg.active .demi-pd { fill: #1c1a0a; }
+.demi-lg.active .demi-pf { fill: #14120a; }
+.demi-lg.active .demi-ps { fill: url(#sheenYG); }
+.demi-lg.active .demi-ig { opacity: 1; animation: demi-igniteReveal .5s ease forwards; }
+@keyframes demi-igniteReveal { 0% { opacity: 0; } 100% { opacity: 1; } }
+.demi-lflt { animation: demi-floaty 9s ease-in-out infinite; }
+.demi-lf2 { animation-delay: -2.2s; }
+.demi-lf3 { animation-delay: -4.4s; }
+.demi-lf4 { animation-delay: -6.6s; }
+@keyframes demi-floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+/* Responsive adjustments */
+@media (max-width: 1060px) {
+  .demi-inner { grid-template-columns: 1fr; }
+  .demi-left { max-width: 600px; margin: 0 auto; text-align: center; order: 2; }
+  .demi-right { order: 1; justify-content: center; min-height: auto; }
+  .demi-stage { max-width: 480px; }
+  .demi-points { position: relative; left: 0; width: 100%; margin-top: 40px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+  .demi-point { position: relative; top: auto !important; width: 200px; }
+}
+
+@media (max-width: 640px) {
+  .demi-section { padding: 40px 14px; }
+  .demi-right { flex-direction: column; align-items: center; gap: 16px; }
+  .demi-stage { max-width: 100%; width: 100%; }
+  .demi-point { width: calc(50% - 10px); }
+}
