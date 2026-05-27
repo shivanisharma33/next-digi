@@ -362,7 +362,7 @@ const PressRelease = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full min-h-[350px] md:min-h-[450px] lg:min-h-[500px] relative"
+            className="w-full min-h-[500px] md:min-h-[650px] lg:min-h-[750px] relative -mt-28 md:-mt-36 lg:-mt-48"
           >
             <PressReleaseHeroVisual3D />
           </motion.div>
