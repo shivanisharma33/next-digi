@@ -36,7 +36,7 @@ const Infrastructure = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-5 flex flex-col items-start text-left w-full"
+            className="lg:col-span-5 flex flex-col items-start text-left w-full lg:pl-4 xl:pl-8"
           >
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f5c518]/20 bg-[#f5c518]/5 backdrop-blur-md mb-8 shadow-[0_0_20px_rgba(245,197,24,0.1)]">

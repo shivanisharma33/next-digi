@@ -408,68 +408,52 @@ export default function Services() {
         </div>
 
         {/* Integration Flow Visual - Full Width */}
-        <div className="mb-4 lg:mb-16 w-full bg-black text-white relative overflow-hidden py-6 lg:py-14">
-          <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10">
-
-            {/* Mobile: stacked with horizontal dividers */}
-            <div className="flex flex-col gap-0 md:hidden">
+        <div className="mb-4 lg:mb-16 w-full bg-[#08090c] text-white relative overflow-hidden py-10 border-y border-white/5">
+          <div className="max-w-[1200px] mx-auto px-6 lg:px-16 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { label: "01_POWER", desc: "60MW Owned Generation" },
-                { label: "02_COLOCATION", desc: "AI-Ready High-Density Floor" },
-                { label: "03_COMPUTE", desc: "Bare-Metal B200 Clusters" }
-              ].map((step, i) => (
-                <React.Fragment key={i}>
-                  <div className="text-center py-4">
-                    <span className="text-[10px] font-semibold text-[#f5c518] tracking-[0.4em] mb-1 block">{step.label}</span>
-                    <p className="text-[15px] font-semibold uppercase tracking-tight">{step.desc}</p>
-                  </div>
-                  {i < 2 && <div className="w-full h-px bg-white/10 relative">
-                    <motion.div
-                      animate={{ left: ['0%', '100%'] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                      className="absolute top-1/2 -translate-y-1/2 w-12 h-[2px] bg-gradient-to-r from-transparent via-[#f5c518] to-transparent"
-                    />
-                  </div>}
-                </React.Fragment>
-              ))}
-            </div>
-
-            {/* Tablet/Desktop: horizontal row with animated connectors */}
-            <div className="hidden md:flex items-center justify-between gap-4 lg:gap-8 xl:gap-12">
-              {[
-                { label: "01_POWER", desc: "60MW Owned Generation" },
-                { label: "02_COLOCATION", desc: "AI-Ready High-Density Floor" },
-                { label: "03_COMPUTE", desc: "Bare-Metal B200 Clusters" }
-              ].map((step, i) => (
-                <React.Fragment key={i}>
-                  <div className="text-left group/step min-w-0">
-                    <span className="text-[9px] lg:text-[10px] font-semibold text-[#f5c518] tracking-[0.3em] lg:tracking-[0.4em] mb-1 lg:mb-4 block group-hover/step:translate-x-2 transition-transform duration-500">{step.label}</span>
-                    <p className="text-sm md:text-base lg:text-xl xl:text-2xl font-semibold uppercase tracking-tighter break-words">{step.desc}</p>
-                  </div>
-                  {i < 2 && (
-                    <div className="h-px flex-1 bg-white/10 relative min-w-[24px] lg:min-w-[40px] shrink-0">
-                      <motion.div
-                        animate={{ left: ['0%', '100%'] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                        className="absolute top-1/2 -translate-y-1/2 w-8 lg:w-12 h-[2px] bg-gradient-to-r from-transparent via-[#f5c518] to-transparent"
-                      />
+                { label: "01_POWER", desc: "60MW Owned Generation", icon: Zap },
+                { label: "02_COLOCATION", desc: "AI-Ready High-Density Floor", icon: Server },
+                { label: "03_COMPUTE", desc: "Bare-Metal B200 Clusters", icon: Cpu }
+              ].map((step, i) => {
+                const Icon = step.icon;
+                return (
+                  <div 
+                    key={i} 
+                    className="bg-[#0b0c10]/60 border border-white/[0.08] rounded-xl p-5 md:p-6 transition-all duration-300 hover:border-[#f5c518]/40 hover:-translate-y-1 hover:bg-[#0f1015]/80 hover:shadow-[0_10px_30px_rgba(245,197,24,0.05)] group relative overflow-hidden"
+                  >
+                    {/* Top Accent line */}
+                    <div className="absolute top-0 left-0 w-0 h-[2px] bg-[#f5c518] group-hover:w-full transition-all duration-500" />
+                    
+                    <div className="flex items-center justify-between mb-4">
+                      {/* Step Tag */}
+                      <span className="text-[10px] font-mono tracking-widest text-[#f5c518]/70 uppercase group-hover:text-[#f5c518] transition-colors">
+                        {step.label}
+                      </span>
+                      {/* Compact Icon */}
+                      <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#f5c518] group-hover:bg-[#f5c518]/10 group-hover:border-[#f5c518]/30 transition-all duration-300">
+                        <Icon size={16} />
+                      </div>
                     </div>
-                  )}
-                </React.Fragment>
-              ))}
+                    
+                    {/* Desc Title */}
+                    <h4 className="text-sm lg:text-[15px] font-bold uppercase tracking-tight text-white leading-tight">
+                      {step.desc}
+                    </h4>
+                  </div>
+                );
+              })}
             </div>
-
           </div>
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-b border-gray-200">
             {[
-              { title: "Owned Power", desc: "Sub-$0.05/kWh cost structure flows through to every layer of colocation and compute." },
-              { title: "Speed to Capacity", desc: "Existing substations and load studies eliminate the primary bottleneck for deployments." },
-              { title: "Vertical Integration", desc: "One company owns every layer — no finger-pointing between utility and compute." },
-              { title: "Multi-Layer", desc: "Consume power, space, and compute independently or as an integrated package." }
+              { title: <>Owned<br />Power</>, desc: "Sub-$0.05/kWh cost structure flows through to every layer of colocation and compute." },
+              { title: <>Speed to<br />Capacity</>, desc: "Existing substations and load studies eliminate the primary bottleneck for deployments." },
+              { title: <>Vertical<br />Integration</>, desc: "One company owns every layer — no finger-pointing between utility and compute." },
+              { title: <>Multi-<br />Layer</>, desc: "Consume power, space, and compute independently or as an integrated package." }
             ].map((item, i) => {
               // Determine precise responsive border styles to avoid outer borders
               let borderClass = "";

@@ -697,41 +697,74 @@ const SECFilings = () => {
 
           {/* Pagination */}
           {!loading && !error && totalPages > 1 && (
-            <div className="mt-20 flex items-center justify-center gap-8">
-              <button
-                onClick={() => goToPage(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="text-slate-400 hover:text-[#f5c518] transition-colors cursor-pointer bg-transparent border-0 disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                <ChevronLeft size={20} />
-              </button>
-
-              <div className="flex items-center gap-6 text-sm font-semibold uppercase tracking-widest text-white/60">
-                {getPageNumbers().map((p, i) =>
-                  p === "dots" ? (
-                    <span key={`dots-${i}`} className="text-white/20">....</span>
-                  ) : (
-                    <span
-                      key={p}
-                      onClick={() => goToPage(p as number)}
-                      className={`cursor-pointer transition-colors ${p === currentPage
-                          ? "text-[#f5c518] border-b border-[#f5c518] pb-1"
-                          : "hover:text-white"
-                        }`}
-                    >
-                      {p}
-                    </span>
-                  )
-                )}
+            <div className="mt-16 bg-[#080808]/60 border border-white/[0.06] rounded-2xl px-6 py-4 flex items-center justify-between w-full">
+              {/* Left Side: Page X of Y */}
+              <div className="text-xs text-white/50 font-medium">
+                Page <strong className="text-white font-bold">{currentPage}</strong> of <strong className="text-white font-bold">{totalPages}</strong>
               </div>
 
-              <button
-                onClick={() => goToPage(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="text-slate-400 hover:text-[#f5c518] transition-colors cursor-pointer bg-transparent border-0 disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                <ChevronRight size={20} />
-              </button>
+              {/* Right Side: Page buttons */}
+              <div className="flex items-center gap-2">
+                {/* Back button */}
+                <button
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="w-9 h-9 rounded-lg border border-white/[0.08] bg-[#0c0d12]/40 flex items-center justify-center text-white/40 hover:text-[#f5c518] hover:border-[#f5c518]/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+
+                {/* Page numbers */}
+                {getPageNumbers().map((p, i) =>
+                  p === "dots" ? (
+                    <span key={`dots-${i}`} className="text-white/20 px-1">...</span>
+                  ) : (
+                    <button
+                      key={p}
+                      onClick={() => goToPage(p as number)}
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold transition-all cursor-pointer ${
+                        p === currentPage
+                          ? "border border-[#f5c518] text-[#f5c518] bg-[#f5c518]/5 shadow-[0_0_15px_rgba(245,197,24,0.1)]"
+                          : "border border-white/[0.08] bg-[#0c0d12]/40 text-white/40 hover:text-white hover:border-white/20"
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  )
+                )}
+
+                {/* Forward button */}
+                <button
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="w-9 h-9 rounded-lg border border-white/[0.08] bg-[#0c0d12]/40 flex items-center justify-center text-white/40 hover:text-[#f5c518] hover:border-[#f5c518]/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* SEC EDGAR Note Block */}
+          {!loading && !error && (
+            <div className="mt-4 bg-[#080808]/60 border border-white/[0.06] rounded-2xl p-6 flex items-start sm:items-center gap-5 w-full text-left">
+              {/* Yellow File Icon Wrapper */}
+              <div className="w-12 h-12 rounded-xl bg-[#f5c518]/5 border border-[#f5c518]/25 flex items-center justify-center text-[#f5c518] shrink-0 shadow-[0_0_15px_rgba(245,197,24,0.05)]">
+                <FileText size={20} className="stroke-[2.5]" />
+              </div>
+
+              {/* Note text */}
+              <p className="text-white/60 text-[13px] md:text-sm leading-relaxed font-medium">
+                All filings are available on the SEC EDGAR system. DigiPowerX files under the ticker symbol <strong className="text-white font-bold">DGXX</strong>. For the complete filing history, visit the{" "}
+                <a 
+                  href="https://www.sec.gov/edgar/searchedgar/companysearch" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[#f5c518] hover:text-[#ffd84d] underline font-bold transition-colors"
+                >
+                  EDGAR company page.
+                </a>
+              </p>
             </div>
           )}
         </div>

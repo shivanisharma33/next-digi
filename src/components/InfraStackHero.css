@@ -997,6 +997,7 @@
     opacity: 0;
     transform: translateY(28px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1009,6 +1010,7 @@
     clip-path: inset(0 100% 0 0);
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     clip-path: inset(0 0 0 0);
@@ -1020,9 +1022,11 @@
   from {
     filter: drop-shadow(0 2px 8px rgba(255, 198, 41, 0)) brightness(0.6);
   }
+
   60% {
     filter: drop-shadow(0 2px 18px rgba(255, 198, 41, 0.6)) brightness(1.25);
   }
+
   to {
     filter: drop-shadow(0 2px 8px rgba(255, 198, 41, 0.2)) brightness(1);
   }

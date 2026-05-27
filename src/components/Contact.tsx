@@ -1,15 +1,13 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, ChevronRight, CheckCircle, Clock } from 'lucide-react';
-import { CTASection } from './Footer';
 
 type FormState = {
   firstName: string;
   lastName: string;
   company: string;
   email: string;
-  title: string;
   phone: string;
+  title: string;
   message: string;
 };
 
@@ -18,8 +16,8 @@ const INITIAL: FormState = {
   lastName: '',
   company: '',
   email: '',
-  title: '',
   phone: '',
+  title: '',
   message: '',
 };
 
@@ -29,7 +27,9 @@ export default function Contact() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,71 +63,609 @@ export default function Contact() {
     }
   };
 
+  // 3D Canvas Cube Animation Effect
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let rafId: number;
+
+    function resize() {
+      if (!canvas) return;
+      const p = canvas.parentElement?.getBoundingClientRect();
+      canvas.width  = p?.width  || 340;
+      canvas.height = p?.height || 480;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    /* ─── ISO helpers ─── */
+    function isoX(c: number, r: number, tw: number) { return (c - r) * tw * 0.5; }
+    function isoY(c: number, r: number, th: number) { return (c + r) * th * 0.5; }
+
+    /* ─── Grid config ─── */
+    const COLS = 4, ROWS = 5;
+    const GAP  = 0.12;   // fractional gap between cubes (0 = touching)
+
+    /* ─── Cube data ─── */
+    interface Cube {
+      col: number;
+      row: number;
+      litTarget: number;
+      litVal: number;
+      bobPhase: number;
+      bobSpeed: number;
+      bobAmp: number;
+    }
+
+    const cubes: Cube[] = [];
+    for(let row=0;row<ROWS;row++){
+      for(let col=0;col<COLS;col++){
+        cubes.push({
+          col, row,
+          litTarget : Math.random() < 0.30 ? 1 : 0,
+          litVal    : 0,
+          bobPhase  : Math.random()*Math.PI*2,
+          bobSpeed  : 0.40 + Math.random()*0.40,
+          bobAmp    : 3    + Math.random()*3,
+        });
+      }
+    }
+    cubes.sort((a,b)=>(a.col+a.row)-(b.col+b.row));
+
+    /* toggle lit every 2.4s */
+    const litInterval = setInterval(()=>{
+      cubes.forEach(c=>{
+        if(Math.random()<0.10) c.litTarget = c.litTarget ? 0 : 1;
+      });
+    }, 2400);
+
+    /* ─── Texture pattern (baked once) ─── */
+    let texNormal: HTMLCanvasElement | null = null;
+    let texGold: HTMLCanvasElement | null = null;
+
+    function buildTextures(tw: number, th: number){
+      const textures = [false, true].map(gold => {
+        const oc = document.createElement('canvas');
+        oc.width = Math.ceil(tw); oc.height = Math.ceil(th);
+        const ox = oc.getContext('2d');
+        if (!ox) return oc;
+        /* base colour */
+        const base = gold ? '#1a1500' : '#141414';
+        ox.fillStyle = base;
+        ox.fillRect(0,0,oc.width,oc.height);
+        /* fine grid lines to simulate surface texture */
+        ox.strokeStyle = gold ? 'rgba(245,197,24,0.07)' : 'rgba(255,255,255,0.05)';
+        ox.lineWidth = 0.5;
+        const step = Math.max(4, tw/8);
+        for(let x=0;x<oc.width;x+=step){
+          ox.beginPath(); ox.moveTo(x,0); ox.lineTo(x,oc.height); ox.stroke();
+        }
+        for(let y=0;y<oc.height;y+=step){
+          ox.beginPath(); ox.moveTo(0,y); ox.lineTo(oc.width,y); ox.stroke();
+        }
+        return oc;
+      });
+      texNormal = textures[0];
+      texGold = textures[1];
+    }
+
+    /* ─── Draw one cube ─── */
+    function drawCube(cube: Cube, tw: number, th: number, ox: number, oy: number, t: number){
+      if (!ctx) return;
+      /* smooth lit value */
+      cube.litVal += (cube.litTarget - cube.litVal) * 0.04;
+      const lv = cube.litVal;
+      const pulse = 0.55 + 0.45 * Math.sin(t * 1.1 + cube.bobPhase);
+
+      const c = cube.col, r = cube.row;
+      const bob = Math.sin(t * cube.bobSpeed + cube.bobPhase) * cube.bobAmp;
+
+      /* origin for this cube with gap */
+      const s = 1 - GAP;
+      function pt(dc: number, dr: number, dz: number){
+        return {
+          x: ox + isoX(c+dc*s, r+dr*s, tw),
+          y: oy + isoY(c+dc*s, r+dr*s, th) - dz*th - bob,
+        };
+      }
+      const A=pt(0,0,1), B=pt(1,0,1), C=pt(1,1,1), D=pt(0,1,1);
+      const E=pt(0,0,0), F=pt(1,0,0), G=pt(1,1,0), H=pt(0,1,0);
+
+      /* ─── outer glow ─── */
+      if(lv > 0.01){
+        const gcx = (A.x+C.x)*0.5, gcy = (A.y+C.y)*0.5;
+        const gr = ctx.createRadialGradient(gcx,gcy,0,gcx,gcy,tw*1.8);
+        gr.addColorStop(0,  `rgba(245,197,24,${0.22*lv*pulse})`);
+        gr.addColorStop(0.5,`rgba(245,197,24,${0.08*lv*pulse})`);
+        gr.addColorStop(1,  'rgba(245,197,24,0)');
+        ctx.fillStyle = gr;
+        ctx.beginPath(); ctx.arc(gcx,gcy,tw*1.8,0,Math.PI*2); ctx.fill();
+      }
+
+      /* ─── helpers: draw face with texture + gradient overlay ─── */
+      function face(pts: {x: number, y: number}[], darkMul: number){
+        if (!ctx) return;
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x,pts[0].y);
+        pts.slice(1).forEach(p=>ctx.lineTo(p.x,p.y));
+        ctx.closePath();
+        ctx.clip();
+
+        /* texture base */
+        if(lv > 0.01 && texGold){
+          ctx.globalAlpha = lv;
+          ctx.drawImage(texGold, pts[0].x, pts[0].y, tw, th);
+          ctx.globalAlpha = 1-lv;
+        }
+        if(texNormal){
+          ctx.drawImage(texNormal, pts[0].x, pts[0].y, tw, th);
+        }
+        ctx.globalAlpha = 1;
+
+        /* directional gradient overlay */
+        const lg = ctx.createLinearGradient(pts[0].x,pts[0].y,pts[2].x,pts[2].y);
+        const dark1 = `rgba(0,0,0,${darkMul * (1 - lv*0.4)})`;
+        const dark2 = `rgba(0,0,0,${(darkMul+0.25) * (1 - lv*0.3)})`;
+        lg.addColorStop(0, dark1);
+        lg.addColorStop(1, dark2);
+        ctx.fillStyle = lg;
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      /* top */   face([A,B,C,D], 0.10);
+      /* left */  face([A,D,H,E], 0.45);
+      /* right */ face([A,B,F,E], 0.62);
+
+      /* ─── face borders ─── */
+      function border(pts: {x: number, y: number}[], alpha: number){
+        if (!ctx) return;
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x,pts[0].y);
+        pts.slice(1).forEach(p=>ctx.lineTo(p.x,p.y));
+        ctx.closePath();
+        ctx.strokeStyle = lv>0.05
+          ? `rgba(245,197,24,${alpha*(0.25+0.75*lv)})`
+          : `rgba(255,255,255,${alpha*0.12})`;
+        ctx.lineWidth = lv>0.05 ? 0.8 : 0.5;
+        ctx.stroke();
+      }
+      border([A,B,C,D], 1.0);
+      border([A,D,H,E], 0.7);
+      border([A,B,F,E], 0.5);
+
+      /* ─── neon glow edges on lit cubes ─── */
+      if(lv > 0.05){
+        const ea = (0.7 + 0.3*pulse) * lv;
+        ctx.save();
+        ctx.shadowColor = '#f5c518';
+        ctx.shadowBlur  = 12;
+        ctx.strokeStyle = `rgba(245,197,24,${ea})`;
+        ctx.lineWidth   = 1.8;
+        /* top rhombus */
+        ctx.beginPath();
+        ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y);
+        ctx.lineTo(C.x,C.y); ctx.lineTo(D.x,D.y);
+        ctx.closePath(); ctx.stroke();
+        /* 3 visible vertical edges */
+        [[A,E],[B,F],[D,H]].forEach(([p1,p2])=>{
+          ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
+        });
+        ctx.restore();
+      }
+
+      /* ─── crisp highlight on top-near edges (non-lit) ─── */
+      if(lv < 0.5){
+        ctx.strokeStyle = `rgba(255,255,255,${0.18*(1-lv)})`;
+        ctx.lineWidth = 0.7;
+        ctx.beginPath();
+        ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y);
+        ctx.moveTo(A.x,A.y); ctx.lineTo(D.x,D.y);
+        ctx.stroke();
+      }
+    }
+
+    let t = 0;
+    let lastTw = -1;
+
+    function draw(){
+      if (!ctx || !canvas) return;
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0,0,W,H);
+
+      /* solid black bg */
+      ctx.fillStyle = '#080808';
+      ctx.fillRect(0,0,W,H);
+
+      /* very faint warm centre glow */
+      const amb = ctx.createRadialGradient(W*.5,H*.4,0,W*.5,H*.4,W*.75);
+      amb.addColorStop(0,'rgba(245,197,24,0.04)');
+      amb.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle = amb; ctx.fillRect(0,0,W,H);
+
+      /* tile size: wide gap thanks to GAP constant */
+      const tw = W * 0.195;
+      const th = tw * 0.54;
+
+      if(Math.abs(tw - lastTw) > 1){ buildTextures(tw,th); lastTw = tw; }
+
+      /* centre the entire grid */
+      const ox = W * 0.5 - (COLS - ROWS) * tw * 0.25;
+      const oy = H * 0.5 - (COLS + ROWS - 2) * th * 0.25;
+
+      cubes.forEach(c=>drawCube(c,tw,th,ox,oy, t));
+      t += 0.018;
+      rafId = requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      clearInterval(litInterval);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
-    <div className="bg-black min-h-screen text-white selection:bg-brand-yellow selection:text-black">
-      {/* Hero */}
-      <section className="relative pt-28 md:pt-36 lg:pt-48 pb-14 md:pb-20 px-6 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-[0.12] pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,197,24,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,197,24,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
-        </div>
+    <div className="contact-page-wrapper">
+      {/* Scope CSS variables and styles */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .contact-page-wrapper {
+          --gold: #f5c518;
+          --gold-dim: #c8a400;
+          --gold-light: rgba(245,197,24,0.10);
+          --gold-border: rgba(245,197,24,0.30);
+          --blue: #185fa5;
+          --blue-light: rgba(24,95,165,0.10);
+          --blue-border: rgba(24,95,165,0.35);
+          --bg: #0a0a0a;
+          --surface: #111111;
+          --surface2: #181818;
+          --border: rgba(255,255,255,0.07);
+          --border-hover: rgba(255,255,255,0.13);
+          --text: #f0ede8;
+          --text-muted: rgba(240,237,232,0.5);
+          --text-dim: rgba(240,237,232,0.28);
+          --radius-sm: 10px;
+          --radius-md: 16px;
+          --radius-lg: 24px;
+          --radius-xl: 32px;
+          background: var(--bg);
+          color: var(--text);
+          font-family: 'Inter', sans-serif;
+          min-height: 100vh;
+        }
 
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-brand-yellow/[0.04] blur-[140px] pointer-events-none" />
+        .contact-section {
+          position: relative;
+          border-top: 0.5px solid var(--border);
+          padding: 130px 32px 100px;
+          text-align: center;
+          overflow: hidden;
+          background: var(--bg);
+        }
+        .contact-section::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 55% 40% at 50% 0%, rgba(245,197,24,0.05) 0%, transparent 65%);
+          pointer-events: none;
+        }
+        .contact-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
 
-        <div className="relative z-10 max-w-[1400px] mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col items-center"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-12">
-              <div className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
-              <span className="text-[10px] uppercase tracking-[0.5em] font-semibold text-white/60">Contact</span>
+        .ct-eyebrow {
+          display: inline-flex; align-items: center; gap: 14px;
+          font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+          color: var(--text-dim); margin-bottom: 20px;
+        }
+        .ct-eyebrow-line {
+          display: block; width: 36px; height: 1px;
+          background: linear-gradient(90deg, var(--border-hover), transparent);
+        }
+
+        .ct-title {
+          font-size: clamp(40px, 7vw, 78px);
+          font-weight: 900; line-height: 0.9; letter-spacing: -0.04em;
+          color: var(--text); margin-bottom: 20px;
+        }
+
+        .ct-sub {
+          font-size: 15px; line-height: 1.75; color: var(--text-muted);
+          max-width: 500px; margin: 0 auto 52px;
+        }
+
+        .ct-info-cards {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 14px;
+          margin-bottom: 32px;
+          text-align: left;
+        }
+        .ct-info-card {
+          display: flex; flex-direction: column; gap: 14px;
+          padding: 24px 24px 26px;
+          border: 0.5px solid var(--border-hover);
+          border-radius: var(--radius-md);
+          background: var(--surface);
+          text-decoration: none; color: inherit;
+          transition: border-color 0.2s, background 0.2s;
+        }
+        .ct-info-card:hover { border-color: var(--gold-border); background: var(--surface2); }
+        .ct-info-card--active { border-color: var(--gold-border); }
+        .ct-info-icon {
+          width: 40px; height: 40px;
+          border-radius: 10px;
+          background: rgba(245,197,24,0.08);
+          border: 0.5px solid var(--gold-border);
+          display: flex; align-items: center; justify-content: center;
+          color: var(--gold);
+        }
+        .ct-info-icon svg { width: 18px; height: 18px; }
+        .ct-info-label {
+          font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+          color: var(--text-dim); margin-top: 4px;
+        }
+        .ct-info-value {
+          font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.01em;
+        }
+
+        .ct-body {
+          display: grid;
+          grid-template-columns: 340px 1fr;
+          gap: 16px;
+          text-align: left;
+          margin-bottom: 16px;
+        }
+
+        .ct-left {
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          position: relative;
+          min-height: 480px;
+          background: var(--surface2);
+          border: 0.5px solid var(--border);
+        }
+        .ct-left-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.92) 100%);
+        }
+        .ct-quote {
+          position: absolute; bottom: 0; left: 0; right: 0;
+          padding: 28px 28px 32px;
+          z-index: 2;
+        }
+        .ct-quote-text {
+          font-size: 15px; font-weight: 600; line-height: 1.55;
+          color: #fff; margin-bottom: 16px;
+        }
+        .ct-quote-text em { font-style: normal; font-weight: 700; }
+        .ct-quote-author {
+          display: flex; align-items: center; gap: 10px;
+        }
+        .ct-avatar {
+          width: 36px; height: 36px; border-radius: 50%;
+          background: linear-gradient(135deg, #c8a400, #f5c518);
+          border: 2px solid rgba(245,197,24,0.5);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 12px; font-weight: 800; color: #000;
+          flex-shrink: 0;
+          letter-spacing: 0.02em;
+        }
+        .ct-author-name {
+          font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7);
+        }
+
+        .ct-left-placeholder {
+          width: 100%; height: 100%; min-height: 480px;
+          background: linear-gradient(135deg, #111 0%, #1a1a0d 50%, #0d0d00 100%);
+          display: flex; align-items: center; justify-content: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .ct-left-placeholder::before {
+          content: '';
+          position: absolute; inset: 0;
+          background-image:
+            linear-gradient(rgba(245,197,24,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(245,197,24,0.04) 1px, transparent 1px);
+          background-size: 32px 32px;
+        }
+        .ct-left-placeholder::after {
+          content: '';
+          position: absolute; bottom: -40px; left: -40px;
+          width: 260px; height: 260px; border-radius: 50%;
+          background: rgba(245,197,24,0.07); filter: blur(60px);
+        }
+
+        .ct-form-panel {
+          border: 0.5px solid var(--border);
+          border-radius: var(--radius-lg);
+          background: var(--surface);
+          padding: 36px 36px 40px;
+          display: flex; flex-direction: column; gap: 0;
+        }
+        .ct-form-title {
+          font-size: 20px; font-weight: 700; color: var(--text);
+          margin-bottom: 28px; letter-spacing: -0.02em;
+        }
+
+        .form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-label {
+          font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+          color: var(--text-muted);
+        }
+        .form-label .req { color: var(--gold); margin-left: 2px; }
+        .form-input, .form-textarea, .form-select {
+          background: var(--surface2);
+          border: 0.5px solid var(--border-hover);
+          border-radius: 8px;
+          padding: 11px 14px;
+          font-family: 'Inter', sans-serif;
+          font-size: 13.5px; color: var(--text);
+          transition: border-color 0.18s, box-shadow 0.18s;
+          outline: none; width: 100%;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); font-size: 13px; }
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+          border-color: var(--gold-border);
+          box-shadow: 0 0 0 3px rgba(245,197,24,0.06);
+        }
+        .form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+        .form-select {
+          appearance: none; cursor: pointer;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(240,237,232,0.3)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+          background-repeat: no-repeat; background-position: right 13px center; padding-right: 34px;
+        }
+        .form-select option { background: #181818; }
+
+        .ct-send-row {
+          display: flex; align-items: center; justify-content: space-between;
+          margin-top: 20px; flex-wrap: wrap; gap: 12px;
+        }
+        .send-btn {
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 12px 28px;
+          border-radius: 8px;
+          background: transparent;
+          border: 1.5px solid var(--text-muted);
+          font-family: 'Inter', sans-serif;
+          font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+          color: var(--text); cursor: pointer;
+          transition: border-color 0.18s, color 0.18s, background 0.18s, transform 0.15s;
+        }
+        .send-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+        .send-btn svg { width: 13px; height: 13px; transition: transform 0.18s; }
+        .send-btn:hover svg { transform: translateX(3px); }
+        .ct-response-note {
+          font-size: 12px; color: var(--text-dim); text-align: right;
+        }
+        .ct-response-note strong { color: var(--text-muted); font-weight: 600; }
+
+        .ct-bottom {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .ct-email-card {
+          display: flex; align-items: center; gap: 16px;
+          padding: 18px 22px;
+          border: 0.5px solid var(--border);
+          border-radius: var(--radius-md);
+          background: var(--surface);
+          text-decoration: none; color: inherit;
+          transition: border-color 0.2s;
+        }
+        .ct-email-card:hover { border-color: var(--gold-border); }
+        .ct-email-icon {
+          width: 40px; height: 40px; flex-shrink: 0;
+          border-radius: 8px;
+          background: var(--surface2);
+          border: 0.5px solid var(--border-hover);
+          display: flex; align-items: center; justify-content: center;
+          color: var(--text-muted);
+        }
+        .ct-email-icon svg { width: 18px; height: 18px; }
+        .ct-email-small { font-size: 11px; color: var(--text-dim); margin-bottom: 2px; }
+        .ct-email-addr { font-size: 15px; font-weight: 600; color: var(--text); }
+
+        .ct-call-card {
+          display: flex; align-items: center; justify-content: center; gap: 10px;
+          padding: 18px 22px;
+          border: 0.5px solid var(--border-hover);
+          border-radius: var(--radius-md);
+          background: var(--surface2);
+          cursor: pointer;
+          transition: border-color 0.2s, background 0.2s;
+          font-family: 'Inter', sans-serif;
+          font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+          color: var(--text);
+        }
+        .ct-call-card:hover { border-color: var(--gold-border); background: rgba(245,197,24,0.04); color: var(--gold); }
+        .ct-call-card svg { width: 15px; height: 15px; }
+
+        @media (max-width: 780px) {
+          .ct-info-cards { grid-template-columns: 1fr; }
+          .ct-body { grid-template-columns: 1fr; }
+          .ct-left { min-height: 300px; }
+          .ct-form-panel { padding: 24px 20px; }
+          .form-grid { grid-template-columns: 1fr; }
+          .ct-bottom { grid-template-columns: 1fr; }
+          .contact-section { padding: 100px 20px 80px; }
+        }
+      `}} />
+
+      <section className="contact-section">
+        <div className="contact-inner">
+
+          {/* Eyebrow Badge */}
+          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl mb-8">
+            <span className="w-8 h-[2px] bg-[#f5c518] shrink-0" style={{ display: 'inline-block', width: '32px', height: '2px', backgroundColor: '#f5c518' }} />
+            <span className="w-1.5 h-[2px] bg-white/20 shrink-0" style={{ display: 'inline-block', width: '6px', height: '2px', backgroundColor: 'rgba(255,255,255,0.2)' }} />
+            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/80">Get in Touch</span>
+          </div>
+
+          {/* Title */}
+          <h2 className="ct-title">Talk to Us</h2>
+          <p className="ct-sub">Tell us what you want to build or automate. Our team will review your needs and respond with clear next steps.</p>
+
+          {/* 3 contact info cards */}
+          <div className="ct-info-cards">
+            <a className="ct-info-card" href="mailto:ir@digipowerx.com">
+              <div className="ct-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+              </div>
+              <div className="ct-info-label">Investor Relations</div>
+              <div className="ct-info-value">ir@digipowerx.com</div>
+            </a>
+            <a className="ct-info-card" href="tel:8884749222">
+              <div className="ct-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z"/></svg>
+              </div>
+              <div className="ct-info-label">Sales &amp; Support</div>
+              <div className="ct-info-value">888-474-9222</div>
+            </a>
+            <div className="ct-info-card ct-info-card--active">
+              <div className="ct-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div className="ct-info-label">Headquarters</div>
+              <div className="ct-info-value">Dallas, Texas, USA</div>
+            </div>
+          </div>
+
+          {/* 2-col body */}
+          <div className="ct-body">
+
+            {/* Left: visual + testimonial */}
+            <div className="ct-left">
+              <div className="ct-left-placeholder">
+                <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}></canvas>
+              </div>
+              <div className="ct-left-overlay"></div>
+              <div className="ct-quote">
+                <p className="ct-quote-text">"DigiPowerX delivers infrastructure that simply performs — <em>reliable, scalable, and built for the future.</em>"</p>
+                <div className="ct-quote-author">
+                  <div className="ct-avatar">MA</div>
+                  <span className="ct-author-name">Michel Amar, Chief Executive Officer</span>
+                </div>
+              </div>
             </div>
 
-            <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-white">
-              TALK TO <br /> <span className="text-brand-yellow">OUR TEAM</span>
-            </h1>
-
-            <p className="text-xl text-white/55 max-w-2xl mx-auto leading-relaxed font-medium">
-              Whether you're scoping a new AI factory, evaluating GPU capacity, or exploring a co-build, our infrastructure team responds within one business day.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact channels */}
-      <section className="px-6 py-10 md:py-12">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          <ChannelCard
-            icon={Mail}
-            label="Investor Relations"
-            value="ir@digipowerx.com"
-            href="mailto:ir@digipowerx.com"
-          />
-          <ChannelCard
-            icon={Phone}
-            label="Sales & Support"
-            value="888-474-9222"
-            href="tel:8884749222"
-          />
-          <ChannelCard icon={MapPin} label="Headquarters" value="Dallas, Texas, USA" />
-        </div>
-      </section>
-
-      {/* Form */}
-      <section className="py-16 md:py-20 px-6">
-        <div className="max-w-[1100px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative p-6 md:p-14 rounded-3xl border border-white/10 bg-white/[0.02] overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-brand-yellow/[0.04] blur-3xl pointer-events-none" />
-
-            <div className="relative z-10">
+            {/* Right: form */}
+            <div className="ct-form-panel">
+              <div className="ct-form-title">Start a Conversation</div>
               <AnimatePresence mode="wait">
                 {!submitted ? (
                   <motion.form
@@ -136,150 +674,137 @@ export default function Contact() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onSubmit={handleSubmit}
-                    className="space-y-8"
+                    className="form-grid"
                   >
-                    <div className="mb-10">
-                      <div className="text-[10px] font-semibold uppercase tracking-[0.5em] text-brand-yellow mb-4">
-                        Send a Message
-                      </div>
-                      <h2 className="text-3xl md:text-4xl font-semibold uppercase tracking-tighter text-white">
-                        Tell us about your <span className="text-brand-yellow">workload</span>.
-                      </h2>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <Field
-                        id="firstName"
+                    <div className="form-group">
+                      <label className="form-label">First Name <span className="req">*</span></label>
+                      <input 
                         name="firstName"
-                        label="First Name"
-                        placeholder="Jane"
-                        required
                         value={form.firstName}
                         onChange={handleChange}
+                        className="form-input" 
+                        type="text" 
+                        placeholder="Jane" 
+                        required 
                       />
-                      <Field
-                        id="lastName"
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Last Name <span class="req">*</span></label>
+                      <input 
                         name="lastName"
-                        label="Last Name"
-                        placeholder="Doe"
-                        required
                         value={form.lastName}
                         onChange={handleChange}
+                        className="form-input" 
+                        type="text" 
+                        placeholder="Doe" 
+                        required 
                       />
                     </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <Field
-                        id="company"
+                    <div className="form-group">
+                      <label className="form-label">Company <span className="req">*</span></label>
+                      <input 
                         name="company"
-                        label="Company"
-                        placeholder="Your organization"
-                        required
                         value={form.company}
                         onChange={handleChange}
-                      />
-                      <Field
-                        id="title"
-                        name="title"
-                        label="Role"
-                        placeholder="Head of Infrastructure"
-                        required
-                        value={form.title}
-                        onChange={handleChange}
+                        className="form-input" 
+                        type="text" 
+                        placeholder="Your organization" 
+                        required 
                       />
                     </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <Field
-                        id="email"
+                    <div className="form-group">
+                      <label className="form-label">Work Email <span className="req">*</span></label>
+                      <input 
                         name="email"
-                        type="email"
-                        label="Work Email"
-                        placeholder="you@company.com"
-                        required
                         value={form.email}
                         onChange={handleChange}
-                      />
-                      <Field
-                        id="phone"
-                        name="phone"
-                        label="Phone"
-                        placeholder="+1 (000) 000-0000"
-                        value={form.phone}
-                        onChange={handleChange}
+                        className="form-input" 
+                        type="email" 
+                        placeholder="you@company.com" 
+                        required 
                       />
                     </div>
-
-                    <div className="space-y-3">
-                      <label
-                        htmlFor="message"
-                        className="block text-[10px] font-semibold text-white/60 uppercase tracking-[0.25em]"
-                      >
-                        Message <span className="text-brand-yellow">*</span>
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
+                    <div className="form-group">
+                      <label className="form-label">Phone <span className="req">*</span></label>
+                      <input 
+                        name="phone"
+                        value={form.phone}
+                        onChange={handleChange}
+                        className="form-input" 
+                        type="tel" 
+                        placeholder="+1 (000) 000-0000" 
+                        required 
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Role</label>
+                      <select 
+                        name="title"
+                        value={form.title}
+                        onChange={handleChange}
+                        className="form-select"
                         required
-                        rows={5}
-                        placeholder="What are you building, and what kind of compute capacity are you looking for?"
+                      >
+                        <option value="" disabled>Select role</option>
+                        <option value="CTO / CIO">CTO / CIO</option>
+                        <option value="Head of Infrastructure">Head of Infrastructure</option>
+                        <option value="VP Engineering">VP Engineering</option>
+                        <option value="Investor / Analyst">Investor / Analyst</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div className="form-group full">
+                      <label className="form-label">Message <span className="req">*</span></label>
+                      <textarea 
+                        name="message"
                         value={form.message}
                         onChange={handleChange}
-                        className="w-full bg-black/40 border border-white/10 rounded-2xl p-5 text-white placeholder:text-white/30 focus:outline-none focus:border-brand-yellow/50 transition-colors resize-none"
-                      />
+                        className="form-textarea" 
+                        placeholder="Tell us about your project or what you'd like to automate"
+                        required
+                      ></textarea>
                     </div>
 
                     {error && (
-                      <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex flex-col justify-center items-center gap-2">
-                        <span className="text-red-500 text-sm font-semibold">{error}</span>
+                      <div className="form-group full p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-center">
+                        <span className="text-red-500 text-xs font-semibold">{error}</span>
                       </div>
                     )}
 
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="group w-full md:w-auto inline-flex items-center justify-center gap-3 bg-brand-yellow text-black font-semibold py-4 px-10 rounded-xl uppercase tracking-[0.25em] text-xs transition-colors hover:bg-white disabled:opacity-60 disabled:cursor-not-allowed"
-                    >
-                      {submitting ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
-                          Sending
-                        </>
-                      ) : (
-                        <>
-                          Send Message
-                          <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                        </>
-                      )}
-                    </button>
-
-                    <p className="text-[11px] text-white/40 leading-relaxed pt-2">
-                      By submitting, you agree to be contacted about your inquiry. We typically respond within one
-                      business day.
-                    </p>
+                    <div className="ct-send-row form-group full">
+                      <div className="flex items-center justify-between w-full flex-wrap gap-4">
+                        <button type="submit" disabled={submitting} className="send-btn">
+                          {submitting ? 'Sending...' : 'Send Message'}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                        <div className="ct-response-note">Response: usually under <strong>12 hours</strong></div>
+                      </div>
+                    </div>
                   </motion.form>
                 ) : (
                   <motion.div
                     key="success"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center py-16"
+                    className="text-center py-12 w-full"
                   >
-                    <div className="w-20 h-20 rounded-full border border-brand-yellow/30 bg-brand-yellow/10 flex items-center justify-center mx-auto mb-8">
-                      <CheckCircle size={36} className="text-brand-yellow" />
+                    <div className="w-16 h-16 rounded-full border border-brand-yellow/30 bg-brand-yellow/10 flex items-center justify-center mx-auto mb-6">
+                      <svg className="w-8 h-8 text-[#f5c518]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-semibold uppercase tracking-tighter text-white mb-4">
-                      Message received.
-                    </h2>
-                    <p className="text-white/55 max-w-md mx-auto mb-10 leading-relaxed">
-                      Thanks for reaching out — a member of our team will be in touch within one business day.
+                    <h3 className="text-2xl font-bold uppercase tracking-tighter text-white mb-3">
+                      Message received
+                    </h3>
+                    <p className="text-white/60 text-sm max-w-sm mx-auto mb-8 leading-relaxed">
+                      Thanks for reaching out — a member of our team will be in touch within 12 hours.
                     </p>
                     <button
                       onClick={() => {
                         setSubmitted(false);
                         setForm(INITIAL);
                       }}
-                      className="text-brand-yellow font-semibold uppercase tracking-[0.3em] text-[11px] hover:text-white transition-colors border-b border-brand-yellow/30 pb-1"
+                      className="text-[#f5c518] font-bold uppercase tracking-widest text-[10px] hover:text-white transition-colors border-b border-[#f5c518]/30 pb-0.5"
                     >
                       Send another message
                     </button>
@@ -287,86 +812,27 @@ export default function Contact() {
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
-
-          <div className="mt-10 flex items-center justify-center gap-3 text-white/40 text-xs">
-            <Clock size={14} className="text-brand-yellow/70" />
-            <span>Average response time: under 24 hours, Monday–Friday.</span>
           </div>
+
+          {/* Bottom row */}
+          <div className="ct-bottom">
+            <a className="ct-email-card" href="mailto:ir@digipowerx.com">
+              <div className="ct-email-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+              </div>
+              <div className="ct-email-info">
+                <div className="ct-email-small">Reach us directly at</div>
+                <div className="ct-email-addr">ir@digipowerx.com</div>
+              </div>
+            </a>
+            <a className="ct-call-card" href="tel:8884749222">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z"/></svg>
+              Book an Intro Call
+            </a>
+          </div>
+
         </div>
       </section>
-
-      <CTASection />
-    </div>
-  );
-}
-
-type IconType = React.ComponentType<{ size?: number; className?: string }>;
-
-function ChannelCard({
-  icon: Icon,
-  label,
-  value,
-  href,
-}: {
-  icon: IconType;
-  label: string;
-  value: string;
-  href?: string;
-}) {
-  const inner = (
-    <div className="group h-full p-8 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-brand-yellow/40 hover:bg-white/[0.04] transition-all duration-300">
-      <div className="w-12 h-12 rounded-xl border border-white/10 bg-black flex items-center justify-center mb-6 group-hover:border-brand-yellow/40 transition-colors">
-        <Icon size={18} className="text-brand-yellow" />
-      </div>
-      <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/40 mb-2">{label}</div>
-      <div className="text-white font-semibold text-lg tracking-tight">{value}</div>
-    </div>
-  );
-
-  return href ? (
-    <a href={href} className="block h-full">
-      {inner}
-    </a>
-  ) : (
-    inner
-  );
-}
-
-function Field({
-  id,
-  name,
-  label,
-  placeholder,
-  type = 'text',
-  required,
-  value,
-  onChange,
-}: {
-  id: string;
-  name: string;
-  label: string;
-  placeholder: string;
-  type?: string;
-  required?: boolean;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-}) {
-  return (
-    <div className="space-y-3">
-      <label htmlFor={id} className="block text-[10px] font-semibold text-white/60 uppercase tracking-[0.25em]">
-        {label} {required && <span className="text-brand-yellow">*</span>}
-      </label>
-      <input
-        id={id}
-        name={name}
-        type={type}
-        required={required}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/30 focus:outline-none focus:border-brand-yellow/50 transition-colors"
-      />
     </div>
   );
 }
