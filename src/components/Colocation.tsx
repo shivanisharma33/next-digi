@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import LiquidCooling3D from './LiquidCooling3D';
+import colocationRacks from '../assets/colocation-racks.png';
 
 const Colocation = () => {
   return (
@@ -83,16 +83,22 @@ const Colocation = () => {
 
           {/* Right Side: Visual */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
-            className="lg:col-span-7 relative w-full h-[380px] md:h-[420px] lg:h-[450px] bg-transparent flex items-center justify-center scale-100 lg:scale-105 xl:scale-110 transition-transform duration-500 cursor-grab active:cursor-grabbing"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-span-7 relative w-full h-[400px] md:h-[450px] lg:h-[500px] bg-transparent flex items-center justify-center"
           >
-            <div className="w-full h-full relative">
-              {/* Radial ambient glow to tie the metallic rack to the background */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,197,24,0.06),transparent_70%)] pointer-events-none" />
-              <LiquidCooling3D />
+            <div className="w-full h-full relative flex items-center justify-center">
+              {/* Radial ambient glow behind the server racks */}
+              <div className="absolute w-[80%] aspect-square bg-[#f5c518]/[0.05] rounded-full blur-[80px] pointer-events-none" />
+              
+              <img
+                src={colocationRacks}
+                alt="Supermicro Colocation Server Racks"
+                className="w-full h-full object-contain max-h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:scale-[1.03] transition-transform duration-700 ease-out"
+                loading="lazy"
+              />
             </div>
           </motion.div>
 
