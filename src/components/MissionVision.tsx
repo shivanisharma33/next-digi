@@ -2,8 +2,7 @@ import { motion } from 'framer-motion';
 import { Target, Compass, Zap, ShieldCheck, Globe2, Cpu } from 'lucide-react';
 import { CTASection } from './Footer';
 import MissionVisionHeroVisual3D from './MissionVisionHeroVisual3D';
-import usMapImg from '../assets/us-map-constellation.png';
-import powerInfraImg from '../assets/power-infrastructure-wireframe.png';
+
 
 
 const values = [
@@ -163,7 +162,7 @@ const MissionVision = () => {
               {/* Subtle top-right amber glow */}
               <div className="absolute top-0 right-0 w-60 h-60 rounded-full bg-brand-yellow/[0.025] blur-[80px] pointer-events-none" />
 
-              <div className="relative z-10 flex-1 p-10 lg:p-12 pb-6 lg:pb-8">
+              <div className="relative z-10 flex-1 p-10 lg:p-12">
                 {/* Icon Badge */}
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl border border-brand-yellow/25 bg-brand-yellow/[0.06] mb-7">
                   <Target size={20} className="text-brand-yellow" />
@@ -188,16 +187,6 @@ const MissionVision = () => {
                   Our customers bring the models. We bring the megawatts, the cooling, the silicon, and the orchestration — delivered as one operational system, not a stack of vendors.
                 </p>
               </div>
-
-              {/* ── Power Infrastructure Wireframe Image ── */}
-              <div className="relative z-10 mt-auto px-8 pb-8 lg:px-10 lg:pb-10 flex items-center justify-center">
-                <img 
-                  src={powerInfraImg} 
-                  alt="Power Infrastructure Wireframe" 
-                  className="w-full h-auto object-contain rounded-lg opacity-85 select-none pointer-events-none" 
-                  style={{ mixBlendMode: 'lighten' }} 
-                />
-              </div>
             </motion.div>
 
             {/* ═══ VISION CARD ═══ */}
@@ -214,7 +203,7 @@ const MissionVision = () => {
               {/* Subtle bottom-left amber glow */}
               <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full bg-brand-yellow/[0.025] blur-[80px] pointer-events-none" />
 
-              <div className="relative z-10 flex-1 p-10 lg:p-12 pb-6 lg:pb-8">
+              <div className="relative z-10 flex-1 p-10 lg:p-12">
                 {/* Icon Badge */}
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl border border-brand-yellow/25 bg-brand-yellow/[0.06] mb-7">
                   <Compass size={20} className="text-brand-yellow" />
@@ -238,15 +227,6 @@ const MissionVision = () => {
                 <p className="text-white/40 text-[14px] leading-[1.75] mb-0 max-w-lg">
                   By 2030, our pipeline targets multi-gigawatt AI factory capacity across U.S. markets — purpose-built, customer-controlled, and powered for the densest workloads on the planet.
                 </p>
-              </div>
-
-              {/* ── US Map Network Constellation Image ── */}
-              <div className="relative z-10 mt-auto px-8 pb-8 lg:px-10 lg:pb-10 flex items-center justify-center">
-                <img 
-                  src={usMapImg} 
-                  alt="U.S. Network Constellation Map" 
-                  className="w-full h-auto object-contain rounded-lg opacity-85 select-none pointer-events-none" 
-                />
               </div>
             </motion.div>
           </div>

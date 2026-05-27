@@ -56,9 +56,9 @@ const GlobalNetwork = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full min-h-[400px] md:min-h-[500px] lg:min-h-[600px] relative"
+            className="w-full lg:absolute lg:right-0 lg:top-0 lg:w-[50vw] lg:h-full min-h-[400px] md:min-h-[500px] lg:min-h-[600px] z-0 overflow-hidden"
           >
-            <GlobalNetworkHeroVisual3D />
+            <DgxGlobe />
           </motion.div>
         </div>
 
@@ -98,7 +98,7 @@ const GlobalNetwork = () => {
       </section>
 
       {/* Network Flow Section — mirrors /energy's "From Generation to GPU Load" */}
-      <section className="bg-white py-15 px-6 relative overflow-hidden">
+      <section className="bg-white py-20 px-6 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
 
           {/* Top Badge */}
@@ -121,42 +121,47 @@ const GlobalNetwork = () => {
 
           {/* Subtext */}
           <div className="max-w-4xl mx-auto text-center mb-24">
-            <p className="text-black/50 text-base md:text-[19px] leading-[1.6] font-medium tracking-tight">
+            <p className="text-black/55 text-base md:text-[19px] leading-[1.6] font-medium tracking-tight">
               Multi-region sites linked by a redundant backbone and operated as one platform. Power, fiber, and compute provisioned together — without the gaps that slow leased-only competitors.
             </p>
           </div>
 
-          {/* Main Layout Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
+            {[
+              { num: "01", text: "Geographically diverse sites with independent power profiles" },
+              { num: "02", text: "Inter-site backbone for replication and failover" },
+              { num: "03", text: "Edge-to-core latency budget engineered for AI workloads" },
+              { num: "04", text: "One operations team across the full network footprint" }
+            ].map((card, i) => (
+              <div 
+                key={i} 
+                className="group relative bg-[#0a0a0a] rounded-2xl p-7 md:p-8 border border-white/[0.06] hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_24px_60px_rgba(245,197,24,0.15)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-0.5"
+              >
+                {/* Subtle Mesh Background for texture */}
+                <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#f5c518 1px, transparent 0)', backgroundSize: '24px 24px' }} />
 
-            {/* Left Column: Slim Feature Row-Cards */}
-            <div className="flex flex-col gap-3 justify-center">
-              {[
-                "Geographically diverse sites with independent power profiles",
-                "Inter-site backbone for replication and failover",
-                "Edge-to-core latency budget engineered for AI workloads",
-                "One operations team across the full network footprint"
-              ].map((text, i) => (
-                <div key={i} className="bg-[#f8f9fa] py-4.5 px-6 rounded-xl flex items-center gap-4 border border-black/[0.04] shadow-sm hover:shadow-md hover:border-[#f5c518]/30 transition-all duration-300 group">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform group-hover:translate-x-0.5 transition-transform">
-                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#f5c518" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                {/* Decorative corner element */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#f5c518]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-tr-2xl" />
+
+                {/* Numeric Badge with animated glow */}
+                <div className="relative mb-6">
+                  <div className="absolute inset-0 bg-[#f5c518] rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-500" />
+                  <div className="w-10 h-10 bg-[#0c0d12] border border-[#f5c518]/15 rounded-xl flex items-center justify-center relative z-10 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                    <span className="font-mono text-xs font-black tracking-widest text-[#f5c518]">{card.num}</span>
                   </div>
-                  <p className="text-black/85 font-semibold text-xs md:text-sm leading-relaxed tracking-tight">
-                    {text}
-                  </p>
                 </div>
-              ))}
-            </div>
 
-            {/* Right Column: Network Animation */}
-            <div className="relative h-full flex items-center justify-center">
-              <div className="w-full max-w-[680px] aspect-[16/8] rounded-2xl overflow-hidden border border-black/10 shadow-xl">
-                <DgxGlobe />
+                {/* Text Content */}
+                <p className="text-white/80 font-bold text-xs md:text-sm leading-relaxed tracking-tight flex-1 group-hover:text-white transition-colors duration-500">
+                  {card.text}
+                </p>
+
+                {/* Bottom indicator line that stretches out on hover */}
+                <div className="mt-6 pt-2 w-full">
+                  <div className="h-[2px] w-8 bg-white/5 group-hover:w-full group-hover:bg-[#f5c518] transition-all duration-500 origin-left" />
+                </div>
               </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>
@@ -271,7 +276,7 @@ const GlobalNetwork = () => {
       </section>
 
       {/* Network Pipeline Section — mirrors /energy's 4-card value chain */}
-      <section className="bg-white py-15 px-6">
+      <section className="bg-white py-20 px-6">
         <div className="max-w-[1400px] mx-auto">
 
           {/* Top Badge */}
@@ -293,10 +298,10 @@ const GlobalNetwork = () => {
 
           {/* Subtext */}
           <div className="max-w-4xl mx-auto text-center mb-20 space-y-6">
-            <p className="text-black/50 text-sm md:text-lg leading-relaxed font-medium">
+            <p className="text-black/55 text-sm md:text-lg leading-relaxed font-medium">
               The DigiPowerX network compounds as each new site comes online: more diversity, more capacity, lower customer latency, and more revenue per megawatt across the footprint.
             </p>
-            <p className="text-black/50 text-sm md:text-lg leading-relaxed font-medium">
+            <p className="text-black/55 text-sm md:text-lg leading-relaxed font-medium">
               Federated by design — every node is operationally independent and operationally consistent.
             </p>
           </div>
@@ -351,25 +356,25 @@ const GlobalNetwork = () => {
             ].map((card, i) => (
               <div 
                 key={i} 
-                className="relative bg-gradient-to-br from-[#fffef7] via-[#fffbf0] to-[#fff6d6] p-8 rounded-[24px] flex flex-col items-start text-left border border-[#f5c518]/25 hover:border-[#f5c518]/50 transition-all duration-300 hover:from-[#fffdfa] hover:to-[#ffe8a8] hover:shadow-[0_25px_50px_-12px_rgba(245,197,24,0.12)] hover:-translate-y-1 group cursor-pointer min-h-[300px] overflow-hidden"
+                className="relative bg-[#0a0a0a] p-8 rounded-[24px] flex flex-col items-start text-left border border-white/[0.06] hover:border-[#f5c518]/40 transition-all duration-300 hover:shadow-[0_25px_50px_-12px_rgba(245,197,24,0.15)] hover:-translate-y-1 group cursor-pointer min-h-[300px] overflow-hidden"
               >
                 {/* Step Pill */}
                 <div className="flex items-center justify-between w-full mb-6">
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#8a6500] bg-gradient-to-r from-[#f5c518]/25 to-[#ffb000]/15 px-3 py-1 rounded-md">
+                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#f5c518] bg-[#f5c518]/10 px-3 py-1 rounded-md">
                     {`STEP 0${i + 1}`}
                   </span>
                 </div>
 
                 {/* SVG Icon */}
-                <div className="text-[#b38600] group-hover:text-[#8a6500] transition-colors duration-300 mb-5 shrink-0">
+                <div className="text-white/40 group-hover:text-[#f5c518] transition-colors duration-300 mb-5 shrink-0">
                   {card.icon}
                 </div>
 
                 {/* Content */}
-                <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-[#8a6500] to-[#b38600] group-hover:from-[#b38600] group-hover:to-[#e0ab00] text-lg font-bold uppercase tracking-tight mb-3 transition-all duration-300">
+                <h3 className="text-white group-hover:text-[#f5c518] text-lg font-bold uppercase tracking-tight mb-3 transition-all duration-300">
                   {card.title}
                 </h3>
-                <p className="text-[#3e3e40] text-[13px] md:text-sm leading-relaxed font-semibold">
+                <p className="text-white/50 group-hover:text-white/75 text-[13px] md:text-sm leading-relaxed font-semibold transition-colors duration-300">
                   {card.desc}
                 </p>
 

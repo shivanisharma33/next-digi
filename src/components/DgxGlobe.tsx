@@ -375,16 +375,7 @@ const DgxGlobe = () => {
   }, []);
 
   return (
-    <div
-      className="relative w-full h-full overflow-hidden"
-      style={{
-        background:
-          'radial-gradient(900px 700px at 50% 50%, rgba(245,197,24,0.05), transparent 60%),' +
-          'radial-gradient(1200px 900px at 70% 30%, rgba(60,40,90,0.10), transparent 65%),' +
-          'radial-gradient(1000px 800px at 25% 75%, rgba(20,40,70,0.10), transparent 60%),' +
-          'radial-gradient(circle at 60% 46%, #070608 0%, #010102 72%)',
-      }}
-    >
+    <div className="relative w-full h-full overflow-hidden">
       <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   );

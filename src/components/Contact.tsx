@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import USDataCenter3D from './USDataCenter3D';
+import PressReleaseHeroVisual3D from './PressReleaseHeroVisual3D';
 
 type FormState = {
   firstName: string;
@@ -404,7 +404,7 @@ export default function Contact() {
             {/* Left: visual + testimonial */}
             <div className="ct-left">
               <div className="ct-left-placeholder">
-                <USDataCenter3D className="w-full h-full absolute inset-0 bg-[#080808] border-0 rounded-none shadow-none" />
+                <PressReleaseHeroVisual3D />
               </div>
               <div className="ct-left-overlay"></div>
               <div className="ct-quote">
