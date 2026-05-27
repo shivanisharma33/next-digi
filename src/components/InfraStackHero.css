@@ -122,13 +122,14 @@
   line-height: 1.02;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.6);
 }
 
 #infra-stack-hero .ish-headline .ish-acc {
   background: linear-gradient(135deg, var(--ybright) 0%, var(--yellow) 50%, var(--gold) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: none;
   filter: drop-shadow(0 2px 8px rgba(255, 198, 41, 0.2));
   display: inline-block;
 }
@@ -143,6 +144,7 @@
   border-left: 2px solid var(--yellow);
   padding-left: 18px;
   transition: border-color 0.4s ease;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 #infra-stack-hero .ish-sub:hover {
@@ -1184,5 +1186,91 @@
   100% {
     top: 100%;
     opacity: 0;
+  }
+}
+
+/* ── Premium Animated Black Smoke Effect on the Left ── */
+#infra-stack-hero .ish-smoke-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#infra-stack-hero .ish-smoke-particle {
+  position: absolute;
+  background: radial-gradient(circle at center, #000000 0%, rgba(3, 4, 5, 0.98) 35%, rgba(6, 7, 8, 0.85) 60%, rgba(6, 7, 8, 0.4) 80%, transparent 100%);
+  border-radius: 50%;
+  filter: blur(65px);
+  will-change: transform, opacity;
+}
+
+#infra-stack-hero .smoke-1 {
+  width: 750px;
+  height: 750px;
+  top: -5%;
+  left: -20%;
+  opacity: 0.95;
+  animation: ish-smoke-drift-1 28s ease-in-out infinite alternate;
+}
+
+#infra-stack-hero .smoke-2 {
+  width: 850px;
+  height: 850px;
+  top: 25%;
+  left: -25%;
+  opacity: 0.9;
+  animation: ish-smoke-drift-2 36s ease-in-out infinite alternate;
+}
+
+#infra-stack-hero .smoke-3 {
+  width: 600px;
+  height: 600px;
+  top: -15%;
+  left: -10%;
+  opacity: 0.85;
+  animation: ish-smoke-drift-3 24s ease-in-out infinite alternate;
+}
+
+@keyframes ish-smoke-drift-1 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(50px, 40px) scale(1.15) rotate(90deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-30px, 70px) scale(0.9) rotate(180deg);
+  }
+}
+
+@keyframes ish-smoke-drift-2 {
+  0% {
+    transform: translate(0, 0) scale(1.1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-40px, 80px) scale(0.95) rotate(-120deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(60px, -30px) scale(1.2) rotate(-240deg);
+  }
+}
+
+@keyframes ish-smoke-drift-3 {
+  0% {
+    transform: translate(0, 0) scale(0.9) rotate(0deg);
+  }
+  50% {
+    transform: translate(80px, -50px) scale(1.1) rotate(140deg);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate(-50px, 30px) scale(1) rotate(280deg);
   }
 }

@@ -75,88 +75,6 @@ const ResourceCard = ({ title, desc, icon: Icon, to }: { title: string; desc: st
   </Link>
 );
 
-function generateMockHistoricalData(range: string): StockDataPoint[] {
-  const dataPoints: StockDataPoint[] = [];
-  const today = new Date();
-
-  let days: number;
-  let step: number;
-  let basePrice: number;
-  let volatility: number;
-  let trend: number;
-
-  switch (range) {
-    case "1W":
-      days = 7;
-      step = 1;
-      basePrice = 24.20;
-      volatility = 0.3;
-      trend = 0.1;
-      break;
-    case "1M":
-      days = 30;
-      step = 1;
-      basePrice = 22.50;
-      volatility = 0.5;
-      trend = 0.08;
-      break;
-    case "3M":
-      days = 90;
-      step = 3;
-      basePrice = 20.00;
-      volatility = 0.8;
-      trend = 0.06;
-      break;
-    case "6M":
-      days = 180;
-      step = 6;
-      basePrice = 18.50;
-      volatility = 1.2;
-      trend = 0.04;
-      break;
-    case "ALL":
-      days = 730;
-      step = 20;
-      basePrice = 12.00;
-      volatility = 2.5;
-      trend = 0.025;
-      break;
-    default:
-      days = 30;
-      step = 1;
-      basePrice = 22.50;
-      volatility = 0.5;
-      trend = 0.08;
-  }
-
-  const count = Math.floor(days / step);
-  let currentPrice = basePrice;
-
-  for (let i = count; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(today.getDate() - (i * step));
-
-    // Skip weekends
-    const dayOfWeek = date.getDay();
-    if (dayOfWeek === 0) date.setDate(date.getDate() - 2);
-    else if (dayOfWeek === 6) date.setDate(date.getDate() - 1);
-
-    // Random walk with positive trend
-    const change = (Math.random() - 0.45) * volatility + trend * step;
-    currentPrice += change;
-
-    if (currentPrice < 5) currentPrice = 5;
-
-    dataPoints.push({
-      date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-      price: Number(currentPrice.toFixed(2)),
-      volume: Math.floor(50000 + Math.random() * 200000),
-    });
-  }
-
-  return dataPoints;
-}
-
 const InvestorRelations = () => {
   const [activeRange, setActiveRange] = useState<"1D" | "1W" | "1M" | "3M" | "6M" | "ALL">("1M");
   const [liveStockData, setLiveStockData] = useState<StockData | null>(null);
@@ -174,65 +92,19 @@ const InvestorRelations = () => {
     { date: "Apr 25, 2026", title: "New AI Infrastructure Site Reaches Full 60MW Operational Capacity" }
   ];
 
-  // Fallbacks for when API is down or VITE_MASSIVE_API_KEY is missing
-  const useMockDataFallback = (symbol: string) => {
-    const basePrice = 24.85;
-    const rand = Math.sin(new Date().getTime() / 10000) * 0.4;
-    const livePrice = basePrice + rand;
-    const openPrice = 24.12;
-    const change = livePrice - openPrice;
-    const changePercent = (change / openPrice) * 100;
-    const volume = 1450200;
-    const high = 25.10;
-    const low = 23.90;
-
-    const stockInfo: StockData = {
-      symbol: symbol,
-      price: Number(livePrice.toFixed(4)),
-      change: Number(change.toFixed(4)),
-      changePercent: Number(changePercent.toFixed(4)),
-      volume: volume,
-      high: Number(high.toFixed(4)),
-      low: Number(low.toFixed(4)),
-      open: Number(openPrice.toFixed(4)),
-      lastUpdated: new Date().toLocaleString('en-US', {
-        month: '2-digit', day: '2-digit', year: 'numeric',
-        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true,
-      }),
-      marketCap: '$450M',
-      weekHigh52: '$32.15',
-      weekLow52: '$18.40',
-      avgVolume: '1.8M'
-    };
-    setLiveStockData(stockInfo);
-    setStockError(null);
-  };
-
-  const useMockHistoricalFallback = (range: string, symbol: string) => {
-    const mockPoints = generateMockHistoricalData(range);
-    setHistoricalData(mockPoints);
-    setCachedData(prev => {
-      const newCache = { ...prev, [range]: mockPoints };
-      cachedDataRef.current = newCache;
-      return newCache;
-    });
-    setIsLoadingChart(false);
-  };
-
   // Fetch Live Stock Data using Client-side direct fetching
   useEffect(() => {
     const fetchStockData = async () => {
-      const symbol = 'DGXX';
       try {
         setIsLoadingStock(true);
         setStockError(null);
 
         const apiKey = import.meta.env.VITE_MASSIVE_API_KEY;
         if (!apiKey) {
-          useMockDataFallback(symbol);
-          return;
+          throw new Error('API Key missing in .env (VITE_MASSIVE_API_KEY)');
         }
 
+        const symbol = 'DGXX';
         const now = new Date();
         const today = now.toISOString().split('T')[0];
 
@@ -318,8 +190,8 @@ const InvestorRelations = () => {
 
         setLiveStockData(stockInfo);
       } catch (err) {
-        console.warn('Error fetching stock data, falling back to mock data:', err);
-        useMockDataFallback(symbol);
+        console.error('Error fetching stock data:', err);
+        setStockError('Unable to load stock data.');
       } finally {
         setIsLoadingStock(false);
       }
@@ -338,7 +210,6 @@ const InvestorRelations = () => {
   // Fetch Historical Data for Chart
   useEffect(() => {
     const fetchHistoricalData = async () => {
-      const symbol = 'DGXX';
       try {
         if (cachedDataRef.current[activeRange]) {
           setHistoricalData(cachedDataRef.current[activeRange]);
@@ -350,12 +221,6 @@ const InvestorRelations = () => {
         }
 
         setIsLoadingChart(true);
-        const apiKey = import.meta.env.VITE_MASSIVE_API_KEY;
-        if (!apiKey) {
-          useMockHistoricalFallback(activeRange, symbol);
-          return;
-        }
-
         const today = new Date();
         const dataPoints: StockDataPoint[] = [];
 
@@ -383,6 +248,8 @@ const InvestorRelations = () => {
 
         const batchSize = 10;
         const results: (unknown | null)[] = [];
+        const apiKey = import.meta.env.VITE_MASSIVE_API_KEY;
+        const symbol = 'DGXX';
 
         for (let i = 0; i < dates.length; i += batchSize) {
           const batch = dates.slice(i, i + batchSize);
@@ -425,12 +292,11 @@ const InvestorRelations = () => {
             return newCache;
           });
         } else {
-          useMockHistoricalFallback(activeRange, symbol);
+          setHistoricalData([]);
         }
         setIsLoadingChart(false);
-      } catch (err) {
-        console.warn('Error fetching historical stock data, falling back to mock data:', err);
-        useMockHistoricalFallback(activeRange, symbol);
+      } catch {
+        setIsLoadingChart(false);
       }
     };
 
@@ -507,7 +373,7 @@ const InvestorRelations = () => {
           <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent hidden lg:block" />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-8 items-start lg:pt-12">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-8 items-center">
           {/* LEFT: Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -616,7 +482,7 @@ const InvestorRelations = () => {
 
             {/* The 3D canvas — scaled up to fill more presence */}
             <div className="absolute inset-0 scale-110 lg:scale-125 origin-center">
-              <CubeGridNetwork3D />
+              <CubeGridNetwork3D/>
             </div>
 
             {/* Floating label badge */}

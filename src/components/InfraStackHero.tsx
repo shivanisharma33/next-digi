@@ -12,8 +12,12 @@ export default function InfraStackHero() {
         {/* Glow Layer: Pulsing Golden Highlights */}
         <div className="ish-bg-layer glow-image" />
         
-        {/* Sweeping scanline glow layer running top-to-bottom */}
-        <div className="ish-sweep-glow" />
+        {/* Subtle Black Smoke/Fog Effect on the Left */}
+        <div className="ish-smoke-container">
+          <div className="ish-smoke-particle smoke-1" />
+          <div className="ish-smoke-particle smoke-2" />
+          <div className="ish-smoke-particle smoke-3" />
+        </div>
         
         {/* Dark Vignette Overlay to blend edges */}
         <div className="ish-bg-overlay" />
