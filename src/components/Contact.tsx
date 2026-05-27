@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import USDataCenter3D from './USDataCenter3D';
 
 type FormState = {
   firstName: string;
@@ -26,8 +27,6 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -63,259 +62,13 @@ export default function Contact() {
     }
   };
 
-  // 3D Canvas Cube Animation Effect
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
 
-    let rafId: number;
-
-    function resize() {
-      if (!canvas) return;
-      const p = canvas.parentElement?.getBoundingClientRect();
-      canvas.width  = p?.width  || 340;
-      canvas.height = p?.height || 480;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    /* ─── ISO helpers ─── */
-    function isoX(c: number, r: number, tw: number) { return (c - r) * tw * 0.5; }
-    function isoY(c: number, r: number, th: number) { return (c + r) * th * 0.5; }
-
-    /* ─── Grid config ─── */
-    const COLS = 4, ROWS = 5;
-    const GAP  = 0.12;   // fractional gap between cubes (0 = touching)
-
-    /* ─── Cube data ─── */
-    interface Cube {
-      col: number;
-      row: number;
-      litTarget: number;
-      litVal: number;
-      bobPhase: number;
-      bobSpeed: number;
-      bobAmp: number;
-    }
-
-    const cubes: Cube[] = [];
-    for(let row=0;row<ROWS;row++){
-      for(let col=0;col<COLS;col++){
-        cubes.push({
-          col, row,
-          litTarget : Math.random() < 0.30 ? 1 : 0,
-          litVal    : 0,
-          bobPhase  : Math.random()*Math.PI*2,
-          bobSpeed  : 0.40 + Math.random()*0.40,
-          bobAmp    : 3    + Math.random()*3,
-        });
-      }
-    }
-    cubes.sort((a,b)=>(a.col+a.row)-(b.col+b.row));
-
-    /* toggle lit every 2.4s */
-    const litInterval = setInterval(()=>{
-      cubes.forEach(c=>{
-        if(Math.random()<0.10) c.litTarget = c.litTarget ? 0 : 1;
-      });
-    }, 2400);
-
-    /* ─── Texture pattern (baked once) ─── */
-    let texNormal: HTMLCanvasElement | null = null;
-    let texGold: HTMLCanvasElement | null = null;
-
-    function buildTextures(tw: number, th: number){
-      const textures = [false, true].map(gold => {
-        const oc = document.createElement('canvas');
-        oc.width = Math.ceil(tw); oc.height = Math.ceil(th);
-        const ox = oc.getContext('2d');
-        if (!ox) return oc;
-        /* base colour */
-        const base = gold ? '#1a1500' : '#141414';
-        ox.fillStyle = base;
-        ox.fillRect(0,0,oc.width,oc.height);
-        /* fine grid lines to simulate surface texture */
-        ox.strokeStyle = gold ? 'rgba(245,197,24,0.07)' : 'rgba(255,255,255,0.05)';
-        ox.lineWidth = 0.5;
-        const step = Math.max(4, tw/8);
-        for(let x=0;x<oc.width;x+=step){
-          ox.beginPath(); ox.moveTo(x,0); ox.lineTo(x,oc.height); ox.stroke();
-        }
-        for(let y=0;y<oc.height;y+=step){
-          ox.beginPath(); ox.moveTo(0,y); ox.lineTo(oc.width,y); ox.stroke();
-        }
-        return oc;
-      });
-      texNormal = textures[0];
-      texGold = textures[1];
-    }
-
-    /* ─── Draw one cube ─── */
-    function drawCube(cube: Cube, tw: number, th: number, ox: number, oy: number, t: number){
-      if (!ctx) return;
-      /* smooth lit value */
-      cube.litVal += (cube.litTarget - cube.litVal) * 0.04;
-      const lv = cube.litVal;
-      const pulse = 0.55 + 0.45 * Math.sin(t * 1.1 + cube.bobPhase);
-
-      const c = cube.col, r = cube.row;
-      const bob = Math.sin(t * cube.bobSpeed + cube.bobPhase) * cube.bobAmp;
-
-      /* origin for this cube with gap */
-      const s = 1 - GAP;
-      function pt(dc: number, dr: number, dz: number){
-        return {
-          x: ox + isoX(c+dc*s, r+dr*s, tw),
-          y: oy + isoY(c+dc*s, r+dr*s, th) - dz*th - bob,
-        };
-      }
-      const A=pt(0,0,1), B=pt(1,0,1), C=pt(1,1,1), D=pt(0,1,1);
-      const E=pt(0,0,0), F=pt(1,0,0), G=pt(1,1,0), H=pt(0,1,0);
-
-      /* ─── outer glow ─── */
-      if(lv > 0.01){
-        const gcx = (A.x+C.x)*0.5, gcy = (A.y+C.y)*0.5;
-        const gr = ctx.createRadialGradient(gcx,gcy,0,gcx,gcy,tw*1.8);
-        gr.addColorStop(0,  `rgba(245,197,24,${0.22*lv*pulse})`);
-        gr.addColorStop(0.5,`rgba(245,197,24,${0.08*lv*pulse})`);
-        gr.addColorStop(1,  'rgba(245,197,24,0)');
-        ctx.fillStyle = gr;
-        ctx.beginPath(); ctx.arc(gcx,gcy,tw*1.8,0,Math.PI*2); ctx.fill();
-      }
-
-      /* ─── helpers: draw face with texture + gradient overlay ─── */
-      function face(pts: {x: number, y: number}[], darkMul: number){
-        if (!ctx) return;
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(pts[0].x,pts[0].y);
-        pts.slice(1).forEach(p=>ctx.lineTo(p.x,p.y));
-        ctx.closePath();
-        ctx.clip();
-
-        /* texture base */
-        if(lv > 0.01 && texGold){
-          ctx.globalAlpha = lv;
-          ctx.drawImage(texGold, pts[0].x, pts[0].y, tw, th);
-          ctx.globalAlpha = 1-lv;
-        }
-        if(texNormal){
-          ctx.drawImage(texNormal, pts[0].x, pts[0].y, tw, th);
-        }
-        ctx.globalAlpha = 1;
-
-        /* directional gradient overlay */
-        const lg = ctx.createLinearGradient(pts[0].x,pts[0].y,pts[2].x,pts[2].y);
-        const dark1 = `rgba(0,0,0,${darkMul * (1 - lv*0.4)})`;
-        const dark2 = `rgba(0,0,0,${(darkMul+0.25) * (1 - lv*0.3)})`;
-        lg.addColorStop(0, dark1);
-        lg.addColorStop(1, dark2);
-        ctx.fillStyle = lg;
-        ctx.fill();
-
-        ctx.restore();
-      }
-
-      /* top */   face([A,B,C,D], 0.10);
-      /* left */  face([A,D,H,E], 0.45);
-      /* right */ face([A,B,F,E], 0.62);
-
-      /* ─── face borders ─── */
-      function border(pts: {x: number, y: number}[], alpha: number){
-        if (!ctx) return;
-        ctx.beginPath();
-        ctx.moveTo(pts[0].x,pts[0].y);
-        pts.slice(1).forEach(p=>ctx.lineTo(p.x,p.y));
-        ctx.closePath();
-        ctx.strokeStyle = lv>0.05
-          ? `rgba(245,197,24,${alpha*(0.25+0.75*lv)})`
-          : `rgba(255,255,255,${alpha*0.12})`;
-        ctx.lineWidth = lv>0.05 ? 0.8 : 0.5;
-        ctx.stroke();
-      }
-      border([A,B,C,D], 1.0);
-      border([A,D,H,E], 0.7);
-      border([A,B,F,E], 0.5);
-
-      /* ─── neon glow edges on lit cubes ─── */
-      if(lv > 0.05){
-        const ea = (0.7 + 0.3*pulse) * lv;
-        ctx.save();
-        ctx.shadowColor = '#f5c518';
-        ctx.shadowBlur  = 12;
-        ctx.strokeStyle = `rgba(245,197,24,${ea})`;
-        ctx.lineWidth   = 1.8;
-        /* top rhombus */
-        ctx.beginPath();
-        ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y);
-        ctx.lineTo(C.x,C.y); ctx.lineTo(D.x,D.y);
-        ctx.closePath(); ctx.stroke();
-        /* 3 visible vertical edges */
-        [[A,E],[B,F],[D,H]].forEach(([p1,p2])=>{
-          ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
-        });
-        ctx.restore();
-      }
-
-      /* ─── crisp highlight on top-near edges (non-lit) ─── */
-      if(lv < 0.5){
-        ctx.strokeStyle = `rgba(255,255,255,${0.18*(1-lv)})`;
-        ctx.lineWidth = 0.7;
-        ctx.beginPath();
-        ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y);
-        ctx.moveTo(A.x,A.y); ctx.lineTo(D.x,D.y);
-        ctx.stroke();
-      }
-    }
-
-    let t = 0;
-    let lastTw = -1;
-
-    function draw(){
-      if (!ctx || !canvas) return;
-      const W = canvas.width, H = canvas.height;
-      ctx.clearRect(0,0,W,H);
-
-      /* solid black bg */
-      ctx.fillStyle = '#080808';
-      ctx.fillRect(0,0,W,H);
-
-      /* very faint warm centre glow */
-      const amb = ctx.createRadialGradient(W*.5,H*.4,0,W*.5,H*.4,W*.75);
-      amb.addColorStop(0,'rgba(245,197,24,0.04)');
-      amb.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle = amb; ctx.fillRect(0,0,W,H);
-
-      /* tile size: wide gap thanks to GAP constant */
-      const tw = W * 0.195;
-      const th = tw * 0.54;
-
-      if(Math.abs(tw - lastTw) > 1){ buildTextures(tw,th); lastTw = tw; }
-
-      /* centre the entire grid */
-      const ox = W * 0.5 - (COLS - ROWS) * tw * 0.25;
-      const oy = H * 0.5 - (COLS + ROWS - 2) * th * 0.25;
-
-      cubes.forEach(c=>drawCube(c,tw,th,ox,oy, t));
-      t += 0.018;
-      rafId = requestAnimationFrame(draw);
-    }
-
-    draw();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      clearInterval(litInterval);
-      cancelAnimationFrame(rafId);
-    };
-  }, []);
 
   return (
     <div className="contact-page-wrapper">
       {/* Scope CSS variables and styles */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .contact-page-wrapper {
           --gold: #f5c518;
           --gold-dim: #c8a400;
@@ -624,21 +377,21 @@ export default function Contact() {
           <div className="ct-info-cards">
             <a className="ct-info-card" href="mailto:ir@digipowerx.com">
               <div className="ct-info-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><polyline points="2,4 12,13 22,4" /></svg>
               </div>
               <div className="ct-info-label">Investor Relations</div>
               <div className="ct-info-value">ir@digipowerx.com</div>
             </a>
             <a className="ct-info-card" href="tel:8884749222">
               <div className="ct-info-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z" /></svg>
               </div>
               <div className="ct-info-label">Sales &amp; Support</div>
               <div className="ct-info-value">888-474-9222</div>
             </a>
             <div className="ct-info-card ct-info-card--active">
               <div className="ct-info-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
               </div>
               <div className="ct-info-label">Headquarters</div>
               <div className="ct-info-value">Dallas, Texas, USA</div>
@@ -651,7 +404,7 @@ export default function Contact() {
             {/* Left: visual + testimonial */}
             <div className="ct-left">
               <div className="ct-left-placeholder">
-                <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}></canvas>
+                <USDataCenter3D className="w-full h-full absolute inset-0 bg-[#080808] border-0 rounded-none shadow-none" />
               </div>
               <div className="ct-left-overlay"></div>
               <div className="ct-quote">
@@ -678,67 +431,67 @@ export default function Contact() {
                   >
                     <div className="form-group">
                       <label className="form-label">First Name <span className="req">*</span></label>
-                      <input 
+                      <input
                         name="firstName"
                         value={form.firstName}
                         onChange={handleChange}
-                        className="form-input" 
-                        type="text" 
-                        placeholder="Jane" 
-                        required 
+                        className="form-input"
+                        type="text"
+                        placeholder="Jane"
+                        required
                       />
                     </div>
                     <div className="form-group">
                       <label className="form-label">Last Name <span class="req">*</span></label>
-                      <input 
+                      <input
                         name="lastName"
                         value={form.lastName}
                         onChange={handleChange}
-                        className="form-input" 
-                        type="text" 
-                        placeholder="Doe" 
-                        required 
+                        className="form-input"
+                        type="text"
+                        placeholder="Doe"
+                        required
                       />
                     </div>
                     <div className="form-group">
                       <label className="form-label">Company <span className="req">*</span></label>
-                      <input 
+                      <input
                         name="company"
                         value={form.company}
                         onChange={handleChange}
-                        className="form-input" 
-                        type="text" 
-                        placeholder="Your organization" 
-                        required 
+                        className="form-input"
+                        type="text"
+                        placeholder="Your organization"
+                        required
                       />
                     </div>
                     <div className="form-group">
                       <label className="form-label">Work Email <span className="req">*</span></label>
-                      <input 
+                      <input
                         name="email"
                         value={form.email}
                         onChange={handleChange}
-                        className="form-input" 
-                        type="email" 
-                        placeholder="you@company.com" 
-                        required 
+                        className="form-input"
+                        type="email"
+                        placeholder="you@company.com"
+                        required
                       />
                     </div>
                     <div className="form-group">
                       <label className="form-label">Phone <span className="req">*</span></label>
-                      <input 
+                      <input
                         name="phone"
                         value={form.phone}
                         onChange={handleChange}
-                        className="form-input" 
-                        type="tel" 
-                        placeholder="+1 (000) 000-0000" 
-                        required 
+                        className="form-input"
+                        type="tel"
+                        placeholder="+1 (000) 000-0000"
+                        required
                       />
                     </div>
                     <div className="form-group">
                       <label className="form-label">Role</label>
-                      <select 
+                      <select
                         name="title"
                         value={form.title}
                         onChange={handleChange}
@@ -755,11 +508,11 @@ export default function Contact() {
                     </div>
                     <div className="form-group full">
                       <label className="form-label">Message <span className="req">*</span></label>
-                      <textarea 
+                      <textarea
                         name="message"
                         value={form.message}
                         onChange={handleChange}
-                        className="form-textarea" 
+                        className="form-textarea"
                         placeholder="Tell us about your project or what you'd like to automate"
                         required
                       ></textarea>
@@ -775,7 +528,7 @@ export default function Contact() {
                       <div className="flex items-center justify-between w-full flex-wrap gap-4">
                         <button type="submit" disabled={submitting} className="send-btn">
                           {submitting ? 'Sending...' : 'Send Message'}
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
                         </button>
                         <div className="ct-response-note">Response: usually under <strong>12 hours</strong></div>
                       </div>
@@ -818,7 +571,7 @@ export default function Contact() {
           <div className="ct-bottom">
             <a className="ct-email-card" href="mailto:ir@digipowerx.com">
               <div className="ct-email-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><polyline points="2,4 12,13 22,4" /></svg>
               </div>
               <div className="ct-email-info">
                 <div className="ct-email-small">Reach us directly at</div>
@@ -826,7 +579,7 @@ export default function Contact() {
               </div>
             </a>
             <a className="ct-call-card" href="tel:8884749222">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z" /></svg>
               Book an Intro Call
             </a>
           </div>

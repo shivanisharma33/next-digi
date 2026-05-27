@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import LiquidCooling3D from './LiquidCooling3D';
 
 const Colocation = () => {
   return (
@@ -86,15 +87,13 @@ const Colocation = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
-            className="lg:col-span-7 relative w-full h-[380px] md:h-[400px] lg:h-[400px] xl:h-[400px] bg-transparent flex items-center justify-center scale-110 lg:scale-125 xl:scale-130 transition-transform duration-500"
+            className="lg:col-span-7 relative w-full h-[380px] md:h-[420px] lg:h-[450px] bg-transparent flex items-center justify-center scale-100 lg:scale-105 xl:scale-110 transition-transform duration-500 cursor-grab active:cursor-grabbing"
           >
-            <img
-              src="/gpu.gif"
-              alt="GPU colocation visual"
-              className="w-full h-full object-contain max-h-full"
-              loading="lazy"
-              decoding="async"
-            />
+            <div className="w-full h-full relative">
+              {/* Radial ambient glow to tie the metallic rack to the background */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,197,24,0.06),transparent_70%)] pointer-events-none" />
+              <LiquidCooling3D />
+            </div>
           </motion.div>
 
         </div>

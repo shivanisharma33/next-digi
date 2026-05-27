@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail,
@@ -13,13 +13,26 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import { CTASection } from './Footer';
-import EmailAlertsVisual from './EmailAlertsVisual';
+import FuturisticDataRain from './FuturisticDataRain';
 
 const EmailAlerts = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [company, setCompany] = useState("");
+
+  // Interactive mouse spotlight state
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   // Custom futuristic toggle states
   const [subPress, setSubPress] = useState(true);
@@ -63,28 +76,82 @@ const EmailAlerts = () => {
     <div className="bg-[#050608] min-h-screen text-white selection:bg-brand-yellow selection:text-black">
 
       {/* Centered Hero Section */}
-      <section className="relative min-h-[60vh] flex flex-col items-center justify-center pt-32 pb-16 px-4 sm:px-6 overflow-hidden">
+      <section
+        ref={heroRef}
+        onMouseMove={handleMouseMove}
+        className="relative min-h-[60vh] flex flex-col items-center justify-center pt-32 pb-16 px-4 sm:px-6 overflow-hidden group"
+      >
+        {/* Futuristic yellow data stream animation background */}
+        <FuturisticDataRain />
+        {/* Dynamic Spotlight Glow that follows cursor */}
+        <div
+          className="absolute inset-0 pointer-events-none transition-opacity duration-700 ease-out opacity-0 group-hover:opacity-100"
+          style={{
+            background: `radial-gradient(500px circle at ${mousePos.x}px ${mousePos.y}px, rgba(245, 197, 24, 0.045), transparent 80%)`,
+          }}
+        />
 
-        {/* Minimal Interactive Canvas Background */}
-        <EmailAlertsVisual />
-
-
+        {/* Subtle geometric digital background pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.02]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+            maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+          }}
+        />
 
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8">
-            <Mail size={12} className="text-brand-yellow" />
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8 hover:border-brand-yellow/60 transition-colors cursor-default"
+          >
+            <motion.div
+              animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+              transition={{ repeat: Infinity, repeatDelay: 4, duration: 0.6, ease: "easeInOut" }}
+            >
+              <Mail size={12} className="text-brand-yellow" />
+            </motion.div>
             <span className="text-[9px] uppercase tracking-[0.4em] font-mono text-brand-yellow font-semibold">
               REAL-TIME DISCLOSURE HUB
             </span>
-          </div>
+          </motion.div>
 
-          <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-8">
-            EMAIL <span className="text-brand-yellow">ALERTS</span>
-          </h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
+            className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-8 select-none"
+          >
+            EMAIL{' '}
+            <motion.span
+              animate={{ textShadow: ['0 0 10px rgba(245,197,24,0)', '0 0 20px rgba(245,197,24,0.3)', '0 0 10px rgba(245,197,24,0)'] }}
+              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+              className="text-brand-yellow drop-shadow-[0_0_15px_rgba(245,197,24,0.15)]"
+            >
+              ALERTS
+            </motion.span>
+          </motion.h1>
 
-          <p className="text-white/60 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium tracking-wide">
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+            className="text-white/60 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium tracking-wide"
+          >
             Sign up to receive important corporate updates, press releases, and SEC filings from DigiPowerX directly inside your computational node.
-          </p>
+          </motion.p>
+
+          {/* Dotted anchor layout guide connector */}
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 48, opacity: 0.25 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
+            className="w-px bg-gradient-to-b from-brand-yellow to-transparent mt-12 mb-2"
+          />
         </div>
       </section>
 

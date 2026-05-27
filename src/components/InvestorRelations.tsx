@@ -78,7 +78,7 @@ const ResourceCard = ({ title, desc, icon: Icon, to }: { title: string; desc: st
 function generateMockHistoricalData(range: string): StockDataPoint[] {
   const dataPoints: StockDataPoint[] = [];
   const today = new Date();
-  
+
   let days: number;
   let step: number;
   let basePrice: number;
@@ -135,7 +135,7 @@ function generateMockHistoricalData(range: string): StockDataPoint[] {
   for (let i = count; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - (i * step));
-    
+
     // Skip weekends
     const dayOfWeek = date.getDay();
     if (dayOfWeek === 0) date.setDate(date.getDate() - 2);
@@ -144,7 +144,7 @@ function generateMockHistoricalData(range: string): StockDataPoint[] {
     // Random walk with positive trend
     const change = (Math.random() - 0.45) * volatility + trend * step;
     currentPrice += change;
-    
+
     if (currentPrice < 5) currentPrice = 5;
 
     dataPoints.push({
@@ -616,7 +616,7 @@ const InvestorRelations = () => {
 
             {/* The 3D canvas — scaled up to fill more presence */}
             <div className="absolute inset-0 scale-110 lg:scale-125 origin-center">
-              <CubeGridNetwork3D/>
+              <CubeGridNetwork3D />
             </div>
 
             {/* Floating label badge */}

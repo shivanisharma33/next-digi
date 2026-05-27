@@ -369,7 +369,7 @@ const CTASection = () => {
                 <h3 className="text-white text-[1.5rem] md:text-[1.75rem] leading-[1.25] font-semibold mb-8">
                   Build the future.
                   <br />
-                  <span className="text-brand-yellow italic">Power the intelligence era.</span>
+                  <span className="text-brand-yellow">Power the intelligence era.</span>
                 </h3>
 
                 {/* Feature items */}

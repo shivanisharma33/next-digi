@@ -283,69 +283,74 @@ const LayeredInfrastructure = () => {
                 className="relative w-full"
                 style={{ paddingBottom: "120%" }}
               >
-                {/* Soft glow behind active layer */}
-                <motion.div
-                  aria-hidden
-                  className="absolute left-1/2 -translate-x-1/2 rounded-full blur-3xl"
-                  animate={{
-                    top: `${activeLayer.markerYPct - 15}%`,
-                    opacity: 0.45,
-                  }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  style={{
-                    width: "70%",
-                    height: "30%",
-                    background:
-                      "radial-gradient(closest-side, rgba(245,197,24,0.45), rgba(245,197,24,0))",
-                  }}
-                />
+                {/* Visual Graphic Wrapper that shifts left/right on desktop while keeping markers/arrows static */}
+                <div className={`absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  infoOnLeft ? "lg:translate-x-24" : "lg:-translate-x-24"
+                }`}>
+                  {/* Soft glow behind active layer */}
+                  <motion.div
+                    aria-hidden
+                    className="absolute left-1/2 -translate-x-1/2 rounded-full blur-3xl"
+                    animate={{
+                      top: `${activeLayer.markerYPct - 15}%`,
+                      opacity: 0.45,
+                    }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    style={{
+                      width: "70%",
+                      height: "30%",
+                      background:
+                        "radial-gradient(closest-side, rgba(245,197,24,0.45), rgba(245,197,24,0))",
+                    }}
+                  />
 
-                {LAYERS.map((layer) => {
-                  const isActive = layer.id === active;
-                  const delta = layer.id - active;
-                  // Only push the immediate neighbors of the active layer outward,
-                  // so the stack never overflows when the first or last layer is active.
-                  // 3x spread: neighbors get a big push, distant layers get a softer one
-                  const NEIGHBOR_SHIFT = 88;
-                  const FAR_SHIFT = 40;
-                  const absDelta = Math.abs(delta);
-                  const offsetY =
-                    delta === 0
-                      ? -6
-                      : absDelta === 1
-                        ? Math.sign(delta) * NEIGHBOR_SHIFT
-                        : Math.sign(delta) * FAR_SHIFT;
-                  return (
-                    <button
-                      type="button"
-                      key={layer.id}
-                      onClick={() => scrollToLayer(layer.id)}
-                      aria-label={`Jump to ${layer.title}`}
-                      aria-pressed={isActive}
-                      className="absolute cursor-pointer transition-all duration-700 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5c518]"
-                      style={{
-                        top: `${layer.topPct}%`,
-                        left: `${layer.leftPct}%`,
-                        width: `${layer.widthPct}%`,
-                        opacity: isActive ? 1 : 0.32,
-                        filter: isActive
-                          ? "drop-shadow(0 18px 32px rgba(24,23,23,0.18))"
-                          : "grayscale(25%)",
-                        zIndex: 10 + layer.id,
-                        transform: `translateY(${offsetY}px) scale(${isActive ? 1.015 : 1
-                          })`,
-                        transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-                      }}
-                    >
-                      <img
-                        src={layer.src}
-                        alt={layer.alt}
-                        loading="lazy"
-                        className="pointer-events-none block w-full select-none"
-                      />
-                    </button>
-                  );
-                })}
+                  {LAYERS.map((layer) => {
+                    const isActive = layer.id === active;
+                    const delta = layer.id - active;
+                    // Only push the immediate neighbors of the active layer outward,
+                    // so the stack never overflows when the first or last layer is active.
+                    // 3x spread: neighbors get a big push, distant layers get a softer one
+                    const NEIGHBOR_SHIFT = 88;
+                    const FAR_SHIFT = 40;
+                    const absDelta = Math.abs(delta);
+                    const offsetY =
+                      delta === 0
+                        ? -6
+                        : absDelta === 1
+                          ? Math.sign(delta) * NEIGHBOR_SHIFT
+                          : Math.sign(delta) * FAR_SHIFT;
+                    return (
+                      <button
+                        type="button"
+                        key={layer.id}
+                        onClick={() => scrollToLayer(layer.id)}
+                        aria-label={`Jump to ${layer.title}`}
+                        aria-pressed={isActive}
+                        className="absolute cursor-pointer transition-all duration-700 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5c518]"
+                        style={{
+                          top: `${layer.topPct}%`,
+                          left: `${layer.leftPct}%`,
+                          width: `${layer.widthPct}%`,
+                          opacity: isActive ? 1 : 0.32,
+                          filter: isActive
+                            ? "drop-shadow(0 18px 32px rgba(24,23,23,0.18))"
+                            : "grayscale(25%)",
+                          zIndex: 10 + layer.id,
+                          transform: `translateY(${offsetY}px) scale(${isActive ? 1.015 : 1
+                            })`,
+                          transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+                        }}
+                      >
+                        <img
+                          src={layer.src}
+                          alt={layer.alt}
+                          loading="lazy"
+                          className="pointer-events-none block w-full select-none"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
 
                 {LAYERS.map((layer) => {
                   const isActive = layer.id === active;
@@ -417,8 +422,8 @@ const LayeredInfrastructure = () => {
               {/* DESKTOP: small num + kicker chip — sits opposite the big block */}
               <motion.div
                 className={`hidden lg:absolute lg:flex lg:max-w-[340px] lg:flex-col ${infoOnLeft
-                  ? "lg:right-0 lg:items-end lg:text-right"
-                  : "lg:left-0 lg:items-start lg:text-left"
+                  ? "lg:right-12 lg:items-end lg:text-right"
+                  : "lg:left-12 lg:items-start lg:text-left"
                   }`}
                 style={
                   flipInfo
@@ -456,8 +461,8 @@ const LayeredInfrastructure = () => {
               {/* DESKTOP: big info block — flips above the marker for late layers */}
               <motion.div
                 className={`hidden lg:absolute lg:flex lg:max-w-[360px] lg:flex-col ${infoOnLeft
-                  ? "lg:right-0 lg:items-end lg:text-right"
-                  : "lg:left-0 lg:items-start lg:text-left"
+                  ? "lg:right-12 lg:items-end lg:text-right"
+                  : "lg:left-12 lg:items-start lg:text-left"
                   }`}
                 style={
                   flipInfo

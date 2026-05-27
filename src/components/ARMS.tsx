@@ -514,7 +514,7 @@ const ARMS = () => {
                 <div className="space-y-4">
                   {/* Super Micro */}
                   <div className="flex items-center gap-4 p-4 bg-black/40 border border-white/5 rounded-2xl hover:border-[#f5c518]/20 transition-all duration-300 group">
-                    <div className="flex items-center justify-center bg-white rounded-xl p-3 w-28 h-14 shadow-sm border border-white/10 flex-shrink-0 group-hover:shadow-[0_0_15px_rgba(245,197,24,0.1)] transition-all duration-300">
+                    <div className="flex items-center justify-center bg-white rounded-xl p-2 w-36 h-20 shadow-sm border border-white/10 flex-shrink-0 group-hover:shadow-[0_0_15px_rgba(245,197,24,0.1)] transition-all duration-300">
                       <img
                         src="/images/Super_Micro_Computer_Logo.svg"
                         alt="Supermicro Logo"
@@ -532,11 +532,11 @@ const ARMS = () => {
 
                   {/* NVIDIA */}
                   <div className="flex items-center gap-4 p-4 bg-black/40 border border-white/5 rounded-2xl hover:border-[#76b900]/20 transition-all duration-300 group">
-                    <div className="flex items-center justify-center bg-white rounded-xl p-3 w-28 h-14 shadow-sm border border-white/10 flex-shrink-0 group-hover:shadow-[0_0_15px_rgba(118,185,0,0.15)] transition-all duration-300">
+                    <div className="flex items-center justify-center bg-white rounded-xl p-0 w-36 h-20 shadow-sm border border-white/10 flex-shrink-0 group-hover:shadow-[0_0_15px_rgba(118,185,0,0.15)] transition-all duration-300 overflow-hidden">
                       <img
                         src="/images/nvidia.png"
                         alt="NVIDIA Logo"
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-contain scale-[1.9]"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                           e.currentTarget.nextElementSibling!.style.display = 'flex';

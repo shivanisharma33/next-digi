@@ -1068,3 +1068,69 @@
 #infra-stack-hero .ish-stats {
   animation-delay: 0.95s;
 }
+
+/* ── Premium Animated Background Layers ───────────────────────────────── */
+#infra-stack-hero .ish-bg-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#infra-stack-hero .ish-bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform, opacity;
+}
+
+#infra-stack-hero .ish-bg-layer.base-image {
+  background-image: url('../assets/hero-server-room.jpg');
+  opacity: 0.28;
+  filter: brightness(0.7) contrast(1.1);
+  animation: ish-bg-breath 36s ease-in-out infinite alternate;
+}
+
+#infra-stack-hero .ish-bg-layer.glow-image {
+  background-image: url('../assets/hero-server-room.jpg');
+  opacity: 0.35;
+  filter: brightness(1.5) contrast(1.5) saturate(1.8);
+  mix-blend-mode: screen;
+  animation: 
+    ish-bg-breath 36s ease-in-out infinite alternate,
+    ish-glow-pulse 6s ease-in-out infinite alternate;
+}
+
+#infra-stack-hero .ish-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(to bottom, #060708 0%, transparent 12%, transparent 88%, #060708 100%),
+    linear-gradient(to right, #060708 0%, transparent 20%, transparent 80%, #060708 100%),
+    radial-gradient(circle at 30% 40%, transparent 20%, rgba(6, 7, 8, 0.4) 60%, #060708 100%);
+  z-index: 1;
+}
+
+@keyframes ish-bg-breath {
+  0% {
+    transform: scale(1.02) translate(0px, 0px) rotate(0deg);
+  }
+  100% {
+    transform: scale(1.09) translate(-10px, -5px) rotate(0.5deg);
+  }
+}
+
+@keyframes ish-glow-pulse {
+  0% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
