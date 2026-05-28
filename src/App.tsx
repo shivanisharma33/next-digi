@@ -13,7 +13,6 @@ const DataCenter = lazy(() => import('./components/DataCenter'));
 const NeoCloudz = lazy(() => import('./components/NeoCloudz'));
 const Careers = lazy(() => import('./components/Careers'));
 const SECFilings = lazy(() => import('./components/SECFilings'));
-const ARMS = lazy(() => import('./components/ARMS'));
 const Leadership = lazy(() => import('./components/Leadership'));
 const PressRelease = lazy(() => import('./components/PressRelease'));
 const InvestorRelations = lazy(() => import('./components/InvestorRelations'));
@@ -35,7 +34,6 @@ export const ROUTES = {
   neocloudz: '/neocloudz',
   careers: '/careers',
   secFilings: '/sec-filings',
-  arms: '/arms',
   leadership: '/leadership',
   pressRelease: '/press-release',
   investors: '/investors',
@@ -102,7 +100,6 @@ export default function App() {
             <Route path={ROUTES.neocloudz} element={<NeoCloudz />} />
             <Route path={ROUTES.careers} element={<Careers />} />
             <Route path={ROUTES.secFilings} element={<SECFilings />} />
-            <Route path={ROUTES.arms} element={<ARMS />} />
             <Route path={ROUTES.leadership} element={<Leadership />} />
             <Route path={ROUTES.pressRelease} element={<PressRelease />} />
             <Route path={ROUTES.investors} element={<InvestorRelations />} />

@@ -55,7 +55,6 @@ const Navbar = () => {
       sublinks: [
         { name: 'Energy', path: '/energy', desc: 'Owned high-density power generation', icon: <Cpu className="w-4 h-4 text-brand-yellow" /> },
         { name: 'Global Network', path: '/global-network', desc: 'US footprint inter-site backbone', icon: <Network className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'ARMS Modular Systems', path: '/arms', desc: 'Turnkey high-density microgrids', icon: <Activity className="w-4 h-4 text-brand-yellow" /> },
         { name: 'Data Centers', path: '/data-centers', desc: 'Tier III modular compute campuses', icon: <Shield className="w-4 h-4 text-brand-yellow" /> },
       ]
     },

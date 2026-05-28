@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import PressReleaseHeroVisual3D from './PressReleaseHeroVisual3D';
+import WaveVisual from './WaveVisual';
 
 type FormState = {
   firstName: string;
@@ -236,6 +236,21 @@ export default function Contact() {
           background: rgba(245,197,24,0.07); filter: blur(60px);
         }
 
+        .ct-left-placeholder #hero3d {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: auto;
+          z-index: 1;
+        }
+        .ct-left-placeholder #hero3d canvas {
+          display: block;
+          width: 100% !important;
+          height: 100% !important;
+          background: transparent;
+        }
+
         .ct-form-panel {
           border: 0.5px solid var(--border);
           border-radius: var(--radius-lg);
@@ -404,7 +419,7 @@ export default function Contact() {
             {/* Left: visual + testimonial */}
             <div className="ct-left">
               <div className="ct-left-placeholder">
-                <PressReleaseHeroVisual3D />
+                <WaveVisual />
               </div>
               <div className="ct-left-overlay"></div>
               <div className="ct-quote">
@@ -438,7 +453,7 @@ export default function Contact() {
                       />
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Last Name <span class="req">*</span></label>
+                      <label className="form-label">Last Name <span className="req">*</span></label>
                       <input
                         name="lastName"
                         value={form.lastName}
