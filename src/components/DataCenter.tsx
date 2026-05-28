@@ -307,7 +307,7 @@ const DataCenter = () => {
               { layer: 'Cooling', dir: 'Direct liquid cooling with closed-loop CDU and chiller plant', spec: 'PUE target <1.3' },
               { layer: 'Network', dir: 'Low-latency fabric with carrier-neutral interconnect access', spec: '400G fabric capable' },
               { layer: 'Operations', dir: '24/7 NOC monitoring, remote hands, biometric access control', spec: 'Tier III design path' },
-              { layer: 'Power Base', dir: 'Alabama facility base with load study expansion direction', spec: '22MW → 55MW' },
+              { layer: 'Power Base', dir: 'Owned generation and utility-connected sites across the U.S. footprint', spec: '400MW+ owned & pipeline' },
               { layer: 'Connectivity', dir: 'Diverse carrier access and dark fiber pathway', spec: 'Multi-carrier ready' },
             ].map((row, i) => (
               <motion.div

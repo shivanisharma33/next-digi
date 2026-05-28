@@ -25,6 +25,7 @@ import {
 import StockPriceCard from './StockPriceCard';
 import InvestorHeroVisual3D from './InvestorHeroVisual3D';
 import CubeGridNetwork3D from "./CubeGridNetwork3D";
+import InvestorPulseGraph from './InvestorPulseGraph';
 
 interface StockDataPoint {
   date: string;
@@ -458,37 +459,33 @@ const InvestorRelations = () => {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: 3D Animation */}
+          {/* RIGHT: Pulse Graph Visual */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full h-[420px] sm:h-[520px] md:h-[600px] lg:h-[720px] xl:h-[780px] relative lg:-mr-12 xl:-mr-24"
+            className="w-full relative flex items-center justify-center"
           >
-            {/* Outer glow halo */}
-            <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(255,198,41,0.15),transparent_60%)] blur-2xl pointer-events-none" />
-            {/* Inner amber wash */}
-            <div className="absolute inset-0 bg-gradient-radial from-[#ffc629]/10 via-transparent to-transparent blur-3xl pointer-events-none" />
+            {/* Ambient halos */}
+            <div className="absolute -inset-10 bg-[radial-gradient(circle_at_60%_40%,rgba(255,198,41,0.18),transparent_55%)] blur-2xl pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(255,198,41,0.08),transparent_60%)] blur-3xl pointer-events-none" />
 
-            {/* Decorative concentric ring */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] aspect-square rounded-full border border-white/[0.04] pointer-events-none" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] aspect-square rounded-full border border-[#ffc629]/[0.08] pointer-events-none" />
+            {/* Chart frame — sized to the pulse graph's square aspect */}
+            <div className="relative w-full max-w-[640px] aspect-square">
 
-            {/* Corner accents — larger */}
-            <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-[#ffc629]/40 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-[#ffc629]/40 pointer-events-none" />
-            <div className="absolute top-0 left-0 w-6 h-6 border-t border-l border-white/10 pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-white/10 pointer-events-none" />
+              {/* Outer subtle border */}
+              <div className="absolute inset-0 rounded-3xl border border-white/[0.04] pointer-events-none" />
 
-            {/* The 3D canvas — scaled up to fill more presence */}
-            <div className="absolute inset-0 scale-110 lg:scale-125 origin-center">
-              <CubeGridNetwork3D/>
-            </div>
+              {/* Corner brackets — bolder, framing the chart */}
+              <div className="absolute -top-px -right-px w-14 h-14 border-t-2 border-r-2 border-[#ffc629]/50 rounded-tr-3xl pointer-events-none" />
+              <div className="absolute -bottom-px -left-px w-14 h-14 border-b-2 border-l-2 border-[#ffc629]/50 rounded-bl-3xl pointer-events-none" />
+              <div className="absolute -top-px -left-px w-8 h-8 border-t border-l border-white/15 rounded-tl-3xl pointer-events-none" />
+              <div className="absolute -bottom-px -right-px w-8 h-8 border-b border-r border-white/15 rounded-br-3xl pointer-events-none" />
 
-            {/* Floating label badge */}
-            <div className="absolute bottom-4 right-4 lg:bottom-6 lg:right-6 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 pointer-events-none">
-              <div className="h-1.5 w-1.5 rounded-full bg-[#ffc629] animate-pulse" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/60">Drag to rotate</span>
+              <div className="absolute inset-0 px-8 py-6">
+                <InvestorPulseGraph />
+              </div>
+       
             </div>
           </motion.div>
         </div>
@@ -577,6 +574,8 @@ const InvestorRelations = () => {
           </div>
         </div>
       </section>
+
+      
 
       {/* RESOURCES SECTION */}
       <section className="py-10 sm:py-16 px-4 sm:px-6 border-t border-white/5">

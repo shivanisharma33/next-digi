@@ -1,9 +1,221 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CTASection } from './Footer';
 import DgxGlobe from './DgxGlobe';
 import GlobalNetworkHeroVisual3D from './GlobalNetworkHeroVisual3D';
 import EnergyHeroCanvas from './EnergyHeroCanvas';
+import UnifiedOpsHub3D from './UnifiedOpsHub3D';
+import InvestorHeroVisual3D from './InvestorHeroVisual3D';
+import CubeGridNetwork3D from './CubeGridNetwork3D';
+import './GlobalNetwork.css';
+
+const BRAND = '#f5c518';
+const BG = '#0b0b0d';
+
+const GLOBE_FRAMES = 40;
+const GLOBE_FPS = 12;
+
+const GeoDiversitySVG = () => {
+  const [frame, setFrame] = useState(1);
+
+  useEffect(() => {
+    // Preload all frames so swaps are instant
+    const preloaded: HTMLImageElement[] = [];
+    for (let i = 1; i <= GLOBE_FRAMES; i++) {
+      const img = new Image();
+      img.src = `/globe/${i}.svg`;
+      preloaded.push(img);
+    }
+
+    const id = window.setInterval(() => {
+      setFrame((f) => (f % GLOBE_FRAMES) + 1);
+    }, 1000 / GLOBE_FPS);
+
+    return () => window.clearInterval(id);
+  }, []);
+
+  return (
+    <div className="gn-globe-stage" role="img" aria-label="Rotating globe — geographically diverse sites">
+      {/* Inline filter — tints any luminance value to brand yellow #f5c518.
+          Matrix maps grayscale L to (1.25·L, 1.00·L, 0.10·L); highlights clamp to
+          (255, 255, ~26) ≈ light brand yellow. */}
+      <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
+        <defs>
+          <filter id="gn-globe-tint" colorInterpolationFilters="sRGB">
+            <feColorMatrix
+              type="matrix"
+              values="1.25 0 0 0 0
+                      1.00 0 0 0 0
+                      0.10 0 0 0 0
+                      0    0 0 1 0"
+            />
+          </filter>
+        </defs>
+      </svg>
+      <img
+        className="gn-globe-frame"
+        src={`/globe/${frame}.svg`}
+        alt=""
+        draggable={false}
+      />
+    </div>
+  );
+};
+
+const BackboneFailoverSVG = () => (
+  <svg className="gn-bb" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Inter-site backbone for replication and failover">
+    <defs>
+      <marker id="gn-bb-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke={BRAND} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      </marker>
+
+      <path id="gn-bb-p1" d="M160,170 Q340,80 520,170" />
+      <path id="gn-bb-p2" d="M160,210 L520,210" />
+      <path id="gn-bb-p3" d="M160,250 Q340,340 520,250" />
+    </defs>
+
+    {/* Left rack — Site A */}
+    <g transform="translate(60,130)">
+      <rect width="100" height="160" rx="8" fill={BG} stroke={BRAND} strokeWidth="2" />
+      <text x="50" y="22" textAnchor="middle" fill={BRAND} fontSize="11" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="3">SITE A</text>
+      <g stroke={BRAND} strokeWidth="1.4" opacity="0.7">
+        <line x1="12" y1="42"  x2="88" y2="42"  />
+        <line x1="12" y1="62"  x2="88" y2="62"  />
+        <line x1="12" y1="82"  x2="88" y2="82"  />
+        <line x1="12" y1="102" x2="88" y2="102" />
+        <line x1="12" y1="122" x2="88" y2="122" />
+        <line x1="12" y1="142" x2="88" y2="142" />
+      </g>
+      <circle className="gn-bb-led" cx="82" cy="42" r="3.2" fill="#22c55e" />
+    </g>
+
+    {/* Right rack — Site B */}
+    <g transform="translate(520,130)">
+      <rect width="100" height="160" rx="8" fill={BG} stroke={BRAND} strokeWidth="2" />
+      <text x="50" y="22" textAnchor="middle" fill={BRAND} fontSize="11" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="3">SITE B</text>
+      <g stroke={BRAND} strokeWidth="1.4" opacity="0.7">
+        <line x1="12" y1="42"  x2="88" y2="42"  />
+        <line x1="12" y1="62"  x2="88" y2="62"  />
+        <line x1="12" y1="82"  x2="88" y2="82"  />
+        <line x1="12" y1="102" x2="88" y2="102" />
+        <line x1="12" y1="122" x2="88" y2="122" />
+        <line x1="12" y1="142" x2="88" y2="142" />
+      </g>
+      <circle className="gn-bb-led" cx="82" cy="42" r="3.2" fill="#22c55e" />
+    </g>
+
+    {/* Three diverse fiber paths */}
+    <use href="#gn-bb-p1" className="gn-bb-link" fill="none" stroke={BRAND} strokeWidth="1.8" opacity="0.5" strokeLinecap="round" />
+    <use href="#gn-bb-p2" className="gn-bb-link" fill="none" stroke={BRAND} strokeWidth="1.8" opacity="0.6" strokeLinecap="round" />
+    <use href="#gn-bb-p3" className="gn-bb-link" fill="none" stroke={BRAND} strokeWidth="1.8" opacity="0.5" strokeLinecap="round" />
+
+    {/* Bidirectional packets along each path */}
+    <circle r="5" fill={BRAND}>
+      <animateMotion dur="4s" repeatCount="indefinite">
+        <mpath href="#gn-bb-p1" />
+      </animateMotion>
+    </circle>
+    <circle r="5" fill={BRAND}>
+      <animateMotion dur="3.6s" repeatCount="indefinite" calcMode="linear" keyPoints="1;0" keyTimes="0;1">
+        <mpath href="#gn-bb-p2" />
+      </animateMotion>
+    </circle>
+    <circle r="5" fill={BRAND}>
+      <animateMotion dur="4.4s" repeatCount="indefinite">
+        <mpath href="#gn-bb-p3" />
+      </animateMotion>
+    </circle>
+    <circle r="4" fill={BRAND} opacity="0.8">
+      <animateMotion dur="5s" begin="1s" repeatCount="indefinite" calcMode="linear" keyPoints="1;0" keyTimes="0;1">
+        <mpath href="#gn-bb-p1" />
+      </animateMotion>
+    </circle>
+    <circle r="4" fill={BRAND} opacity="0.8">
+      <animateMotion dur="5.4s" begin="0.6s" repeatCount="indefinite">
+        <mpath href="#gn-bb-p3" />
+      </animateMotion>
+    </circle>
+
+    {/* Sync indicator in the middle */}
+    <g>
+      <circle className="gn-bb-sync" cx="340" cy="210" r="22" fill="none" stroke={BRAND} strokeWidth="1.6" opacity="0.6" />
+      <circle cx="340" cy="210" r="6" fill={BRAND} />
+      <line x1="330" y1="200" x2="350" y2="200" stroke={BG} strokeWidth="1.6" strokeLinecap="round" markerEnd="url(#gn-bb-arrow)" />
+      <line x1="350" y1="220" x2="330" y2="220" stroke={BG} strokeWidth="1.6" strokeLinecap="round" markerEnd="url(#gn-bb-arrow)" />
+    </g>
+  </svg>
+);
+
+const EdgeToCoreSVG = () => (
+  <svg className="gn-edge" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Edge-to-core latency engineered for AI workloads">
+    <defs>
+      <marker id="gn-edge-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke={BRAND} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      </marker>
+    </defs>
+
+    {/* Outermost faint dashed ring */}
+    <circle className="gn-ring-far" cx="340" cy="210" r="210" fill="none" stroke={BRAND} strokeWidth="1" opacity="0.14" />
+
+    {/* OUTER dotted flowing ring */}
+    <circle className="gn-ring-outer" cx="340" cy="210" r="178" fill="none" stroke={BRAND} strokeWidth="2.2" strokeLinecap="round" opacity="0.6" />
+
+    {/* second outer dotted ring, opposite flow */}
+    <circle className="gn-ring-outer2" cx="340" cy="210" r="142" fill="none" stroke={BRAND} strokeWidth="1.8" strokeLinecap="round" opacity="0.35" />
+
+    {/* INNER SOLID ring, slow rotation */}
+    <circle className="gn-ring-inner" cx="340" cy="210" r="92" fill="none" stroke={BRAND} strokeWidth="2" opacity="0.85" />
+
+    {/* orbiting node dot */}
+    <g className="gn-orbit">
+      <circle cx="340" cy="118" r="3.2" fill={BRAND} opacity="0.9" />
+    </g>
+
+    {/* STATIC signal arrow */}
+    <g>
+      <circle cx="516" cy="210" r="6" fill={BRAND} />
+      <line x1="516" y1="210" x2="440" y2="210" stroke={BRAND} strokeWidth="2.4" strokeLinecap="round" markerEnd="url(#gn-edge-arrow)" />
+    </g>
+
+    {/* chip glow halo */}
+    <circle className="gn-chip-glow" cx="340" cy="210" r="74" fill={BRAND} opacity="0.18" />
+
+    {/* chip body */}
+    <rect x="298" y="168" width="84" height="84" rx="12" fill={BG} stroke={BRAND} strokeWidth="2" />
+
+    {/* chip pins */}
+    <g stroke={BRAND} strokeWidth="2" strokeLinecap="round">
+      <line x1="316" y1="156" x2="316" y2="168" />
+      <line x1="340" y1="156" x2="340" y2="168" />
+      <line x1="364" y1="156" x2="364" y2="168" />
+      <line x1="316" y1="252" x2="316" y2="264" />
+      <line x1="340" y1="252" x2="340" y2="264" />
+      <line x1="364" y1="252" x2="364" y2="264" />
+      <line x1="286" y1="186" x2="298" y2="186" />
+      <line x1="286" y1="210" x2="298" y2="210" />
+      <line x1="286" y1="234" x2="298" y2="234" />
+      <line x1="382" y1="186" x2="394" y2="186" />
+      <line x1="382" y1="210" x2="394" y2="210" />
+      <line x1="382" y1="234" x2="394" y2="234" />
+    </g>
+
+    {/* DGXX logo */}
+    <g transform="translate(340,210) scale(0.2955) translate(-150,-150)">
+      <path d="M112,62 L156,62 A88,88 0 0 1 156,238 L112,238 Z" fill={BRAND} />
+      <g fill={BG}>
+        <rect x="104" y="104" width="58" height="26" rx="4" />
+        <rect x="104" y="168" width="58" height="26" rx="4" />
+      </g>
+      <g fill={BRAND}>
+        <rect x="62" y="108" width="46" height="22" rx="4" />
+        <rect x="62" y="172" width="46" height="22" rx="4" />
+        <rect x="130" y="110" width="28" height="18" rx="3" />
+        <rect x="130" y="174" width="28" height="18" rx="3" />
+      </g>
+    </g>
+  </svg>
+);
 
 const GlobalNetwork = () => {
   return (
@@ -126,42 +338,143 @@ const GlobalNetwork = () => {
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
+          <div className="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
             {[
-              { num: "01", text: "Geographically diverse sites with independent power profiles" },
-              { num: "02", text: "Inter-site backbone for replication and failover" },
-              { num: "03", text: "Edge-to-core latency budget engineered for AI workloads" },
-              { num: "04", text: "One operations team across the full network footprint" }
-            ].map((card, i) => (
+              {
+                num: "01",
+                tag: "Geographic Diversity",
+                title: "Diverse sites, independent power profiles",
+                lead: "Owned nodes spread across distinct ISO regions and grid operators — so a fault in one market never propagates into customer capacity in another.",
+                bullets: [
+                  "Sites across NY, AL, and NC anchor the active footprint",
+                  "Independent generation mix at each node — gas, grid, hybrid",
+                  "Customer proximity to East Coast and Southeast demand hubs",
+                  "Diverse fiber entries and water/utility paths per site",
+                ],
+                metrics: [
+                  { k: "Regions", v: "4" },
+                  { k: "ISOs", v: "3" },
+                  { k: "Power Mix", v: "Hybrid" },
+                ],
+                Visual: GeoDiversitySVG,
+              },
+              {
+                num: "02",
+                tag: "Backbone & Failover",
+                title: "Inter-site fabric for replication & failover",
+                lead: "A managed backbone stitches every node into one operating fabric — replication, failover, and consistent posture across regions without leased-line gaps.",
+                bullets: [
+                  "Diverse-path fiber between every region",
+                  "Active replication paths for customer datasets",
+                  "Automated failover for power + connectivity",
+                  "Single routing policy across the footprint",
+                ],
+                metrics: [
+                  { k: "Paths", v: "3x" },
+                  { k: "RTT Target", v: "<10ms" },
+                  { k: "Failover", v: "Auto" },
+                ],
+                Visual: CubeGridNetwork3D,
+              },
+              {
+                num: "03",
+                tag: "Edge-to-Core Latency",
+                title: "Latency budget engineered for AI workloads",
+                lead: "Routes, optics, and switching are tuned to a strict latency budget — training clusters stay tightly coupled, inference stays close to the user.",
+                bullets: [
+                  "Latency-budgeted routes for distributed training",
+                  "GPU-aware path engineering across the backbone",
+                  "On-site inference at the network edge",
+                  "Low-jitter optical transport, deterministic switching",
+                ],
+                metrics: [
+                  { k: "Edge RTT", v: "<5ms" },
+                  { k: "Core RTT", v: "<10ms" },
+                  { k: "Jitter", v: "Sub-ms" },
+                ],
+                Visual: EdgeToCoreSVG,
+              },
+              {
+                num: "04",
+                tag: "Unified Operations",
+                title: "One ops team across the full footprint",
+                lead: "Network, power, and compute are observed and controlled as one — customers get a single contract, single NOC, single point of accountability.",
+                bullets: [
+                  "24/7 multi-region NOC coverage",
+                  "Unified telemetry across power and compute",
+                  "Capacity provisioning across the footprint",
+                  "Customer-facing SLAs at the network tier",
+                ],
+                metrics: [
+                  { k: "Coverage", v: "24/7" },
+                  { k: "NOC", v: "Single" },
+                  { k: "SLA", v: "Unified" },
+                ],
+                Visual: UnifiedOpsHub3D,
+              },
+            ].map((card, i) => {
+              const { Visual } = card;
+              return (
               <div
                 key={i}
-                className="group relative bg-[#0a0a0a] rounded-2xl p-7 md:p-8 border border-white/[0.06] hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_24px_60px_rgba(245,197,24,0.15)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-0.5"
+                className="group relative bg-gradient-to-br from-[#0b0b0e] to-[#070709] rounded-3xl p-8 md:p-10 border border-white/[0.06] hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.18)] hover:shadow-[0_30px_80px_rgba(245,197,24,0.18)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-1"
               >
                 {/* Subtle Mesh Background for texture */}
                 <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#f5c518 1px, transparent 0)', backgroundSize: '24px 24px' }} />
 
                 {/* Decorative corner element */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#f5c518]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-tr-2xl" />
+                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#f5c518]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-tr-3xl" />
 
-                {/* Numeric Badge with animated glow */}
-                <div className="relative mb-6">
-                  <div className="absolute inset-0 bg-[#f5c518] rounded-xl blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-500" />
-                  <div className="w-10 h-10 bg-[#0c0d12] border border-[#f5c518]/15 rounded-xl flex items-center justify-center relative z-10 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-                    <span className="font-mono text-xs font-black tracking-widest text-[#f5c518]">{card.num}</span>
+                {/* Animated visual */}
+                <div className="gn-card-visual gn-card-visual--lg relative z-10">
+                  <Visual />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-white text-xl md:text-2xl font-semibold tracking-tight leading-snug mb-3 relative z-10 group-hover:text-[#f5c518] transition-colors duration-500">
+                  {card.title}
+                </h3>
+
+                {/* Lead paragraph */}
+                <p className="text-white/55 text-[13px] md:text-sm leading-relaxed font-medium mb-6 relative z-10">
+                  {card.lead}
+                </p>
+
+                {/* Detail bullets */}
+                <ul className="space-y-2.5 mb-7 relative z-10 w-full">
+                  {card.bullets.map((b, bi) => (
+                    <li key={bi} className="flex items-start gap-3">
+                      <span className="mt-[7px] w-1.5 h-1.5 rounded-full bg-[#f5c518]/70 shrink-0" />
+                      <span className="text-white/70 text-[13px] leading-relaxed font-medium">
+                        {b}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Metric strip */}
+                <div className="mt-auto w-full pt-6 border-t border-white/[0.06] relative z-10">
+                  <div className="grid grid-cols-3 gap-3">
+                    {card.metrics.map((m, mi) => (
+                      <div key={mi} className="flex flex-col">
+                        <span className="font-mono text-[9px] font-semibold tracking-[0.2em] uppercase text-white/35 mb-1.5">
+                          {m.k}
+                        </span>
+                        <span className="text-[#f5c518] text-base md:text-lg font-bold tracking-tight">
+                          {m.v}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Text Content */}
-                <p className="text-white/80 font-bold text-xs md:text-sm leading-relaxed tracking-tight flex-1 group-hover:text-white transition-colors duration-500">
-                  {card.text}
-                </p>
-
                 {/* Bottom indicator line that stretches out on hover */}
-                <div className="mt-6 pt-2 w-full">
-                  <div className="h-[2px] w-8 bg-white/5 group-hover:w-full group-hover:bg-[#f5c518] transition-all duration-500 origin-left" />
+                <div className="mt-6 w-full relative z-10">
+                  <div className="h-[2px] w-10 bg-white/5 group-hover:w-full group-hover:bg-[#f5c518] transition-all duration-500 origin-left" />
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

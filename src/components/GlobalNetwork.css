@@ -1,0 +1,217 @@
+/* ============================================================
+   Global Network — Card Visual Animations
+   Brand color: #f5c518   Bg: #0b0b0d
+   ============================================================ */
+
+.gn-card-visual {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  margin-bottom: 1.25rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, rgba(245, 197, 24, 0.05), transparent 70%),
+    #060608;
+  border: 1px solid rgba(245, 197, 24, 0.08);
+}
+
+.gn-card-visual--lg {
+  height: 320px;
+  margin-bottom: 1.75rem;
+  border-radius: 16px;
+}
+
+@media (min-width: 768px) {
+  .gn-card-visual--lg {
+    height: 380px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .gn-card-visual--lg {
+    height: 440px;
+  }
+}
+
+.gn-card-visual svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Globe card uses no inner background — it sits flush on the parent card */
+.gn-card-visual:has(.gn-globe-stage) {
+  background: transparent;
+  border: none;
+}
+
+/* ============================================================
+   Card 03 · Edge-to-Core (from supplied HTML)
+   ============================================================ */
+.gn-edge .gn-ring-far {
+  stroke-dasharray: 2 9;
+  animation: gn-edge-flowFar 30s linear infinite;
+}
+@keyframes gn-edge-flowFar { to { stroke-dashoffset: -220; } }
+
+.gn-edge .gn-ring-outer {
+  stroke-dasharray: 2 13;
+  animation: gn-edge-flow 9s linear infinite;
+}
+@keyframes gn-edge-flow { to { stroke-dashoffset: -340; } }
+
+.gn-edge .gn-ring-outer2 {
+  stroke-dasharray: 1.5 12;
+  animation: gn-edge-flow2 13s linear infinite;
+}
+@keyframes gn-edge-flow2 { to { stroke-dashoffset: 320; } }
+
+.gn-edge .gn-ring-inner {
+  transform-origin: 340px 210px;
+  animation: gn-edge-spinSlow 26s linear infinite;
+}
+@keyframes gn-edge-spinSlow { to { transform: rotate(-360deg); } }
+
+.gn-edge .gn-orbit {
+  transform-origin: 340px 210px;
+  animation: gn-edge-orbit 16s linear infinite;
+}
+@keyframes gn-edge-orbit { to { transform: rotate(360deg); } }
+
+.gn-edge .gn-chip-glow {
+  transform-origin: 340px 210px;
+  animation: gn-edge-breathe 4s ease-in-out infinite;
+}
+@keyframes gn-edge-breathe {
+  0%, 100% { opacity: 0.14; transform: scale(1); }
+  50%      { opacity: 0.34; transform: scale(1.06); }
+}
+
+/* ============================================================
+   Card 01 · Geographic Diversity — rotating globe
+   40-frame sprite cycled in JS, recolored to brand yellow
+   via sepia + hue-rotate (keeps shading, swaps the hue)
+   ============================================================ */
+.gn-globe-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: transparent;
+}
+
+.gn-globe-frame {
+  height: 75%;
+  width: auto;
+  max-width: 75%;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  /* Grayscale normalizes luminance, then the SVG matrix maps it to brand yellow.
+     `lighten` blend lets the frame's near-black backdrop fall through to the card. */
+  filter:
+    grayscale(1)
+    url(#gn-globe-tint);
+  mix-blend-mode: lighten;
+}
+
+/* ============================================================
+   Card 02 · Inter-site Backbone (replication & failover)
+   Two racks linked by three diverse fiber paths with
+   bidirectional packets travelling continuously
+   ============================================================ */
+.gn-bb .gn-bb-link {
+  stroke-dasharray: 4 6;
+  animation: gn-bb-link 4s linear infinite;
+}
+@keyframes gn-bb-link { to { stroke-dashoffset: -160; } }
+
+.gn-bb .gn-bb-led {
+  animation: gn-bb-led 1.4s ease-in-out infinite;
+}
+@keyframes gn-bb-led {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+
+.gn-bb .gn-bb-sync {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gn-bb-sync 2.4s ease-in-out infinite;
+}
+@keyframes gn-bb-sync {
+  0%, 100% { opacity: 0.55; transform: scale(0.92); }
+  50%      { opacity: 1;    transform: scale(1.08); }
+}
+
+/* ============================================================
+   Card 04 · Unified Operations (one team, full footprint)
+   Central command hub with pulse rings reaching out to
+   four satellite nodes
+   ============================================================ */
+.gn-ops .gn-ops-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gn-ops-pulse 3s ease-out infinite;
+}
+.gn-ops .gn-ops-pulse-1 { animation-delay: 0s; }
+.gn-ops .gn-ops-pulse-2 { animation-delay: 1s; }
+.gn-ops .gn-ops-pulse-3 { animation-delay: 2s; }
+
+@keyframes gn-ops-pulse {
+  0%   { transform: scale(0.6); opacity: 0.6; }
+  100% { transform: scale(3.6); opacity: 0; }
+}
+
+.gn-ops .gn-ops-link {
+  stroke-dasharray: 4 6;
+  animation: gn-ops-link 3s linear infinite;
+}
+@keyframes gn-ops-link { to { stroke-dashoffset: -120; } }
+
+.gn-ops .gn-ops-sat {
+  animation: gn-ops-sat 2s ease-in-out infinite;
+}
+.gn-ops .gn-ops-sat-1 { animation-delay: 0s; }
+.gn-ops .gn-ops-sat-2 { animation-delay: 0.5s; }
+.gn-ops .gn-ops-sat-3 { animation-delay: 1s; }
+.gn-ops .gn-ops-sat-4 { animation-delay: 1.5s; }
+@keyframes gn-ops-sat {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+.gn-ops .gn-ops-live {
+  animation: gn-ops-blink 1.4s ease-in-out infinite;
+}
+@keyframes gn-ops-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+.gn-ops .gn-ops-bar {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: gn-ops-bar 2.8s ease-in-out infinite;
+}
+.gn-ops .gn-ops-bar-1 { animation-delay: 0s; }
+.gn-ops .gn-ops-bar-2 { animation-delay: 0.4s; }
+.gn-ops .gn-ops-bar-3 { animation-delay: 0.8s; }
+@keyframes gn-ops-bar {
+  0%, 100% { transform: scaleX(0.4); opacity: 0.5; }
+  50%      { transform: scaleX(1);   opacity: 1;   }
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .gn-card-visual *,
+  .gn-card-visual *::before,
+  .gn-card-visual *::after {
+    animation: none !important;
+  }
+}

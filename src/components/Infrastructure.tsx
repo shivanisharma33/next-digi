@@ -62,7 +62,7 @@ const Infrastructure = () => {
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[2px] w-12 bg-gradient-to-r from-[#f5c518] to-transparent" />
               <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/40">
-                188MW Pipeline · Texarkana
+                400MW+ Pipeline · Texarkana
               </span>
             </div>
 
@@ -133,31 +133,6 @@ const Infrastructure = () => {
           </motion.div>
 
         </div>
-
-        {/* Stats Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full max-w-[1200px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 bg-[#0a0b0f]/80 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl shadow-2xl relative"
-        >
-          {/* Top highlight line */}
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#f5c518]/50 to-transparent opacity-50" />
-
-          {[
-            { val: "60MW", label: "Existing Base Generation", desc: "North Texarkana Plant" },
-            { val: "128MW", label: "Additional Capacity", desc: "Phase II Expansion" },
-            { val: "~$0.04", label: "Target Power Cost", desc: "Per kWh via Owned Generation" },
-            { val: "100%", label: "Grid Redundancy", desc: "Dual-Path Interconnection" }
-          ].map((stat, i) => (
-            <div key={i} className="p-8 md:p-10 flex flex-col items-center justify-center border-b sm:border-b-0 lg:border-r border-white/5 last:border-0 group hover:bg-white/[0.03] transition-colors relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-b from-[#f5c518]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="text-[#f5c518] font-mono text-4xl md:text-5xl font-bold mb-3 tracking-tighter relative z-10">{stat.val}</span>
-              <span className="text-white text-sm font-semibold tracking-wide text-center mb-1 relative z-10">{stat.label}</span>
-              <span className="text-[10px] text-white/40 uppercase tracking-[0.1em] text-center relative z-10">{stat.desc}</span>
-            </div>
-          ))}
-        </motion.div>
       </section>
 
       {/* Power Flow Section: From Generation to GPU Load */}
@@ -282,7 +257,7 @@ const Infrastructure = () => {
               <div className="space-y-4 pt-6 border-t border-white/5">
                 {[
                   "Natural gas & renewable integration",
-                  "60MW base capacity scaling to 188MW",
+                  "60MW base capacity scaling to 400MW+",
                   "Insulated from grid pricing spikes",
                   "Modular generation expansion capabilities"
                 ].map((item, i) => (
@@ -434,7 +409,7 @@ const Infrastructure = () => {
               { val: "~$0.04/kWh", label: "STRUCTURAL COST ADVANTAGE", desc: "Target power production cost cited for North Texarkana site, beating market rates." },
               { val: "Behind-the-Meter", label: "TRANSMISSION EFFICIENCY", desc: "Direct distribution program drastically reduces grid transmission and delivery fees." },
               { val: "2N Redundancy", label: "REVENUE OPTIONALITY", desc: "Dual-path interconnection enables Tier III equivalent uptime for critical AI loads." },
-              { val: "188MW", label: "PIPELINE CAPACITY", desc: "Combined existing and expansion energy capacity designated for compute conversion." }
+              { val: "400MW+", label: "PIPELINE CAPACITY", desc: "Combined existing and expansion energy capacity designated for compute conversion." }
             ].map((stat, i) => (
               <div
                 key={i}

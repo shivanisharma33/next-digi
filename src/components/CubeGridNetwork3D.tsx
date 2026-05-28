@@ -80,6 +80,13 @@ const CubeGridNetwork3D: React.FC = () => {
     add(5, -3, 2);
     add(5, -1, 3); add(6, -1, 3);
 
+    // Mirror the main cluster across z=0 so the back replicates the front shape
+    const mainCount = cubeDefs.length;
+    for (let i = 0; i < mainCount; i++) {
+      const [x, y, z, isSolid] = cubeDefs[i];
+      if (z !== 0) cubeDefs.push([x, y, -z, isSolid]);
+    }
+
     const satStartIdx = cubeDefs.length;
     add(9, 3, 0, true); add(10, 3, 0, true); add(11, 3, 0, true);
     add(9, 4, 0, true); add(10, 4, 0, true); add(11, 4, 0, true); add(12, 4, 0);
@@ -87,6 +94,13 @@ const CubeGridNetwork3D: React.FC = () => {
     add(9, 4, 1); add(10, 4, 1, true); add(11, 4, 1);
     add(10, 3, 1);
     add(11, 2, 0, true); add(11, 1, 0); add(12, 1, 0);
+
+    // Mirror the satellite cluster too
+    const satEndIdx = cubeDefs.length;
+    for (let i = satStartIdx; i < satEndIdx; i++) {
+      const [x, y, z, isSolid] = cubeDefs[i];
+      if (z !== 0) cubeDefs.push([x, y, -z, isSolid]);
+    }
 
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
     cubeDefs.forEach(([x, y]) => {
