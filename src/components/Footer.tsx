@@ -8,18 +8,18 @@ const Footer = () => {
     <footer className="bg-[#050505] pt-10 pb-8 px-4 md:px-8 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-[1800px] mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-24 mb-24">
-          
+
           {/* Brand Column */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               <div className="mb-8">
                 <img src={logoImg} alt="DigiPowerX Logo" className="h-20 md:h-16 w-auto brightness-0 invert opacity-90" />
               </div>
-              
+
               <p className="text-white/50 text-[15px] leading-relaxed mb-8 max-w-sm">
                 DigiPowerX is an innovative energy infrastructure company that develops cutting-edge data centers to drive the expansion of sustainable energy assets.
               </p>
-              
+
               <div className="mb-10">
                 <a href="mailto:ir@digipowerx.com" className="text-white hover:text-[#f5c518] font-medium text-[15px] transition-colors flex items-center gap-3">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -28,8 +28,8 @@ const Footer = () => {
               </div>
 
               <div className="flex gap-4">
-                 {/* Social Icons */}
-                 <a href="https://x.com/DigipowerX" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
+                {/* Social Icons */}
+                <a href="https://x.com/DigipowerX" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                     <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
                   </svg>
@@ -67,7 +67,7 @@ const Footer = () => {
                 <li><Link to="/investors" className="hover:text-[#f5c518] transition-colors">Investor Relations</Link></li>
                 <li><Link to="/press-release" className="hover:text-[#f5c518] transition-colors">Press Release</Link></li>
                 <li><Link to="/careers" className="hover:text-[#f5c518] transition-colors">Career</Link></li>
-            
+
               </ul>
             </div>
 
@@ -106,7 +106,7 @@ const Footer = () => {
               <span className="text-[13px] font-medium text-white/40">All Systems Operational</span>
             </div>
           </div>
-          
+
           <div className="text-[13px] font-medium text-white/40 flex flex-wrap items-center justify-center gap-6">
             <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>

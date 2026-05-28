@@ -117,7 +117,7 @@ const Infrastructure = () => {
               <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-white/10 pointer-events-none" />
 
               {/* Coordinate markers */}
-              
+
 
               {/* The 3D canvas */}
               <div className="absolute inset-0">

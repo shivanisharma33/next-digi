@@ -92,7 +92,7 @@ const Colocation = () => {
             <div className="w-full h-full relative flex items-center justify-center">
               {/* Radial ambient glow behind the server racks */}
               <div className="absolute w-[80%] aspect-square bg-[#f5c518]/[0.05] rounded-full blur-[80px] pointer-events-none" />
-              
+
               <img
                 src={colocationRacks}
                 alt="Supermicro Colocation Server Racks"

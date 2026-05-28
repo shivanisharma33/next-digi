@@ -58,8 +58,8 @@ const Terminal = () => {
       <div className="p-6 md:p-8 space-y-[6px] relative z-10 overflow-y-auto h-full text-left">
         {lines.map((line, idx) => (
           <div key={idx} className={`${line.startsWith('[INFO]') ? 'text-[#00e878]/50' :
-              line.includes('neocloudz:~ $') ? 'text-[#00e878] font-bold drop-shadow-[0_0_5px_rgba(0,232,120,0.5)]' :
-                'text-[#00e878]/70'
+            line.includes('neocloudz:~ $') ? 'text-[#00e878] font-bold drop-shadow-[0_0_5px_rgba(0,232,120,0.5)]' :
+              'text-[#00e878]/70'
             } whitespace-nowrap overflow-hidden text-ellipsis tracking-wide leading-relaxed`}>
             {line}
           </div>
@@ -171,7 +171,7 @@ const NeoCloudzSection = () => {
             <div className="relative pl-6 pt-6">
               <div className="absolute top-0 left-0 w-20 h-20 border-t border-l border-[#00e878]/30 pointer-events-none" />
               <div className="absolute bottom-[-1.5rem] right-[-1.5rem] w-20 h-20 border-b border-r border-[#00e878]/30 pointer-events-none" />
-               <NeoCloudzClusterCanvas />
+              <NeoCloudzClusterCanvas />
             </div>
           </motion.div>
 

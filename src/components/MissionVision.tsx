@@ -92,7 +92,7 @@ const MissionVision = () => {
   return (
     <div className="bg-black min-h-screen text-white selection:bg-brand-yellow selection:text-black">
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center pt-28 md:pt-32 pb-8 px-6 overflow-hidden">
+      <section className="relative min-h-[60vh] flex items-center pt-28 md:pt-32 pb-8 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-yellow/[0.03] rounded-full blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 w-full flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-20 max-w-none">
@@ -101,14 +101,14 @@ const MissionVision = () => {
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full lg:w-[42%] flex flex-col items-start text-left z-10 mb-12 lg:mb-0"
+            className="relative z-10 w-full lg:w-[42%] flex flex-col items-start text-left mb-12 lg:mb-0"
           >
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-10">
-              <span className="text-brand-yellow font-bold text-xs select-none">✦</span>
-              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-white/90">Our Purpose</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
+              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-brand-yellow">Our Purpose</span>
             </div>
 
-            <h1 className="text-[clamp(2.8rem,6.5vw,6rem)] font-normal leading-[0.92] tracking-tighter uppercase mb-10 text-white font-[Archivo,sans-serif]">
+            <h1 className="text-[clamp(2.2rem,7vw,5.5rem)] font-normal leading-[0.92] tracking-tighter uppercase mb-10 text-white font-[Archivo,sans-serif]">
               MISSION <br /> <span className="text-brand-yellow">& VISION</span>
             </h1>
 
@@ -132,12 +132,12 @@ const MissionVision = () => {
             </motion.button>
           </motion.div>
 
-          {/* RIGHT: 3D Animation */}
+          {/* RIGHT: 3D Animation (Absolute background on mobile/tablet, right-aligned on desktop) */}
           <motion.div
             initial={{ opacity: 0, x: 35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            className="w-full lg:absolute lg:right-0 lg:top-0 lg:w-[62vw] lg:h-full min-h-[350px] md:min-h-[450px] lg:min-h-[600px] z-0 overflow-visible pointer-events-none"
+            className="absolute right-0 top-0 w-full lg:w-[62vw] h-full z-0 overflow-hidden lg:overflow-visible pointer-events-none opacity-40 md:opacity-75 lg:opacity-100"
           >
             <MissionVisionHeroVisual3D />
           </motion.div>
@@ -162,7 +162,7 @@ const MissionVision = () => {
               {/* Subtle top-right amber glow */}
               <div className="absolute top-0 right-0 w-60 h-60 rounded-full bg-brand-yellow/[0.025] blur-[80px] pointer-events-none" />
 
-              <div className="relative z-10 flex-1 p-10 lg:p-12">
+              <div className="relative z-10 flex-1 p-6 sm:p-10 lg:p-12">
                 {/* Icon Badge */}
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl border border-brand-yellow/25 bg-brand-yellow/[0.06] mb-7">
                   <Target size={20} className="text-brand-yellow" />
@@ -173,7 +173,7 @@ const MissionVision = () => {
 
                 {/* Heading — serif style like the reference */}
                 <h2
-                  className="text-[1.9rem] md:text-[2.4rem] lg:text-[2.6rem] font-extrabold uppercase tracking-tight text-white mb-7 leading-[1.08]"
+                  className="text-[clamp(1.6rem,5vw,2.6rem)] font-extrabold uppercase tracking-tight text-white mb-7 leading-[1.08]"
                 >
                   BUILD THE <span className="text-brand-yellow">FACTORIES</span>
                   <br />AI RUNS ON.
@@ -203,7 +203,7 @@ const MissionVision = () => {
               {/* Subtle bottom-left amber glow */}
               <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full bg-brand-yellow/[0.025] blur-[80px] pointer-events-none" />
 
-              <div className="relative z-10 flex-1 p-10 lg:p-12">
+              <div className="relative z-10 flex-1 p-6 sm:p-10 lg:p-12">
                 {/* Icon Badge */}
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl border border-brand-yellow/25 bg-brand-yellow/[0.06] mb-7">
                   <Compass size={20} className="text-brand-yellow" />
@@ -214,7 +214,7 @@ const MissionVision = () => {
 
                 {/* Heading — serif style like the reference */}
                 <h2
-                  className="text-[1.9rem] md:text-[2.4rem] lg:text-[2.6rem] font-extrabold uppercase tracking-tight text-white mb-7 leading-[1.08]"
+                  className="text-[clamp(1.6rem,5vw,2.6rem)] font-extrabold uppercase tracking-tight text-white mb-7 leading-[1.08]"
                 >
                   A NATION <span className="text-brand-yellow italic">READY</span> FOR
                   <br />SUPERINTELLIGENCE.
@@ -244,7 +244,7 @@ const MissionVision = () => {
               <span className="text-[10px] font-semibold uppercase tracking-[0.45em] text-brand-yellow/80">Operating Principles</span>
             </div>
             <h2
-              className="text-[clamp(2.5rem,6vw,4.5rem)] font-normal leading-[0.95] tracking-tighter uppercase text-white mb-5"
+              className="text-[clamp(2rem,6vw,4.5rem)] font-normal leading-[0.95] tracking-tighter uppercase text-white mb-5"
             >
               WHAT WE <span className="text-white/30">STAND FOR</span>
             </h2>
@@ -263,7 +263,7 @@ const MissionVision = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08, duration: 0.55 }}
-                  className="group relative p-7 rounded-xl border border-[#1a1a1a] bg-[#0a0a0a] hover:border-brand-yellow/20 transition-all duration-500"
+                  className="group relative p-6 sm:p-7 rounded-xl border border-[#1a1a1a] bg-[#0a0a0a] hover:border-brand-yellow/20 transition-all duration-500"
                 >
                   {/* Icon */}
                   <div className="w-11 h-11 rounded-lg border border-brand-yellow/20 bg-brand-yellow/[0.05] flex items-center justify-center mb-5 group-hover:border-brand-yellow/35 group-hover:bg-brand-yellow/[0.08] transition-all duration-300">

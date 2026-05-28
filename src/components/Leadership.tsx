@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  Shield, 
-  Users, 
-  Target, 
-  TrendingUp, 
-  ChevronRight, 
+import {
+  Shield,
+  Users,
+  Target,
+  TrendingUp,
+  ChevronRight,
   X,
   Mail
 } from 'lucide-react';
@@ -20,98 +20,98 @@ const Leadership = () => {
   const [expandedCommittee, setExpandedCommittee] = useState(null);
 
   const executives = [
-    { 
-      name: "Michel Amar", 
-      role: "Chief Executive Officer", 
-      img: "/images/96.jpg", 
-      bio: "Michel Amar is a French-American businessman and entrepreneur known for his success in innovative technology, such as blockchain and electronics, as well as developing branded fashion. With a Bachelor's degree in accounting and business management, Michel has worked and consulted with some of the most famous international brands, playing a vital role in their profitability and continued relevance." 
+    {
+      name: "Michel Amar",
+      role: "Chief Executive Officer",
+      img: "/images/96.jpg",
+      bio: "Michel Amar is a French-American businessman and entrepreneur known for his success in innovative technology, such as blockchain and electronics, as well as developing branded fashion. With a Bachelor's degree in accounting and business management, Michel has worked and consulted with some of the most famous international brands, playing a vital role in their profitability and continued relevance."
     },
-    { 
-      name: "Alec Amar", 
-      role: "President", 
-      img: "/images/95.jpg", 
-      bio: "Mr. Amar is an entrepreneur and infrastructure executive with deep experience in energy, high-density data-center development, and advanced digital infrastructure. Under Mr. Amar's leadership, DigiPowerX has expanded into multiple U.S. markets with a growing portfolio of high-power data-center properties." 
+    {
+      name: "Alec Amar",
+      role: "President",
+      img: "/images/95.jpg",
+      bio: "Mr. Amar is an entrepreneur and infrastructure executive with deep experience in energy, high-density data-center development, and advanced digital infrastructure. Under Mr. Amar's leadership, DigiPowerX has expanded into multiple U.S. markets with a growing portfolio of high-power data-center properties."
     },
-    { 
-      name: "Jagan Jeyapal", 
-      role: "Chief Technology Officer", 
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_34 PM.png", 
-      bio: "Technical visionary driving the architecture of DigiPowerX's high-performance computing platforms and sustainable infrastructure solutions." 
+    {
+      name: "Jagan Jeyapal",
+      role: "Chief Technology Officer",
+      img: "/images/ChatGPT Image May 18, 2026, 04_04_34 PM.png",
+      bio: "Technical visionary driving the architecture of DigiPowerX's high-performance computing platforms and sustainable infrastructure solutions."
     },
-    { 
-      name: "Paul Ciullo", 
-      role: "Chief Financial Officer", 
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_37 PM.png", 
-      bio: "Financial strategist overseeing the company's fiscal health and capital allocation for massive infrastructure scaling." 
+    {
+      name: "Paul Ciullo",
+      role: "Chief Financial Officer",
+      img: "/images/ChatGPT Image May 18, 2026, 04_04_37 PM.png",
+      bio: "Financial strategist overseeing the company's fiscal health and capital allocation for massive infrastructure scaling."
     },
-    { 
-      name: "Daniel Rotunno", 
-      role: "VP of Operations", 
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_39 PM.png", 
-      bio: "Operations expert managing the complex logistics and site deployments for modular data centers." 
+    {
+      name: "Daniel Rotunno",
+      role: "VP of Operations",
+      img: "/images/ChatGPT Image May 18, 2026, 04_04_39 PM.png",
+      bio: "Operations expert managing the complex logistics and site deployments for modular data centers."
     },
-    { 
-      name: "Luke Marchiori", 
-      role: "Chief Renewable Energy Officer", 
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_40 PM.png", 
-      bio: "Leading the integration of clean power sources with high-density compute facilities." 
+    {
+      name: "Luke Marchiori",
+      role: "Chief Renewable Energy Officer",
+      img: "/images/ChatGPT Image May 18, 2026, 04_04_40 PM.png",
+      bio: "Leading the integration of clean power sources with high-density compute facilities."
     },
-    { 
-      name: "Jim McCabe", 
-      role: "Advisor", 
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_42 PM.png", 
-      bio: "Real estate and infrastructure development veteran with 15+ years of experience leading hyperscale site acquisitions and construction." 
+    {
+      name: "Jim McCabe",
+      role: "Advisor",
+      img: "/images/ChatGPT Image May 18, 2026, 04_04_42 PM.png",
+      bio: "Real estate and infrastructure development veteran with 15+ years of experience leading hyperscale site acquisitions and construction."
     },
-    { 
-      name: "Eddie Cloud", 
-      role: "Infrastructure and Development Lead", 
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_43 PM.png", 
-      bio: "Specialist in thermal dynamics and structural engineering, pioneering innovative liquid cooling architectures for high-density AI clusters." 
+    {
+      name: "Eddie Cloud",
+      role: "Infrastructure and Development Lead",
+      img: "/images/ChatGPT Image May 18, 2026, 04_04_43 PM.png",
+      bio: "Specialist in thermal dynamics and structural engineering, pioneering innovative liquid cooling architectures for high-density AI clusters."
     },
-    { 
-      name: "Venkat Rangasamy", 
-      role: "VP of AI Infrastructure", 
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_45 PM.png", 
-      bio: "Energy sector expert specializing in grid-scale renewable integration, microgrids, and high-voltage substation designs." 
+    {
+      name: "Venkat Rangasamy",
+      role: "VP of AI Infrastructure",
+      img: "/images/ChatGPT Image May 18, 2026, 04_04_45 PM.png",
+      bio: "Energy sector expert specializing in grid-scale renewable integration, microgrids, and high-voltage substation designs."
     },
-    { 
-      name: "Hans Vestberg", 
-      role: "Senior Advisor", 
-      img: "/images/97.jpg", 
-      bio: "Cybersecurity strategist safeguarding DigiPowerX's high-performance compute networks, physical assets, and data sovereignty." 
+    {
+      name: "Hans Vestberg",
+      role: "Senior Advisor",
+      img: "/images/97.jpg",
+      bio: "Cybersecurity strategist safeguarding DigiPowerX's high-performance compute networks, physical assets, and data sovereignty."
     }
   ];
 
   const boardMembers = [
-    { 
-      name: "Michel Amar", 
-      role: "Chairman of the Board", 
+    {
+      name: "Michel Amar",
+      role: "Chairman of the Board",
       img: "/images/michal (1).webp",
-      bio: "Michel Amar is a French-American businessman and entrepreneur known for his success in innovative technology, such as blockchain and electronics, as well as developing branded fashion." 
+      bio: "Michel Amar is a French-American businessman and entrepreneur known for his success in innovative technology, such as blockchain and electronics, as well as developing branded fashion."
     },
-    { 
-      name: "Alec Amar", 
-      role: "Board Member", 
+    {
+      name: "Alec Amar",
+      role: "Board Member",
       img: "/images/alec.webp",
-      bio: "Mr. Amar is an entrepreneur and infrastructure executive with deep experience in energy, high-density data-center development, and advanced digital infrastructure." 
+      bio: "Mr. Amar is an entrepreneur and infrastructure executive with deep experience in energy, high-density data-center development, and advanced digital infrastructure."
     },
-    { 
-      name: "Gerard Rotonda", 
-      role: "Board Member", 
+    {
+      name: "Gerard Rotonda",
+      role: "Board Member",
       img: "/images/hans.webp",
-      bio: "Mr. Rotonda was the Chief Financial Officer for Deutsche Bank Wealth Management Americas. He has over 30 years of experience in business development and financial analysis." 
+      bio: "Mr. Rotonda was the Chief Financial Officer for Deutsche Bank Wealth Management Americas. He has over 30 years of experience in business development and financial analysis."
     },
-    { 
-      name: "Adam S. Rossman", 
-      role: "Board Member", 
+    {
+      name: "Adam S. Rossman",
+      role: "Board Member",
       img: "/images/eddie.webp",
-      bio: "Mr. Rossman is a business and real estate attorney with extensive experience in commercial real estate and trademark licensing." 
+      bio: "Mr. Rossman is a business and real estate attorney with extensive experience in commercial real estate and trademark licensing."
     },
-    { 
-      name: "Ajay Gupta", 
-      role: "Board Member", 
+    {
+      name: "Ajay Gupta",
+      role: "Board Member",
       img: "/images/venkat.webp",
-      bio: "Seasoned wealth management executive and Principal of Robbins Gupta Holdings. Advisor to global financial organizations." 
+      bio: "Seasoned wealth management executive and Principal of Robbins Gupta Holdings. Advisor to global financial organizations."
     }
   ];
 
@@ -175,13 +175,13 @@ const Leadership = () => {
                 className="group cursor-pointer"
               >
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-8 border border-white/10">
-                  <img 
-                    src={exec.img} 
-                    alt={exec.name} 
+                  <img
+                    src={exec.img}
+                    alt={exec.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                  
+
                   <div className="absolute bottom-8 left-8">
                     <div className="h-0.5 w-12 bg-brand-yellow mb-4 group-hover:w-20 transition-all duration-500" />
                     <h3 className="text-3xl font-semibold uppercase tracking-tighter mb-1">{exec.name}</h3>
@@ -207,7 +207,7 @@ const Leadership = () => {
 
         <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-            
+
             {/* Title & Info Pane */}
             <div className="lg:col-span-5 space-y-8 order-1 lg:order-2">
               <div>
@@ -216,7 +216,7 @@ const Leadership = () => {
                   BOARD OF <br /> <span className="text-white/40">DIRECTORS</span>
                 </h2>
               </div>
-              
+
               <div className="space-y-6">
                 <p className="text-white/60 text-lg font-medium leading-relaxed max-w-md">
                   A distinguished assembly of industry veterans and legal counsel providing compliance-driven, corporate stewardship for DigiPowerX's global energy and high-density computing scaling.
@@ -233,41 +233,36 @@ const Leadership = () => {
               {boardMembers.map((member, i) => {
                 const isExpanded = expandedBoardMember === i;
                 return (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     onClick={() => setExpandedBoardMember(isExpanded ? null : i)}
-                    className={`group border transition-all duration-500 p-6 rounded-3xl cursor-pointer flex flex-col items-start gap-4 ${
-                      isExpanded 
-                        ? 'border-brand-yellow/40 bg-white/[0.03] shadow-[0_12px_40px_rgba(245,197,24,0.05)]' 
+                    className={`group border transition-all duration-500 p-6 rounded-3xl cursor-pointer flex flex-col items-start gap-4 ${isExpanded
+                        ? 'border-brand-yellow/40 bg-white/[0.03] shadow-[0_12px_40px_rgba(245,197,24,0.05)]'
                         : 'border-white/5 bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.02]'
-                    }`}
+                      }`}
                   >
                     {/* Header Row */}
                     <div className="flex items-center gap-6 w-full">
-                      <div className={`w-16 h-16 rounded-full overflow-hidden border flex-shrink-0 bg-white/5 transition-all duration-500 ${
-                        isExpanded ? 'border-brand-yellow/40 ring-4 ring-brand-yellow/10' : 'border-white/10'
-                      }`}>
-                        <img 
-                          src={member.img} 
-                          alt={member.name} 
-                          className={`w-full h-full object-cover transition-all duration-500 scale-[1.02] ${
-                            isExpanded ? 'grayscale-0' : 'grayscale group-hover:grayscale-0 group-hover:scale-110'
-                          }`}
+                      <div className={`w-16 h-16 rounded-full overflow-hidden border flex-shrink-0 bg-white/5 transition-all duration-500 ${isExpanded ? 'border-brand-yellow/40 ring-4 ring-brand-yellow/10' : 'border-white/10'
+                        }`}>
+                        <img
+                          src={member.img}
+                          alt={member.name}
+                          className={`w-full h-full object-cover transition-all duration-500 scale-[1.02] ${isExpanded ? 'grayscale-0' : 'grayscale group-hover:grayscale-0 group-hover:scale-110'
+                            }`}
                         />
                       </div>
                       <div className="flex-1">
-                        <h4 className={`text-2xl font-semibold uppercase tracking-tighter transition-colors ${
-                          isExpanded ? 'text-brand-yellow' : 'text-white group-hover:text-brand-yellow'
-                        }`}>{member.name}</h4>
+                        <h4 className={`text-2xl font-semibold uppercase tracking-tighter transition-colors ${isExpanded ? 'text-brand-yellow' : 'text-white group-hover:text-brand-yellow'
+                          }`}>{member.name}</h4>
                         <div className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mt-1">{member.role}</div>
                       </div>
-                      
+
                       {/* Interactive Chevron Indicators */}
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500 ${
-                        isExpanded 
-                          ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90' 
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500 ${isExpanded
+                          ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90'
                           : 'border-white/10 text-white/40 group-hover:border-white/20 group-hover:text-white'
-                      }`}>
+                        }`}>
                         <ChevronRight size={18} />
                       </div>
                     </div>
@@ -320,13 +315,13 @@ const Leadership = () => {
       {/* Leader Bio Modal */}
       <AnimatePresence>
         {selectedLeader && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[200] flex items-center justify-center p-6 md:p-12 bg-black/95 backdrop-blur-2xl"
           >
-            <button 
+            <button
               onClick={() => setSelectedLeader(null)}
               className="absolute top-12 right-12 text-white/50 hover:text-white transition-colors"
             >
@@ -371,7 +366,7 @@ const Leadership = () => {
 
         <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-            
+
             {/* Title & Info Pane */}
             <div className="lg:col-span-5 space-y-8 order-1">
               <div>
@@ -383,7 +378,7 @@ const Leadership = () => {
                   BOARD <br /><span className="text-white/40">COMMITTEES</span>
                 </h2>
               </div>
-              
+
               <div className="space-y-6">
                 <p className="text-white/60 text-lg font-medium leading-relaxed max-w-md">
                   Dedicated oversight ensuring financial integrity, strategic alignment, and rigorous compliance across all operations.
@@ -425,34 +420,30 @@ const Leadership = () => {
               ].map((committee, i) => {
                 const isExpanded = expandedCommittee === i;
                 return (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     onClick={() => setExpandedCommittee(isExpanded ? null : i)}
-                    className={`group border transition-all duration-500 p-6 rounded-3xl cursor-pointer flex flex-col items-start gap-4 ${
-                      isExpanded 
-                        ? 'border-brand-yellow/40 bg-white/[0.03] shadow-[0_12px_40px_rgba(245,197,24,0.05)]' 
+                    className={`group border transition-all duration-500 p-6 rounded-3xl cursor-pointer flex flex-col items-start gap-4 ${isExpanded
+                        ? 'border-brand-yellow/40 bg-white/[0.03] shadow-[0_12px_40px_rgba(245,197,24,0.05)]'
                         : 'border-white/5 bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.02]'
-                    }`}
+                      }`}
                   >
                     {/* Header Row */}
                     <div className="flex items-center gap-6 w-full">
-                      <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center font-mono font-semibold text-lg flex-shrink-0 transition-all duration-500 border ${
-                        isExpanded ? 'bg-brand-yellow text-black border-brand-yellow/40 ring-4 ring-brand-yellow/10' : 'bg-white/5 text-white/40 border-white/10 group-hover:border-white/20 group-hover:text-white'
-                      }`}>
+                      <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center font-mono font-semibold text-lg flex-shrink-0 transition-all duration-500 border ${isExpanded ? 'bg-brand-yellow text-black border-brand-yellow/40 ring-4 ring-brand-yellow/10' : 'bg-white/5 text-white/40 border-white/10 group-hover:border-white/20 group-hover:text-white'
+                        }`}>
                         0{i + 1}
                       </div>
                       <div className="flex-1">
-                        <h4 className={`text-xl md:text-2xl font-semibold uppercase tracking-tighter transition-colors ${
-                          isExpanded ? 'text-brand-yellow' : 'text-white group-hover:text-brand-yellow'
-                        }`}>{committee.title}</h4>
+                        <h4 className={`text-xl md:text-2xl font-semibold uppercase tracking-tighter transition-colors ${isExpanded ? 'text-brand-yellow' : 'text-white group-hover:text-brand-yellow'
+                          }`}>{committee.title}</h4>
                       </div>
-                      
+
                       {/* Interactive Chevron Indicators */}
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500 ${
-                        isExpanded 
-                          ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90' 
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500 ${isExpanded
+                          ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90'
                           : 'border-white/10 text-white/40 group-hover:border-white/20 group-hover:text-white'
-                      }`}>
+                        }`}>
                         <ChevronRight size={18} />
                       </div>
                     </div>
@@ -471,7 +462,7 @@ const Leadership = () => {
                             <p className="text-base font-medium leading-relaxed text-white/80 mb-8">
                               {committee.desc}
                             </p>
-                            
+
                             <div className="bg-black/40 rounded-2xl p-6 border border-white/5">
                               <div className="flex justify-between items-center pb-4 mb-4 border-b border-white/10">
                                 <div>

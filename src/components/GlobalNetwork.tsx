@@ -81,14 +81,14 @@ const GlobalNetwork = () => {
             >
               {/* Top laser border transition */}
               <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#f5c518] to-[#ffda66] group-hover:w-full transition-all duration-500" />
-              
+
               {/* Dynamic Inner Glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#f5c518]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f5c518] to-[#ffd84d] font-mono text-4xl md:text-5xl font-extrabold mb-3 tracking-tighter group-hover:brightness-110 transition-all duration-300">
                 {stat.val}
               </span>
-              
+
               <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] leading-relaxed max-w-[180px] group-hover:text-[#ffda66] transition-colors duration-300">
                 {stat.label}
               </span>
@@ -133,8 +133,8 @@ const GlobalNetwork = () => {
               { num: "03", text: "Edge-to-core latency budget engineered for AI workloads" },
               { num: "04", text: "One operations team across the full network footprint" }
             ].map((card, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="group relative bg-[#0a0a0a] rounded-2xl p-7 md:p-8 border border-white/[0.06] hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_24px_60px_rgba(245,197,24,0.15)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-0.5"
               >
                 {/* Subtle Mesh Background for texture */}
@@ -309,8 +309,8 @@ const GlobalNetwork = () => {
           {/* 4-Column Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
             {[
-              { 
-                title: "Discover", 
+              {
+                title: "Discover",
                 desc: "Site selection driven by power, fiber, and customer-proximity — not just real estate availability.",
                 icon: (
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -320,8 +320,8 @@ const GlobalNetwork = () => {
                   </svg>
                 )
               },
-              { 
-                title: "Build", 
+              {
+                title: "Build",
                 desc: "Owned generation and substation control let each node come online without third-party blockers.",
                 icon: (
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -331,8 +331,8 @@ const GlobalNetwork = () => {
                   </svg>
                 )
               },
-              { 
-                title: "Connect", 
+              {
+                title: "Connect",
                 desc: "New sites join the backbone with diverse-path fiber and unified operational tooling.",
                 icon: (
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -344,8 +344,8 @@ const GlobalNetwork = () => {
                   </svg>
                 )
               },
-              { 
-                title: "Operate", 
+              {
+                title: "Operate",
                 desc: "One NOC, one telemetry pane, one accountable team across every region in the footprint.",
                 icon: (
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -354,8 +354,8 @@ const GlobalNetwork = () => {
                 )
               }
             ].map((card, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="relative bg-[#0a0a0a] p-8 rounded-[24px] flex flex-col items-start text-left border border-white/[0.06] hover:border-[#f5c518]/40 transition-all duration-300 hover:shadow-[0_25px_50px_-12px_rgba(245,197,24,0.15)] hover:-translate-y-1 group cursor-pointer min-h-[300px] overflow-hidden"
               >
                 {/* Step Pill */}
@@ -414,22 +414,22 @@ const GlobalNetwork = () => {
                 >
                   {/* Top laser border transition */}
                   <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#f5c518] to-[#ffda66] group-hover:w-full transition-all duration-500" />
-                  
+
                   {/* Dynamic Inner Glow */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#f5c518]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                   <div className="flex flex-col gap-4 relative z-10">
                     {/* Small gold indicator block */}
                     <div className="w-6 h-[2px] bg-[#f5c518] group-hover:w-10 transition-all duration-300" />
-                    
+
                     <span className="text-white text-3xl font-bold tracking-tight font-sans text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/70 group-hover:from-[#f5c518] group-hover:to-[#ffd84d] transition-all duration-300">
                       {stat.val}
                     </span>
-                    
+
                     <span className="text-[#f5c518] text-[10px] font-bold uppercase tracking-[0.2em] leading-tight group-hover:text-[#ffda66] transition-colors">
                       {title}
                     </span>
-                    
+
                     <span className="text-white/40 text-[13px] font-medium leading-relaxed mt-1 group-hover:text-white/70 transition-colors duration-300">
                       {desc}
                     </span>

@@ -8,17 +8,17 @@ export default function InfraStackHero() {
       <div className="ish-bg-container" aria-hidden="true">
         {/* Base Layer: Server Room Image */}
         <div className="ish-bg-layer base-image" />
-        
+
         {/* Glow Layer: Pulsing Golden Highlights */}
         <div className="ish-bg-layer glow-image" />
-        
+
         {/* Subtle Black Smoke/Fog Effect on the Left */}
         <div className="ish-smoke-container">
           <div className="ish-smoke-particle smoke-1" />
           <div className="ish-smoke-particle smoke-2" />
           <div className="ish-smoke-particle smoke-3" />
         </div>
-        
+
         {/* Dark Vignette Overlay to blend edges */}
         <div className="ish-bg-overlay" />
       </div>

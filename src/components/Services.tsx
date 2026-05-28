@@ -388,13 +388,13 @@ export default function Services() {
               ].map((step, i) => {
                 const Icon = step.icon;
                 return (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className="bg-[#0b0c10]/60 border border-white/[0.08] rounded-xl p-5 md:p-6 transition-all duration-300 hover:border-[#f5c518]/40 hover:-translate-y-1 hover:bg-[#0f1015]/80 hover:shadow-[0_10px_30px_rgba(245,197,24,0.05)] group relative overflow-hidden"
                   >
                     {/* Top Accent line */}
                     <div className="absolute top-0 left-0 w-0 h-[2px] bg-[#f5c518] group-hover:w-full transition-all duration-500" />
-                    
+
                     <div className="flex items-center justify-between mb-4">
                       {/* Step Tag */}
                       <span className="text-[10px] font-mono tracking-widest text-[#f5c518]/70 uppercase group-hover:text-[#f5c518] transition-colors">
@@ -405,7 +405,7 @@ export default function Services() {
                         <Icon size={16} />
                       </div>
                     </div>
-                    
+
                     {/* Desc Title */}
                     <h4 className="text-sm lg:text-[15px] font-bold uppercase tracking-tight text-white leading-tight">
                       {step.desc}

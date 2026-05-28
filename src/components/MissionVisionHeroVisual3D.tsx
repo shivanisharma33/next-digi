@@ -309,6 +309,32 @@ const MissionVisionHeroVisual3D: React.FC = () => {
     innerGlareSprite.scale.set(1.5, 1.5, 1.0);
     mainGroup.add(innerGlareSprite);
 
+    // Initial responsive setup
+    const initialIsMobile = window.innerWidth < 768;
+    const initialIsTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+    if (initialIsMobile) {
+      camera.position.set(0, 0.5, 8.8);
+      sphereGroup.position.set(0, -2.4, 0);
+      glareSprite.position.set(0.0, 0.4, 1.4);
+      innerGlareSprite.position.copy(glareSprite.position);
+      glareSprite.scale.set(3.0, 3.0, 1.0);
+      innerGlareSprite.scale.set(1.2, 1.2, 1.0);
+    } else if (initialIsTablet) {
+      camera.position.set(0, 0.8, 7.8);
+      sphereGroup.position.set(0.4, -2.0, 0.2);
+      glareSprite.position.set(0.5, 0.6, 1.4);
+      innerGlareSprite.position.copy(glareSprite.position);
+      glareSprite.scale.set(3.5, 3.5, 1.0);
+      innerGlareSprite.scale.set(1.35, 1.35, 1.0);
+    } else {
+      camera.position.set(0, 1.0, 7.2);
+      sphereGroup.position.set(0.8, -1.8, 0.3);
+      glareSprite.position.set(0.9, 0.7, 1.4);
+      innerGlareSprite.position.copy(glareSprite.position);
+      glareSprite.scale.set(4.0, 4.0, 1.0);
+      innerGlareSprite.scale.set(1.5, 1.5, 1.0);
+    }
+
     // --- 6. ASCENDING AMBIENT SYSTEM DUST (ENVIRONMENT PARTICLES) ---
     const envDustCount = 50;
     const envDustGeometry = registerDisposable(new THREE.BufferGeometry());
@@ -375,6 +401,34 @@ const MissionVisionHeroVisual3D: React.FC = () => {
         W = width;
         H = height;
         camera.aspect = W / H;
+
+        // Dynamic responsive layout updates
+        const isMobile = window.innerWidth < 768;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
+        if (isMobile) {
+          camera.position.set(0, 0.5, 8.8);
+          sphereGroup.position.set(0, -2.4, 0);
+          glareSprite.position.set(0.0, 0.4, 1.4);
+          innerGlareSprite.position.copy(glareSprite.position);
+          glareSprite.scale.set(3.0, 3.0, 1.0);
+          innerGlareSprite.scale.set(1.2, 1.2, 1.0);
+        } else if (isTablet) {
+          camera.position.set(0, 0.8, 7.8);
+          sphereGroup.position.set(0.4, -2.0, 0.2);
+          glareSprite.position.set(0.5, 0.6, 1.4);
+          innerGlareSprite.position.copy(glareSprite.position);
+          glareSprite.scale.set(3.5, 3.5, 1.0);
+          innerGlareSprite.scale.set(1.35, 1.35, 1.0);
+        } else {
+          camera.position.set(0, 1.0, 7.2);
+          sphereGroup.position.set(0.8, -1.8, 0.3);
+          glareSprite.position.set(0.9, 0.7, 1.4);
+          innerGlareSprite.position.copy(glareSprite.position);
+          glareSprite.scale.set(4.0, 4.0, 1.0);
+          innerGlareSprite.scale.set(1.5, 1.5, 1.0);
+        }
+
         camera.updateProjectionMatrix();
         renderer.setSize(W, H);
       }

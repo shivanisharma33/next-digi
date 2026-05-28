@@ -97,13 +97,11 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full z-[9999]">
       {/* Background layer with blur & transition to prevent containing block issue for fixed children */}
-      <div className={`absolute inset-0 transition-all duration-300 -z-10 ${
-        scrolled ? 'bg-black/90 backdrop-blur-md shadow-lg' : 'bg-black'
-      } border-b border-white/10`} />
+      <div className={`absolute inset-0 transition-all duration-300 -z-10 ${scrolled ? 'bg-black/90 backdrop-blur-md shadow-lg' : 'bg-black'
+        } border-b border-white/10`} />
 
-      <div className={`relative z-[120] max-w-[1800px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4 transition-all duration-300 ${
-        scrolled ? 'py-1' : 'py-2'
-      }`}>
+      <div className={`relative z-[120] max-w-[1800px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4 transition-all duration-300 ${scrolled ? 'py-1' : 'py-2'
+        }`}>
 
         {/* Logo */}
         <Link to="/" className="flex-shrink-0 relative z-[120]">
@@ -157,8 +155,8 @@ const Navbar = () => {
                     isNeo
                       ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
                       : isUsdc
-                      ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
-                      : "nav-link flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow transition-colors"
+                        ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
+                        : "nav-link flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow transition-colors"
                   }
                 >
                   {link.name}
@@ -176,8 +174,8 @@ const Navbar = () => {
                   isNeo
                     ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
                     : isUsdc
-                    ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
-                    : "nav-link flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow transition-colors"
+                      ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
+                      : "nav-link flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow transition-colors"
                 }
               >
                 {link.name}
@@ -284,8 +282,8 @@ const Navbar = () => {
                             link.name === 'NeoCloudz'
                               ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
                               : link.name === 'USDC'
-                              ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
-                              : "flex items-center justify-between text-lg sm:text-xl font-bold text-white py-2 uppercase tracking-wider hover:text-brand-yellow transition-colors"
+                                ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
+                                : "flex items-center justify-between text-lg sm:text-xl font-bold text-white py-2 uppercase tracking-wider hover:text-brand-yellow transition-colors"
                           }
                           onClick={() => setIsMenuOpen(false)}
                         >
@@ -299,8 +297,8 @@ const Navbar = () => {
                             link.name === 'NeoCloudz'
                               ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
                               : link.name === 'USDC'
-                              ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
-                              : "flex items-center justify-between text-lg sm:text-xl font-bold text-white py-2 uppercase tracking-wider hover:text-brand-yellow transition-colors"
+                                ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
+                                : "flex items-center justify-between text-lg sm:text-xl font-bold text-white py-2 uppercase tracking-wider hover:text-brand-yellow transition-colors"
                           }
                           onClick={() => setIsMenuOpen(false)}
                         >

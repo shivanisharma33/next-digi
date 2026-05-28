@@ -390,8 +390,8 @@ const Careers = () => {
                   <div
                     key={job.id}
                     className={`group border rounded-3xl p-5 sm:p-8 transition-all duration-500 flex flex-col items-start gap-4 ${isExpanded
-                        ? 'border-brand-yellow/40 bg-white/[0.02] shadow-[0_12px_45px_rgba(245,197,24,0.03)]'
-                        : 'border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.015]'
+                      ? 'border-brand-yellow/40 bg-white/[0.02] shadow-[0_12px_45px_rgba(245,197,24,0.03)]'
+                      : 'border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.015]'
                       }`}
                   >
 
@@ -419,8 +419,8 @@ const Careers = () => {
                       </div>
 
                       <div className={`w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-full border flex items-center justify-center transition-all duration-500 ${isExpanded
-                          ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90'
-                          : 'border-white/10 text-white/40 group-hover:border-white/20 group-hover:text-white'
+                        ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90'
+                        : 'border-white/10 text-white/40 group-hover:border-white/20 group-hover:text-white'
                         }`}>
                         <ChevronRight size={18} />
                       </div>

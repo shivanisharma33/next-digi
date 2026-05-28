@@ -320,8 +320,8 @@ const LatestNews = () => {
           {loading
             ? Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)
             : releases.map((release, index) => (
-                <NewsCard key={release.documentId} release={release} index={index} />
-              ))}
+              <NewsCard key={release.documentId} release={release} index={index} />
+            ))}
         </div>
 
         {/* Bottom accent line */}

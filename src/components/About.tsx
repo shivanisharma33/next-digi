@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 import AboutHeroDataCenter3D from './AboutHeroDataCenter3D';
 import { CTASection } from './Footer';
-import DigiPowerXMap from './DigiPowerXMap';
 
 const Magnetic = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -120,6 +119,7 @@ const BentoCard = ({ children, className = "", delay = 0 }: { children: React.Re
 const About = () => {
   const containerRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [mapSrc, setMapSrc] = useState<string>("/images/us_map_neon.jpg");
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -134,6 +134,36 @@ const About = () => {
     };
     window.addEventListener('mousemove', handleGlobalMouseMove);
     return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/images/us_map_neon.jpg";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      // Crop 6px from all edges to completely remove the white border
+      const crop = 6;
+      if (img.width > crop * 2 && img.height > crop * 2) {
+        canvas.width = img.width - crop * 2;
+        canvas.height = img.height - crop * 2;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(
+            img,
+            crop, crop,
+            img.width - crop * 2,
+            img.height - crop * 2,
+            0, 0,
+            canvas.width, canvas.height
+          );
+          try {
+            setMapSrc(canvas.toDataURL());
+          } catch (e) {
+            console.error("Failed to crop image border:", e);
+          }
+        }
+      }
+    };
   }, []);
 
   return (
@@ -155,13 +185,10 @@ const About = () => {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-6 flex flex-col items-start text-left"
           >
-            {/* Top Company Badge */}
-            <div className="inline-flex items-center gap-4 px-5 py-1.5 rounded-full border border-white/10 mb-8 backdrop-blur-sm">
-              <div className="flex items-center gap-1.5">
-                <div className="h-[2px] w-8 bg-brand-yellow" />
-                <div className="h-[2px] w-2 bg-white/20" />
-              </div>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.4em] text-white/80">Company</span>
+            {/* Top Company Badge (Matching Reference Image) */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
+              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-brand-yellow">Company</span>
             </div>
 
             <h1 className="text-[clamp(2.5rem,5.5vw,5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-6 text-white text-left">
@@ -183,14 +210,23 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Right Column: Interactive 3D Model Visualizer */}
+          {/* Right Column: U.S. Infrastructure Map Visual */}
           <motion.div
             initial={{ opacity: 0, x: 35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            className="lg:col-span-6 w-full h-[450px] md:h-[550px] lg:h-[650px] relative"
+            className="lg:col-span-6 w-full relative flex items-start justify-center pt-0"
           >
-            <DigiPowerXMap />
+            <div className="w-full relative flex items-start justify-center pt-0">
+              <div className="absolute w-[80%] aspect-square bg-brand-yellow/[0.03] rounded-full blur-[100px] pointer-events-none top-0" />
+              <img
+                src={mapSrc}
+                alt="DigiPowerX U.S. Infrastructure Map"
+                className="w-full h-auto mix-blend-screen drop-shadow-[0_20px_50px_rgba(245,197,24,0.15)] rounded-2xl hover:scale-[1.02] transition-transform duration-700 ease-out"
+                style={{ mixBlendMode: 'screen' }}
+                loading="lazy"
+              />
+            </div>
           </motion.div>
         </div>
 
@@ -221,13 +257,10 @@ const About = () => {
       <section className="relative pt-5 pb-12 bg-black overflow-hidden">
         <div className="container mx-auto px-6 max-w-[1400px]">
           <div className="flex flex-col items-center text-center mb-12">
-            {/* Top Overview Badge */}
-            <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-white/20 mb-8 backdrop-blur-sm">
-              <div className="flex items-center gap-1.5">
-                <div className="h-[2px] w-8 bg-brand-yellow" />
-                <div className="h-[2px] w-2 bg-white/20" />
-              </div>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-white/80">Company Overview</span>
+            {/* Top Overview Badge (Matching Reference Image) */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
+              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-brand-yellow">Company Overview</span>
             </div>
 
             <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-white relative z-10 max-w-5xl">
