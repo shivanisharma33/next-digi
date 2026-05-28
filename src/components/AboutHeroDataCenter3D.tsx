@@ -7,7 +7,7 @@ const YELLOW_BRIGHT = 0xFFE45C;
 const VALUES = [
   { name: 'Sustainability', desc: 'Renewable-matched 24/7 — verified, not offset.', pos: [0, 5.5, 0] as [number, number, number] },
   { name: 'Speed', desc: '2.4ms latency — built for AI workloads.', pos: [4.76, 2.75, 0] as [number, number, number] },
-  { name: 'Scale', desc: '301MW+ capacity across operating sites.', pos: [4.76, -2.75, 0] as [number, number, number] },
+  { name: 'Scale', desc: '400MW+ capacity across operating sites.', pos: [4.76, -2.75, 0] as [number, number, number] },
   { name: 'Innovation', desc: 'Liquid cooling, custom power, in-house silicon.', pos: [0, -5.5, 0] as [number, number, number] },
   { name: 'Security', desc: 'Defense-grade physical and digital protection.', pos: [-4.76, -2.75, 0] as [number, number, number] },
   { name: 'Reliability', desc: '99.999% uptime, every facility, every day.', pos: [-4.76, 2.75, 0] as [number, number, number] },

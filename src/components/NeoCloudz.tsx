@@ -425,7 +425,7 @@ const NeoCloudz = () => {
               <div className="space-y-4 border-l border-white/10 pl-10">
                 {[
                   { label: "VIRTUALIZATION", val: "NONE (BARE METAL DIRECT)" },
-                  { label: "ACCELERATOR TYPE", val: "NVIDIA BLACKWELL B200" },
+                  { label: "ACCELERATOR TYPE", val: "NVIDIA BLACKWELL" },
                   { label: "INTERCONNECT FABRIC", val: "400G INFINIBAND NDR" },
                   { label: "STORAGE PROTOCOL", val: "NVME-OVER-FABRIC (NVMEOF)" },
                 ].map((spec, i) => (

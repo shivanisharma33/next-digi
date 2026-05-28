@@ -57,7 +57,7 @@ const Colocation = () => {
             {/* Features List */}
             <ul className="space-y-4">
               {[
-                'GPU-density cabinets up to 80kW/rack',
+                'GPU-density cabinets up to 250kW/rack',
                 'Direct substation feed — no shared utility risk',
                 '400G InfiniBand & cross-connect fabric',
                 'Remote hands, 24/7 NOC, smart hands SLA',

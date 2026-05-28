@@ -206,7 +206,7 @@ const About = () => {
               { val: "2017", label: "Company Founded" },
               { val: "NASDAQ", label: "Public Listing - DGXX" },
               { val: "04", label: "Operating and Development Sites" },
-              { val: "301MW+", label: "Total Portfolio Capacity" }
+              { val: "400MW+", label: "Total Portfolio Capacity" }
             ].map((stat, i) => (
               <div key={i} className="text-center">
                 <div className="text-brand-yellow font-semibold text-xl mb-1 tracking-tighter">{stat.val}</div>
@@ -251,7 +251,7 @@ const About = () => {
               {
                 tag: "Data Centers",
                 title: "AI-Ready Facilities",
-                desc: "The company converts owned power assets into high-density, AI-ready data center capacity — targeting Tier III classification, direct liquid cooling, and 80kW+ per-rack GPU density at the Alabama facility."
+                desc: "The company converts owned power assets into high-density, AI-ready data center capacity — targeting Tier III classification, direct liquid cooling, and 200kW+ per-rack GPU density at the Alabama facility."
               },
               {
                 tag: "Compute",
@@ -342,43 +342,8 @@ const About = () => {
           </div>
         </div>
       </section>
-      {/* Financial Metrics Matrix (Matching Reference Image) */}
-      <section className="py-10 bg-black border-y border-white/10">
-        <div className="container mx-auto px-6 max-w-[1400px]">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-0">
-            {[
-              {
-                val: "$31M+",
-                desc: "REVENUE FOR NINE MONTHS ENDED SEPTEMBER 30, 2024 — ACTIVE OPERATING REVENUE FROM MULTIPLE SITES."
-              },
-              {
-                val: "$5M+",
-                desc: "EBITDA FOR NINE MONTHS ENDED SEPTEMBER 30, 2024 — PROFITABLE OPERATING PERFORMANCE."
-              },
-              {
-                val: "$0 LT Debt",
-                desc: "NO LONG-TERM DEBT REPORTED IN COMPANY INVESTOR MATERIALS — BALANCE SHEET FLEXIBILITY."
-              },
-              {
-                val: "~$44M",
-                desc: "MARKET CAPITALIZATION AS CITED IN THE JANUARY 2025 CORPORATE OVERVIEW PRESENTATION."
-              }
-            ].map((stat, i) => (
-              <div
-                key={i}
-                className={`flex flex-col gap-6 px-8 ${i !== 3 ? 'md:border-r border-white/5' : ''}`}
-              >
-                <div className="text-4xl md:text-5xl font-semibold text-brand-yellow tracking-tighter">
-                  {stat.val}
-                </div>
-                <p className="text-[9px] md:text-[10px] font-semibold text-white/40 leading-relaxed uppercase tracking-wider max-w-[280px]">
-                  {stat.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
+
 
       {/* Final CTA Section */}
 

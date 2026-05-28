@@ -115,7 +115,6 @@ const DigiPowerXMap = () => {
     interface Pin {
       grp: THREE.Group;
       pulse: THREE.Mesh;
-      core: THREE.Mesh;
       pos: THREE.Vector3;
       el: HTMLDivElement;
       off: { dx: number; dy: number };
@@ -320,13 +319,6 @@ const DigiPowerXMap = () => {
         pulse.position.y = 0.03;
         grp.add(pulse);
 
-        const core = new THREE.Mesh(
-          new THREE.SphereGeometry(0.24, 20, 20),
-          new THREE.MeshBasicMaterial({ color: YELLOW }),
-        );
-        core.position.y = 0.24;
-        grp.add(core);
-
         const beam = new THREE.Mesh(
           new THREE.CylinderGeometry(0.022, 0.022, 3.4, 8),
           new THREE.MeshBasicMaterial({
@@ -354,7 +346,6 @@ const DigiPowerXMap = () => {
         pins.push({
           grp,
           pulse,
-          core,
           pos: pos.clone(),
           el,
           off: LABEL_OFFSETS[s.name] || { dx: 0, dy: 30 },
@@ -562,7 +553,6 @@ const DigiPowerXMap = () => {
       buildPins();
       mapReady = true;
       setLoaderGone(true);
-      startIntro();
     };
 
     const resize = () => {
@@ -654,7 +644,6 @@ const DigiPowerXMap = () => {
         const k = (t * 0.55 + p.phase) % 1;
         p.pulse.scale.setScalar(1 + k * 2.0);
         (p.pulse.material as THREE.MeshBasicMaterial).opacity = 0.6 * (1 - k);
-        p.core.scale.setScalar(1 + Math.sin(t * 3 + p.phase) * 0.16);
       });
       arcs.forEach((a) => {
         a.t = (a.t + a.spd) % 1;

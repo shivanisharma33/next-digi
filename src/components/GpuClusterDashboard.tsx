@@ -34,7 +34,7 @@ function genGpus(): GpuNode[] {
 
 // ─── Log data ────────────────────────────────────────────────────────────────
 const INIT_LOGS: LogEntry[] = [
-  { c: 'green', m: '[OK]   Cluster initialized: 64× NVIDIA Blackwell B200' },
+  { c: 'green', m: '[OK]   Cluster initialized: 64× NVIDIA Blackwell' },
   { c: '', m: '[INFO] InfiniBand 400G fabric: HEALTHY' },
   { c: 'green', m: '[OK]   NVLink 4.0 mesh: ALL NODES CONNECTED' },
   { c: 'blue', m: '[NET]  Spine-leaf topology active — 2× Quantum-2 switches' },
@@ -273,7 +273,7 @@ const GpuClusterDashboard: React.FC = () => {
         <div style={{ padding: '14px 16px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
           {/* Panel header */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-            <span style={{ fontSize: 9, color: 'rgba(0,232,120,0.6)', letterSpacing: '0.2em' }}>▸ GPU CLUSTER · {GPU_COUNT} NODES · BLACKWELL B200</span>
+            <span style={{ fontSize: 9, color: 'rgba(0,232,120,0.6)', letterSpacing: '0.2em' }}>▸ GPU CLUSTER · {GPU_COUNT} NODES · BLACKWELL</span>
             <div style={{ display: 'flex', gap: 16 }}>
               {[
                 { v: metrics.active, k: 'active' },

@@ -195,7 +195,7 @@ export default function Contact() {
         }
         .ct-quote-text {
           font-size: 15px; font-weight: 600; line-height: 1.55;
-          color: #fff; margin-bottom: 16px;
+          color: #fff; 
         }
         .ct-quote-text em { font-style: normal; font-weight: 700; }
         .ct-quote-author {
@@ -409,10 +409,6 @@ export default function Contact() {
               <div className="ct-left-overlay"></div>
               <div className="ct-quote">
                 <p className="ct-quote-text">"DigiPowerX delivers infrastructure that simply performs — <em>reliable, scalable, and built for the future.</em>"</p>
-                <div className="ct-quote-author">
-                  <div className="ct-avatar">MA</div>
-                  <span className="ct-author-name">Michel Amar, Chief Executive Officer</span>
-                </div>
               </div>
             </div>
 

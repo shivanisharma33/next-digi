@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Cpu, TrendingUp, Clock, Gauge, Layers, Database, Zap, Share2, Box } from 'lucide-react';
-import NeuralCube3D from './NeuralCube3D';
 import Arms3D from './Arms3D';
 import { CTASection } from './Footer';
 
@@ -99,7 +98,7 @@ const ARMS = () => {
               {
                 tag: "DATA CENTERS",
                 title: "AI-READY FACILITIES",
-                desc: "The company converts owned power assets into high-density, AI-ready data center capacity — targeting Tier III classification, direct liquid cooling, and 80kW+ per-rack GPU density at the Alabama facility."
+                desc: "The company converts owned power assets into high-density, AI-ready data center capacity — targeting Tier III classification, direct liquid cooling, and 200kW+ per-rack GPU density at the Alabama facility."
               },
               {
                 tag: "COMPUTE",

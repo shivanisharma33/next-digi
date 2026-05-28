@@ -117,12 +117,7 @@ const Infrastructure = () => {
               <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-white/10 pointer-events-none" />
 
               {/* Coordinate markers */}
-              <div className="absolute top-4 left-4 text-[9px] font-mono text-white/30 tracking-widest pointer-events-none">
-                LAT 33.4°N
-              </div>
-              <div className="absolute top-4 right-16 text-[9px] font-mono text-[#f5c518]/60 tracking-widest pointer-events-none">
-                LIVE
-              </div>
+              
 
               {/* The 3D canvas */}
               <div className="absolute inset-0">

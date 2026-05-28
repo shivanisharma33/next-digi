@@ -35,9 +35,9 @@ const LAYERS: Layer[] = [
     kicker: "FULLY OWNED SUBSIDIARY",
     title: "MEET NEOCLOUDZ",
     description:
-      "NeoCloudz is DigiPowerX's GPU compute platform — bare-metal NVIDIA Blackwell B200 clusters delivered directly from our owned data centers.",
+      "NeoCloudz is DigiPowerX's GPU compute platform — bare-metal NVIDIA Blackwell clusters delivered directly from our owned data centers.",
     bullets: [
-      "NVIDIA Blackwell B200 GPU clusters",
+      "NVIDIA Blackwell GPU clusters",
       "Bare-metal · no virtualization overhead",
       "400Gb/s InfiniBand fabric",
       "Provisioned in <58 seconds",
@@ -104,11 +104,11 @@ const LAYERS: Layer[] = [
     kicker: "VERTICAL INTEGRATION",
     title: "WE OWN THE POWER",
     description:
-      "DigiPowerX controls the full energy stack — from owned power plants and utility-connected sites to 450 MW of pipeline development across the U.S.",
+      "DigiPowerX controls the full energy stack — from owned power plants and utility-connected sites to 400MW+ of pipeline development across the U.S.",
     bullets: [
       "Owned power generation assets",
       "Utility-powered & substation-connected sites",
-      "450 MW development pipeline",
+      "400MW+ development pipeline",
       "Future-site acquisitions underway",
     ],
     cta: "Explore owned power",
@@ -211,21 +211,6 @@ const LayeredInfrastructure = () => {
       style={{ minHeight: "260vh" }}
     >
       <div className="sticky top-0 flex min-h-screen items-center overflow-hidden pt-24 lg:pt-28">
-        {/* Subtle grid backdrop */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "linear-gradient(#181717 1px, transparent 1px), linear-gradient(90deg, #181717 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            maskImage:
-              "radial-gradient(ellipse at center, black 40%, transparent 75%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse at center, black 40%, transparent 75%)",
-          }}
-        />
-
         {/* Top chapter progress strip */}
         <div
           aria-hidden
@@ -283,10 +268,8 @@ const LayeredInfrastructure = () => {
                 className="relative w-full"
                 style={{ paddingBottom: "120%" }}
               >
-                {/* Visual Graphic Wrapper that shifts left/right on desktop while keeping markers/arrows static */}
-                <div className={`absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  infoOnLeft ? "lg:translate-x-24" : "lg:-translate-x-24"
-                }`}>
+                {/* Visual Graphic Wrapper — stays centered; only markers/pointers move */}
+                <div className="absolute inset-0">
                   {/* Soft glow behind active layer */}
                   <motion.div
                     aria-hidden

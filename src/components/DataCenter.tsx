@@ -169,7 +169,7 @@ const DataCenter = () => {
                 { label: 'Red path:', text: 'hot coolant return from rack to CDU', color: '#ef4444' },
                 { label: 'Blue path:', text: 'cold supply loop back to compute', color: '#3b82f6' },
                 { label: '', text: 'CDU, chiller, and cooling tower integrated in one flow', color: '#f5c518' },
-                { label: '', text: 'Supports 80kW+ per-rack GPU power envelopes', color: '#f5c518' },
+                { label: '', text: 'Supports 200kW+ per-rack GPU power envelopes', color: '#f5c518' },
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <ArrowRight size={16} className="mt-0.5 shrink-0 text-[#f5c518]" />
@@ -303,7 +303,7 @@ const DataCenter = () => {
             </div>
 
             {[
-              { layer: 'Power Density', dir: 'High-density rack architecture targeting AI/HPC accelerator loads', spec: '80kW+ per cabinet' },
+              { layer: 'Power Density', dir: 'High-density rack architecture targeting AI/HPC accelerator loads', spec: '200kW+ per cabinet' },
               { layer: 'Cooling', dir: 'Direct liquid cooling with closed-loop CDU and chiller plant', spec: 'PUE target <1.3' },
               { layer: 'Network', dir: 'Low-latency fabric with carrier-neutral interconnect access', spec: '400G fabric capable' },
               { layer: 'Operations', dir: '24/7 NOC monitoring, remote hands, biometric access control', spec: 'Tier III design path' },
@@ -361,25 +361,7 @@ const DataCenter = () => {
             </div>
           </div>
 
-          {/* Interactive Stats Panel - (Now as a high-impact row) */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {[
-              { value: '22MW', label: 'Alabama Baseline', desc: 'Current Capacity' },
-              { value: '120MW', label: 'Expansion Path', desc: 'Authorized Load' },
-              { value: '220MW', label: 'Portfolio Target', desc: '2026 Objective' },
-              { value: '<$0.05', label: 'Energy Cost', desc: 'Per kWh Average' },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -5, borderColor: 'rgba(245,197,24,0.3)' }}
-                className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm transition-all text-center"
-              >
-                <div className="text-4xl font-semibold text-white tracking-tighter mb-2">{stat.value}</div>
-                <div className="text-[10px] font-black text-[#f5c518] uppercase tracking-widest mb-1">{stat.label}</div>
-                <div className="text-[10px] font-medium text-white/20 uppercase tracking-widest">{stat.desc}</div>
-              </motion.div>
-            ))}
-          </div>
+
 
           {/* Bento Cards Grid */}
           <div className="grid lg:grid-cols-4 gap-6">
@@ -405,7 +387,7 @@ const DataCenter = () => {
               {
                 icon: Maximize2,
                 title: 'AI / HPC Ready',
-                desc: 'Designed for 80kW+ rack densities and liquid-cooled accelerator clusters — not legacy workloads.',
+                desc: 'Designed for 200kW+ rack densities and liquid-cooled accelerator clusters — not legacy workloads.',
                 color: 'from-purple-500/20 to-transparent'
               }
             ].map((card, i) => (

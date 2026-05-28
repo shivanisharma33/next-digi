@@ -391,7 +391,7 @@ const PowerInIntelligenceOut = () => {
               <h3>Power Generation</h3>
               <div className="pio-cmeta">Natural Gas · Solar · Grid</div>
               <div className="pio-cbar" />
-              <div className="pio-cspec"><span>Capacity</span><b>400 MW+</b></div>
+              <div className="pio-cspec"><span>Capacity</span><b>400MW+</b></div>
             </div>
           </div>
 
@@ -855,7 +855,7 @@ const PowerInIntelligenceOut = () => {
                 <span className="pio-cdot"><i className="pio-on" /><i className="pio-on" /><i className="pio-on" /></span>
               </div>
               <h3>GPU Cluster</h3>
-              <div className="pio-cmeta">NVIDIA Blackwell B200</div>
+              <div className="pio-cmeta">NVIDIA Blackwell</div>
               <div className="pio-cbar" />
               <div className="pio-cspec"><span>Fabric</span><b>NVLINK</b></div>
             </div>

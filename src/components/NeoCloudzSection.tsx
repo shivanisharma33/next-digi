@@ -119,7 +119,7 @@ const NeoCloudzSection = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-gray-300 text-[15px] md:text-[17px] leading-relaxed max-w-[800px]"
           >
-            NeoCloudz is DigiPowerX's GPU compute platform — delivering NVIDIA Blackwell B200 bare-metal infrastructure directly from our owned data centers.
+            NeoCloudz is DigiPowerX's GPU compute platform — delivering NVIDIA Blackwell bare-metal infrastructure directly from our owned data centers.
           </motion.p>
         </div>
 
@@ -137,7 +137,7 @@ const NeoCloudzSection = () => {
             {/* Features List */}
             <ul className="space-y-6">
               {[
-                'NVIDIA Blackwell B200 GPU clusters',
+                'NVIDIA Blackwell GPU clusters',
                 'Bare-metal, no virtualization overhead',
                 '400Gb/s InfiniBand fabric',
                 'Provisioned in <60 seconds'

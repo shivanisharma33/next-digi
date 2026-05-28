@@ -30,7 +30,6 @@
 .dpxmap-frame {
   position: absolute;
   inset: clamp(14px, 2vw, 28px);
-  border: 1px solid var(--line);
   pointer-events: none;
   z-index: 2;
 }

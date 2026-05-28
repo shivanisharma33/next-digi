@@ -122,13 +122,13 @@ const FourPillars = () => {
             <div className="text-[10px] font-semibold tracking-[0.3em] text-[#f5c518] uppercase mb-8">VERTICAL INTEGRATION</div>
             <h3 className="text-3xl font-semibold uppercase tracking-tighter text-white mb-6">WE OWN THE POWER</h3>
             <p className="text-white/60 text-sm leading-relaxed mb-10 max-w-lg">
-              DigiPowerX controls the full energy stack — from owned power plants and utility-connected sites to 450 MW of pipeline development across the U.S.
+              DigiPowerX controls the full energy stack — from owned power plants and utility-connected sites to 400MW+ of pipeline development across the U.S.
             </p>
             <ul className="space-y-4 mb-12">
               {[
                 "Owned power generation assets",
                 "Utility-powered & substation-connected sites",
-                "450 MW development pipeline",
+                "400MW+ development pipeline",
                 "Future-site acquisitions underway"
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-wider text-white/70">
@@ -245,11 +245,11 @@ const FourPillars = () => {
             <div className="text-[10px] font-semibold tracking-[0.3em] text-[#f5c518] uppercase mb-8">FULLY OWNED SUBSIDIARY</div>
             <h3 className="text-3xl font-semibold uppercase tracking-tighter text-white mb-6">MEET NEOCLOUDZ</h3>
             <p className="text-white/60 text-sm leading-relaxed mb-10 max-w-lg">
-              NeoCloudz is DigiPowerX's GPU compute platform — bare-metal NVIDIA Blackwell B200 clusters delivered directly from our owned data centers.
+              NeoCloudz is DigiPowerX's GPU compute platform — bare-metal NVIDIA Blackwell clusters delivered directly from our owned data centers.
             </p>
             <ul className="space-y-4 mb-12">
               {[
-                "NVIDIA Blackwell B200 GPU clusters",
+                "NVIDIA Blackwell GPU clusters",
                 "Bare-metal · no virtualization overhead",
                 "400Gb/s InfiniBand fabric",
                 "Provisioned in <58 seconds"

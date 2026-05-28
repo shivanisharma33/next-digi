@@ -72,7 +72,6 @@ const Navbar = () => {
       ]
     },
     { name: 'NeoCloudz', hasDropdown: false, path: '/neocloudz', href: 'https://www.neocloudz.com/' },
-    { name: 'USDC', hasDropdown: false, path: '#', href: 'https://www.usdatacenters.ai/' },
   ];
 
   const menuVariants = {
@@ -114,7 +113,7 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-6 xl:gap-8 flex-shrink-0">
-          {navLinks.map(link => {
+          {navLinks.filter(l => l.name !== 'NeoCloudz').map(link => {
             if (link.hasDropdown) {
               return (
                 <div key={link.name} className="relative group">
@@ -190,6 +189,14 @@ const Navbar = () => {
 
         {/* Actions / Mob Toggle */}
         <div className="flex items-center gap-3 md:gap-4 flex-shrink-0 relative z-[120]">
+          <a
+            href="https://www.neocloudz.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:inline-block bg-brand-yellow text-black px-5 py-2.5 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 whitespace-nowrap rounded"
+          >
+            NeoCloudz
+          </a>
           <Link to="/contact" className="hidden sm:block bg-brand-yellow text-black px-5 py-2.5 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-lg shadow-brand-yellow/10 whitespace-nowrap rounded">
             Talk to Us
           </Link>

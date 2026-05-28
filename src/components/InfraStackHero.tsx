@@ -52,12 +52,12 @@ export default function InfraStackHero() {
           <div className="ish-stats">
             <div className="ish-stat">
               <div className="ish-stat-value">
-                450<span className="ish-stat-unit">MW</span>
+                400+<span className="ish-stat-unit">MW</span>
               </div>
               <div className="ish-stat-label">Power Capacity</div>
             </div>
             <div className="ish-stat">
-              <div className="ish-stat-value">6</div>
+              <div className="ish-stat-value">4</div>
               <div className="ish-stat-label">DC Campuses</div>
             </div>
             <div className="ish-stat">

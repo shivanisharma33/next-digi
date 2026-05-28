@@ -71,7 +71,7 @@ const GlobalNetwork = () => {
         >
           {[
             { val: "4", label: "Active Sites Across the US Footprint" },
-            { val: "450MW", label: "Pipeline Capacity in Development" },
+            { val: "400MW+", label: "Pipeline Capacity in Development" },
             { val: "24/7", label: "Multi-region Network Operations" },
             { val: "<10ms", label: "Inter-site Backbone Latency Target" }
           ].map((stat, i) => (
@@ -404,7 +404,7 @@ const GlobalNetwork = () => {
               { val: "4 Regions", label: "ACTIVE OPERATING REGIONS ACROSS THE US — DIVERSIFIED POWER PROFILES AND CUSTOMER PROXIMITY." },
               { val: "Diverse Path", label: "INTER-SITE FIBER ENGINEERED — WITH PHYSICAL ROUTE DIVERSITY FOR REPLICATION AND FAILOVER." },
               { val: "Single NOC", label: "MULTI-REGION OPERATIONS RUN — FROM A UNIFIED CONTROL PLANE, ONE TEAM, ONE PANE OF GLASS." },
-              { val: "450MW Pipe", label: "PIPELINE CAPACITY IN DEVELOPMENT — EXTENDS THE NETWORK INTO NEW CUSTOMER GEOGRAPHIES." }
+              { val: "400MW+ Pipe", label: "PIPELINE CAPACITY IN DEVELOPMENT — EXTENDS THE NETWORK INTO NEW CUSTOMER GEOGRAPHIES." }
             ].map((stat, i) => {
               const [title, desc] = stat.label.split(' — ');
               return (

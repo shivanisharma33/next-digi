@@ -263,17 +263,14 @@ const EmailAlerts = () => {
                           {/* Option 1: Press Releases */}
                           <div
                             onClick={() => setSubPress(!subPress)}
-                            className={`p-4 rounded-xl border flex flex-col justify-between cursor-pointer transition-all min-h-[90px] ${subPress
+                            className={`p-4 rounded-xl border flex items-center gap-3 cursor-pointer transition-all ${subPress
                               ? 'border-brand-yellow/30 bg-brand-yellow/[0.02]'
                               : 'border-white/5 bg-[#050608] hover:border-white/10'
                               }`}
                           >
-                            <div className="flex justify-between items-center w-full">
-                              <span className="text-[10px] font-mono text-white/40">DPX-PR</span>
-                              <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${subPress ? 'border-brand-yellow bg-brand-yellow text-black' : 'border-white/10'
-                                }`}>
-                                {subPress && <Check size={10} strokeWidth={3} />}
-                              </div>
+                            <div className={`w-4 h-4 rounded flex items-center justify-center border-2 shrink-0 transition-all ${subPress ? 'border-brand-yellow bg-brand-yellow text-black' : 'border-white/40'
+                              }`}>
+                              {subPress && <Check size={10} strokeWidth={3} />}
                             </div>
                             <span className="text-xs font-semibold uppercase tracking-wider text-white">Press Releases</span>
                           </div>
@@ -281,17 +278,14 @@ const EmailAlerts = () => {
                           {/* Option 2: SEC Filings */}
                           <div
                             onClick={() => setSubSec(!subSec)}
-                            className={`p-4 rounded-xl border flex flex-col justify-between cursor-pointer transition-all min-h-[90px] ${subSec
+                            className={`p-4 rounded-xl border flex items-center gap-3 cursor-pointer transition-all ${subSec
                               ? 'border-brand-yellow/30 bg-brand-yellow/[0.02]'
                               : 'border-white/5 bg-[#050608] hover:border-white/10'
                               }`}
                           >
-                            <div className="flex justify-between items-center w-full">
-                              <span className="text-[10px] font-mono text-white/40">DPX-SEC</span>
-                              <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${subSec ? 'border-brand-yellow bg-brand-yellow text-black' : 'border-white/10'
-                                }`}>
-                                {subSec && <Check size={10} strokeWidth={3} />}
-                              </div>
+                            <div className={`w-4 h-4 rounded flex items-center justify-center border-2 shrink-0 transition-all ${subSec ? 'border-brand-yellow bg-brand-yellow text-black' : 'border-white/40'
+                              }`}>
+                              {subSec && <Check size={10} strokeWidth={3} />}
                             </div>
                             <span className="text-xs font-semibold uppercase tracking-wider text-white">All SEC Filings</span>
                           </div>
@@ -299,17 +293,14 @@ const EmailAlerts = () => {
                           {/* Option 3: Stock Detail */}
                           <div
                             onClick={() => setSubStock(!subStock)}
-                            className={`p-4 rounded-xl border flex flex-col justify-between cursor-pointer transition-all min-h-[90px] ${subStock
+                            className={`p-4 rounded-xl border flex items-center gap-3 cursor-pointer transition-all ${subStock
                               ? 'border-brand-yellow/30 bg-brand-yellow/[0.02]'
                               : 'border-white/5 bg-[#050608] hover:border-white/10'
                               }`}
                           >
-                            <div className="flex justify-between items-center w-full">
-                              <span className="text-[10px] font-mono text-white/40">DPX-STK</span>
-                              <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${subStock ? 'border-brand-yellow bg-brand-yellow text-black' : 'border-white/10'
-                                }`}>
-                                {subStock && <Check size={10} strokeWidth={3} />}
-                              </div>
+                            <div className={`w-4 h-4 rounded flex items-center justify-center border-2 shrink-0 transition-all ${subStock ? 'border-brand-yellow bg-brand-yellow text-black' : 'border-white/40'
+                              }`}>
+                              {subStock && <Check size={10} strokeWidth={3} />}
                             </div>
                             <span className="text-xs font-semibold uppercase tracking-wider text-white">Stock Detail</span>
                           </div>

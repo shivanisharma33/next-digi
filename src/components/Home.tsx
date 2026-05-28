@@ -10,6 +10,7 @@ import NeoCloudzSection from './NeoCloudzSection';
 import Colocation from './Colocation';
 import Capabilities from './Capabilities';
 import HowWeWork from './HowWeWork';
+import LatestNews from './LatestNews';
 import { CTASection } from './Footer';
 import LayeredInfrastructure from './LayeredInfrastructure';
 import StackedLayersVisual from './StackedLayersVisual';
@@ -26,6 +27,7 @@ const Home = () => {
       <Capabilities />
       <NeoCloudzSection />
       <HowWeWork />
+      <LatestNews />
       <CTASection />
     </>
   );

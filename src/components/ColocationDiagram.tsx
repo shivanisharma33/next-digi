@@ -282,7 +282,7 @@ const ColocationDiagram = () => {
         </g>
 
 
-        {/* ── FEATURE 1: 80KW/RACK HIGH-DENSITY GPU CABINETS ── */}
+        {/* ── FEATURE 1: 200KW/RACK HIGH-DENSITY GPU CABINETS ── */}
         <g className="interactive-element" id="gpu-cabinets">
           
           {/* Cabinet 1 (Securely Caged Server Rack - Left) */}
@@ -342,7 +342,7 @@ const ColocationDiagram = () => {
             );
           })}
 
-          {/* LIQUID COOLING LOOPS (Cyan pipes showing 80kW/rack density cooling flow) */}
+          {/* LIQUID COOLING LOOPS (Cyan pipes showing 200kW/rack density cooling flow) */}
           <path d="M 425 210 Q 450 225, 480 230" fill="none" stroke="#0ea5e9" strokeWidth="2" opacity="0.4" />
           <path d="M 425 210 Q 450 225, 480 230" fill="none" stroke="url(#coolPipeGrad)" strokeWidth="1.2" className="liquid-tube" />
           
@@ -493,7 +493,7 @@ const ColocationDiagram = () => {
             fill="#0f172a"
             className="hud-text"
           >
-            80KW GPU CABINETS
+            200KW GPU CABINETS
           </text>
           <text
             x="-185"

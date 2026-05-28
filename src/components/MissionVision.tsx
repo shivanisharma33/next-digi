@@ -19,7 +19,7 @@ const values = [
   {
     icon: Globe2,
     title: 'Built in the U.S.',
-    body: 'Domestic supply chain, U.S.-sited facilities, and a 450 MW development pipeline keep AI workloads on American soil.',
+    body: 'Domestic supply chain, U.S.-sited facilities, and a 400MW+ development pipeline keep AI workloads on American soil.',
   },
   {
     icon: Cpu,
@@ -115,7 +115,7 @@ const MissionVision = () => {
             <div className="relative mb-10 pl-6">
               <span className="text-brand-yellow font-serif text-5xl leading-none absolute left-0 top-[-8px] select-none">"</span>
               <p className="text-base md:text-lg text-white/70 max-w-lg leading-relaxed font-normal">
-                We exist to power the AI/AAI factory — power, cooling, compute, and connectivity — which reach of every dream building toward a superintelligent era.
+                We exist to power the AI factory — delivering the power, cooling, compute, and connectivity that put supercomputing infrastructure within reach of every team building toward a superintelligent era.
               </p>
             </div>
 

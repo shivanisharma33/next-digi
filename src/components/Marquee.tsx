@@ -2,11 +2,11 @@ import React from 'react';
 
 const Marquee = () => {
   const items = [
-    "450MW POWER CAPACITY",
-    "NVIDIA BLACKWELL B200",
+    "400MW+ POWER CAPACITY",
+    "NVIDIA BLACKWELL",
     "<1.3 PUE EFFICIENCY",
     "100% U.S. OWNED & OPERATED",
-    "6 DATA CENTER CAMPUSES",
+    "4 DATA CENTER CAMPUSES",
     "2N POWER REDUNDANCY",
     "LIQUID COOLING READY"
   ];

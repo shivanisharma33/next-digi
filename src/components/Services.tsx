@@ -12,9 +12,6 @@ import HeroBg from './HeroBg';
 import IsometricEnergyGen from './IsometricEnergyGen';
 import NeoCloudVisual from './NeoCloudVisual';
 import GpuClusterDashboard from './GpuClusterDashboard';
-import ARMSVisual from './ARMSVisual';
-import ARMSModularVisual from './ARMSModularVisual';
-import Arms3D from './Arms3D';
 import ServicesHeroVisual3D from './ServicesHeroVisual3D';
 import DGXXCubeAnimation from './DGXXCubeAnimation';
 
@@ -192,7 +189,7 @@ export default function Services() {
                 { label: "Power Generation", val: "60MW" },
                 { label: "Data Center", val: "22MW" },
                 { label: "InfiniBand Fabric", val: "400G" },
-                { label: "Modular Deploy", val: "ARMS" }
+                { label: "PUE Target", val: "<1.3" }
               ].map((item, i) => (
                 <div key={i} className={`text-center px-6 ${i !== 3 ? 'md:border-r border-white/5' : ''}`}>
                   <p className="text-[#f5c518] font-semibold text-3xl md:text-4xl tracking-tighter mb-1.5 hover:scale-105 transition-transform duration-500">{item.val}</p>
@@ -286,7 +283,7 @@ export default function Services() {
               {/* Card Blueprint Detail */}
               <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[8px] text-black leading-tight pointer-events-none">
                 DC_COLO_FLOOR v4.0<br />
-                DENSITY: 80KW/RACK<br />
+                DENSITY: 200KW/RACK<br />
                 COOLING: DLC_ENABLED
               </div>
 
@@ -302,13 +299,13 @@ export default function Services() {
                 <p className="text-gray-400 font-medium mb-8 lg:mb-12 text-sm uppercase tracking-widest">AI-Ready High-Density Space</p>
 
                 <p className="text-gray-500 font-medium mb-8 lg:mb-12 text-[14px] lg:text-[15px] leading-relaxed">
-                  Our Alabama facility provides high-density colocation designed specifically for GPU workloads, featuring advanced cooling and massive development pathways.
+                  Our facilities provide high-density colocation designed specifically for GPU workloads, featuring advanced cooling and massive development pathways.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 lg:gap-y-6 gap-x-8 mb-10 lg:mb-16">
                   {[
-                    "22MW Operating Base",
-                    "80kW+ Rack Density",
+                    "400MW+ Capacity Portfolio",
+                    "200kW+ Rack Density",
                     "Direct Liquid Cooling",
                     "24/7 Biometric Security"
                   ].map((feat, i) => (
@@ -333,9 +330,9 @@ export default function Services() {
       <section className="bg-[#06070a] pt-5 pb-10 lg:py-15 relative overflow-hidden text-white border-y border-white/5">
 
         <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10">
-          <SectionLabel num="02" text="Compute & Modular" dark />
+          <SectionLabel num="02" text="Compute Layer" dark />
 
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center mb-20 lg:mb-32">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -360,33 +357,6 @@ export default function Services() {
             <div className="bg-black border border-white/10 overflow-hidden relative group shadow-2xl rounded-lg">
               <GpuClusterDashboard />
             </div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
-            <div className="h-[600px] overflow-hidden relative group order-last lg:order-first rounded-3xl border border-white/5 shadow-2xl" style={{ background: 'radial-gradient(ellipse at center 55%, #0E0E0E 0%, #050505 80%)' }}>
-              <Arms3D theme="dark" />
-            </div>
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-6 lg:mb-8 relative z-10">
-                ARMS <br /><span className="text-[#f5c518]">MODULAR SYSTEM</span>
-              </h3>
-              <p className="text-gray-400 text-[15px] lg:text-lg mb-8 lg:mb-12 leading-relaxed font-medium">
-                The ARMS platform provides factory-built, repeatable data center blocks — compressing deployment timelines from months to weeks.
-              </p>
-              <ul className="space-y-4 lg:space-y-6 mb-8 lg:mb-12">
-                <FeatureItem text="600kW base module — repeatable factory build" dark />
-                <FeatureItem text="Three-module 1.8MW standard campus block" dark />
-                <FeatureItem text="Site install connects to prepared power" dark />
-                <FeatureItem text="Scalable across all DigiPowerX sites" dark />
-              </ul>
-              <Link to="/arms" className="px-10 py-5 bg-white/5 border border-white/10 text-white font-semibold uppercase tracking-widest text-[11px] hover:bg-white/10 transition-all inline-block text-center">
-                ARMS Platform
-              </Link>
-            </motion.div>
           </div>
         </div>
       </section>

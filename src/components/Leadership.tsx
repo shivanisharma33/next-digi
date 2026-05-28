@@ -112,12 +112,6 @@ const Leadership = () => {
       role: "Board Member", 
       img: "/images/venkat.webp",
       bio: "Seasoned wealth management executive and Principal of Robbins Gupta Holdings. Advisor to global financial organizations." 
-    },
-    { 
-      name: "Jim Haddon", 
-      role: "Board Member / Advisor", 
-      img: "/images/jim.jpg",
-      bio: "Investment banking and public finance expert with over 30 years of experience advising corporate and public entities on capital structuring." 
     }
   ];
 
