@@ -117,7 +117,7 @@ const LiquidCooling3D = () => {
       // ── Outer Cabinet ──
       // Top and Bottom Caps (Charcoal)
       const capGeo = new THREE.BoxGeometry(cfg.width, 0.15, cfg.depth);
-      
+
       const bottomCap = new THREE.Mesh(capGeo, matCharcoal);
       bottomCap.position.y = -cfg.height / 2 - 0.075;
       rack.add(bottomCap);
@@ -128,7 +128,7 @@ const LiquidCooling3D = () => {
 
       // Side Pillars (Sleek Silver Aluminum Frame)
       const sideGeo = new THREE.BoxGeometry(0.08, cfg.height, cfg.depth);
-      
+
       const leftSide = new THREE.Mesh(sideGeo, matSilver);
       leftSide.position.set(-cfg.width / 2 + 0.04, 0, 0);
       rack.add(leftSide);
@@ -158,7 +158,7 @@ const LiquidCooling3D = () => {
       // ── Server Units/Blades ──
       const bladeCount = cfg.isCenter ? 14 : 11;
       const bladeHeight = (cfg.height - 0.2) / bladeCount;
-      
+
       for (let b = 0; b < bladeCount; b++) {
         const bladeGroup = new THREE.Group();
         const yPos = (cfg.height / 2 - 0.15) - b * (cfg.height - 0.2) / (bladeCount - 0.5);
@@ -185,7 +185,7 @@ const LiquidCooling3D = () => {
           const totalW = cfg.width - 0.28;
           const dW = totalW / driveCount;
           const driveGeo = new THREE.BoxGeometry(dW - 0.018, bladeHeight - 0.06, 0.01);
-          
+
           for (let d = 0; d < driveCount; d++) {
             const drive = new THREE.Mesh(driveGeo, matSilver);
             const dx = -totalW / 2 + dW / 2 + d * dW;
@@ -439,7 +439,7 @@ const LiquidCooling3D = () => {
 
         const progress = p.progress;
         const rackCfg = racksConfig[p.rackIndex];
-        
+
         const startY = -rackCfg.height / 2 + 0.15;
         const endY = rackCfg.height / 2 - 0.15;
 
@@ -477,11 +477,11 @@ const LiquidCooling3D = () => {
       container.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('touchend', onMouseUp);
-      
+
       renderer.dispose();
-      
+
       flowParticles.forEach((p) => scene.remove(p.mesh));
-      
+
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }

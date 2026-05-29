@@ -14,6 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
+    document.body.style.overflow = '';
   }, [location.pathname]);
 
   // Handle scroll effect

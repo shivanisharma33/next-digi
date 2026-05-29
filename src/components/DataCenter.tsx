@@ -159,25 +159,25 @@ const DataCenter = () => {
       <section className="flex flex-col lg:flex-row items-stretch min-h-[600px] relative overflow-hidden bg-[#050608] border-y border-white/5" style={{ backgroundColor: '#050608' }}>
         <div className="w-full lg:w-1/2 px-12 lg:px-24 py-0 flex flex-col justify-center">
           <div className="py-12 lg:py-0">
-            <span className="text-[10px] font-semibold tracking-[0.4em] uppercase text-[#f5c518]">Cooling Architecture</span>
+            <span className="text-[10px] font-semibold tracking-[0.4em] uppercase text-[#f5c518]">DATA CENTER FLOW ARCHITECTURE</span>
             <h2 className="text-[clamp(2.5rem,5vw,5rem)] font-semibold leading-[0.9] tracking-tighter uppercase text-white mt-6 mb-8">
               HEAT OUT. <br />
               <span className="text-[#f5c518]">PERFORMANCE IN.</span>
             </h2>
-            <p className="text-white/60 text-lg leading-relaxed max-w-xl mb-12 font-medium">
-              A closed-loop direct liquid cooling system connects every GPU rack to CDU distribution, chiller plant, and heat rejection — eliminating thermal throttle as a constraint on AI compute density.
+            <p className="text-white/60 text-base leading-relaxed max-w-xl mb-10 font-medium">
+              A multi-layer infrastructure architecture routes power, cooling, and compute resources through dedicated processing layers, ensuring maximum efficiency, thermal stability, and AI performance.
             </p>
             <ul className="space-y-4">
               {[
-                { label: 'Red path:', text: 'hot coolant return from rack to CDU', color: '#ef4444' },
-                { label: 'Blue path:', text: 'cold supply loop back to compute', color: '#3b82f6' },
-                { label: '', text: 'CDU, chiller, and cooling tower integrated in one flow', color: '#f5c518' },
-                { label: '', text: 'Supports 200kW+ per-rack GPU power envelopes', color: '#f5c518' },
+                { label: 'Yellow Path:', text: 'Power and workload progression through each infrastructure layer.' },
+                { label: 'White Nodes:', text: 'Monitoring, processing, and control checkpoints.' },
+                { label: 'Output Layer:', text: 'AI-ready compute delivered to production environments.' },
+                { label: 'Supports 200kW+ per-rack GPU power density.', text: '' },
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <ArrowRight size={16} className="mt-0.5 shrink-0 text-[#f5c518]" />
                   <p className="text-white text-sm font-semibold">
-                    {item.label && <span className="mr-2 text-white">{item.label}</span>}
+                    <span className="mr-2 text-[#f5c518]">{item.label}</span>
                     {item.text}
                   </p>
                 </li>
