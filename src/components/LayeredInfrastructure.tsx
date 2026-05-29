@@ -129,6 +129,16 @@ const LayeredInfrastructure = () => {
   const [active, setActive] = useState<LayerId>(1);
   const sectionRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -136,9 +146,9 @@ const LayeredInfrastructure = () => {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 70,
-    damping: 26,
-    mass: 0.6,
+    stiffness: 50,
+    damping: 24,
+    mass: 0.8,
     restDelta: 0.0005,
   });
 
@@ -158,7 +168,7 @@ const LayeredInfrastructure = () => {
   const infoOnLeft = activeLayer.markerSide === "left";
   // When the marker sits in the bottom half of the visual, render the large
   // info block ABOVE the marker so its content (bullets + CTA) isn't clipped.
-  const flipInfo = activeLayer.markerYPct > 55;
+  const flipInfo = activeLayer.markerYPct > 50;
 
   // Click-to-scroll: jump to the section offset corresponding to a layer
   const scrollToLayer = (id: LayerId) => {
@@ -208,9 +218,9 @@ const LayeredInfrastructure = () => {
       ref={sectionRef}
       aria-label="DigiPowerX infrastructure stack"
       className="relative bg-white text-[#181717]"
-      style={{ minHeight: "260vh" }}
+      style={{ minHeight: "350vh" }}
     >
-      <div className="sticky top-0 flex min-h-screen items-center overflow-hidden pt-24 lg:pt-28">
+      <div className="sticky top-0 flex min-h-screen min-h-[100dvh] items-center overflow-hidden pt-20 lg:pt-28">
         {/* Top chapter progress strip */}
         <div
           aria-hidden
@@ -254,10 +264,10 @@ const LayeredInfrastructure = () => {
           </span>
         </div>
 
-        <div className="relative mx-auto w-full max-w-7xl px-6 pb-16 pt-8 lg:px-12 lg:pb-12 lg:pt-6">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_400px_1fr] lg:items-stretch lg:gap-16">
+        <div className="relative mx-auto w-full max-w-7xl px-4 pb-8 pt-4 lg:px-12 lg:pb-12 lg:pt-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_400px_1fr] lg:items-stretch lg:gap-16">
             {/* Visual stack — fixed in place; scroll cycles through layers */}
-            <div className="relative mx-auto w-full max-w-[400px] px-6 lg:col-start-2 lg:row-start-1 lg:px-0">
+            <div className="relative mx-auto w-full max-w-[250px] sm:max-w-[320px] lg:max-w-[400px] px-4 lg:col-start-2 lg:row-start-1 lg:px-0">
               {/* Decorative corner brackets */}
               <span aria-hidden className="pointer-events-none absolute -left-3 -top-3 h-5 w-5 border-l border-t border-neutral-300" />
               <span aria-hidden className="pointer-events-none absolute -right-3 -top-3 h-5 w-5 border-r border-t border-neutral-300" />
@@ -265,8 +275,8 @@ const LayeredInfrastructure = () => {
               <span aria-hidden className="pointer-events-none absolute -bottom-3 -right-3 h-5 w-5 border-b border-r border-neutral-300" />
 
               <div
-                className="relative w-full"
-                style={{ paddingBottom: "120%" }}
+                className="relative w-full mx-auto max-h-[28dvh] sm:max-h-[34dvh] lg:max-h-none"
+                style={{ aspectRatio: "5 / 6" }}
               >
                 {/* Visual Graphic Wrapper — stays centered; only markers/pointers move */}
                 <div className="absolute inset-0">
@@ -293,8 +303,8 @@ const LayeredInfrastructure = () => {
                     // Only push the immediate neighbors of the active layer outward,
                     // so the stack never overflows when the first or last layer is active.
                     // 3x spread: neighbors get a big push, distant layers get a softer one
-                    const NEIGHBOR_SHIFT = 88;
-                    const FAR_SHIFT = 40;
+                    const NEIGHBOR_SHIFT = isMobile ? 48 : 88;
+                    const FAR_SHIFT = isMobile ? 22 : 40;
                     const absDelta = Math.abs(delta);
                     const offsetY =
                       delta === 0
@@ -314,10 +324,11 @@ const LayeredInfrastructure = () => {
                           top: `${layer.topPct}%`,
                           left: `${layer.leftPct}%`,
                           width: `${layer.widthPct}%`,
-                          opacity: isActive ? 1 : 0.32,
+                          opacity: isActive ? 1 : 0,
+                          pointerEvents: isActive ? "auto" : "none",
                           filter: isActive
                             ? "drop-shadow(0 18px 32px rgba(24,23,23,0.18))"
-                            : "grayscale(25%)",
+                            : "none",
                           zIndex: 10 + layer.id,
                           transform: `translateY(${offsetY}px) scale(${isActive ? 1.015 : 1
                             })`,
@@ -342,8 +353,8 @@ const LayeredInfrastructure = () => {
                   const LINE = 220;
                   const OUTWARD = 24;
                   const delta = layer.id - active;
-                  const NEIGHBOR_SHIFT = 88;
-                  const FAR_SHIFT = 40;
+                  const NEIGHBOR_SHIFT = isMobile ? 48 : 88;
+                  const FAR_SHIFT = isMobile ? 22 : 40;
                   const absDelta = Math.abs(delta);
                   const offsetY =
                     delta === 0
@@ -450,15 +461,15 @@ const LayeredInfrastructure = () => {
                 style={
                   flipInfo
                     ? {
-                      bottom: `calc(${100 - activeLayer.markerYPct}% + 18px)`,
-                      transform: "translateY(-4px)",
-                      transition: "bottom 700ms cubic-bezier(0.22, 1, 0.36, 1)",
-                    }
+                        top: `max(120px, calc(${activeLayer.markerYPct}% - 280px))`,
+                        transform: "translateY(-4px)",
+                        transition: "all 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+                      }
                     : {
-                      top: `calc(${activeLayer.markerYPct}% + 18px)`,
-                      transform: "translateY(-4px)",
-                      transition: "top 700ms cubic-bezier(0.22, 1, 0.36, 1)",
-                    }
+                        top: `min(calc(${activeLayer.markerYPct}% + 18px), calc(100dvh - 350px))`,
+                        transform: "translateY(-4px)",
+                        transition: "all 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+                      }
                 }
               >
                 <motion.div
@@ -529,29 +540,29 @@ const LayeredInfrastructure = () => {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-col items-center text-center lg:hidden"
+                className="flex flex-col items-center text-center lg:hidden mt-2"
               >
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs tracking-widest text-neutral-500">
+                <div className="flex items-center gap-2.5">
+                  <span className="font-mono text-[10px] tracking-widest text-neutral-500">
                     {activeLayer.num}
                   </span>
-                  <span className="h-px w-6 bg-neutral-300" aria-hidden />
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#f5c518]">
+                  <span className="h-px w-4 bg-neutral-300" aria-hidden />
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#f5c518]">
                     {activeLayer.kicker}
                   </span>
                 </div>
-                <h3 className="mt-3 text-xl font-semibold uppercase leading-tight tracking-tight">
+                <h3 className="mt-2 text-lg sm:text-xl font-bold uppercase leading-tight tracking-tight">
                   {activeLayer.title}
                 </h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral-600">
+                <p className="mt-2 max-w-md text-xs sm:text-sm leading-relaxed text-neutral-600 px-2">
                   {activeLayer.description}
                 </p>
-                <ul className="mt-4 grid max-w-md grid-cols-1 gap-1.5 text-left text-xs text-neutral-700 sm:grid-cols-2">
+                <ul className="mt-3 grid max-w-md grid-cols-1 gap-1 text-left text-[11px] sm:text-xs text-neutral-700 sm:grid-cols-2 px-2">
                   {activeLayer.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2">
+                    <li key={b} className="flex items-start gap-1.5">
                       <span
                         aria-hidden
-                        className="mt-[6px] inline-block h-1 w-1 shrink-0 rounded-full"
+                        className="mt-[5px] inline-block h-1 w-1 shrink-0 rounded-full"
                         style={{ backgroundColor: ACCENT }}
                       />
                       <span className="leading-snug">{b}</span>
@@ -560,14 +571,14 @@ const LayeredInfrastructure = () => {
                 </ul>
                 <Link
                   to={activeLayer.href}
-                  className="mt-5 inline-flex items-center gap-3 border-b border-[#181717] pb-1 font-mono text-xs uppercase tracking-wide"
+                  className="mt-4 inline-flex items-center gap-2 border-b border-[#181717] pb-0.5 font-mono text-[10px] sm:text-xs uppercase tracking-wide"
                 >
                   {activeLayer.cta}
                   <span aria-hidden>→</span>
                 </Link>
 
                 {/* Mobile dot navigator */}
-                <div className="mt-6 flex items-center gap-2">
+                <div className="mt-4 flex items-center gap-1.5">
                   {LAYERS.map((l) => (
                     <button
                       key={`m-dot-${l.id}`}
@@ -575,9 +586,9 @@ const LayeredInfrastructure = () => {
                       onClick={() => scrollToLayer(l.id)}
                       aria-label={`Go to ${l.title}`}
                       aria-current={l.id === active ? "step" : undefined}
-                      className="h-2 rounded-full transition-all"
+                      className="h-1.5 rounded-full transition-all"
                       style={{
-                        width: l.id === active ? 22 : 8,
+                        width: l.id === active ? 18 : 6,
                         backgroundColor:
                           l.id === active ? ACCENT : "#d4d4d4",
                       }}
