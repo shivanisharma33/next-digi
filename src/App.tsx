@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { HashRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { Footer } from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -24,27 +24,7 @@ const MissionVision = lazy(() => import('./components/MissionVision'));
 const GlobalNetwork = lazy(() => import('./components/GlobalNetwork'));
 const Partnership = lazy(() => import('./components/Partnership'));
 
-export const ROUTES = {
-  home: '/',
-  about: '/about',
-  contact: '/contact',
-  services: '/services',
-  energy: '/energy',
-  dataCenters: '/data-centers',
-  neocloudz: '/neocloudz',
-  careers: '/careers',
-  secFilings: '/sec-filings',
-  leadership: '/leadership',
-  pressRelease: '/press-release',
-  investors: '/investors',
-  documentsCharters: '/documents-charters',
-  privacyPolicy: '/privacy-policy',
-  termsOfUse: '/terms-of-use',
-  emailAlerts: '/email-alerts',
-  missionVision: '/mission-vision',
-  globalNetwork: '/global-network',
-  partnership: '/partnership',
-} as const;
+import { ROUTES } from './routes';
 
 function RouteFallback() {
   return (
@@ -85,7 +65,7 @@ function NotFound() {
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <ScrollToTop />
       <Navbar />
       <main id="main-content">
@@ -115,6 +95,6 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
-    </HashRouter>
+    </BrowserRouter>
   );
 }
