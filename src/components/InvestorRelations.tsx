@@ -420,13 +420,15 @@ const InvestorRelations = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-12"
             >
-              <Link
-                to="/documents-charters"
+              <a
+                href="/images/DigiPowerX April 2026 (1).pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 bg-[#ffc629] px-7 py-4 rounded-xl text-black text-[11px] font-black uppercase tracking-[0.2em] hover:bg-white transition-all shadow-[0_0_40px_rgba(255,198,41,0.25)] hover:shadow-[0_0_50px_rgba(255,198,41,0.4)]"
               >
                 Latest Presentation
                 <Download size={14} className="group-hover:translate-y-0.5 transition-transform" />
-              </Link>
+              </a>
               <Link
                 to="/sec-filings"
                 className="group inline-flex items-center gap-3 bg-white/[0.03] border border-white/10 px-7 py-4 rounded-xl text-white text-[11px] font-black uppercase tracking-[0.2em] hover:bg-white/[0.06] hover:border-white/20 transition-all backdrop-blur-sm"
