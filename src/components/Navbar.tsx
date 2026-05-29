@@ -191,11 +191,11 @@ const Navbar = () => {
             href="https://www.neocloudz.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden lg:inline-block bg-brand-yellow text-black px-5 py-2.5 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 whitespace-nowrap rounded"
+            className="hidden lg:inline-flex btn-global btn-primary"
           >
             NeoCloudz
           </a>
-          <Link to="/contact" className="hidden sm:block bg-brand-yellow text-black px-5 py-2.5 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-lg shadow-brand-yellow/10 whitespace-nowrap rounded">
+          <Link to="/contact" className="hidden sm:inline-flex btn-global btn-primary">
             Talk to Us
           </Link>
 
@@ -331,14 +331,14 @@ const Navbar = () => {
                 <div className="flex flex-col gap-3">
                   <Link
                     to="/contact"
-                    className="w-full bg-brand-yellow text-black py-4 font-bold text-xs uppercase tracking-widest text-center rounded hover:bg-white transition-all active:scale-[0.98]"
+                    className="w-full btn-global btn-primary"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Talk to Our Team
                   </Link>
                   <Link
                     to="/investors"
-                    className="w-full bg-white/5 border border-white/10 text-white py-4 font-bold text-xs uppercase tracking-widest text-center rounded hover:bg-white/10 transition-all active:scale-[0.98]"
+                    className="w-full btn-global btn-secondary"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Investor Relations

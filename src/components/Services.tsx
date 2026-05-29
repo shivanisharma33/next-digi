@@ -184,7 +184,7 @@ export default function Services() {
 
         {/* Bottom Snapshot Metrics (Full Width) */}
         <div className="w-full relative z-20 border-t border-white/5 bg-black/40 backdrop-blur-3xl">
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-20">
+          <div className="max-w-[1400px] mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-0 py-6 lg:py-10">
               {[
                 { label: "Power Generation", val: "60MW" },
@@ -203,26 +203,26 @@ export default function Services() {
       </section>
 
       {/* ── 01 / Power & Colocation (Light) ── */}
-      <section className="bg-[#f8f9fa] py-10 lg:py-16 relative overflow-hidden">
+      <section className="bg-[#f8f9fa] py-20 lg:py-24 relative overflow-hidden">
         {/* Subtle technical grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_10%,transparent_100%)] opacity-[0.03] pointer-events-none" />
 
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-12 mb-10 lg:mb-16">
             <div className="max-w-2xl">
-              {/* <SectionLabel num="01" text="Infrastructure Layer" /> */}
-              <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-0 relative z-10 mt-4 lg:mt-8">
+              <div className="text-[10px] font-semibold tracking-[0.3em] uppercase text-gray-400 mb-4">01 / Infrastructure Layer</div>
+              <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-0 relative z-10">
                 POWER & <br /><span className="text-[#f5c518]">COLOCATION.</span>
               </h2>
             </div>
-            <div className="max-w-md lg:text-right">
+            <div className="max-w-md">
               <p className="text-gray-500 text-[15px] lg:text-lg font-medium leading-relaxed">
                 Vertical integration at the physical layer. We own the generation, the substation, and the high-density floor space.
               </p>
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
             {/* Power Card */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -328,9 +328,9 @@ export default function Services() {
       </section>
 
       {/* ── 02 / Advanced Tech (Dark) ── */}
-      <section className="bg-[#06070a] pt-5 pb-10 lg:py-15 relative overflow-hidden text-white border-y border-white/5">
+      <section className="bg-[#06070a] py-20 lg:py-24 relative overflow-hidden text-white border-y border-white/5">
 
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <SectionLabel num="02" text="Compute Layer" dark />
 
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
@@ -363,11 +363,11 @@ export default function Services() {
       </section>
 
       {/* ── 03 / Integrated Advantage (Light & Sharp) ── */}
-      <section className="bg-white pt-6 pb-6 lg:py-20 relative overflow-hidden">
+      <section className="bg-white py-20 lg:py-24 relative overflow-hidden">
         {/* Subtle background architecture */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gray-50/50 -skew-x-12 translate-x-32 pointer-events-none" />
 
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="flex flex-col items-center gap-2 mb-6 lg:mb-16 text-center">
             <div className="max-w-2xl w-full">
               <SectionLabel num="03" text="Synergy Layer" />
@@ -418,7 +418,7 @@ export default function Services() {
           </div>
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-b border-gray-200">
             {[
               { title: <>Owned<br />Power</>, desc: "Sub-$0.05/kWh cost structure flows through to every layer of colocation and compute." },

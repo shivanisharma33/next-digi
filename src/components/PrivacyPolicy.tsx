@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
   };
 
   return (
-    <div className="bg-[#050608] min-h-screen text-white selection:bg-brand-yellow selection:text-black">
+    <div className="bg-dark-base min-h-screen text-white selection:bg-brand-yellow selection:text-black">
       
       {/* Hero Section */}
       <section className="relative min-h-[50vh] flex flex-col items-center justify-center pt-48 pb-20 px-6 overflow-hidden">
@@ -88,14 +88,14 @@ const PrivacyPolicy = () => {
       </section>
 
       {/* Content Section with Sticky Sidebar Grid */}
-      <section className="py-24 relative border-t border-white/5 bg-[#0a0a0c]">
+      <section className="py-24 relative border-t border-dark-border-subtle bg-dark-surface-1">
         <div className="container mx-auto px-6 max-w-[1400px]">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 max-w-6xl mx-auto items-start">
             
             {/* Left Sidebar Index (Sticky) */}
             <div className="lg:col-span-4 sticky top-32 space-y-6 hidden lg:block">
-              <div className="border border-white/5 rounded-3xl p-8 bg-[#0d0f14]/50 backdrop-blur-md">
+              <div className="border border-dark-border-subtle rounded-3xl p-8 bg-dark-surface-2/50 backdrop-blur-md">
                 <h3 className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-yellow mb-6 flex items-center gap-2">
                   <Eye size={14} />
                   Policy Contents
@@ -124,7 +124,7 @@ const PrivacyPolicy = () => {
             <div className="lg:col-span-8 space-y-16">
               
               {/* Introduction Card */}
-              <div className="border border-white/5 rounded-3xl p-8 md:p-10 bg-[#0d0f14]/30 leading-relaxed text-sm md:text-base text-white/70 space-y-4">
+              <div className="border border-dark-border-subtle rounded-3xl p-8 md:p-10 bg-dark-surface-2/30 leading-relaxed text-sm md:text-base text-white/70 space-y-4">
                 <p>
                   DigiPowerX, Inc. (“DigiPowerX,” “we,” “our,” or “us”) values your privacy. This Privacy Policy explains how we collect, use, and share information when you visit or interact with our website, DigiPowerX.com (the “Site”).
                 </p>
@@ -135,7 +135,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 1 */}
               <div id="sec-1" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">01</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">Information We Collect</h2>
                 </div>
@@ -166,7 +166,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 2 */}
               <div id="sec-2" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">02</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">How We Use Your Information</h2>
                 </div>
@@ -184,7 +184,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 3 */}
               <div id="sec-3" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">03</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">Sharing of Information</h2>
                 </div>
@@ -204,7 +204,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 4 */}
               <div id="sec-4" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">04</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">Cookies and Tracking</h2>
                 </div>
@@ -223,7 +223,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 5 */}
               <div id="sec-5" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">05</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">Data Security</h2>
                 </div>
@@ -231,7 +231,7 @@ const PrivacyPolicy = () => {
                   <p>
                     We implement reasonable administrative, technical, and physical safeguards to protect your personal data.
                   </p>
-                  <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01] text-xs text-white/50">
+                  <div className="p-4 rounded-xl border border-dark-border-subtle bg-dark-surface-2/30 text-xs text-white/50">
                     <strong>Disclaimer:</strong> However, no security system is completely secure, and we cannot guarantee absolute protection.
                   </div>
                 </div>
@@ -239,7 +239,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 6 */}
               <div id="sec-6" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">06</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">Your Rights</h2>
                 </div>
@@ -258,7 +258,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 7 */}
               <div id="sec-7" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">07</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">Third-Party Links</h2>
                 </div>
@@ -271,7 +271,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 8 */}
               <div id="sec-8" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">08</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">Children’s Privacy</h2>
                 </div>
@@ -284,7 +284,7 @@ const PrivacyPolicy = () => {
 
               {/* Section 9 */}
               <div id="sec-9" className="space-y-6 pt-4">
-                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4 border-b border-dark-border-subtle pb-4">
                   <span className="text-2xl font-semibold tracking-tighter text-brand-yellow font-mono">09</span>
                   <h2 className="text-2xl font-semibold uppercase tracking-tighter text-white">Changes to This Privacy Policy</h2>
                 </div>

@@ -537,9 +537,9 @@ export default function Contact() {
 
                     <div className="ct-send-row form-group full">
                       <div className="flex items-center justify-between w-full flex-wrap gap-4">
-                        <button type="submit" disabled={submitting} className="send-btn">
+                        <button type="submit" disabled={submitting} className="btn-global btn-primary">
                           {submitting ? 'Sending...' : 'Send Message'}
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{width: 14, height: 14}}><polyline points="9 18 15 12 9 6" /></svg>
                         </button>
                         <div className="ct-response-note">Response: usually under <strong>12 hours</strong></div>
                       </div>

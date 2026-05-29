@@ -78,7 +78,7 @@ const LeadershipHeroVisual3D: React.FC = () => {
       const vy = positionAttr.getY(i);
       const vz = positionAttr.getZ(i);
       const key = `${vx.toFixed(3)},${vy.toFixed(3)},${vz.toFixed(3)}`;
-      
+
       if (!vertexSet.has(key)) {
         vertexSet.add(key);
         const mesh = new THREE.Mesh(nodeGeo, nodeMat);
@@ -205,7 +205,7 @@ const LeadershipHeroVisual3D: React.FC = () => {
       // Ambient sparkles drift
       sparkles.forEach((s) => {
         s.mesh.position.add(s.velocity);
-        
+
         const bound = s.range / 2;
         if (s.mesh.position.x > bound) s.mesh.position.x = -bound;
         if (s.mesh.position.x < -bound) s.mesh.position.x = bound;

@@ -302,7 +302,7 @@ const SECFilings = () => {
   };
 
   return (
-    <div className="bg-black min-h-screen text-white selection:bg-brand-yellow selection:text-black">
+    <div className="bg-dark-base min-h-screen text-white selection:bg-brand-yellow selection:text-black">
       {/* Hero Section */}
       <section className="relative min-h-[50vh] md:min-h-[75vh] flex flex-col items-center pt-32 pb-12 md:pt-40 md:pb-24 px-6 overflow-hidden">
         {/* Background Matrix Grid */}
@@ -393,7 +393,7 @@ const SECFilings = () => {
       </section>
 
       {/* Recent Filings Header (Dark Contrast) */}
-      <section className="bg-[#0F0F0E] text-white py-12 md:py-24 border-t border-white/[0.03]" ref={gridRef}>
+      <section className="bg-dark-surface-1 text-white py-20 lg:py-24 border-t border-dark-border-subtle" ref={gridRef}>
         <div className="container mx-auto px-6 max-w-[1400px] text-center flex flex-col items-center">
           <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-white/[0.08] mb-10 bg-white/[0.02] backdrop-blur-md">
             <div className="h-[2px] w-6 bg-brand-yellow" />
@@ -411,7 +411,7 @@ const SECFilings = () => {
       </section>
 
       {/* Filings Grid Section (Dark Premium) */}
-      <section className="bg-[#0A0A0A] py-12 md:py-24 relative overflow-hidden border-t border-white/[0.03]">
+      <section className="bg-dark-surface-1 py-20 lg:py-24 relative overflow-hidden border-t border-dark-border-subtle">
         {/* Background matrix grids */}
         <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:48px_48px]" />
@@ -420,7 +420,7 @@ const SECFilings = () => {
         <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
           
           {/* Stats Cards Section - Enhanced 3D Glassmorphic Spotlight Panels */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
             
             {/* Total Filings Card */}
             <motion.div 
@@ -431,7 +431,7 @@ const SECFilings = () => {
                 boxShadow: "0 25px 50px -12px rgba(255, 215, 0, 0.15)"
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
+              className="relative bg-dark-surface-1/40 backdrop-blur-xl border border-dark-border-subtle rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
             >
               {/* Glass spotlight & color washes */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
@@ -455,7 +455,7 @@ const SECFilings = () => {
                 boxShadow: "0 25px 50px -12px rgba(255, 215, 0, 0.15)"
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
+              className="relative bg-dark-surface-1/40 backdrop-blur-xl border border-dark-border-subtle rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
             >
               {/* Glass spotlight & color washes */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
@@ -479,7 +479,7 @@ const SECFilings = () => {
                 boxShadow: "0 25px 50px -12px rgba(255, 215, 0, 0.15)"
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
+              className="relative bg-dark-surface-1/40 backdrop-blur-xl border border-dark-border-subtle rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
             >
               {/* Glass spotlight & color washes */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
@@ -508,7 +508,7 @@ const SECFilings = () => {
               <p className="text-white/40 text-sm font-medium text-center max-w-md">{error}</p>
               <button
                 onClick={() => fetchFilings(currentPage, activeTab)}
-                className="px-6 py-3 bg-[#0d0d0e] border border-white/[0.08] shadow-sm rounded-xl text-[10px] font-black uppercase tracking-[0.3em] text-white/60 hover:text-white hover:border-brand-yellow transition-all"
+                className="px-6 py-3 bg-dark-surface-3 border border-dark-border-default shadow-sm rounded-xl text-[10px] font-black uppercase tracking-[0.3em] text-white/60 hover:text-white hover:border-brand-yellow transition-all"
               >
                 Try Again
               </button>
@@ -554,7 +554,7 @@ const SECFilings = () => {
 
           {/* Loading state */}
           {loading && !error && (
-            <div className="bg-[#0B0C0E]/40 border border-white/[0.05] rounded-[32px] overflow-hidden backdrop-blur-xl animate-pulse">
+            <div className="bg-dark-surface-2/40 border border-dark-border-subtle rounded-[32px] overflow-hidden backdrop-blur-xl animate-pulse">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-white/[0.03] last:border-b-0">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-6 text-center sm:text-left flex-1 items-center">
@@ -583,7 +583,7 @@ const SECFilings = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-[#0B0C0E]/40 border border-white/[0.05] rounded-[32px] overflow-hidden backdrop-blur-xl"
+                className="bg-dark-surface-2/40 border border-dark-border-subtle rounded-[32px] overflow-hidden backdrop-blur-xl"
               >
                 {filings.map((item, i) => {
                   if (!item) return null;
@@ -636,7 +636,7 @@ const SECFilings = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05, duration: 0.4 }}
                       viewport={{ once: true }}
-                      className="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-white/[0.03] last:border-b-0 transition-all duration-300 hover:bg-white/[0.01]"
+                      className="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-dark-border-subtle last:border-b-0 transition-all duration-300 hover:bg-dark-surface-3/30"
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center gap-6 text-center sm:text-left items-center flex-1">
                         {/* Badge */}
@@ -686,7 +686,7 @@ const SECFilings = () => {
 
           {/* Empty state */}
           {!loading && !error && filings.length === 0 && (
-            <div className="bg-[#0B0C0E]/40 border border-white/[0.05] rounded-[32px] p-20 text-center flex flex-col items-center">
+            <div className="bg-dark-surface-2/40 border border-dark-border-subtle rounded-[32px] p-20 text-center flex flex-col items-center">
               <span className="text-white/40 text-sm font-semibold mb-2">No documents found</span>
               <span className="text-white/20 text-xs font-medium">There are currently no filings available in this category.</span>
             </div>
@@ -694,7 +694,7 @@ const SECFilings = () => {
 
           {/* Pagination */}
           {!loading && !error && totalPages > 1 && (
-            <div className="mt-16 bg-[#080808]/60 border border-white/[0.06] rounded-2xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
+            <div className="mt-16 bg-dark-surface-2/60 border border-dark-border-subtle rounded-2xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
               {/* Left Side: Page X of Y */}
               <div className="text-xs text-white/50 font-medium">
                 Page <strong className="text-white font-bold">{currentPage}</strong> of <strong className="text-white font-bold">{totalPages}</strong>
@@ -706,7 +706,7 @@ const SECFilings = () => {
                 <button
                   onClick={() => goToPage(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="w-9 h-9 rounded-lg border border-white/[0.08] bg-[#0c0d12]/40 flex items-center justify-center text-white/40 hover:text-[#f5c518] hover:border-[#f5c518]/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-9 h-9 rounded-lg border border-dark-border-subtle bg-dark-surface-3/40 flex items-center justify-center text-white/40 hover:text-[#f5c518] hover:border-[#f5c518]/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <ChevronLeft size={16} />
                 </button>
@@ -734,7 +734,7 @@ const SECFilings = () => {
                 <button
                   onClick={() => goToPage(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="w-9 h-9 rounded-lg border border-white/[0.08] bg-[#0c0d12]/40 flex items-center justify-center text-white/40 hover:text-[#f5c518] hover:border-[#f5c518]/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-9 h-9 rounded-lg border border-dark-border-subtle bg-dark-surface-3/40 flex items-center justify-center text-white/40 hover:text-[#f5c518] hover:border-[#f5c518]/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <ChevronRight size={16} />
                 </button>
@@ -744,7 +744,7 @@ const SECFilings = () => {
 
           {/* SEC EDGAR Note Block */}
           {!loading && !error && (
-            <div className="mt-4 bg-[#080808]/60 border border-white/[0.06] rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 w-full text-center sm:text-left">
+            <div className="mt-4 bg-dark-surface-2/60 border border-dark-border-subtle rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 w-full text-center sm:text-left">
               {/* Yellow File Icon Wrapper */}
               <div className="w-12 h-12 rounded-xl bg-[#f5c518]/5 border border-[#f5c518]/25 flex items-center justify-center text-[#f5c518] shrink-0 shadow-[0_0_15px_rgba(245,197,24,0.05)]">
                 <FileText size={20} className="stroke-[2.5]" />

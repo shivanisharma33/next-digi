@@ -92,10 +92,10 @@ const Partnership = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   return (
-    <div className="bg-black text-white min-h-screen selection:bg-brand-yellow selection:text-black overflow-x-hidden">
+    <div className="bg-dark-base text-white min-h-screen selection:bg-brand-yellow selection:text-black overflow-x-hidden">
 
       {/* ═══════════════════ HERO ═══════════════════ */}
-      <section className="relative min-h-0 lg:min-h-screen flex flex-col justify-center pt-32 pb-4 lg:pt-28 lg:pb-16 px-4 lg:px-6 overflow-hidden bg-black">
+      <section className="relative min-h-0 lg:min-h-screen flex flex-col justify-center pt-32 pb-4 lg:pt-28 lg:pb-16 px-4 lg:px-6 overflow-hidden bg-dark-base">
         {/* Radial depth glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-brand-yellow/[0.03] blur-[140px] pointer-events-none" />
 
@@ -122,13 +122,13 @@ const Partnership = () => {
               We collaborate with visionary organizations to deliver intelligent, scalable, and future-ready solutions that transform industries and empower innovation.
             </p>
 
-            <div className="flex flex-wrap gap-5 w-full sm:w-auto justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-12 relative z-10">
               <Link
                 to="/contact"
-                className="group bg-brand-yellow text-black px-10 py-4 font-semibold text-[12px] uppercase tracking-[0.2em] rounded shadow-[0_0_30px_rgba(245,197,24,0.2)] hover:bg-white transition-all flex items-center justify-center gap-3 w-full sm:w-auto"
+                className="w-full sm:w-auto btn-global btn-primary group"
               >
-                Become a Partner
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span className="font-bold">Partner With Us</span>
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/about"
@@ -154,9 +154,9 @@ const Partnership = () => {
       </section>
 
       {/* ═══════════════════ WHY PARTNER ═══════════════════ */}
-      <section className="relative py-16 bg-black overflow-hidden">
+      <section className="relative py-20 lg:py-24 bg-dark-base overflow-hidden">
         <div className="container mx-auto px-6 max-w-[1400px]">
-          <div className="flex flex-col items-center text-center mb-16">
+          <div className="flex flex-col items-center text-center mb-12 lg:mb-16">
             <SectionBadge label="Why Partner With Us" />
 
             <h2 className="text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-white max-w-5xl">
@@ -170,11 +170,11 @@ const Partnership = () => {
           </div>
 
           {/* Benefits Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {benefits.map((benefit, i) => (
               <FadeUp key={i} delay={i * 0.08}>
                 <div
-                  className="group relative p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-brand-yellow/30 transition-all duration-500 h-full"
+                  className="group relative p-8 rounded-2xl bg-dark-surface-2/40 border border-dark-border-subtle hover:border-brand-yellow/30 transition-all duration-500 h-full"
                   onMouseMove={(e) => {
                     const rect = e.currentTarget.getBoundingClientRect();
                     setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -206,12 +206,12 @@ const Partnership = () => {
       </section>
 
       {/* ═══════════════════ PARTNERSHIP MODELS ═══════════════════ */}
-      <section className="relative py-16 bg-[#060708] overflow-hidden">
+      <section className="relative py-20 lg:py-24 bg-dark-surface-1 overflow-hidden">
         {/* Subtle background accent */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-brand-yellow/[0.03] blur-[150px] pointer-events-none" />
 
         <div className="container mx-auto px-6 max-w-[1400px]">
-          <div className="flex flex-col items-center text-center mb-16">
+          <div className="flex flex-col items-center text-center mb-12 lg:mb-16">
             <SectionBadge label="Partnership Models" />
 
             <h2 className="text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-white max-w-5xl">
@@ -220,10 +220,10 @@ const Partnership = () => {
           </div>
 
           {/* Models Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {partnershipModels.map((model, i) => (
               <FadeUp key={i} delay={i * 0.1}>
-                <div className="group relative p-10 md:p-12 rounded-2xl bg-[#0a0c0f] border border-white/5 hover:border-brand-yellow/20 transition-all duration-700 overflow-hidden h-full">
+                <div className="group relative p-10 md:p-12 rounded-2xl bg-dark-surface-2 border border-dark-border-subtle hover:border-brand-yellow/20 transition-all duration-700 overflow-hidden h-full">
                   {/* Background gradient */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${model.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
 
@@ -258,7 +258,7 @@ const Partnership = () => {
       </section>
 
       {/* ═══════════════════ FINAL CTA ═══════════════════ */}
-      <section className="relative py-20 bg-black overflow-hidden">
+      <section className="relative py-20 bg-dark-base overflow-hidden">
         {/* Background effects */}
         <div className="absolute inset-0 z-0 opacity-[0.08]">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,197,24,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,197,24,0.15)_1px,transparent_1px)] bg-[size:40px_40px]" />
@@ -281,13 +281,15 @@ const Partnership = () => {
               Join our global network of innovators, strategists, and technology leaders. Let's shape the next era of digital infrastructure together.
             </p>
 
-            <Link
-              to="/contact"
-              className="group inline-flex items-center gap-3 bg-brand-yellow text-black px-14 py-5 font-bold text-[13px] uppercase tracking-[0.2em] rounded shadow-[0_0_40px_rgba(245,197,24,0.25)] hover:bg-white transition-all active:scale-[0.98]"
-            >
-              Apply for Partnership
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            <div className="flex justify-center mt-12 relative z-10">
+              <Link
+                to="/contact"
+                className="btn-global btn-primary group"
+              >
+                <span>Become a Partner</span>
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </FadeUp>
         </div>
       </section>

@@ -157,14 +157,14 @@ const Leadership = () => {
       </section>
 
       {/* Executive Team Grid */}
-      <section className="py-16 bg-black relative border-t border-white/5">
+      <section className="py-20 lg:py-24 bg-black relative border-t border-white/5">
         <div className="container mx-auto px-6 max-w-[1400px]">
-          <div className="mb-24">
+          <div className="mb-12 lg:mb-16">
             <div className="text-[10px] font-semibold uppercase tracking-[0.5em] text-brand-yellow mb-6">Executive Council</div>
             <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-8 relative z-10">THE <span className="text-white/40">TEAM</span></h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {executives.map((exec, i) => (
               <motion.div
                 key={i}
@@ -202,7 +202,7 @@ const Leadership = () => {
       </section>
 
       {/* Board of Directors Section */}
-      <section className="py-16 bg-[#050608] text-white relative overflow-hidden border-t border-white/5">
+      <section className="py-20 lg:py-24 bg-[#050608] text-white relative overflow-hidden border-t border-white/5">
         {/* Soft Ambient Technical Background Glows */}
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-brand-yellow/[0.02] blur-[120px] pointer-events-none" />
 
@@ -361,7 +361,7 @@ const Leadership = () => {
       </AnimatePresence>
 
       {/* Committees Section */}
-      <section className="py-16 bg-[#050608] text-white relative border-t border-white/5 overflow-hidden">
+      <section className="py-20 lg:py-24 bg-[#050608] text-white relative border-t border-white/5 overflow-hidden">
         {/* Soft Ambient Technical Background Glows */}
         <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-brand-yellow/[0.02] blur-[120px] pointer-events-none" />
 

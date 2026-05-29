@@ -9,6 +9,16 @@
   --color-brand-muted: rgba(255, 255, 255, 0.45);
   --color-brand-rule: rgba(255, 255, 255, 0.08);
 
+  /* Unified Dark Theme Surface Tokens */
+  --color-dark-base: #030406;
+  --color-dark-surface-1: #07080b;
+  --color-dark-surface-2: #0c0d12;
+  --color-dark-surface-3: #12141a;
+
+  /* Unified Border Tokens */
+  --color-dark-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-dark-border-default: rgba(255, 255, 255, 0.1);
+
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Roboto Mono", monospace;
 }
@@ -22,14 +32,104 @@
   --rule: rgba(255, 255, 255, .08);
   --mono: "JetBrains Mono", monospace;
   --col: 1400px;
+
+  /* ── GLOBAL SPACING TOKENS ── */
+  /* Section vertical padding */
+  --section-py: 5rem;          /* py-20 = 80px */
+  --section-py-lg: 6rem;       /* py-24 = 96px */
+  /* Card grid gap */
+  --card-gap: 1.5rem;          /* gap-6 = 24px */
+  --card-gap-lg: 2rem;         /* gap-8 = 32px */
+  /* Card inner padding */
+  --card-p: 1.5rem;            /* p-6 = 24px */
+  --card-p-lg: 2rem;           /* p-8 = 32px */
+  /* Section heading bottom margin */
+  --heading-mb: 3rem;          /* mb-12 = 48px */
+  --heading-mb-lg: 4rem;       /* mb-16 = 64px */
 }
+
+/* ── GLOBAL HEADING ALIGNMENT GRID ──
+   Use these utility classes to keep headings locked to the same
+   content grid edge regardless of section background or layout.
+
+   .section-heading         — centered eyebrow + h2 + subtext (full-width sections)
+   .section-heading--left   — left-aligned eyebrow + h2 + subtext (split-layout sections)
+
+   Container rule: every content wrapper must be:
+     max-w-[1400px] mx-auto px-6
+   No px-12, lg:px-20, or other horizontal overrides.
+*/
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--heading-mb);
+}
+
+@media (min-width: 1024px) {
+  .section-heading {
+    margin-bottom: var(--heading-mb-lg);
+  }
+}
+
+.section-heading--left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: var(--heading-mb);
+}
+
+@media (min-width: 1024px) {
+  .section-heading--left {
+    margin-bottom: var(--heading-mb-lg);
+  }
+}
+
 
 @layer base {
   body {
-    @apply bg-black text-white overflow-x-hidden;
+    @apply bg-dark-base text-white overflow-x-hidden;
     font-family: var(--font-sans);
   }
 }
+
+@layer components {
+  .btn-global {
+    @apply inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded font-bold text-[11px] uppercase tracking-[0.15em] cursor-pointer;
+    /* Premium ease-out cubic-bezier transition for buttery-smooth movements */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-global:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-global:active {
+    transform: translateY(0) scale(0.97);
+  }
+  
+  .btn-primary {
+    @apply bg-brand-yellow text-black hover:bg-white;
+    box-shadow: 0 4px 14px rgba(245, 197, 24, 0.2);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 8px 25px rgba(245, 197, 24, 0.45);
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border border-white/15 text-white hover:bg-white/5 hover:border-white/30;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-secondary:hover {
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.05);
+  }
+}
+
 
 /* ── HOMEPAGE-SPECIFIC ── */
 :root {

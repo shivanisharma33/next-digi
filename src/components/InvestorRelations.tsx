@@ -183,10 +183,10 @@ const InvestorRelations = () => {
           low: low !== null ? Number(low.toFixed(4)) : livePrice,
           open: openPrice !== null ? Number(openPrice.toFixed(4)) : livePrice,
           lastUpdated: formattedLastUpdated,
-          marketCap: '$450M',
-          weekHigh52: '$32.15',
-          weekLow52: '$18.40',
-          avgVolume: '1.8M'
+          marketCap: '',
+          weekHigh52: '',
+          weekLow52: '',
+          avgVolume: ''
         };
 
         setLiveStockData(stockInfo);
@@ -438,24 +438,7 @@ const InvestorRelations = () => {
               </Link>
             </motion.div>
 
-            {/* Key metrics strip */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="grid grid-cols-3 gap-px bg-white/5 border border-white/10 rounded-2xl overflow-hidden w-full max-w-xl"
-            >
-              {[
-                { label: "Market Cap", value: liveStockData?.marketCap ?? "$450M" },
-                { label: "52W High", value: liveStockData?.weekHigh52 ?? "$32.15" },
-                { label: "Avg Volume", value: liveStockData?.avgVolume ?? "1.8M" },
-              ].map((stat) => (
-                <div key={stat.label} className="bg-black/40 backdrop-blur-sm px-4 py-4 flex flex-col items-center lg:items-start text-center lg:text-left">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 mb-1.5">{stat.label}</span>
-                  <span className="text-lg font-semibold text-white tracking-tight">{stat.value}</span>
-                </div>
-              ))}
-            </motion.div>
+
           </motion.div>
 
           {/* RIGHT: Pulse Graph Visual */}
@@ -491,9 +474,9 @@ const InvestorRelations = () => {
       </section>
 
       {/* DASHBOARD SECTION */}
-      <section className="py-10 sm:py-14 px-4 sm:px-6">
+      <section className="py-20 lg:py-24 px-4 sm:px-6">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
 
             {/* Stock Performance Card */}
             <div className="lg:col-span-2 bg-[#080808] border border-white/5 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-10 flex flex-col">
@@ -547,7 +530,9 @@ const InvestorRelations = () => {
 
             {/* Price & News Sidebar */}
             <div className="space-y-6">
-              <StockPriceCard liveStockData={liveStockData} isLoadingStock={isLoadingStock} stockError={stockError} />
+              <Link to="/investors" className="block">
+      <StockPriceCard liveStockData={liveStockData} isLoadingStock={isLoadingStock} stockError={stockError} />
+    </Link>
 
               <div className="bg-[#080808] border border-white/5 rounded-[2.5rem] p-8">
                 <h3 className="text-xs font-black uppercase tracking-widest text-white/30 mb-6 pb-3 border-b border-white/5 text-center lg:text-left">Latest Press Releases</h3>
@@ -577,14 +562,14 @@ const InvestorRelations = () => {
       
 
       {/* RESOURCES SECTION */}
-      <section className="py-10 sm:py-16 px-4 sm:px-6 border-t border-white/5">
+      <section className="py-20 lg:py-24 px-4 sm:px-6 border-t border-white/5">
         <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8 sm:mb-12 flex flex-col items-center sm:items-start text-center sm:text-left">
+          <div className="mb-12 lg:mb-16 flex flex-col items-center sm:items-start text-center sm:text-left">
             <h2 className="text-3xl font-semibold uppercase tracking-tighter mb-4">Investor Resources</h2>
             <div className="h-1 w-12 bg-[#ffc629]" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             <ResourceCard title="SEC Filings" desc="Access financial statements, quarterly reports, and compliance documents." icon={FileText} to="/sec-filings" />
             <ResourceCard title="Events & Presentations" desc="View upcoming earnings webcasts and past investor presentations." icon={Calendar} to="/documents-charters" />
             <ResourceCard title="Stock Information" desc="Detailed historical performance and real-time market metrics." icon={TrendingUp} to="/investors" />

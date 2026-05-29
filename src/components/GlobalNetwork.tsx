@@ -219,7 +219,7 @@ const EdgeToCoreSVG = () => (
 
 const GlobalNetwork = () => {
   return (
-    <div className="bg-[#06070a] min-h-screen text-white font-sans selection:bg-[#f5c518]/30 overflow-x-hidden">
+    <div className="bg-dark-base min-h-screen text-white font-sans selection:bg-[#f5c518]/30 overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col pt-32 pb-12 px-4 md:pt-28 md:pb-16 md:px-6 overflow-hidden">
         {/* Main two-column grid */}
@@ -290,7 +290,7 @@ const GlobalNetwork = () => {
           ].map((stat, i) => (
             <div
               key={i}
-              className="p-8 bg-[#090a0e]/60 border border-white/[0.04] rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-[#0f1118]/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out flex flex-col items-center justify-center text-center"
+              className="p-8 bg-dark-surface-2/60 border border-dark-border-subtle rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-dark-surface-3/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out flex flex-col items-center justify-center text-center"
             >
               {/* Top laser border transition */}
               <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#f5c518] to-[#ffda66] group-hover:w-full transition-all duration-500" />
@@ -311,30 +311,22 @@ const GlobalNetwork = () => {
       </section>
 
       {/* Network Flow Section — mirrors /energy's "From Generation to GPU Load" */}
-      <section className="bg-white py-12 px-4 md:py-20 md:px-6 relative overflow-hidden">
+      <section className="bg-white py-20 lg:py-24 px-4 md:px-6 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
 
-          {/* Top Badge */}
-          <div className="flex justify-center mb-6 md:mb-12">
-            <div className="inline-flex items-center px-6 py-2.5 rounded-full border border-black/10 bg-black/5 backdrop-blur-sm">
+          {/* Section heading block */}
+          <div className="flex flex-col items-center text-center mb-12 md:mb-20">
+            <div className="inline-flex items-center px-6 py-2.5 rounded-full border border-black/10 bg-black/5 backdrop-blur-sm mb-8">
               <div className="w-10 h-[1.5px] bg-[#f5c518] mr-4"></div>
               <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-black/80">
                 Network Flow
               </span>
             </div>
-          </div>
-
-          {/* Heading */}
-          <div className="text-center mb-4 md:mb-8">
-            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-4 md:mb-8 relative z-10">
+            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-6 relative z-10">
               From Region<br />
               to <span className="text-[#f5c518]">Rack.</span>
             </h2>
-          </div>
-
-          {/* Subtext */}
-          <div className="max-w-4xl mx-auto text-center mb-12 md:mb-24">
-            <p className="text-black/55 text-base md:text-[19px] leading-[1.6] font-medium tracking-tight">
+            <p className="text-black/55 text-base md:text-[19px] leading-[1.6] font-medium tracking-tight max-w-4xl">
               Multi-region sites linked by a redundant backbone and operated as one platform. Power, fiber, and compute provisioned together — without the gaps that slow leased-only competitors.
             </p>
           </div>
@@ -418,7 +410,7 @@ const GlobalNetwork = () => {
               return (
                 <div
                   key={i}
-                  className="group relative bg-gradient-to-br from-[#0b0b0e] to-[#070709] rounded-3xl p-8 md:p-10 border border-white/[0.06] hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.18)] hover:shadow-[0_30px_80px_rgba(245,197,24,0.18)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-1"
+                  className="group relative bg-gradient-to-br from-dark-surface-2 to-dark-base rounded-3xl p-8 md:p-10 border border-dark-border-subtle hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.18)] hover:shadow-[0_30px_80px_rgba(245,197,24,0.18)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-1"
                 >
                   {/* Subtle Mesh Background for texture */}
                   <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#f5c518 1px, transparent 0)', backgroundSize: '24px 24px' }} />
@@ -454,7 +446,7 @@ const GlobalNetwork = () => {
                   </ul>
 
                   {/* Metric strip */}
-                  <div className="mt-auto w-full pt-6 border-t border-white/[0.06] relative z-10">
+                  <div className="mt-auto w-full pt-6 border-t border-dark-border-subtle relative z-10">
                     <div className="grid grid-cols-3 gap-3">
                       {card.metrics.map((m, mi) => (
                         <div key={mi} className="flex flex-col">
@@ -481,40 +473,30 @@ const GlobalNetwork = () => {
       </section>
 
       {/* Network Layers Section — mirrors /energy's 3-column "Layers" */}
-      <section className="bg-[#06070a] py-10 px-4 md:py-15 md:px-6 border-y border-white/5">
+      <section className="bg-dark-surface-1 py-20 lg:py-24 px-4 md:px-6 border-y border-dark-border-subtle">
         <div className="max-w-[1400px] mx-auto">
 
-          {/* Top Badge */}
-          <div className="flex justify-center mb-6 md:mb-10">
-            <div className="inline-flex items-center px-6 py-2 rounded-full border border-white/10 bg-white/5">
+          {/* Section heading block */}
+          <div className="flex flex-col items-center text-center mb-10 md:mb-20">
+            <div className="inline-flex items-center px-6 py-2 rounded-full border border-white/10 bg-white/5 mb-8">
               <span className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em] mr-4">02 /</span>
               <div className="w-12 h-[1px] bg-[#f5c518] mr-4"></div>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/80">
-                Network Layers
-              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/80">Network Layers</span>
             </div>
-          </div>
-
-          {/* Heading */}
-          <div className="text-center mb-4 md:mb-8">
-            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-4 md:mb-8 relative z-10">
+            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-6 relative z-10">
               One Platform.<br />
               Many <span className="text-[#f5c518]">Regions.</span>
             </h2>
-          </div>
-
-          {/* Subtext */}
-          <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20">
-            <p className="text-white/40 text-sm md:text-lg leading-relaxed font-medium">
+            <p className="text-white/40 text-sm md:text-lg leading-relaxed font-medium max-w-4xl">
               Each site is engineered as a self-sufficient power-and-compute node, then federated into a single operating fabric — so customers get geographic diversity without operational fragmentation.
             </p>
           </div>
 
           {/* 3-Column Layers Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 border border-white/10 rounded-2xl overflow-hidden bg-white/[0.02]">
+          <div className="grid grid-cols-1 md:grid-cols-3 border border-dark-border-default rounded-2xl overflow-hidden bg-dark-surface-1/40">
 
             {/* Column 1: Sites */}
-            <div className="p-10 md:p-14 border-b md:border-b-0 md:border-r border-white/10 hover:bg-white/[0.02] transition-colors group">
+            <div className="p-10 md:p-14 border-b md:border-b-0 md:border-r border-dark-border-default hover:bg-dark-surface-1/30 transition-colors group">
               <div className="text-[#f5c518] text-[10px] font-semibold uppercase tracking-[0.2em] mb-4">Sites</div>
               <h3 className="text-white text-xl md:text-2xl font-semibold uppercase mb-6 tracking-tight">Footprint Nodes</h3>
               <p className="text-white/40 text-sm leading-relaxed mb-10 font-medium">
@@ -538,7 +520,7 @@ const GlobalNetwork = () => {
             </div>
 
             {/* Column 2: Backbone */}
-            <div className="p-10 md:p-14 border-b md:border-b-0 md:border-r border-white/10 hover:bg-white/[0.02] transition-colors group">
+            <div className="p-10 md:p-14 border-b md:border-b-0 md:border-r border-dark-border-default hover:bg-dark-surface-1/30 transition-colors group">
               <div className="text-[#f5c518] text-[10px] font-semibold uppercase tracking-[0.2em] mb-4">Backbone</div>
               <h3 className="text-white text-xl md:text-2xl font-semibold uppercase mb-6 tracking-tight">Inter-site Fabric</h3>
               <p className="text-white/40 text-sm leading-relaxed mb-10 font-medium">
@@ -562,7 +544,7 @@ const GlobalNetwork = () => {
             </div>
 
             {/* Column 3: Operations */}
-            <div className="p-10 md:p-14 hover:bg-white/[0.02] transition-colors group">
+            <div className="p-10 md:p-14 hover:bg-dark-surface-1/30 transition-colors group">
               <div className="text-[#f5c518] text-[10px] font-semibold uppercase tracking-[0.2em] mb-4">Operations</div>
               <h3 className="text-white text-xl md:text-2xl font-semibold uppercase mb-6 tracking-tight">Single Control Plane</h3>
               <p className="text-white/40 text-sm leading-relaxed mb-10 font-medium">
@@ -590,34 +572,26 @@ const GlobalNetwork = () => {
       </section>
 
       {/* Network Pipeline Section — mirrors /energy's 4-card value chain */}
-      <section className="bg-white py-12 px-4 md:py-20 md:px-6">
+      <section className="bg-white py-20 lg:py-24 px-4 md:px-6">
         <div className="max-w-[1400px] mx-auto">
 
-          {/* Top Badge */}
-          <div className="flex justify-center mb-6 md:mb-10">
-            <div className="inline-flex items-center px-6 py-2 rounded-full border border-black/10 bg-black/5">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-black/60">
-                Network Pipeline
-              </span>
+          {/* Section heading block */}
+          <div className="flex flex-col items-center text-center mb-10 md:mb-20">
+            <div className="inline-flex items-center px-6 py-2 rounded-full border border-black/10 bg-black/5 mb-8">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-black/60">Network Pipeline</span>
             </div>
-          </div>
-
-          {/* Heading */}
-          <div className="text-center mb-6 md:mb-10">
-            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-4 md:mb-8 relative z-10">
+            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-6 relative z-10">
               Reach is Built<br />
               Region by <span className="text-[#f5c518]">Region.</span>
             </h2>
-          </div>
-
-          {/* Subtext */}
-          <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20 space-y-6">
-            <p className="text-black/55 text-sm md:text-lg leading-relaxed font-medium">
-              The DigiPowerX network compounds as each new site comes online: more diversity, more capacity, lower customer latency, and more revenue per megawatt across the footprint.
-            </p>
-            <p className="text-black/55 text-sm md:text-lg leading-relaxed font-medium">
-              Federated by design — every node is operationally independent and operationally consistent.
-            </p>
+            <div className="space-y-4 max-w-4xl">
+              <p className="text-black/55 text-sm md:text-lg leading-relaxed font-medium">
+                The DigiPowerX network compounds as each new site comes online: more diversity, more capacity, lower customer latency, and more revenue per megawatt across the footprint.
+              </p>
+              <p className="text-black/55 text-sm md:text-lg leading-relaxed font-medium">
+                Federated by design — every node is operationally independent and operationally consistent.
+              </p>
+            </div>
           </div>
 
           {/* 4-Column Cards Grid */}
@@ -670,7 +644,7 @@ const GlobalNetwork = () => {
             ].map((card, i) => (
               <div
                 key={i}
-                className="relative bg-[#0a0a0a] p-8 rounded-[24px] flex flex-col items-start text-left border border-white/[0.06] hover:border-[#f5c518]/40 transition-all duration-300 hover:shadow-[0_25px_50px_-12px_rgba(245,197,24,0.15)] hover:-translate-y-1 group cursor-pointer min-h-[300px] overflow-hidden"
+                className="relative bg-dark-surface-2 p-8 rounded-[24px] flex flex-col items-start text-left border border-dark-border-subtle hover:border-[#f5c518]/40 transition-all duration-300 hover:shadow-[0_25px_50px_-12px_rgba(245,197,24,0.15)] hover:-translate-y-1 group cursor-pointer min-h-[300px] overflow-hidden"
               >
                 {/* Step Pill */}
                 <div className="flex items-center justify-between w-full mb-6">
@@ -700,7 +674,7 @@ const GlobalNetwork = () => {
         </div>
 
         {/* Black Stats Bar */}
-        <div className="bg-[#06070a] py-12 px-6 md:py-20 md:px-12 rounded-3xl mt-8 md:mt-16 border border-white/10 relative overflow-hidden shadow-2xl">
+        <div className="bg-dark-surface-1 py-12 px-6 md:py-20 md:px-12 rounded-3xl mt-8 md:mt-16 border border-dark-border-default relative overflow-hidden shadow-2xl">
           {/* Futuristic ambient grid overlay */}
           <div
             className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -724,7 +698,7 @@ const GlobalNetwork = () => {
               return (
                 <div
                   key={i}
-                  className="p-8 bg-[#090a0e]/60 border border-white/[0.04] rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-[#0f1118]/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out"
+                  className="p-8 bg-dark-surface-2/60 border border-dark-border-subtle rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-dark-surface-3/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out"
                 >
                   {/* Top laser border transition */}
                   <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#f5c518] to-[#ffda66] group-hover:w-full transition-all duration-500" />

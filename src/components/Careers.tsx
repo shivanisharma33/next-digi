@@ -172,7 +172,7 @@ const Careers = () => {
     <div className="bg-[#050608] min-h-screen text-white selection:bg-brand-yellow selection:text-black">
 
       {/* Hero Section */}
-      <section className="relative min-h-0 lg:min-h-screen flex items-center pt-32 pb-8 lg:pt-36 lg:pb-16 px-4 sm:px-6 overflow-hidden">
+      <section className="relative min-h-0 lg:min-h-screen flex items-center pt-32 lg:pt-[88px] pb-8 lg:pb-16 px-4 sm:px-6 overflow-hidden">
         <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-12">
           {/* LEFT: Text */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
@@ -220,16 +220,15 @@ const Careers = () => {
       </section>
 
       {/* Domain Expertise Pathways Grid */}
-      <section className="py-16 md:py-32 bg-[#0a0a0c] border-y border-white/5 relative">
+      <section className="py-20 lg:py-24 bg-[#0a0a0c] border-y border-white/5 relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(245,197,24,0.01),transparent_50%)] pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 max-w-[1400px]">
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-12 md:mb-24">
-            <div className="max-w-2xl">
-              <div className="text-[10px] font-mono font-semibold text-brand-yellow uppercase tracking-[0.3em] mb-4">Domain Expertise</div>
-              <h2 className="text-[clamp(2.2rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white">Career Pathways</h2>
-            </div>
-            <p className="text-white/40 max-w-md text-sm md:text-base leading-relaxed md:pb-2">
+          {/* Section heading block */}
+          <div className="flex flex-col items-center text-center mb-12 md:mb-24">
+            <div className="text-[10px] font-mono font-semibold text-brand-yellow uppercase tracking-[0.3em] mb-4">Domain Expertise</div>
+            <h2 className="text-[clamp(2.2rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-6">Career Pathways</h2>
+            <p className="text-white/40 max-w-2xl text-sm md:text-base leading-relaxed">
               Our workforce is decentralized but unified. Choose your computational domain and help us power the next industrial revolution.
             </p>
           </div>
@@ -338,7 +337,7 @@ const Careers = () => {
                       setSearchLocation("");
                       setSelectedDept("All Domains");
                     }}
-                    className="w-full h-full bg-white text-black font-semibold uppercase tracking-[0.2em] text-xs py-4 rounded-xl hover:bg-brand-yellow hover:scale-[1.02] active:scale-95 transition-all duration-300"
+                    className="w-full h-full btn-global btn-secondary"
                   >
                     Reset Console
                   </button>
@@ -351,7 +350,7 @@ const Careers = () => {
       </section>
 
       {/* Open Positions Interactive Roster */}
-      <section className="pb-20 md:pb-40">
+      <section className="py-20 lg:py-24">
         <div className="container mx-auto px-4 sm:px-6 max-w-[1400px]">
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 md:mb-16 border-b border-white/5 pb-6 md:pb-8">
@@ -539,7 +538,7 @@ const Careers = () => {
                                       <div className="flex items-end">
                                         <button
                                           type="submit"
-                                          className="w-full bg-white text-black font-semibold uppercase tracking-widest text-xs py-3.5 rounded-xl hover:bg-brand-yellow hover:scale-[1.01] active:scale-95 transition-all duration-300"
+                                          className="w-full btn-global btn-primary"
                                         >
                                           Submit Application Payload
                                         </button>

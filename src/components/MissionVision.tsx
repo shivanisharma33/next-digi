@@ -145,9 +145,9 @@ const MissionVision = () => {
       </section>
 
       {/* Mission + Vision side-by-side */}
-      <section id="vision-mission-details" className="py-16 lg:py-24 bg-black relative border-t border-white/5">
+      <section id="vision-mission-details" className="py-20 lg:py-24 bg-black relative border-t border-white/5">
         <div className="container mx-auto px-6 max-w-[1400px]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {/* ═══ MISSION CARD ═══ */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -234,7 +234,7 @@ const MissionVision = () => {
       </section>
 
       {/* ═══ OPERATING PRINCIPLES ═══ */}
-      <section className="py-16 lg:py-24 bg-[#050505] relative border-t border-white/5 overflow-hidden">
+      <section className="py-20 lg:py-24 bg-[#050505] relative border-t border-white/5 overflow-hidden">
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-brand-yellow/[0.02] blur-[120px] pointer-events-none" />
 
         <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
@@ -253,7 +253,7 @@ const MissionVision = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {values.map((v, i) => {
               const Icon = v.icon;
               return (

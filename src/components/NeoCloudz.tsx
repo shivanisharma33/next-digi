@@ -227,7 +227,7 @@ const NeoCloudz = () => {
       </section>
 
       {/* ── OPERATIONAL MATRIX ── */}
-      <section className="bg-[#080808] py-12 px-6 relative border-y border-white/5">
+      <section className="bg-[#080808] py-20 lg:py-24 px-6 relative border-y border-white/5">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5">
           {[
             { val: "B200", label: "Architecture", sub: "NVIDIA Blackwell cluster architecture", status: "NEXT-GEN" },
@@ -255,7 +255,7 @@ const NeoCloudz = () => {
       </section>
 
       {/* ── LIVE TELEMETRY SECTION ── */}
-      <section className="bg-black py-16 px-6 relative overflow-hidden border-b border-white/5">
+      <section className="bg-black py-20 lg:py-24 px-6 relative overflow-hidden border-b border-white/5">
         <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-20 items-center">
           <div className="lg:w-1/2 space-y-12">
             <div className="space-y-6">
@@ -303,7 +303,7 @@ const NeoCloudz = () => {
       </section>
 
       {/* ── SUPPORTED WORKLOADS ── */}
-      <section className="bg-black py-16 px-6 relative overflow-hidden">
+      <section className="bg-black py-20 lg:py-24 px-6 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-6 mb-10">
@@ -393,7 +393,7 @@ const NeoCloudz = () => {
       </section>
 
       {/* ── GPU CLUSTER ARCHITECTURE - (NEW ATTRACTIVE REDESIGN) ── */}
-      <section className="bg-[#050505] py-16 px-6 relative overflow-hidden border-t border-white/5">
+      <section className="bg-[#050505] py-20 lg:py-24 px-6 relative overflow-hidden border-t border-white/5">
         {/* Advanced Background Grid */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 opacity-[0.03]"
@@ -504,7 +504,7 @@ const NeoCloudz = () => {
       </section>
 
       {/* ── DEPLOYMENT FLOW ── */}
-      <section className="bg-[#050505] pt-16 pb-10 px-6 relative border-t border-white/5">
+      <section className="bg-[#050505] py-20 lg:py-24 px-6 relative border-t border-white/5">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-10">
             <div className="max-w-4xl">

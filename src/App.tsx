@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { HashRouter, Route, Routes, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { Footer } from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -85,7 +85,7 @@ function NotFound() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ScrollToTop />
       <Navbar />
       <main id="main-content">
@@ -115,6 +115,6 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
-    </BrowserRouter>
+    </HashRouter>
   );
 }

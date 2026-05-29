@@ -9,7 +9,7 @@ import DGXXModularScale from './DGXXModularScale';
 
 const Infrastructure = () => {
   return (
-    <div className="bg-[#06070a] min-h-screen text-white font-sans selection:bg-[#f5c518]/30 overflow-x-hidden">
+    <div className="bg-dark-base min-h-screen text-white font-sans selection:bg-[#f5c518]/30 overflow-x-hidden">
 
       {/* Hero Section */}
       <section className="relative min-h-[70vh] lg:min-h-[100vh] flex flex-col items-center justify-center pt-32 pb-12 md:pt-40 md:pb-24 px-6 overflow-hidden">
@@ -203,7 +203,7 @@ const Infrastructure = () => {
       </section>
 
       {/* Infrastructure Layers Section */}
-      <section className="bg-[#06070a] py-24 px-6 border-y border-white/5 relative overflow-hidden">
+      <section className="bg-dark-surface-1 py-24 px-6 border-y border-dark-border-subtle relative overflow-hidden">
 
         {/* Abstract Background */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#f5c518]/5 rounded-full blur-[150px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
@@ -238,10 +238,10 @@ const Infrastructure = () => {
           </div>
 
           {/* 3-Column Layers Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
 
             {/* Column 1: Generation */}
-            <div className="bg-[#0a0b0f] p-10 md:p-12 rounded-3xl border border-white/5 hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-dark-surface-2 p-10 md:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-[#f5c518] transition-all duration-500" />
 
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#f5c518]/10 transition-all duration-500">
@@ -270,7 +270,7 @@ const Infrastructure = () => {
             </div>
 
             {/* Column 2: Substation */}
-            <div className="bg-[#0a0b0f] p-10 md:p-12 rounded-3xl border border-white/5 hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-dark-surface-2 p-10 md:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-[#f5c518] transition-all duration-500" />
 
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#f5c518]/10 transition-all duration-500">
@@ -299,7 +299,7 @@ const Infrastructure = () => {
             </div>
 
             {/* Column 3: Compute */}
-            <div className="bg-[#0a0b0f] p-10 md:p-12 rounded-3xl border border-white/5 hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-dark-surface-2 p-10 md:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-[#f5c518] transition-all duration-500" />
 
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#f5c518]/10 transition-all duration-500">
@@ -343,9 +343,9 @@ const Infrastructure = () => {
           </div>
 
           {/* Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-16">
             {/* Card 1: Strategic Independence */}
-            <div className="bg-gradient-to-br from-[#14151a] via-[#0b0c10] to-[#050608] text-white p-12 rounded-3xl relative overflow-hidden group border border-white/[0.06] hover:border-[#f5c518]/50 hover:from-[#1f1a0e] hover:to-[#090805] shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,197,24,0.18)] transition-all duration-500 ease-out">
+            <div className="bg-gradient-to-br from-dark-surface-3 via-dark-surface-2 to-dark-base text-white p-12 rounded-3xl relative overflow-hidden group border border-dark-border-subtle hover:border-[#f5c518]/50 hover:from-[#1f1a0e] hover:to-[#090805] shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,197,24,0.18)] transition-all duration-500 ease-out">
               {/* Animated Ambient Light */}
               <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-b from-[#f5c518]/15 to-transparent rounded-full blur-[90px] -translate-y-1/2 translate-x-1/2 group-hover:scale-135 group-hover:from-[#f5c518]/25 transition-all duration-500 pointer-events-none" />
 
@@ -360,14 +360,14 @@ const Infrastructure = () => {
                 While competitors lease capacity and wait years in utility interconnection queues, our vertical integration strategy places us years ahead. We control the power source, dictating our own timelines.
               </p>
 
-              <div className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-2xl group-hover:from-[#f5c518]/10 group-hover:to-[#f5c518]/[0.02] group-hover:border-[#f5c518]/30 group-hover:shadow-[inset_0_0_20px_rgba(245,197,24,0.05)] transition-all duration-500">
+              <div className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-dark-border-default rounded-2xl group-hover:from-[#f5c518]/10 group-hover:to-[#f5c518]/[0.02] group-hover:border-[#f5c518]/30 group-hover:shadow-[inset_0_0_20px_rgba(245,197,24,0.05)] transition-all duration-500">
                 <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#f5c518] to-[#ffda66] font-bold text-3xl mb-1">0 Wait Time</div>
                 <div className="text-white/50 text-xs font-bold uppercase tracking-widest">For primary grid queue approvals</div>
               </div>
             </div>
 
             {/* Card 2: Margin Expansion */}
-            <div className="bg-gradient-to-br from-[#14151a] via-[#0b0c10] to-[#050608] text-white p-12 rounded-3xl relative overflow-hidden group border border-white/[0.06] hover:border-[#f5c518]/50 hover:from-[#1f1a0e] hover:to-[#090805] shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,197,24,0.18)] transition-all duration-500 ease-out">
+            <div className="bg-gradient-to-br from-dark-surface-3 via-dark-surface-2 to-dark-base text-white p-12 rounded-3xl relative overflow-hidden group border border-dark-border-subtle hover:border-[#f5c518]/50 hover:from-[#1f1a0e] hover:to-[#090805] shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,197,24,0.18)] transition-all duration-500 ease-out">
               {/* Animated Ambient Light */}
               <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-t from-[#f5c518]/10 to-transparent rounded-full blur-[90px] translate-y-1/2 -translate-x-1/2 group-hover:scale-135 group-hover:from-[#f5c518]/20 transition-all duration-500 pointer-events-none" />
 
@@ -382,7 +382,7 @@ const Infrastructure = () => {
                 The shift from standard enterprise colocation to AI-centric infrastructure requires massive power density. By owning the generation, we capture the margin at every step of the energy-to-compute conversion.
               </p>
 
-              <div className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-2xl group-hover:from-[#f5c518]/10 group-hover:to-[#f5c518]/[0.02] group-hover:border-[#f5c518]/30 group-hover:shadow-[inset_0_0_20px_rgba(245,197,24,0.05)] transition-all duration-500">
+              <div className="p-6 bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-dark-border-default rounded-2xl group-hover:from-[#f5c518]/10 group-hover:to-[#f5c518]/[0.02] group-hover:border-[#f5c518]/30 group-hover:shadow-[inset_0_0_20px_rgba(245,197,24,0.05)] transition-all duration-500">
                 <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#f5c518] to-[#ffda66] font-bold text-3xl mb-1">Highest Value</div>
                 <div className="text-white/50 text-xs font-bold uppercase tracking-widest">Yield per megawatt generated</div>
               </div>
@@ -391,7 +391,7 @@ const Infrastructure = () => {
         </div>
 
         {/* Black Stats Bar */}
-        <div className="bg-[#06070a] py-20 px-8 md:px-12 rounded-3xl mt-16 border border-white/10 relative overflow-hidden shadow-2xl">
+        <div className="bg-dark-surface-1 py-20 px-8 md:px-12 rounded-3xl mt-16 border border-dark-border-default relative overflow-hidden shadow-2xl">
           {/* Futuristic ambient grid overlay */}
           <div
             className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -404,7 +404,7 @@ const Infrastructure = () => {
           {/* Subtle center gold glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#f5c518]/[0.03] rounded-full blur-[120px] pointer-events-none" />
 
-          <div className="max-w-[1400px] mx-auto relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="max-w-[1400px] mx-auto relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
               { val: "~$0.04/kWh", label: "STRUCTURAL COST ADVANTAGE", desc: "Target power production cost cited for North Texarkana site, beating market rates." },
               { val: "Behind-the-Meter", label: "TRANSMISSION EFFICIENCY", desc: "Direct distribution program drastically reduces grid transmission and delivery fees." },
@@ -413,7 +413,7 @@ const Infrastructure = () => {
             ].map((stat, i) => (
               <div
                 key={i}
-                className="p-8 bg-[#090a0e]/60 border border-white/[0.04] rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-[#0f1118]/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out"
+                className="p-8 bg-dark-surface-2/60 border border-dark-border-subtle rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-dark-surface-3/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out"
               >
                 {/* Top laser border transition */}
                 <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#f5c518] to-[#ffda66] group-hover:w-full transition-all duration-500" />

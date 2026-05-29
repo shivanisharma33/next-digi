@@ -201,10 +201,13 @@ const About = () => {
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-5 w-full sm:w-auto">
-              <Link to="/contact" className="bg-brand-yellow text-black px-12 py-4 font-semibold text-[11px] uppercase tracking-[0.2em] rounded shadow-[0_0_30px_rgba(245,197,24,0.15)] hover:bg-white transition-all text-center">
-                Contact Us
+              <Link
+                to="/contact"
+                className="btn-global btn-primary text-center"
+              >
+                Let's Build the Future
               </Link>
-              <Link to="/investors" className="border border-white/10 bg-white/[0.03] text-white px-12 py-4 font-semibold text-[11px] uppercase tracking-[0.2em] rounded hover:bg-white/10 transition-all backdrop-blur-sm text-center">
+              <Link to="/investors" className="btn-global btn-secondary text-center">
                 Investor Relations
               </Link>
             </div>
@@ -254,9 +257,9 @@ const About = () => {
       </section>
 
       {/* Company Overview Section (Matching Reference Image) */}
-      <section className="relative pt-5 pb-12 bg-black overflow-hidden">
+      <section className="relative py-20 lg:py-24 bg-black overflow-hidden">
         <div className="container mx-auto px-6 max-w-[1400px]">
-          <div className="flex flex-col items-center text-center mb-12">
+          <div className="flex flex-col items-center text-center mb-12 lg:mb-16">
             {/* Top Overview Badge (Matching Reference Image) */}
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
@@ -274,7 +277,7 @@ const About = () => {
           </div>
 
           {/* Three-Column Features Matrix */}
-          <div className="grid md:grid-cols-3 gap-0 border border-white/10 bg-white/[0.02] rounded-2xl overflow-hidden">
+          <div className="grid md:grid-cols-3 gap-0 border border-white/10 bg-white/[0.02] rounded-2xl overflow-hidden mt-12 lg:mt-16">
             {[
               {
                 tag: "Power",
@@ -294,7 +297,7 @@ const About = () => {
             ].map((item, i) => (
               <div
                 key={i}
-                className={`p-12 flex flex-col items-center text-center md:items-start md:text-left gap-6 ${i !== 2 ? 'md:border-r border-white/10' : ''}`}
+                className={`p-8 lg:p-10 flex flex-col items-center text-center md:items-start md:text-left gap-5 ${i !== 2 ? 'md:border-r border-white/10' : ''}`}
               >
                 <div className="text-brand-yellow text-[10px] font-semibold uppercase tracking-[0.3em]">{item.tag}</div>
                 <h3 className="text-xl md:text-2xl font-semibold uppercase tracking-tight text-white">{item.title}</h3>
@@ -308,9 +311,9 @@ const About = () => {
       </section>
 
       {/* Mission Section (Light Theme Contrast - Matching Reference Image) */}
-      <section className="relative pt-16 pb-12 bg-white text-black overflow-hidden">
+      <section className="relative py-20 lg:py-24 bg-white text-black overflow-hidden">
         <div className="container mx-auto px-6 max-w-[1400px]">
-          <div className="flex flex-col items-center text-center mb-12">
+          <div className="flex flex-col items-center text-center mb-12 lg:mb-16">
             {/* Mission Badge */}
             <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-black/10 mb-8">
               <div className="flex items-center gap-1.5">
@@ -337,7 +340,7 @@ const About = () => {
           </div>
 
           {/* Four-Card Mission Matrix */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
               {
                 title: "Power Generation",
@@ -362,7 +365,7 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="p-10 rounded-2xl bg-gray-50 border border-gray-200 hover:shadow-xl hover:shadow-brand-yellow/10 transition-all duration-500 group text-center md:text-left flex flex-col items-center md:items-start"
+                className="p-8 rounded-2xl bg-gray-50 border border-gray-200 hover:shadow-xl hover:shadow-brand-yellow/10 transition-all duration-500 group text-center md:text-left flex flex-col items-center md:items-start"
               >
                 <h3 className="text-lg font-semibold uppercase tracking-tight mb-4 group-hover:text-brand-yellow transition-colors text-black">
                   {card.title}

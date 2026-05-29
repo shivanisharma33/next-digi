@@ -373,7 +373,7 @@ const PressRelease = () => {
       {/* ═══════════════════════════════════════════ */}
       {/* PRESS RELEASES GRID */}
       {/* ═══════════════════════════════════════════ */}
-      <section ref={gridRef} className="py-12 md:py-20 px-4 sm:px-6 bg-black relative z-10 scroll-mt-24">
+      <section ref={gridRef} className="py-20 lg:py-24 px-4 sm:px-6 bg-black relative z-10 scroll-mt-24">
         <div className="max-w-[1400px] mx-auto">
           {/* Error state */}
           {error && !loading && (
@@ -397,7 +397,7 @@ const PressRelease = () => {
 
           {/* Loading skeleton */}
           {loading && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {Array.from({ length: PAGE_SIZE }).map((_, i) => (
                 <SkeletonCard key={i} />
               ))}
@@ -413,7 +413,7 @@ const PressRelease = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
               >
                 {releases.map((release, index) => (
                   <PressReleaseCard

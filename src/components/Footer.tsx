@@ -410,7 +410,7 @@ const CTASection = () => {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center justify-center gap-3 bg-[#f5c518] text-black px-6 py-3.5 rounded-lg font-bold text-[11px] uppercase tracking-[0.15em] hover:bg-[#ffda47] hover:shadow-[0_0_25px_rgba(245,197,24,0.3)] transition-all duration-300 active:scale-[0.97]"
+                    className="btn-global btn-primary"
                   >
                     <span>Talk to Our Team</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -419,7 +419,7 @@ const CTASection = () => {
                   </Link>
                   <Link
                     to="/documents-charters"
-                    className="inline-flex items-center justify-center gap-3 bg-transparent border border-white/15 text-white px-6 py-3.5 rounded-lg font-bold text-[11px] uppercase tracking-[0.15em] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-300 active:scale-[0.97]"
+                    className="btn-global btn-secondary"
                   >
                     <span>Capability Deck</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
