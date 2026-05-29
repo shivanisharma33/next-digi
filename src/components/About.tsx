@@ -183,7 +183,7 @@ const About = () => {
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-6 flex flex-col items-start text-left"
+            className="lg:col-span-6 flex flex-col items-center text-center lg:items-start lg:text-left"
           >
             {/* Top Company Badge (Matching Reference Image) */}
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8">
@@ -191,16 +191,16 @@ const About = () => {
               <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-brand-yellow">Company</span>
             </div>
 
-            <h1 className="text-[clamp(2.5rem,5.5vw,5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-6 text-white text-left">
+            <h1 className="text-[clamp(2.5rem,5.5vw,5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-6 text-white text-center lg:text-left">
               <span className="block text-white mb-2">About</span>
               <span className="block text-brand-yellow">DigiPowerX</span>
             </h1>
 
-            <p className="text-sm md:text-base text-white/50 leading-relaxed mb-10 font-medium text-left max-w-[550px]">
+            <p className="text-sm md:text-base text-white/50 leading-relaxed mb-10 font-medium text-center lg:text-left max-w-[550px]">
               DigiPowerX Corporation is a vertically integrated AI infrastructure company — owning and operating power generation assets, data centers, and GPU compute capacity across the United States.
             </p>
 
-            <div className="flex flex-wrap gap-5 w-full sm:w-auto">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-5 w-full sm:w-auto">
               <Link to="/contact" className="bg-brand-yellow text-black px-12 py-4 font-semibold text-[11px] uppercase tracking-[0.2em] rounded shadow-[0_0_30px_rgba(245,197,24,0.15)] hover:bg-white transition-all text-center">
                 Contact Us
               </Link>
@@ -294,7 +294,7 @@ const About = () => {
             ].map((item, i) => (
               <div
                 key={i}
-                className={`p-12 flex flex-col gap-6 ${i !== 2 ? 'md:border-r border-white/10' : ''}`}
+                className={`p-12 flex flex-col items-center text-center md:items-start md:text-left gap-6 ${i !== 2 ? 'md:border-r border-white/10' : ''}`}
               >
                 <div className="text-brand-yellow text-[10px] font-semibold uppercase tracking-[0.3em]">{item.tag}</div>
                 <h3 className="text-xl md:text-2xl font-semibold uppercase tracking-tight text-white">{item.title}</h3>
@@ -362,7 +362,7 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="p-10 rounded-2xl bg-gray-50 border border-gray-200 hover:shadow-xl hover:shadow-brand-yellow/10 transition-all duration-500 group"
+                className="p-10 rounded-2xl bg-gray-50 border border-gray-200 hover:shadow-xl hover:shadow-brand-yellow/10 transition-all duration-500 group text-center md:text-left flex flex-col items-center md:items-start"
               >
                 <h3 className="text-lg font-semibold uppercase tracking-tight mb-4 group-hover:text-brand-yellow transition-colors text-black">
                   {card.title}

@@ -304,7 +304,7 @@ const SECFilings = () => {
   return (
     <div className="bg-black min-h-screen text-white selection:bg-brand-yellow selection:text-black">
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex flex-col items-center pt-32 pb-24 px-6 overflow-hidden">
+      <section className="relative min-h-[50vh] md:min-h-[75vh] flex flex-col items-center pt-32 pb-12 md:pt-40 md:pb-24 px-6 overflow-hidden">
         {/* Background Matrix Grid */}
         <div className="absolute inset-0 z-0 opacity-[0.14] pointer-events-none">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,197,24,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,197,24,0.08)_1px,transparent_1px)] bg-[size:32px_32px]" />
@@ -323,16 +323,13 @@ const SECFilings = () => {
             animate="visible"
             className="flex flex-col items-center w-full"
           >
-            {/* Top Badge */}
+            {/* Top Company Badge (Matching Reference Image) */}
             <motion.div
               variants={badgeVariants}
-              className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-white/10 mb-10 backdrop-blur-md bg-white/[0.02]"
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-6 md:mb-10"
             >
-              <div className="flex items-center gap-1.5">
-                <div className="h-[2px] w-8 bg-brand-yellow animate-pulse" />
-                <div className="h-[2px] w-2 bg-white/20" />
-              </div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/80">Investors</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-brand-yellow">Investors</span>
             </motion.div>
 
             {/* Split Reveal Title */}
@@ -348,7 +345,7 @@ const SECFilings = () => {
 
             <motion.p
               variants={descVariants}
-              className="text-sm md:text-lg text-white/50 max-w-2xl mx-auto leading-relaxed mb-14 font-medium"
+              className="text-sm md:text-lg text-white/50 max-w-2xl mx-auto leading-relaxed mb-8 md:mb-14 font-medium"
             >
               Access all regulatory filings, annual reports, and quarterly disclosures for DigiPowerX Corporation (NASDAQ: DGXX).
             </motion.p>
@@ -396,7 +393,7 @@ const SECFilings = () => {
       </section>
 
       {/* Recent Filings Header (Dark Contrast) */}
-      <section className="bg-[#0F0F0E] text-white py-24 border-t border-white/[0.03]" ref={gridRef}>
+      <section className="bg-[#0F0F0E] text-white py-12 md:py-24 border-t border-white/[0.03]" ref={gridRef}>
         <div className="container mx-auto px-6 max-w-[1400px] text-center flex flex-col items-center">
           <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-white/[0.08] mb-10 bg-white/[0.02] backdrop-blur-md">
             <div className="h-[2px] w-6 bg-brand-yellow" />
@@ -414,7 +411,7 @@ const SECFilings = () => {
       </section>
 
       {/* Filings Grid Section (Dark Premium) */}
-      <section className="bg-[#0A0A0A] py-24 relative overflow-hidden border-t border-white/[0.03]">
+      <section className="bg-[#0A0A0A] py-12 md:py-24 relative overflow-hidden border-t border-white/[0.03]">
         {/* Background matrix grids */}
         <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:48px_48px]" />
@@ -434,7 +431,7 @@ const SECFilings = () => {
                 boxShadow: "0 25px 50px -12px rgba(255, 215, 0, 0.15)"
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-left cursor-pointer overflow-hidden group"
+              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
             >
               {/* Glass spotlight & color washes */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
@@ -442,7 +439,7 @@ const SECFilings = () => {
               <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-brand-yellow/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               
               <span className="text-[10px] font-black tracking-[0.2em] text-[#8E8E93] uppercase block mb-3 group-hover:text-white/60 transition-colors">Total Filings</span>
-              <div className="flex items-baseline gap-2 mb-2 relative z-10">
+              <div className="flex items-baseline justify-center md:justify-start gap-2 mb-2 relative z-10">
                 <span className="text-4xl font-extrabold text-white tracking-tight group-hover:text-brand-yellow transition-colors duration-300">{totalItems}</span>
                 <span className="text-lg font-bold text-white/50">docs</span>
               </div>
@@ -458,7 +455,7 @@ const SECFilings = () => {
                 boxShadow: "0 25px 50px -12px rgba(255, 215, 0, 0.15)"
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-left cursor-pointer overflow-hidden group"
+              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
             >
               {/* Glass spotlight & color washes */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
@@ -466,7 +463,7 @@ const SECFilings = () => {
               <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-brand-yellow/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               
               <span className="text-[10px] font-black tracking-[0.2em] text-[#8E8E93] uppercase block mb-3 group-hover:text-white/60 transition-colors">Revenue (9-MO 2024)</span>
-              <div className="flex items-baseline gap-1.5 mb-2 relative z-10">
+              <div className="flex items-baseline justify-center md:justify-start gap-1.5 mb-2 relative z-10">
                 <span className="text-4xl font-extrabold text-white tracking-tight group-hover:text-brand-yellow transition-colors duration-300">$31M</span>
                 <span className="text-xl font-extrabold text-brand-yellow">+</span>
               </div>
@@ -482,7 +479,7 @@ const SECFilings = () => {
                 boxShadow: "0 25px 50px -12px rgba(255, 215, 0, 0.15)"
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-left cursor-pointer overflow-hidden group"
+              className="relative bg-white/[0.01] backdrop-blur-xl border border-white/[0.06] rounded-[28px] p-8 text-center md:text-left cursor-pointer overflow-hidden group"
             >
               {/* Glass spotlight & color washes */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
@@ -490,7 +487,7 @@ const SECFilings = () => {
               <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-brand-yellow/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               
               <span className="text-[10px] font-black tracking-[0.2em] text-[#8E8E93] uppercase block mb-3 group-hover:text-white/60 transition-colors">EBITDA (9-MO 2024)</span>
-              <div className="flex items-baseline gap-1.5 mb-2 relative z-10">
+              <div className="flex items-baseline justify-center md:justify-start gap-1.5 mb-2 relative z-10">
                 <span className="text-4xl font-extrabold text-white tracking-tight group-hover:text-brand-yellow transition-colors duration-300">$5M</span>
                 <span className="text-xl font-extrabold text-brand-yellow">+</span>
               </div>
@@ -522,7 +519,7 @@ const SECFilings = () => {
           {!error && (
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
               {/* Tabs */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap justify-center sm:justify-start gap-3">
                 {[
                   { id: "ALL", label: "All Filings" },
                   { id: "10-K", label: "Annual (10-K)" },
@@ -549,7 +546,7 @@ const SECFilings = () => {
               </div>
 
               {/* Showing items count */}
-              <div className="text-[11px] font-bold text-white/40 tracking-wider">
+              <div className="text-[11px] font-bold text-white/40 tracking-wider text-center sm:text-right">
                 Showing <span className="text-white">{filings.length > 0 ? (currentPage - 1) * PAGE_SIZE + 1 : 0}–{Math.min(currentPage * PAGE_SIZE, totalItems)}</span> of <span className="text-white">{totalItems}</span> filings
               </div>
             </div>
@@ -560,15 +557,15 @@ const SECFilings = () => {
             <div className="bg-[#0B0C0E]/40 border border-white/[0.05] rounded-[32px] overflow-hidden backdrop-blur-xl animate-pulse">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-white/[0.03] last:border-b-0">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-6 text-left flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-6 text-center sm:text-left flex-1 items-center">
                     <div className="w-24 h-8 rounded-full bg-white/[0.03] border border-white/[0.05] flex-shrink-0" />
                     <div className="flex-1 space-y-3">
-                      <div className="h-4 w-1/3 bg-white/[0.03] rounded" />
-                      <div className="h-3 w-3/4 bg-white/[0.02] rounded" />
-                      <div className="h-3 w-1/2 bg-white/[0.02] rounded" />
+                      <div className="h-4 w-1/3 bg-white/[0.03] rounded mx-auto sm:mx-0" />
+                      <div className="h-3 w-3/4 bg-white/[0.02] rounded mx-auto sm:mx-0" />
+                      <div className="h-3 w-1/2 bg-white/[0.02] rounded mx-auto sm:mx-0" />
                     </div>
                   </div>
-                  <div className="flex items-center gap-8 flex-shrink-0">
+                  <div className="flex items-center gap-8 flex-shrink-0 justify-center">
                     <div className="h-3 w-20 bg-white/[0.02] rounded" />
                     <div className="h-10 w-28 bg-white/[0.03] rounded-xl" />
                   </div>
@@ -641,7 +638,7 @@ const SECFilings = () => {
                       viewport={{ once: true }}
                       className="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-white/[0.03] last:border-b-0 transition-all duration-300 hover:bg-white/[0.01]"
                     >
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-6 text-left flex-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-6 text-center sm:text-left items-center flex-1">
                         {/* Badge */}
                         <div className={`w-24 h-8 rounded-full border flex items-center justify-center gap-2 flex-shrink-0 text-xs font-black tracking-wider ${colorClasses.badge}`}>
                           <IconComponent size={12} className="stroke-[3] shrink-0" />
@@ -660,7 +657,7 @@ const SECFilings = () => {
                       </div>
 
                       {/* Actions/Info Right Side */}
-                      <div className="flex items-center justify-between lg:justify-end gap-8 flex-shrink-0 border-t border-white/[0.03] pt-4 lg:border-t-0 lg:pt-0">
+                      <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-4 sm:gap-8 flex-shrink-0 border-t border-white/[0.03] pt-4 sm:border-t-0 sm:pt-0 w-full sm:w-auto">
                         {/* Date */}
                         <div className="flex items-center gap-2.5 text-white/30">
                           <Calendar size={14} className="stroke-[2.5]" />
@@ -697,7 +694,7 @@ const SECFilings = () => {
 
           {/* Pagination */}
           {!loading && !error && totalPages > 1 && (
-            <div className="mt-16 bg-[#080808]/60 border border-white/[0.06] rounded-2xl px-6 py-4 flex items-center justify-between w-full">
+            <div className="mt-16 bg-[#080808]/60 border border-white/[0.06] rounded-2xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
               {/* Left Side: Page X of Y */}
               <div className="text-xs text-white/50 font-medium">
                 Page <strong className="text-white font-bold">{currentPage}</strong> of <strong className="text-white font-bold">{totalPages}</strong>
@@ -747,7 +744,7 @@ const SECFilings = () => {
 
           {/* SEC EDGAR Note Block */}
           {!loading && !error && (
-            <div className="mt-4 bg-[#080808]/60 border border-white/[0.06] rounded-2xl p-6 flex items-start sm:items-center gap-5 w-full text-left">
+            <div className="mt-4 bg-[#080808]/60 border border-white/[0.06] rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5 w-full text-center sm:text-left">
               {/* Yellow File Icon Wrapper */}
               <div className="w-12 h-12 rounded-xl bg-[#f5c518]/5 border border-[#f5c518]/25 flex items-center justify-center text-[#f5c518] shrink-0 shadow-[0_0_15px_rgba(245,197,24,0.05)]">
                 <FileText size={20} className="stroke-[2.5]" />

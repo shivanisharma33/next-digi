@@ -93,6 +93,7 @@ const DocumentsCharters = () => {
       title: "Code of Business Conduct and Ethics",
       description: "Our company code of conduct for employees and leadership.",
       date: "Amended Q1 2026",
+      pdfUrl: "https://cdn.prod.website-files.com/66f727b0f2cf943df67f3121/671c292ecfdadc90273992ca_Code-of-Ethics-Digihost-Technology-Inc.pdf",
       fullText: `DigiPowerX is committed to maintaining the highest standards of integrity, ethical behavior, and corporate stewardship. This Code of Business Conduct and Ethics establishes critical boundaries for conflicts of interest, corporate opportunity, fair dealing, protection of proprietary high-density computing algorithms, public reporting standards, and absolute compliance with state and federal laws.\n\nAll directors, officers, consultants, and developers are required to align their activities with this code. Compliance failures are subject to immediate audit review, termination, and legal prosecution where applicable.`
     },
     {
@@ -102,6 +103,7 @@ const DocumentsCharters = () => {
       title: "Disclosure and Confidentiality Policy",
       description: "Policies to ensure proper disclosure and confidentiality of information.",
       date: "Updated Q4 2025",
+      pdfUrl: "https://cdn.prod.website-files.com/66f727b0f2cf943df67f3121/671c292a85ea2fd6d74bd46a_Disclosure-Policy-Digihost-Technology-Inc.pdf",
       fullText: `To safeguard DigiPowerX's market positioning and intellectual assets, this Disclosure and Confidentiality Policy regulates all external releases of proprietary data center telemetry, network layouts, energy integration solutions, and computational capacities.\n\nOnly authorized Sec-16 reporting officers may execute public disclosures. Unauthorized dissemination of internal documents, customer architectures, or infrastructure properties constitutes a critical security breach and a direct violation of regulatory protocols.`
     },
     {
@@ -111,6 +113,7 @@ const DocumentsCharters = () => {
       title: "DGXX Compiled Constating Documents",
       description: "Official constating documents for DigiPowerX and related entities.",
       date: "Registered 2025",
+      pdfUrl: "https://www.digipowerx.com/documents/DGXX-Compiled-Constating-Documents.pdf",
       fullText: `This ledger represents the legally compiled Articles of Incorporation, regulatory bylaws, corporate registries, and state franchise documentation constituting the legal basis of DigiPowerX and its energy-integrated subsidiaries.\n\nAny internal bylaws amendments require a complete board review, director validation, and major shareholding approval before state registry updates.`
     },
     {
@@ -120,6 +123,7 @@ const DocumentsCharters = () => {
       title: "Majority Voting Policy",
       description: "Policy governing majority voting procedures for DigiPowerX.",
       date: "Ratified Q2 2025",
+      pdfUrl: "https://www.digipowerx.com/documents/5. Digi Power X - Majority Voting Policy.pdf",
       fullText: `In uncontested director elections, nominees must obtain a clear majority of votes cast (votes 'For' must exceed votes 'Withheld') to assume corporate board authority. \n\nIf a sitting director fails to achieve a majority, they must proffer their immediate resignation to the Governance & Nominating Committee. The committee will evaluate the resignation and present structural recommendations to the full board within 90 days.`
     },
     {
@@ -129,6 +133,7 @@ const DocumentsCharters = () => {
       title: "Audit Committee Charter",
       description: "Charter establishing the roles and responsibilities of the Audit Committee.",
       date: "Updated Q3 2025",
+      pdfUrl: "https://www.digipowerx.com/documents/Audit Committee Charter.pdf",
       fullText: `The Audit Committee Charter outlines the oversight responsibilities regarding the integrity of DigiPowerX's financial statements, internal control perimeters, independent auditor qualifications, and strict regulatory disclosures.\n\nThe committee has direct authority to retain independent legal, financial, or technical counsel to investigate operational anomalies or check computing resource allocations.`
     },
     {
@@ -138,6 +143,7 @@ const DocumentsCharters = () => {
       title: "Board Resolution Amending Compensation Committee Charter",
       description: "BOD Resolution amending CC Charter, Confirm Director Independence, and Designation of Sec 16 Reporting Persons.",
       date: "Passed Q4 2025",
+      pdfUrl: "https://www.digipowerx.com/documents/DGXX - BOD Res Amending CC Charter, Confirm Director Independence, Designation of Sec 16 Reporting Persons -  FINAL - signed.pdf",
       fullText: `RESOLVED, that the Board of Directors hereby approves the targeted amendments to the Compensation Committee Charter to align executive incentives with long-term computational power goals.\n\nBE IT FURTHER RESOLVED, that the Board confirms the independent status of all serving Compensation Committee directors and designates designated executive leadership as Section 16 reporting persons under Exchange Act standards.`
     },
     {
@@ -147,6 +153,7 @@ const DocumentsCharters = () => {
       title: "Board Mandate",
       description: "Official mandate outlining the Board's governance structure and authority.",
       date: "Ratified Q1 2026",
+      pdfUrl: "https://www.digipowerx.com/documents/Board Mandate.pdf",
       fullText: `The Board Mandate defines the formal authority, stewardship framework, and compliance-driven responsibilities of DigiPowerX's Board of Directors.\n\nResponsibilities include reviewing corporate direction, verifying physical asset security, approving multi-megawatt energy purchases, managing executive successions, and protecting long-term investor equity.`
     }
   ];
@@ -170,7 +177,7 @@ const DocumentsCharters = () => {
     <div className="bg-[#050608] min-h-screen text-white selection:bg-brand-yellow selection:text-black">
       
       {/* Centered Hero Section with 3D Neural Overlay */}
-      <section className="relative min-h-[60vh] flex flex-col items-center justify-center pt-48 pb-20 px-6 overflow-hidden">
+      <section className="relative min-h-[40vh] md:min-h-[60vh] flex flex-col items-center justify-center pt-32 pb-12 md:pt-48 md:pb-20 px-6 overflow-hidden">
         
         {/* Background Grid Accent */}
         <div className="absolute inset-0 z-0 opacity-15">
@@ -194,7 +201,7 @@ const DocumentsCharters = () => {
           >
             <motion.div 
               variants={badgeVariants}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-6 md:mb-8"
             >
               <Lock size={12} className="text-brand-yellow" />
               <span className="text-[9px] uppercase tracking-[0.4em] font-mono text-brand-yellow font-semibold">
@@ -202,7 +209,7 @@ const DocumentsCharters = () => {
               </span>
             </motion.div>
 
-            <div className="overflow-hidden mb-8">
+            <div className="overflow-hidden mb-6 md:mb-8">
               <motion.h1 
                 variants={titleVariants}
                 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white"
@@ -222,7 +229,7 @@ const DocumentsCharters = () => {
       </section>
 
       {/* Interactive Search Console & Grid */}
-      <section className="py-20 relative border-t border-white/5 bg-[#0a0a0c]">
+      <section className="py-12 md:py-20 relative border-t border-white/5 bg-[#0a0a0c]">
         <div className="container mx-auto px-6 max-w-[1400px]">
           
           {/* Controls Bar */}
@@ -232,27 +239,27 @@ const DocumentsCharters = () => {
                 
                 {/* Search Bar */}
                 <div className="p-6 border-b md:border-b-0 md:border-r border-white/5 col-span-2">
-                  <h3 className="text-[10px] font-mono font-semibold uppercase tracking-widest text-brand-yellow mb-2">Search Ledger</h3>
-                  <div className="flex items-center gap-3">
+                  <h3 className="text-[10px] font-mono font-semibold uppercase tracking-widest text-brand-yellow mb-2 text-center md:text-left">Search Ledger</h3>
+                  <div className="flex items-center justify-center md:justify-start gap-3">
                     <Search size={18} className="text-white/40" />
                     <input 
                       type="text" 
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Title or Keyword" 
-                      className="bg-transparent border-none outline-none text-white text-base font-semibold w-full placeholder:text-white/20 focus:ring-0"
+                      className="bg-transparent border-none outline-none text-white text-base font-semibold w-full placeholder:text-white/20 focus:ring-0 text-center md:text-left"
                     />
                   </div>
                 </div>
 
                 {/* Category Selector */}
                 <div className="p-6">
-                  <h3 className="text-[10px] font-mono font-semibold uppercase tracking-widest text-brand-yellow mb-2">Category</h3>
+                  <h3 className="text-[10px] font-mono font-semibold uppercase tracking-widest text-brand-yellow mb-2 text-center md:text-left">Category</h3>
                   <div className="flex flex-wrap gap-2">
                     <select 
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value)}
-                      className="bg-transparent border-none outline-none text-white text-base font-semibold w-full appearance-none cursor-pointer focus:ring-0"
+                      className="bg-transparent border-none outline-none text-white text-base font-semibold w-full appearance-none cursor-pointer focus:ring-0 text-center md:text-left"
                     >
                       {categories.map((cat, i) => (
                         <option key={i} className="bg-[#0d0f14]" value={cat}>{cat}</option>
@@ -274,7 +281,7 @@ const DocumentsCharters = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05 }}
                 viewport={{ once: true }}
-                className="group relative border border-white/5 rounded-3xl p-8 bg-[#0d0f14]/50 hover:border-brand-yellow/30 transition-all duration-500 flex flex-col justify-between min-h-[300px]"
+                className="group relative border border-white/5 rounded-3xl p-8 bg-[#0d0f14]/50 hover:border-brand-yellow/30 transition-all duration-500 flex flex-col justify-between min-h-[300px] text-center md:text-left items-center md:items-stretch"
               >
                 <div>
                   {/* Top Metadata */}
@@ -296,26 +303,26 @@ const DocumentsCharters = () => {
                 </div>
 
                 {/* Bottom Actions */}
-                <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
-                  <button 
-                    onClick={() => setSelectedDoc(doc)}
+                <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto w-full">
+                  <a 
+                    href={doc.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-[10px] font-mono font-semibold uppercase tracking-widest text-white/60 hover:text-brand-yellow flex items-center gap-1.5 transition-colors group/btn"
                   >
                     Read More 
                     <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                  </button>
+                  </a>
 
-                  <button 
-                    onClick={() => handleDownload(doc.id)}
+                  <a 
+                    href={doc.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-yellow hover:text-black flex items-center justify-center text-white/60 transition-all"
                     title="Download Document"
                   >
-                    {downloadingId === doc.id ? (
-                      <div className="w-4 h-4 rounded-full border border-current border-t-transparent animate-spin" />
-                    ) : (
-                      <Download size={14} />
-                    )}
-                  </button>
+                    <Download size={14} />
+                  </a>
                 </div>
               </motion.div>
             ))}

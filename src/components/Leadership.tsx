@@ -118,27 +118,28 @@ const Leadership = () => {
   return (
     <div className="bg-black min-h-screen text-white selection:bg-brand-yellow selection:text-black">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-32 pb-12 px-6 overflow-hidden">
+      <section className="relative min-h-0 lg:min-h-screen flex items-center pt-32 pb-8 lg:pt-10 lg:pb-16 px-4 lg:px-6 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-yellow/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
-        <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:pt-12 px-4">
+        <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-0 px-4">
           {/* LEFT: Text */}
           <motion.div
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-start text-left"
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
           >
-            <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-12">
-              <div className="w-1.5 h-1.5 rounded-full bg-brand-yellow" />
-              <span className="text-[10px] uppercase tracking-[0.5em] font-semibold text-white/60">Governance</span>
+            {/* Top Company Badge (Matching Reference Image) */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-12">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
+              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-brand-yellow">Governance</span>
             </div>
 
-            <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-white">
+            <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-white text-center lg:text-left">
               LEADERSHIP <br /> <span className="text-brand-yellow">& COMMITTEES</span>
             </h1>
 
-            <p className="text-xl text-white/50 max-w-xl leading-relaxed font-medium italic">
+            <p className="text-xl text-white/50 max-w-xl leading-relaxed font-medium text-center lg:text-left">
               "Meet the experienced executives driving DigiPowerX's vision of revolutionizing AI infrastructure and sustainable data center operations."
             </p>
           </motion.div>
@@ -148,7 +149,7 @@ const Leadership = () => {
             initial={{ opacity: 0, x: 35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            className="w-full min-h-[400px] md:min-h-[500px] lg:min-h-[600px] relative"
+            className="w-full h-[340px] sm:h-[380px] lg:h-[550px] lg:min-h-[600px] relative overflow-hidden"
           >
             <LeadershipHeroVisual3D />
           </motion.div>
@@ -237,8 +238,8 @@ const Leadership = () => {
                     key={i}
                     onClick={() => setExpandedBoardMember(isExpanded ? null : i)}
                     className={`group border transition-all duration-500 p-6 rounded-3xl cursor-pointer flex flex-col items-start gap-4 ${isExpanded
-                        ? 'border-brand-yellow/40 bg-white/[0.03] shadow-[0_12px_40px_rgba(245,197,24,0.05)]'
-                        : 'border-white/5 bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.02]'
+                      ? 'border-brand-yellow/40 bg-white/[0.03] shadow-[0_12px_40px_rgba(245,197,24,0.05)]'
+                      : 'border-white/5 bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.02]'
                       }`}
                   >
                     {/* Header Row */}
@@ -260,8 +261,8 @@ const Leadership = () => {
 
                       {/* Interactive Chevron Indicators */}
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500 ${isExpanded
-                          ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90'
-                          : 'border-white/10 text-white/40 group-hover:border-white/20 group-hover:text-white'
+                        ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90'
+                        : 'border-white/10 text-white/40 group-hover:border-white/20 group-hover:text-white'
                         }`}>
                         <ChevronRight size={18} />
                       </div>
@@ -424,8 +425,8 @@ const Leadership = () => {
                     key={i}
                     onClick={() => setExpandedCommittee(isExpanded ? null : i)}
                     className={`group border transition-all duration-500 p-6 rounded-3xl cursor-pointer flex flex-col items-start gap-4 ${isExpanded
-                        ? 'border-brand-yellow/40 bg-white/[0.03] shadow-[0_12px_40px_rgba(245,197,24,0.05)]'
-                        : 'border-white/5 bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.02]'
+                      ? 'border-brand-yellow/40 bg-white/[0.03] shadow-[0_12px_40px_rgba(245,197,24,0.05)]'
+                      : 'border-white/5 bg-white/[0.01] hover:border-white/20 hover:bg-white/[0.02]'
                       }`}
                   >
                     {/* Header Row */}
@@ -441,8 +442,8 @@ const Leadership = () => {
 
                       {/* Interactive Chevron Indicators */}
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500 ${isExpanded
-                          ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90'
-                          : 'border-white/10 text-white/40 group-hover:border-white/20 group-hover:text-white'
+                        ? 'border-brand-yellow/40 bg-brand-yellow/10 text-brand-yellow rotate-90'
+                        : 'border-white/10 text-white/40 group-hover:border-white/20 group-hover:text-white'
                         }`}>
                         <ChevronRight size={18} />
                       </div>

@@ -92,7 +92,7 @@ const MissionVision = () => {
   return (
     <div className="bg-black min-h-screen text-white selection:bg-brand-yellow selection:text-black">
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center pt-28 md:pt-32 pb-8 overflow-hidden">
+      <section className="relative min-h-[60vh] flex items-center pt-32 pb-8 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-yellow/[0.03] rounded-full blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 w-full flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-20 max-w-none">
@@ -101,20 +101,20 @@ const MissionVision = () => {
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 w-full lg:w-[42%] flex flex-col items-start text-left mb-12 lg:mb-0"
+            className="relative z-10 w-full lg:w-[42%] flex flex-col items-center lg:items-start text-center lg:text-left mb-12 lg:mb-0"
           >
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-10">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
               <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-brand-yellow">Our Purpose</span>
             </div>
 
-            <h1 className="text-[clamp(2.2rem,7vw,5.5rem)] font-normal leading-[0.92] tracking-tighter uppercase mb-10 text-white font-[Archivo,sans-serif]">
+            <h1 className="text-[clamp(2.2rem,7vw,5.5rem)] font-normal leading-[0.92] tracking-tighter uppercase mb-10 text-white font-[Archivo,sans-serif] text-center lg:text-left">
               MISSION <br /> <span className="text-brand-yellow">& VISION</span>
             </h1>
 
-            <div className="relative mb-10 pl-6">
-              <span className="text-brand-yellow font-serif text-5xl leading-none absolute left-0 top-[-8px] select-none">"</span>
-              <p className="text-base md:text-lg text-white/70 max-w-lg leading-relaxed font-normal">
+            <div className="relative mb-10 pl-0 lg:pl-6 text-center lg:text-left">
+              <span className="text-brand-yellow font-serif text-5xl leading-none absolute left-0 top-[-8px] select-none hidden lg:block">"</span>
+              <p className="text-base md:text-lg text-white/70 max-w-lg leading-relaxed font-normal text-center lg:text-left">
                 We exist to power the AI factory — delivering the power, cooling, compute, and connectivity that put supercomputing infrastructure within reach of every team building toward a superintelligent era.
               </p>
             </div>

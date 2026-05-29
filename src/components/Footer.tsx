@@ -312,7 +312,7 @@ const CTASection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="w-full lg:w-[48%] flex flex-col justify-start"
+            className="w-full lg:w-[48%] flex flex-col items-center text-center lg:items-start lg:text-left justify-start"
           >
             {/* Badge */}
             <div className="inline-flex items-center gap-2.5 mb-8">

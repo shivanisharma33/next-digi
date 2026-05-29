@@ -95,37 +95,34 @@ const Partnership = () => {
     <div className="bg-black text-white min-h-screen selection:bg-brand-yellow selection:text-black overflow-x-hidden">
 
       {/* ═══════════════════ HERO ═══════════════════ */}
-      <section className="relative min-h-screen flex flex-col justify-center pt-32 pb-12 px-6 overflow-hidden bg-black">
+      <section className="relative min-h-0 lg:min-h-screen flex flex-col justify-center pt-32 pb-4 lg:pt-28 lg:pb-16 px-4 lg:px-6 overflow-hidden bg-black">
         {/* Radial depth glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-brand-yellow/[0.03] blur-[140px] pointer-events-none" />
 
-        <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start lg:pt-12 px-4 mb-16">
+        <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-center lg:pt-12 px-4 mb-0 lg:mb-16">
           {/* Left Column: Text Narratives */}
           <motion.div
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-6 flex flex-col items-start text-left"
+            className="lg:col-span-6 flex flex-col items-center text-center lg:items-start lg:text-left"
           >
-            {/* Badge */}
-            <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-white/20 mb-8 backdrop-blur-sm">
-              <div className="flex items-center gap-1.5">
-                <div className="h-[2px] w-8 bg-brand-yellow" />
-                <div className="h-[2px] w-2 bg-white/20" />
-              </div>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-white/80">Partnership</span>
+            {/* Top Company Badge (Matching Reference Image) */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
+              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-brand-yellow">Partnership</span>
             </div>
 
-            <h1 className="text-[clamp(2.2rem,6vw,4.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-6 text-white text-left">
+            <h1 className="text-[clamp(2.2rem,6vw,4.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-6 text-white text-center lg:text-left">
               <span className="block text-white mb-2">Partner with DigiPowerX</span>
               <span className="block text-brand-yellow">to Build Tomorrow</span>
             </h1>
 
-            <p className="text-sm md:text-base text-white/50 max-w-[550px] leading-relaxed mb-10 font-medium text-left">
+            <p className="text-sm md:text-base text-white/50 max-w-[550px] leading-relaxed mb-10 font-medium text-center lg:text-left">
               We collaborate with visionary organizations to deliver intelligent, scalable, and future-ready solutions that transform industries and empower innovation.
             </p>
 
-            <div className="flex flex-wrap gap-5 w-full sm:w-auto justify-start">
+            <div className="flex flex-wrap gap-5 w-full sm:w-auto justify-center lg:justify-start">
               <Link
                 to="/contact"
                 className="group bg-brand-yellow text-black px-10 py-4 font-semibold text-[12px] uppercase tracking-[0.2em] rounded shadow-[0_0_30px_rgba(245,197,24,0.2)] hover:bg-white transition-all flex items-center justify-center gap-3 w-full sm:w-auto"
@@ -147,9 +144,9 @@ const Partnership = () => {
             initial={{ opacity: 0, x: 35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            className="lg:col-span-6 w-full relative aspect-square max-w-[500px] lg:max-w-none mx-auto flex items-center justify-center"
+            className="lg:col-span-6 w-full relative mx-auto flex items-center justify-center h-[280px] sm:h-[350px] lg:h-[550px]"
           >
-            <div className="w-full h-full min-h-[400px] md:min-h-[500px] lg:min-h-[550px] relative z-10">
+            <div className="w-full h-full relative z-10">
               <PartnershipHeroVisual3D />
             </div>
           </motion.div>

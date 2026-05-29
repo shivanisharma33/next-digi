@@ -306,18 +306,19 @@ const PressRelease = () => {
       {/* ═══════════════════════════════════════════ */}
       {/* HERO SECTION */}
       {/* ═══════════════════════════════════════════ */}
-      <section className="relative min-h-[70vh] overflow-hidden bg-[#050505] flex items-center pt-28 md:pt-36 pb-12 md:pb-20 px-4 sm:px-6">
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:pt-12">
+      <section className="relative min-h-0 lg:min-h-[70vh] overflow-hidden bg-[#050505] flex items-center pt-32 pb-8 lg:pt-15 lg:pb-16 px-4 sm:px-6">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-0">
           {/* LEFT: Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex flex-col items-start text-left"
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
           >
-            <div className="mb-8 sm:mb-10 inline-flex items-center gap-2 sm:gap-4 rounded-full border border-white/5 bg-white/[0.03] px-4 py-2 sm:px-6 sm:py-2.5 backdrop-blur-xl">
-              <div className="h-1.5 w-1.5 rounded-full bg-[#ffc629] animate-pulse" />
-              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] sm:tracking-[0.5em] text-white/50">
+            {/* Top Company Badge (Matching Reference Image) */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#ffc629]/30 bg-[#ffc629]/5 backdrop-blur-sm mb-8 sm:mb-10">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ffc629] shadow-[0_0_8px_#ffc629]"></span>
+              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-[#ffc629]">
                 Newsroom • Official Press Releases
               </span>
             </div>
@@ -326,9 +327,9 @@ const PressRelease = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="flex flex-col items-start"
+              className="flex flex-col items-center lg:items-start w-full"
             >
-              <h1 className="leading-[1.1] tracking-[-0.04em] mb-10">
+              <h1 className="leading-[1.1] tracking-[-0.04em] mb-10 text-center lg:text-left">
                 <span className="block text-[clamp(40px,7vw,100px)] font-semibold text-white">
                   Official Press
                 </span>
@@ -337,7 +338,7 @@ const PressRelease = () => {
                 </span>
               </h1>
 
-              <p className="max-w-xl text-[clamp(15px,1.1vw,18px)] leading-[1.8] text-white/40 font-medium mb-8">
+              <p className="max-w-xl text-[clamp(15px,1.1vw,18px)] leading-[1.8] text-white/40 font-medium mb-8 text-center lg:text-left">
                 Stay updated with the latest corporate developments, infrastructure milestones, and strategic
                 announcements from DigiPowerX.
               </p>
@@ -362,7 +363,7 @@ const PressRelease = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full min-h-[500px] md:min-h-[650px] lg:min-h-[750px] relative -mt-12 md:-mt-16 lg:-mt-20"
+            className="w-full h-[320px] sm:h-[380px] lg:h-[550px] lg:min-h-[750px] relative -mt-6 md:-mt-16 lg:-mt-20 overflow-hidden"
           >
             <PressReleaseHeroVisual3D />
           </motion.div>

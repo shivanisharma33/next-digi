@@ -172,10 +172,10 @@ const Careers = () => {
     <div className="bg-[#050608] min-h-screen text-white selection:bg-brand-yellow selection:text-black">
 
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] md:min-h-screen flex items-center pt-28 md:pt-36 pb-16 md:pb-24 px-4 sm:px-6 overflow-hidden">
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:pt-12">
+      <section className="relative min-h-0 lg:min-h-screen flex items-center pt-32 pb-8 lg:pt-36 lg:pb-16 px-4 sm:px-6 overflow-hidden">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-12">
           {/* LEFT: Text */}
-          <div className="flex flex-col items-start text-left">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -191,7 +191,7 @@ const Careers = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-white"
+              className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-white text-center lg:text-left"
             >
               <span className="block text-white">BUILDING THE</span>
               <span className="block text-brand-yellow">FUTURE OF COMPUTE</span>
@@ -201,7 +201,7 @@ const Careers = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-white/60 text-sm md:text-lg max-w-xl mb-12 leading-relaxed font-medium tracking-wide"
+              className="text-white/60 text-sm md:text-lg max-w-xl mb-12 leading-relaxed font-medium tracking-wide text-center lg:text-left"
             >
               Join DigiPowerX in engineering zero-loss, liquid-cooled modular platforms powering the world's most massive AI clusters and high-density technical workloads.
             </motion.p>
@@ -212,7 +212,7 @@ const Careers = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full min-h-[400px] md:min-h-[500px] lg:min-h-[580px] relative"
+            className="w-full h-[320px] sm:h-[380px] lg:h-[550px] lg:min-h-[580px] relative overflow-hidden"
           >
             <CareersHeroVisual3D />
           </motion.div>

@@ -15,7 +15,15 @@ const NeuralCube3D: React.FC = () => {
     const scene = new THREE.Scene();
     
     const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
-    camera.position.set(0, 0, 6.5);
+    const updateCameraZ = () => {
+      const aspect = camera.aspect;
+      if (aspect < 1.4) {
+        camera.position.set(0, 0, 6.5 * (1.4 / aspect));
+      } else {
+        camera.position.set(0, 0, 6.5);
+      }
+    };
+    updateCameraZ();
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -243,6 +251,7 @@ const NeuralCube3D: React.FC = () => {
       W = container.clientWidth;
       H = container.clientHeight;
       camera.aspect = W / H;
+      updateCameraZ();
       camera.updateProjectionMatrix();
       renderer.setSize(W, H);
     };

@@ -99,11 +99,11 @@ const DataCenter = () => {
       {/* ========================================================= */}
       {/* HERO SECTION - REFACTORED DUAL-COLUMN LAYOUT */}
       {/* ========================================================= */}
-      <section className="relative min-h-[85vh] flex items-center justify-center pt-12 pb-3 sm:pt-0 sm:pb-6 lg:pt-28 px-6 overflow-hidden">
+      <section className="relative min-h-0 lg:min-h-[85vh] flex items-center justify-center pt-32 pb-8 lg:pt-28 lg:pb-16 px-4 lg:px-6 overflow-hidden">
 
 
         <div className="relative z-10 w-full max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
 
             {/* Left Content column */}
             <motion.div
@@ -113,16 +113,19 @@ const DataCenter = () => {
               className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left"
             >
 
-              <div className="inline-flex items-center gap-4 px-6 py-2 rounded-full border border-[#f5c518]/20 bg-[#f5c518]/5 backdrop-blur-xl mb-4 shadow-[0_0_30px_rgba(245,197,24,0.05)]">
-                <span className="text-[10px] font-semibold tracking-[0.6em] text-[#f5c518] uppercase">AI-Ready Facilities</span>
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#f5c518]/30 bg-[#f5c518]/5 backdrop-blur-sm mb-8 shadow-[0_0_30px_rgba(245,197,24,0.05)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f5c518] shadow-[0_0_8px_#f5c518]"></span>
+                <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-[#f5c518]">
+                  AI-Ready Facilities
+                </span>
               </div>
 
-              <h1 className="text-[clamp(2.2rem,5.5vw,5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-6 text-white">
+              <h1 className="text-[clamp(2.2rem,5.5vw,5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-6 text-white text-center lg:text-left">
                 DATA <br />
                 <span className="text-[#f5c518]">CENTERS</span>
               </h1>
 
-              <p className="text-white/60 max-w-lg text-sm md:text-base font-medium leading-relaxed mb-10 tracking-tight">
+              <p className="text-white/60 max-w-lg text-sm md:text-base font-medium leading-relaxed mb-10 tracking-tight text-center lg:text-left">
                 High-density, liquid-cooled data center environments engineered explicitly for GPU clusters, power reliability, and extreme compute efficiency.
               </p>
 
@@ -141,7 +144,7 @@ const DataCenter = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-7 w-full h-full min-h-[250px] sm:min-h-[350px] lg:min-h-[550px]"
+              className="lg:col-span-7 w-full h-[250px] sm:h-[350px] lg:h-[550px]"
             >
               <DataCenterHeroScene />
             </motion.div>

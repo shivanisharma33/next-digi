@@ -80,9 +80,9 @@ const BackboneFailoverSVG = () => (
       <rect width="100" height="160" rx="8" fill={BG} stroke={BRAND} strokeWidth="2" />
       <text x="50" y="22" textAnchor="middle" fill={BRAND} fontSize="11" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="3">SITE A</text>
       <g stroke={BRAND} strokeWidth="1.4" opacity="0.7">
-        <line x1="12" y1="42"  x2="88" y2="42"  />
-        <line x1="12" y1="62"  x2="88" y2="62"  />
-        <line x1="12" y1="82"  x2="88" y2="82"  />
+        <line x1="12" y1="42" x2="88" y2="42" />
+        <line x1="12" y1="62" x2="88" y2="62" />
+        <line x1="12" y1="82" x2="88" y2="82" />
         <line x1="12" y1="102" x2="88" y2="102" />
         <line x1="12" y1="122" x2="88" y2="122" />
         <line x1="12" y1="142" x2="88" y2="142" />
@@ -95,9 +95,9 @@ const BackboneFailoverSVG = () => (
       <rect width="100" height="160" rx="8" fill={BG} stroke={BRAND} strokeWidth="2" />
       <text x="50" y="22" textAnchor="middle" fill={BRAND} fontSize="11" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="3">SITE B</text>
       <g stroke={BRAND} strokeWidth="1.4" opacity="0.7">
-        <line x1="12" y1="42"  x2="88" y2="42"  />
-        <line x1="12" y1="62"  x2="88" y2="62"  />
-        <line x1="12" y1="82"  x2="88" y2="82"  />
+        <line x1="12" y1="42" x2="88" y2="42" />
+        <line x1="12" y1="62" x2="88" y2="62" />
+        <line x1="12" y1="82" x2="88" y2="82" />
         <line x1="12" y1="102" x2="88" y2="102" />
         <line x1="12" y1="122" x2="88" y2="122" />
         <line x1="12" y1="142" x2="88" y2="142" />
@@ -221,42 +221,43 @@ const GlobalNetwork = () => {
   return (
     <div className="bg-[#06070a] min-h-screen text-white font-sans selection:bg-[#f5c518]/30 overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col pt-28 pb-16 px-6 overflow-hidden">
+      <section className="relative min-h-screen flex flex-col pt-32 pb-12 px-4 md:pt-28 md:pb-16 md:px-6 overflow-hidden">
         {/* Main two-column grid */}
-        <div className="flex-1 relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:pt-12 py-10">
+        <div className="flex-1 relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:pt-12 py-2 md:py-10">
           {/* LEFT: Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col items-start text-left"
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
+            {/* Top Company Badge (Matching Reference Image) */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#f5c518]/30 bg-[#f5c518]/5 backdrop-blur-sm mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#f5c518] shadow-[0_0_8px_#f5c518]"></span>
-              <span className="text-[9px] uppercase tracking-[0.4em] font-mono text-white/60">
+              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-[#f5c518]">
                 Live Network · US Footprint
               </span>
             </div>
 
-            <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold tracking-tighter leading-[0.95] mb-10 uppercase">
+            <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold tracking-tighter leading-[0.95] mb-10 uppercase text-center lg:text-left">
               <span className="block text-white">GLOBAL</span>
               <span className="block text-[#f5c518]">NETWORK</span>
             </h1>
 
-            <p className="text-white/60 text-sm md:text-lg max-w-xl mb-12 leading-relaxed font-medium tracking-wide">
+            <p className="text-white/60 text-sm md:text-lg max-w-xl mb-12 leading-relaxed font-medium tracking-wide text-center lg:text-left">
               DigiPowerX connects owned generation, substation access, and compute capacity across a multi-site footprint — one resilient mesh from grid to GPU.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start gap-6">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 w-full sm:w-auto justify-center sm:justify-start">
               <Link
                 to="/contact"
-                className="px-12 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md transition-all hover:brightness-110 active:scale-95 shadow-[0_10px_40px_rgba(245,197,24,0.2)]"
+                className="px-12 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md transition-all hover:brightness-110 active:scale-95 shadow-[0_10px_40px_rgba(245,197,24,0.2)] text-center"
               >
                 Talk to Team
               </Link>
               <Link
                 to="/energy"
-                className="px-12 py-5 border border-white/20 text-white font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10"
+                className="px-12 py-5 border border-white/20 text-white font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10 text-center"
               >
                 Power Infrastructure
               </Link>
@@ -268,7 +269,7 @@ const GlobalNetwork = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full lg:absolute lg:right-0 lg:top-0 lg:w-[50vw] lg:h-full min-h-[400px] md:min-h-[500px] lg:min-h-[600px] z-0 overflow-hidden"
+            className="w-full lg:absolute lg:right-0 lg:top-0 lg:w-[50vw] lg:h-full h-[240px] sm:h-[300px] md:h-[400px] lg:h-full z-0 overflow-hidden"
           >
             <DgxGlobe />
           </motion.div>
@@ -279,7 +280,7 @@ const GlobalNetwork = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative z-10 w-full max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12"
+          className="relative z-10 w-full max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 md:mt-12"
         >
           {[
             { val: "4", label: "Active Sites Across the US Footprint" },
@@ -310,11 +311,11 @@ const GlobalNetwork = () => {
       </section>
 
       {/* Network Flow Section — mirrors /energy's "From Generation to GPU Load" */}
-      <section className="bg-white py-20 px-6 relative overflow-hidden">
+      <section className="bg-white py-12 px-4 md:py-20 md:px-6 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
 
           {/* Top Badge */}
-          <div className="flex justify-center mb-12">
+          <div className="flex justify-center mb-6 md:mb-12">
             <div className="inline-flex items-center px-6 py-2.5 rounded-full border border-black/10 bg-black/5 backdrop-blur-sm">
               <div className="w-10 h-[1.5px] bg-[#f5c518] mr-4"></div>
               <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-black/80">
@@ -324,15 +325,15 @@ const GlobalNetwork = () => {
           </div>
 
           {/* Heading */}
-          <div className="text-center mb-8">
-            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-8 relative z-10">
+          <div className="text-center mb-4 md:mb-8">
+            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-4 md:mb-8 relative z-10">
               From Region<br />
               to <span className="text-[#f5c518]">Rack.</span>
             </h2>
           </div>
 
           {/* Subtext */}
-          <div className="max-w-4xl mx-auto text-center mb-24">
+          <div className="max-w-4xl mx-auto text-center mb-12 md:mb-24">
             <p className="text-black/55 text-base md:text-[19px] leading-[1.6] font-medium tracking-tight">
               Multi-region sites linked by a redundant backbone and operated as one platform. Power, fiber, and compute provisioned together — without the gaps that slow leased-only competitors.
             </p>
@@ -415,64 +416,64 @@ const GlobalNetwork = () => {
             ].map((card, i) => {
               const { Visual } = card;
               return (
-              <div
-                key={i}
-                className="group relative bg-gradient-to-br from-[#0b0b0e] to-[#070709] rounded-3xl p-8 md:p-10 border border-white/[0.06] hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.18)] hover:shadow-[0_30px_80px_rgba(245,197,24,0.18)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-1"
-              >
-                {/* Subtle Mesh Background for texture */}
-                <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#f5c518 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                <div
+                  key={i}
+                  className="group relative bg-gradient-to-br from-[#0b0b0e] to-[#070709] rounded-3xl p-8 md:p-10 border border-white/[0.06] hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.18)] hover:shadow-[0_30px_80px_rgba(245,197,24,0.18)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-1"
+                >
+                  {/* Subtle Mesh Background for texture */}
+                  <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#f5c518 1px, transparent 0)', backgroundSize: '24px 24px' }} />
 
-                {/* Decorative corner element */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#f5c518]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-tr-3xl" />
+                  {/* Decorative corner element */}
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#f5c518]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-tr-3xl" />
 
-                {/* Animated visual */}
-                <div className="gn-card-visual gn-card-visual--lg relative z-10">
-                  <Visual />
-                </div>
+                  {/* Animated visual */}
+                  <div className="gn-card-visual gn-card-visual--lg relative z-10">
+                    <Visual />
+                  </div>
 
-                {/* Title */}
-                <h3 className="text-white text-xl md:text-2xl font-semibold tracking-tight leading-snug mb-3 relative z-10 group-hover:text-[#f5c518] transition-colors duration-500">
-                  {card.title}
-                </h3>
+                  {/* Title */}
+                  <h3 className="text-white text-xl md:text-2xl font-semibold tracking-tight leading-snug mb-3 relative z-10 group-hover:text-[#f5c518] transition-colors duration-500">
+                    {card.title}
+                  </h3>
 
-                {/* Lead paragraph */}
-                <p className="text-white/55 text-[13px] md:text-sm leading-relaxed font-medium mb-6 relative z-10">
-                  {card.lead}
-                </p>
+                  {/* Lead paragraph */}
+                  <p className="text-white/55 text-[13px] md:text-sm leading-relaxed font-medium mb-6 relative z-10">
+                    {card.lead}
+                  </p>
 
-                {/* Detail bullets */}
-                <ul className="space-y-2.5 mb-7 relative z-10 w-full">
-                  {card.bullets.map((b, bi) => (
-                    <li key={bi} className="flex items-start gap-3">
-                      <span className="mt-[7px] w-1.5 h-1.5 rounded-full bg-[#f5c518]/70 shrink-0" />
-                      <span className="text-white/70 text-[13px] leading-relaxed font-medium">
-                        {b}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Metric strip */}
-                <div className="mt-auto w-full pt-6 border-t border-white/[0.06] relative z-10">
-                  <div className="grid grid-cols-3 gap-3">
-                    {card.metrics.map((m, mi) => (
-                      <div key={mi} className="flex flex-col">
-                        <span className="font-mono text-[9px] font-semibold tracking-[0.2em] uppercase text-white/35 mb-1.5">
-                          {m.k}
+                  {/* Detail bullets */}
+                  <ul className="space-y-2.5 mb-7 relative z-10 w-full">
+                    {card.bullets.map((b, bi) => (
+                      <li key={bi} className="flex items-start gap-3">
+                        <span className="mt-[7px] w-1.5 h-1.5 rounded-full bg-[#f5c518]/70 shrink-0" />
+                        <span className="text-white/70 text-[13px] leading-relaxed font-medium">
+                          {b}
                         </span>
-                        <span className="text-[#f5c518] text-base md:text-lg font-bold tracking-tight">
-                          {m.v}
-                        </span>
-                      </div>
+                      </li>
                     ))}
+                  </ul>
+
+                  {/* Metric strip */}
+                  <div className="mt-auto w-full pt-6 border-t border-white/[0.06] relative z-10">
+                    <div className="grid grid-cols-3 gap-3">
+                      {card.metrics.map((m, mi) => (
+                        <div key={mi} className="flex flex-col">
+                          <span className="font-mono text-[9px] font-semibold tracking-[0.2em] uppercase text-white/35 mb-1.5">
+                            {m.k}
+                          </span>
+                          <span className="text-[#f5c518] text-base md:text-lg font-bold tracking-tight">
+                            {m.v}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bottom indicator line that stretches out on hover */}
+                  <div className="mt-6 w-full relative z-10">
+                    <div className="h-[2px] w-10 bg-white/5 group-hover:w-full group-hover:bg-[#f5c518] transition-all duration-500 origin-left" />
                   </div>
                 </div>
-
-                {/* Bottom indicator line that stretches out on hover */}
-                <div className="mt-6 w-full relative z-10">
-                  <div className="h-[2px] w-10 bg-white/5 group-hover:w-full group-hover:bg-[#f5c518] transition-all duration-500 origin-left" />
-                </div>
-              </div>
               );
             })}
           </div>
@@ -480,11 +481,11 @@ const GlobalNetwork = () => {
       </section>
 
       {/* Network Layers Section — mirrors /energy's 3-column "Layers" */}
-      <section className="bg-[#06070a] py-15 px-6 border-y border-white/5">
+      <section className="bg-[#06070a] py-10 px-4 md:py-15 md:px-6 border-y border-white/5">
         <div className="max-w-[1400px] mx-auto">
 
           {/* Top Badge */}
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center mb-6 md:mb-10">
             <div className="inline-flex items-center px-6 py-2 rounded-full border border-white/10 bg-white/5">
               <span className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em] mr-4">02 /</span>
               <div className="w-12 h-[1px] bg-[#f5c518] mr-4"></div>
@@ -495,15 +496,15 @@ const GlobalNetwork = () => {
           </div>
 
           {/* Heading */}
-          <div className="text-center mb-8">
-            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-8 relative z-10">
+          <div className="text-center mb-4 md:mb-8">
+            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-4 md:mb-8 relative z-10">
               One Platform.<br />
               Many <span className="text-[#f5c518]">Regions.</span>
             </h2>
           </div>
 
           {/* Subtext */}
-          <div className="max-w-4xl mx-auto text-center mb-20">
+          <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20">
             <p className="text-white/40 text-sm md:text-lg leading-relaxed font-medium">
               Each site is engineered as a self-sufficient power-and-compute node, then federated into a single operating fabric — so customers get geographic diversity without operational fragmentation.
             </p>
@@ -589,11 +590,11 @@ const GlobalNetwork = () => {
       </section>
 
       {/* Network Pipeline Section — mirrors /energy's 4-card value chain */}
-      <section className="bg-white py-20 px-6">
+      <section className="bg-white py-12 px-4 md:py-20 md:px-6">
         <div className="max-w-[1400px] mx-auto">
 
           {/* Top Badge */}
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center mb-6 md:mb-10">
             <div className="inline-flex items-center px-6 py-2 rounded-full border border-black/10 bg-black/5">
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-black/60">
                 Network Pipeline
@@ -602,15 +603,15 @@ const GlobalNetwork = () => {
           </div>
 
           {/* Heading */}
-          <div className="text-center mb-10">
-            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-8 relative z-10">
+          <div className="text-center mb-6 md:mb-10">
+            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-4 md:mb-8 relative z-10">
               Reach is Built<br />
               Region by <span className="text-[#f5c518]">Region.</span>
             </h2>
           </div>
 
           {/* Subtext */}
-          <div className="max-w-4xl mx-auto text-center mb-20 space-y-6">
+          <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20 space-y-6">
             <p className="text-black/55 text-sm md:text-lg leading-relaxed font-medium">
               The DigiPowerX network compounds as each new site comes online: more diversity, more capacity, lower customer latency, and more revenue per megawatt across the footprint.
             </p>
@@ -699,7 +700,7 @@ const GlobalNetwork = () => {
         </div>
 
         {/* Black Stats Bar */}
-        <div className="bg-[#06070a] py-20 px-8 md:px-12 rounded-3xl mt-16 border border-white/10 relative overflow-hidden shadow-2xl">
+        <div className="bg-[#06070a] py-12 px-6 md:py-20 md:px-12 rounded-3xl mt-8 md:mt-16 border border-white/10 relative overflow-hidden shadow-2xl">
           {/* Futuristic ambient grid overlay */}
           <div
             className="absolute inset-0 opacity-[0.02] pointer-events-none"

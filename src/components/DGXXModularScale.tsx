@@ -86,7 +86,12 @@ const DGXXModularScale: React.FC = () => {
     const scene = new THREE.Scene();
     let { w, h } = getSize();
     let aspect = w / h;
-    const frustumSize = 17;
+    const getFrustumSize = (a: number) => {
+      if (a < 0.8) return 8.5;
+      if (a < 1.2) return 12;
+      return 17;
+    };
+    let frustumSize = getFrustumSize(aspect);
     const camera = new THREE.OrthographicCamera(
       (-frustumSize * aspect) / 2, (frustumSize * aspect) / 2,
       frustumSize / 2, -frustumSize / 2,
@@ -425,6 +430,7 @@ const DGXXModularScale: React.FC = () => {
       const s = getSize();
       w = s.w; h = s.h;
       aspect = w / h;
+      frustumSize = getFrustumSize(aspect);
       camera.left = (-frustumSize * aspect) / 2;
       camera.right = (frustumSize * aspect) / 2;
       camera.top = frustumSize / 2;
@@ -670,6 +676,12 @@ const styles = `
   position: relative; z-index: 10;
   width: 100%; flex-shrink: 0;
   display: flex; flex-direction: row; gap: 12px;
+}
+@media (max-width: 768px) {
+  .dgxx-stage .analytics {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 .dgxx-stage .panel {
   flex: 1; min-width: 0;

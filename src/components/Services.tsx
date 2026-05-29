@@ -110,24 +110,25 @@ export default function Services() {
     <div className="services-page font-sans bg-[#050505] selection:bg-[#f5c518]/30">
 
       {/* ── 00 / Hero Section ── */}
-      <section className="relative min-h-screen flex flex-col overflow-hidden pt-28 pb-0">
+      <section className="relative min-h-0 lg:min-h-screen flex flex-col overflow-hidden pt-32 pb-8 lg:pt-28 lg:pb-16 px-4 lg:px-6">
         {/* Main two-column grid */}
-        <div className="flex-1 relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:pt-12 px-6 lg:px-8 py-10">
+        <div className="flex-1 relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start lg:pt-12 py-2 md:py-10">
           {/* LEFT: Text + tabs */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col items-start text-left"
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
           >
+            {/* Top Company Badge (Matching Reference Image) */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-8 inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-5 py-2.5 backdrop-blur-md"
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#f5c518]/30 bg-[#f5c518]/5 backdrop-blur-sm mb-8"
             >
-              <div className="h-2 w-2 rounded-full bg-[#f5c518] animate-pulse" />
-              <span className="text-[10px] font-bold tracking-[0.25em] text-white uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f5c518] shadow-[0_0_8px_#f5c518]"></span>
+              <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-[#f5c518]">
                 Services Platform
               </span>
             </motion.div>
@@ -136,7 +137,7 @@ export default function Services() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[clamp(2.5rem,6.5vw,5.5rem)] font-bold text-white leading-[1.0] tracking-tighter uppercase mb-6"
+              className="text-[clamp(2.5rem,6.5vw,5.5rem)] font-bold text-white leading-[1.0] tracking-tighter uppercase mb-6 text-center lg:text-left"
             >
               Services & <br />
               <span className="text-[#f5c518] relative inline-block">
@@ -148,7 +149,7 @@ export default function Services() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-gray-300 text-sm md:text-base max-w-xl mb-10 leading-relaxed font-semibold uppercase tracking-tight"
+              className="text-gray-300 text-sm md:text-base max-w-xl mb-10 leading-relaxed font-semibold uppercase tracking-tight text-center lg:text-left"
             >
               Enterprise-grade AI infrastructure, designed for scale and high-density performance across all powered DigiPowerX sites.
             </motion.p>
@@ -157,12 +158,12 @@ export default function Services() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-6 mb-10"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mb-10 w-full sm:w-auto"
             >
-              <Link to="/contact" className="px-10 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md hover:bg-white hover:text-black transition-all shadow-[0_15px_40px_rgba(245,197,24,0.35)] flex items-center gap-4 group cursor-pointer border border-[#f5c518] hover:border-white">
+              <Link to="/contact" className="px-10 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md hover:bg-white hover:text-black transition-all shadow-[0_15px_40px_rgba(245,197,24,0.35)] flex items-center gap-4 group cursor-pointer border border-[#f5c518] hover:border-white text-center">
                 Talk to Team <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link to="/investors" className="flex items-center gap-3 px-10 py-5 border border-white/10 text-white font-semibold text-[11px] uppercase tracking-[0.2em] rounded-md bg-white/5 backdrop-blur-md hover:bg-white/10 hover:text-white transition-all group cursor-pointer">
+              <Link to="/investors" className="flex items-center justify-center gap-3 px-10 py-5 border border-white/10 text-white font-semibold text-[11px] uppercase tracking-[0.2em] rounded-md bg-white/5 backdrop-blur-md hover:bg-white/10 hover:text-white transition-all group cursor-pointer text-center">
                 Investor Info <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
             </motion.div>
@@ -175,7 +176,7 @@ export default function Services() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full min-h-[450px] md:min-h-[550px] lg:min-h-[650px] relative"
+            className="w-full h-[280px] sm:h-[380px] lg:h-[550px] lg:min-h-[650px] relative overflow-hidden"
           >
             <DGXXCubeAnimation />
           </motion.div>

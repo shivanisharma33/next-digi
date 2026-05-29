@@ -12,7 +12,7 @@ const Infrastructure = () => {
     <div className="bg-[#06070a] min-h-screen text-white font-sans selection:bg-[#f5c518]/30 overflow-x-hidden">
 
       {/* Hero Section */}
-      <section className="relative min-h-[100vh] flex flex-col items-center justify-center pt-32 pb-20 px-6 overflow-hidden">
+      <section className="relative min-h-[70vh] lg:min-h-[100vh] flex flex-col items-center justify-center pt-32 pb-12 md:pt-40 md:pb-24 px-6 overflow-hidden">
 
         {/* Ambient Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[#f5c518]/[0.06] rounded-full blur-[140px] pointer-events-none" />
@@ -36,7 +36,7 @@ const Infrastructure = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-5 flex flex-col items-start text-left w-full lg:pl-4 xl:pl-8"
+            className="lg:col-span-5 flex flex-col items-center text-center lg:items-start lg:text-left w-full lg:pl-4 xl:pl-8"
           >
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f5c518]/20 bg-[#f5c518]/5 backdrop-blur-md mb-8 shadow-[0_0_20px_rgba(245,197,24,0.1)]">
@@ -51,7 +51,7 @@ const Infrastructure = () => {
             </div>
 
             {/* Title */}
-            <h1 className="text-[clamp(2.5rem,5.5vw,5.5rem)] font-bold tracking-tighter leading-[0.92] text-left mb-6 uppercase relative z-10">
+            <h1 className="text-[clamp(2.5rem,5.5vw,5.5rem)] font-bold tracking-tighter leading-[0.92] text-center lg:text-left mb-6 uppercase relative z-10">
               <span className="block text-white">ENERGY</span>
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#f5c518] via-[#ffda66] to-[#d4a017]">
                 PORTFOLIO
@@ -59,7 +59,7 @@ const Infrastructure = () => {
             </h1>
 
             {/* Accent Line */}
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
               <div className="h-[2px] w-12 bg-gradient-to-r from-[#f5c518] to-transparent" />
               <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/40">
                 400MW+ Pipeline · Texarkana
@@ -67,13 +67,13 @@ const Infrastructure = () => {
             </div>
 
             {/* Subheading */}
-            <p className="text-white/60 text-sm md:text-lg max-w-xl mb-10 leading-relaxed font-medium tracking-wide">
+            <p className="text-white/60 text-sm md:text-lg max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed font-medium tracking-wide">
               DigiPowerX controls the foundation of the AI revolution: <strong className="text-white">Raw Power</strong>.
               From owned generation assets to advanced grid interconnection, we provide the megawatt capacity required for next-generation computing.
             </p>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-8 lg:mb-0">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:w-auto mb-8 lg:mb-0">
               <Link
                 to="/contact"
                 className="group w-full sm:w-auto px-10 py-4 bg-[#f5c518] text-black text-center font-bold uppercase tracking-[0.2em] text-[10px] rounded-md transition-all hover:bg-[#ffd84d] hover:shadow-[0_0_40px_rgba(245,197,24,0.4)] active:scale-95 relative overflow-hidden"
@@ -97,7 +97,7 @@ const Infrastructure = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-7 w-full relative flex items-center justify-center"
           >
-            <div className="w-full h-[520px] sm:h-[600px] md:h-[660px] lg:h-[720px] xl:h-[760px] relative">
+            <div className="w-full h-[620px] sm:h-[600px] md:h-[660px] lg:h-[720px] xl:h-[760px] relative">
 
               {/* Outer glow halo */}
               <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(245,197,24,0.15),transparent_60%)] blur-2xl pointer-events-none" />

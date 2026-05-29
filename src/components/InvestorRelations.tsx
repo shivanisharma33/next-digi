@@ -62,14 +62,14 @@ interface StockData {
 }
 
 const ResourceCard = ({ title, desc, icon: Icon, to }: { title: string; desc: string; icon: any; to: string }) => (
-  <Link to={to} className="group relative bg-[#0a0a0a] border border-white/5 p-8 rounded-[2rem] overflow-hidden hover:border-[#ffc629]/30 transition-all duration-500 block text-left">
-    <div className="relative z-10">
-      <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 group-hover:text-[#ffc629] group-hover:bg-[#ffc629]/10 transition-all mb-6">
+  <Link to={to} className="group relative bg-[#0a0a0a] border border-white/5 p-8 rounded-[2rem] overflow-hidden hover:border-[#ffc629]/30 transition-all duration-500 block text-center sm:text-left flex flex-col items-center sm:items-start">
+    <div className="relative z-10 w-full">
+      <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 group-hover:text-[#ffc629] group-hover:bg-[#ffc629]/10 transition-all mx-auto sm:mx-0 mb-6">
         <Icon size={24} />
       </div>
       <h3 className="text-xl font-semibold text-white mb-3 uppercase tracking-tight">{title}</h3>
       <p className="text-white/40 text-sm leading-relaxed mb-8">{desc}</p>
-      <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#ffc629] hover:text-white transition-colors">
+      <div className="flex items-center justify-center sm:justify-start gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#ffc629] hover:text-white transition-colors">
         Learn More <ArrowUpRight size={14} />
       </div>
     </div>
@@ -380,20 +380,17 @@ const InvestorRelations = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col items-start text-left"
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
           >
-            {/* Badge with ticker */}
+            {/* Top Company Badge (Matching Reference Image) */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] pl-2 pr-5 py-1.5 backdrop-blur-xl"
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#ffc629]/30 bg-[#ffc629]/5 backdrop-blur-sm mb-8"
             >
-              <div className="flex items-center gap-2 bg-[#ffc629]/10 border border-[#ffc629]/20 rounded-full px-3 py-1">
-                <div className="h-1.5 w-1.5 rounded-full bg-[#ffc629] animate-pulse shadow-[0_0_8px_rgba(255,198,41,0.8)]" />
-                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#ffc629]">NASDAQ: DGXX</span>
-              </div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/50">Investor Relations</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ffc629] shadow-[0_0_8px_rgba(255,198,41,0.8)]"></span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#ffc629]">Investor Relations</span>
             </motion.div>
 
             {/* Heading */}
@@ -421,7 +418,7 @@ const InvestorRelations = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-4 mb-12"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-12"
             >
               <Link
                 to="/documents-charters"
@@ -451,7 +448,7 @@ const InvestorRelations = () => {
                 { label: "52W High", value: liveStockData?.weekHigh52 ?? "$32.15" },
                 { label: "Avg Volume", value: liveStockData?.avgVolume ?? "1.8M" },
               ].map((stat) => (
-                <div key={stat.label} className="bg-black/40 backdrop-blur-sm px-4 py-4 flex flex-col">
+                <div key={stat.label} className="bg-black/40 backdrop-blur-sm px-4 py-4 flex flex-col items-center lg:items-start text-center lg:text-left">
                   <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 mb-1.5">{stat.label}</span>
                   <span className="text-lg font-semibold text-white tracking-tight">{stat.value}</span>
                 </div>
@@ -498,12 +495,12 @@ const InvestorRelations = () => {
 
             {/* Stock Performance Card */}
             <div className="lg:col-span-2 bg-[#080808] border border-white/5 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-10 flex flex-col">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 mb-6 sm:mb-10">
-                <div>
+              <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4 sm:gap-6 mb-6 sm:mb-10">
+                <div className="text-center sm:text-left">
                   <h2 className="text-2xl font-semibold uppercase tracking-tight mb-2">Stock Information</h2>
                   <p className="text-white/40 text-xs uppercase tracking-widest font-medium">Real-time market performance</p>
                 </div>
-                <div className="flex flex-wrap gap-2 bg-white/5 p-1 rounded-lg">
+                <div className="flex flex-wrap justify-center gap-2 bg-white/5 p-1 rounded-lg">
                   {(["1D", "1W", "1M", "3M", "6M", "ALL"] as const).map(range => (
                     <button
                       key={range}
@@ -551,13 +548,13 @@ const InvestorRelations = () => {
               <StockPriceCard liveStockData={liveStockData} isLoadingStock={isLoadingStock} stockError={stockError} />
 
               <div className="bg-[#080808] border border-white/5 rounded-[2.5rem] p-8">
-                <h3 className="text-xs font-black uppercase tracking-widest text-white/30 mb-6 pb-3 border-b border-white/5">Latest Press Releases</h3>
+                <h3 className="text-xs font-black uppercase tracking-widest text-white/30 mb-6 pb-3 border-b border-white/5 text-center lg:text-left">Latest Press Releases</h3>
                 <div className="space-y-6">
                   {news.map((item, idx) => (
-                    <Link to="/press-release" key={idx} className="group cursor-pointer block text-left">
+                    <Link to="/press-release" key={idx} className="group cursor-pointer block text-center lg:text-left">
                       <div className="text-[9px] font-bold text-[#ffc629] mb-1">{item.date}</div>
                       <div className="text-sm font-semibold text-white group-hover:text-[#ffc629] transition-colors line-clamp-2 leading-snug">{item.title}</div>
-                      <div className="mt-2 text-[9px] font-bold uppercase tracking-widest text-white/20 flex items-center gap-1 group-hover:text-white transition-colors">
+                      <div className="mt-2 text-[9px] font-bold uppercase tracking-widest text-white/20 flex items-center justify-center lg:justify-start gap-1 group-hover:text-white transition-colors">
                         Read More <ArrowUpRight size={10} />
                       </div>
                     </Link>
@@ -580,7 +577,7 @@ const InvestorRelations = () => {
       {/* RESOURCES SECTION */}
       <section className="py-10 sm:py-16 px-4 sm:px-6 border-t border-white/5">
         <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8 sm:mb-12">
+          <div className="mb-8 sm:mb-12 flex flex-col items-center sm:items-start text-center sm:text-left">
             <h2 className="text-3xl font-semibold uppercase tracking-tighter mb-4">Investor Resources</h2>
             <div className="h-1 w-12 bg-[#ffc629]" />
           </div>
