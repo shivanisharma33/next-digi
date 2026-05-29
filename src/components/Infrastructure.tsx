@@ -97,7 +97,7 @@ const Infrastructure = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-7 w-full relative flex items-center justify-center"
           >
-            <div className="w-full h-[620px] sm:h-[600px] md:h-[660px] lg:h-[720px] xl:h-[760px] relative">
+            <div className="w-full h-[420px] sm:h-[500px] md:h-[660px] lg:h-[720px] xl:h-[760px] relative">
 
               {/* Outer glow halo */}
               <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(245,197,24,0.15),transparent_60%)] blur-2xl pointer-events-none" />

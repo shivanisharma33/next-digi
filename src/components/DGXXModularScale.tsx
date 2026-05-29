@@ -87,9 +87,11 @@ const DGXXModularScale: React.FC = () => {
     let { w, h } = getSize();
     let aspect = w / h;
     const getFrustumSize = (a: number) => {
-      if (a < 0.8) return 8.5;
-      if (a < 1.2) return 12;
-      return 17;
+      if (a < 1.0) {
+        // Mobile & Portrait views: lock horizontal span to 6.6 units so the model fills the width beautifully
+        return 6.6 / a;
+      }
+      return 15.0; // Desktop wide view
     };
     let frustumSize = getFrustumSize(aspect);
     const camera = new THREE.OrthographicCamera(
@@ -679,8 +681,7 @@ const styles = `
 }
 @media (max-width: 768px) {
   .dgxx-stage .analytics {
-    flex-direction: column;
-    gap: 8px;
+    display: none;
   }
 }
 .dgxx-stage .panel {
