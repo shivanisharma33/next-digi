@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronDown, Menu, X, ArrowRight, Activity, Cpu, Network, Shield, Landmark, Eye, HelpCircle, FileText, Bell } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import logoImg from '../assets/Digi new color logo.png';
@@ -97,7 +97,7 @@ const Navbar = () => {
   const activeClass = "nav-link flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-widest text-brand-yellow px-4.5 py-2 nav-glass-bubble";
   const inactiveClass = "nav-link flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow px-4.5 py-2 nav-inactive-bubble";
 
-  const menuVariants = {
+  const menuVariants: Variants = {
     closed: {
       x: "100%",
       transition: {
@@ -129,7 +129,7 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 relative z-[120]">
-          <img src={logoImg.src || logoImg} alt="DigiPowerX Logo" className="h-20 md:h-24 w-auto object-contain transition-all duration-300 brightness-0 invert" />
+          <img src={logoImg.src} alt="DigiPowerX Logo" className="h-20 md:h-24 w-auto object-contain transition-all duration-300 brightness-0 invert" />
         </Link>
 
         {/* Desktop Links */}

@@ -20,9 +20,9 @@ const LeadershipHeroVisual3D = dynamic(() => import('./LeadershipHeroVisual3D'),
 
 // Leadership Portraits from public/images
 const Leadership = () => {
-  const [selectedLeader, setSelectedLeader] = useState(null);
-  const [expandedBoardMember, setExpandedBoardMember] = useState(null);
-  const [expandedCommittee, setExpandedCommittee] = useState(null);
+  const [selectedLeader, setSelectedLeader] = useState<any>(null);
+  const [expandedBoardMember, setExpandedBoardMember] = useState<number | null>(null);
+  const [expandedCommittee, setExpandedCommittee] = useState<number | null>(null);
 
   const executives = [
     {

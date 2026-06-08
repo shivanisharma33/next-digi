@@ -87,7 +87,7 @@ export default function Hero() {
         >
           <div className="relative w-full max-w-[580px]">
             <img
-              src={visual}
+              src={visual.src}
               alt="Infrastructure Visual"
               className="relative w-full h-auto object-contain opacity-90 transition-opacity duration-500 hover:opacity-100"
             />

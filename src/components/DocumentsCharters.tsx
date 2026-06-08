@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   Search,
   FileText,
@@ -21,7 +21,7 @@ import dynamic from 'next/dynamic';
 const DocumentsVisual3D = dynamic(() => import('./DocumentsVisual3D'), { ssr: false });
 
 /* ─── Motion Stagger Variants ─── */
-const parentVariants = {
+const parentVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -30,9 +30,9 @@ const parentVariants = {
       delayChildren: 0.1
     }
   }
-} as const;
+};
 
-const badgeVariants = {
+const badgeVariants: Variants = {
   hidden: { opacity: 0, y: -25 },
   visible: {
     opacity: 1,
@@ -43,9 +43,9 @@ const badgeVariants = {
       damping: 14
     }
   }
-} as const;
+};
 
-const titleVariants = {
+const titleVariants: Variants = {
   hidden: { opacity: 0, y: 35 },
   visible: {
     opacity: 1,
@@ -55,9 +55,9 @@ const titleVariants = {
       ease: [0.215, 0.61, 0.355, 1]
     }
   }
-} as const;
+};
 
-const descVariants = {
+const descVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -67,7 +67,7 @@ const descVariants = {
       ease: "easeOut"
     }
   }
-} as const;
+};
 
 // Sleek Glassmorphic Container
 const GlassCard = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (

@@ -288,7 +288,7 @@ const HeroVisual3D = () => {
         dot.position.x = Math.cos(dot.userData.angle) * dot.userData.radius;
         dot.position.z = Math.sin(dot.userData.angle) * dot.userData.radius;
         dot.position.y = dot.userData.height + Math.sin(t * 0.8 + dot.userData.angle) * 0.2;
-        dot.material.opacity = 0.5 + 0.4 * Math.abs(Math.sin(t + dot.userData.angle));
+        (dot.material as THREE.MeshStandardMaterial).opacity = 0.5 + 0.4 * Math.abs(Math.sin(t + dot.userData.angle));
       });
 
       accentLight.intensity = 0.6 + 0.4 * Math.abs(Math.sin(t * 1.4));

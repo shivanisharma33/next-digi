@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   FileText,
   Search,
@@ -173,7 +173,7 @@ const SkeletonCard = () => (
 );
 
 /* ─── Motion Stagger Variants ─── */
-const parentVariants = {
+const parentVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -184,7 +184,7 @@ const parentVariants = {
   }
 };
 
-const badgeVariants = {
+const badgeVariants: Variants = {
   hidden: { opacity: 0, y: -25 },
   visible: {
     opacity: 1,
@@ -197,7 +197,7 @@ const badgeVariants = {
   }
 };
 
-const titleVariants = {
+const titleVariants: Variants = {
   hidden: { opacity: 0, y: 35 },
   visible: {
     opacity: 1,
@@ -209,7 +209,7 @@ const titleVariants = {
   }
 };
 
-const descVariants = {
+const descVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -221,7 +221,7 @@ const descVariants = {
   }
 };
 
-const hudVariants = {
+const hudVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -232,7 +232,7 @@ const hudVariants = {
   }
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.94, y: 15 },
   visible: {
     opacity: 1,
