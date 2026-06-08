@@ -18,6 +18,7 @@ import { CTASection } from "./Footer";
 import DGXXPressReleaseVisual from "./DGXXPressReleaseVisual";
 import Link from 'next/link';
 import { generateSlug } from "../utils/slugify";
+import EarlyAccess from "./EarlyAccess";
 
 /* ─── Strapi API base ─── */
 const STRAPI_BASE = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com";
@@ -487,6 +488,9 @@ const PressRelease = () => {
           )}
         </div>
       </section>
+
+      {/* EARLY ACCESS */}
+      <EarlyAccess />
 
       {/* FOOTER CTA */}
       <CTASection />
