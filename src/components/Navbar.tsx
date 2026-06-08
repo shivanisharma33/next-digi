@@ -19,6 +19,7 @@ const Navbar = () => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }, [pathname]);
 
   // Handle scroll effect
@@ -34,11 +35,14 @@ const Navbar = () => {
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, [isMenuOpen]);
 
@@ -101,15 +105,17 @@ const Navbar = () => {
     closed: {
       x: "100%",
       transition: {
-        duration: 0.2,
-        ease: [0.4, 0, 1, 1]
+        duration: 0.25,
+        ease: [0.36, 0.07, 0.19, 0.97]
       }
     },
     open: {
       x: 0,
       transition: {
-        duration: 0.25,
-        ease: [0.16, 1, 0.3, 1]
+        type: "spring",
+        stiffness: 320,
+        damping: 28,
+        mass: 0.8
       }
     }
   };
@@ -128,7 +134,7 @@ const Navbar = () => {
         }`}>
 
         {/* Logo */}
-        <Link href="/" className="flex-shrink-0 relative z-[120]">
+        <Link href="/" className="flex-shrink-0 relative z-[120]" onClick={() => setIsMenuOpen(false)}>
           <img src={logoImg.src} alt="DigiPowerX Logo" className="h-20 md:h-24 w-auto object-contain transition-all duration-300 brightness-0 invert" />
         </Link>
 
@@ -250,8 +256,8 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="fixed inset-0 bg-black/75 backdrop-blur-sm z-[110] lg:hidden"
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="fixed inset-0 bg-black/80 z-[110] lg:hidden touch-none"
               onClick={() => setIsMenuOpen(false)}
             />
 
@@ -261,7 +267,7 @@ const Navbar = () => {
               initial="closed"
               animate="open"
               exit="closed"
-              className="fixed top-0 right-0 h-full w-full sm:w-[85%] max-w-[420px] bg-[#07080a] border-l border-white/10 z-[115] flex flex-col pt-24 pb-10 px-6 sm:px-8 overflow-y-auto lg:hidden shadow-[-20px_0_50px_rgba(0,0,0,0.8)]"
+              className="fixed top-0 right-0 h-full w-full sm:w-[85%] max-w-[420px] bg-[#07080a] border-l border-white/10 z-[115] flex flex-col pt-24 pb-10 px-6 sm:px-8 overflow-y-auto lg:hidden shadow-[-10px_0_30px_rgba(0,0,0,0.5)] overscroll-contain will-change-transform"
             >
               {/* Subtle visual glow in background of menu */}
               <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-brand-yellow/5 rounded-full blur-[100px] pointer-events-none" />
