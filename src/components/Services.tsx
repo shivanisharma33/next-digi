@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { CTASection } from './Footer';
 import {
   Zap, Server, Cpu, Layers, Activity,
@@ -8,12 +10,14 @@ import {
   Terminal, Database, Globe, Clock, Shield,
   ArrowRight, Brain, Cloud, Radio, RefreshCw
 } from 'lucide-react';
-import HeroBg from './HeroBg';
-import IsometricEnergyGen from './IsometricEnergyGen';
-import NeoCloudVisual from './NeoCloudVisual';
-import GpuClusterDashboard from './GpuClusterDashboard';
-import ServicesHeroVisual3D from './ServicesHeroVisual3D';
-import DGXXCubeAnimation from './DGXXCubeAnimation';
+import dynamic from 'next/dynamic';
+
+const DGXXCubeAnimation = dynamic(() => import('./DGXXCubeAnimation'), { ssr: false });
+const ServicesHeroVisual3D = dynamic(() => import('./ServicesHeroVisual3D'), { ssr: false });
+const GpuClusterDashboard = dynamic(() => import('./GpuClusterDashboard'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-black/40 rounded-lg animate-pulse" />,
+});
 
 /* ─── Shared Components ─── */
 const SectionLabel = ({ num, text, dark = false }: { num: string, text: string, dark?: boolean }) => (
@@ -24,7 +28,6 @@ const SectionLabel = ({ num, text, dark = false }: { num: string, text: string, 
     className="mb-8 lg:mb-12 relative z-10 flex justify-center"
   >
     <div className={`inline-flex items-center gap-3 ${dark ? 'bg-white/5 border-white/10' : 'bg-white border-gray-100 shadow-sm'} border rounded-full px-6 py-2.5`}>
-      <span className={`text-[10px] font-semibold tracking-widest ${dark ? 'text-white/40' : 'text-gray-400'}`}>{num} /</span>
       <div className="h-[2px] w-12 bg-[#f5c518]" />
       <span className={`text-[10px] font-semibold tracking-[0.25em] ${dark ? 'text-white' : 'text-black'} uppercase`}>{text}</span>
     </div>
@@ -160,10 +163,10 @@ export default function Services() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mb-10 w-full sm:w-auto"
             >
-              <Link to="/contact" className="px-10 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md hover:bg-white hover:text-black transition-all shadow-[0_15px_40px_rgba(245,197,24,0.35)] flex items-center gap-4 group cursor-pointer border border-[#f5c518] hover:border-white text-center">
+              <Link href="/contact" className="px-10 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md hover:bg-white hover:text-black transition-all shadow-[0_15px_40px_rgba(245,197,24,0.35)] flex items-center gap-4 group cursor-pointer border border-[#f5c518] hover:border-white text-center">
                 Talk to Team <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link to="/investors" className="flex items-center justify-center gap-3 px-10 py-5 border border-white/10 text-white font-semibold text-[11px] uppercase tracking-[0.2em] rounded-md bg-white/5 backdrop-blur-md hover:bg-white/10 hover:text-white transition-all group cursor-pointer text-center">
+              <Link href="/investors" className="flex items-center justify-center gap-3 px-10 py-5 border border-brand-yellow text-white font-semibold text-[11px] uppercase tracking-[0.2em] rounded-md bg-white/5 backdrop-blur-md hover:bg-brand-yellow/10 hover:text-white transition-all group cursor-pointer text-center">
                 Investor Info <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
             </motion.div>
@@ -180,25 +183,6 @@ export default function Services() {
           >
             <DGXXCubeAnimation />
           </motion.div>
-        </div>
-
-        {/* Bottom Snapshot Metrics (Full Width) */}
-        <div className="w-full relative z-20 border-t border-white/5 bg-black/40 backdrop-blur-3xl">
-          <div className="max-w-[1400px] mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-0 py-6 lg:py-10">
-              {[
-                { label: "Power Generation", val: "60MW" },
-                { label: "Data Center", val: "22MW" },
-                { label: "InfiniBand Fabric", val: "400G" },
-                { label: "PUE Target", val: "<1.3" }
-              ].map((item, i) => (
-                <div key={i} className={`text-center px-6 ${i !== 3 ? 'md:border-r border-white/5' : ''}`}>
-                  <p className="text-[#f5c518] font-semibold text-3xl md:text-4xl tracking-tighter mb-1.5 hover:scale-105 transition-transform duration-500">{item.val}</p>
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/40">{item.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
@@ -230,19 +214,11 @@ export default function Services() {
               viewport={{ once: true }}
               className="bg-white border border-gray-100 p-6 lg:p-12 relative group overflow-hidden"
             >
-              {/* Card Blueprint Detail */}
-              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[8px] text-black leading-tight pointer-events-none">
-                PWR_GEN_MODULE v2.1<br />
-                COORDS: 43.0292° N, 78.8783° W<br />
-                STATUS: NOMINAL
-              </div>
-
               <div className="flex flex-col h-full relative z-10">
                 <div className="flex items-start justify-between mb-8 lg:mb-12">
                   <div className="w-16 h-16 bg-black text-[#f5c518] flex items-center justify-center shrink-0">
                     <Zap size={32} />
                   </div>
-                  <span className="text-[10px] font-semibold text-gray-300 uppercase tracking-[0.3em] vertical-rl rotate-180">GEN_CAPACITY</span>
                 </div>
 
                 <h3 className="text-2xl lg:text-3xl font-semibold uppercase tracking-tighter text-black mb-3 lg:mb-4">Power Infrastructure</h3>
@@ -281,19 +257,11 @@ export default function Services() {
               transition={{ delay: 0.2 }}
               className="bg-white border border-gray-100 p-6 lg:p-12 relative group overflow-hidden"
             >
-              {/* Card Blueprint Detail */}
-              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[8px] text-black leading-tight pointer-events-none">
-                DC_COLO_FLOOR v4.0<br />
-                DENSITY: 200KW/RACK<br />
-                COOLING: DLC_ENABLED
-              </div>
-
               <div className="flex flex-col h-full relative z-10">
                 <div className="flex items-start justify-between mb-8 lg:mb-12">
                   <div className="w-16 h-16 bg-black text-[#f5c518] flex items-center justify-center shrink-0">
                     <Server size={32} />
                   </div>
-                  <span className="text-[10px] font-semibold text-gray-300 uppercase tracking-[0.3em] vertical-rl rotate-180">SPACE_ALLOCATION</span>
                 </div>
 
                 <h3 className="text-2xl lg:text-3xl font-semibold uppercase tracking-tighter text-black mb-3 lg:mb-4">Data Center Colocation</h3>
@@ -351,7 +319,7 @@ export default function Services() {
                 <FeatureItem text="No virtualization — dedicated hardware access" dark />
                 <FeatureItem text="Real-time GPU utilization & VRAM telemetry" dark />
               </ul>
-              <Link to="/neocloudz" className="px-10 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-widest text-[11px] hover:bg-white transition-all inline-block text-center">
+              <Link href="/neocloudz" className="px-10 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-widest text-[11px] hover:bg-white transition-all inline-block text-center">
                 NeoCloudz Platform
               </Link>
             </motion.div>

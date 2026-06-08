@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -14,13 +16,32 @@ import {
   Zap,
   TrendingUp
 } from 'lucide-react';
-import NeuralCube3D from './NeuralCube3D';
+import Link from 'next/link';
+import { generateSlug } from '../utils/slugify';
+import dynamic from 'next/dynamic';
 import { CTASection } from './Footer';
+
+const NeuralCube3D = dynamic(() => import('./NeuralCube3D'), { ssr: false });
 
 /* ─── Strapi API base ─── */
 const STRAPI_BASE = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com";
 const SEC_FILINGS_API = `${STRAPI_BASE}/api/sec-filings`;
 const PAGE_SIZE = 9; // 3x3 grid
+
+/* ─── Tab → form_type matching ───
+ * The dataset's `form_type` values are inconsistent (e.g. "FORM 8-K", "\t6-K",
+ * "FORM 10-K/A") and include foreign-issuer equivalents. Each tab matches by
+ * case-insensitive substring so prefixes/whitespace/"/A" amendments are caught,
+ * and groups the foreign equivalents with their US counterparts:
+ *   Annual    → 10-K / 20-F
+ *   Quarterly → 10-Q
+ *   Current   → 8-K / 6-K
+ */
+const TAB_FORM_MATCHES: Record<string, string[]> = {
+  "10-K": ["10-K", "20-F"],
+  "10-Q": ["10-Q"],
+  "8-K": ["8-K", "6-K"],
+};
 
 /* ─── Types ─── */
 interface StrapiPdf {
@@ -72,11 +93,11 @@ function getFilingTitle(type: string, dateStr: string): string {
     const date = new Date(dateStr + "T00:00:00");
     const year = date.getFullYear();
     const month = date.getMonth(); // 0-11
-    
+
     if (isNaN(year) || isNaN(month)) {
       return `${type} Filing`;
     }
-    
+
     if (type === "10-Q") {
       let q = "Q3";
       let qYear = year;
@@ -91,7 +112,7 @@ function getFilingTitle(type: string, dateStr: string): string {
         q = "Q3";
       }
       return `Quarterly Report — ${q} ${qYear}`;
-    } else if (type === "10-K") {
+    } else if (type === "10-K" || type === "20-F") {
       return `Annual Report — Fiscal Year ${year - 1}`;
     } else if (type === "8-K" || type === "6-K" || type === "6-K/A") {
       return `Current Report — ${date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
@@ -242,13 +263,12 @@ const SECFilings = () => {
 
       let filterQuery = "";
       if (typeFilter && typeFilter !== "ALL") {
-        if (typeFilter === "8-K") {
-          // The database holds foreign current reports as 6-K or 6-K/A. 
-          // We filter by 8-K, 6-K, or 6-K/A to ensure they show up in this tab.
-          filterQuery = `&filters[form_type][$in][0]=8-K&filters[form_type][$in][1]=6-K&filters[form_type][$in][2]=6-K/A`;
-        } else {
-          filterQuery = `&filters[form_type][$eq]=${typeFilter}`;
-        }
+        // Match by case-insensitive substring so messy values ("FORM 8-K",
+        // "\t6-K", "FORM 10-K/A") and foreign equivalents are all caught.
+        const matches = TAB_FORM_MATCHES[typeFilter] || [typeFilter];
+        filterQuery = matches
+          .map((m, i) => `&filters[$or][${i}][form_type][$containsi]=${encodeURIComponent(m)}`)
+          .join("");
       }
 
       const url = `${SEC_FILINGS_API}?populate=*&sort[0]=date:desc&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}${filterQuery}`;
@@ -418,12 +438,12 @@ const SECFilings = () => {
         </div>
 
         <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
-          
+
           {/* Stats Cards Section - Enhanced 3D Glassmorphic Spotlight Panels */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
-            
+
             {/* Total Filings Card */}
-            <motion.div 
+            <motion.div
               whileHover={{
                 y: -6,
                 borderColor: "rgba(255, 215, 0, 0.35)",
@@ -437,7 +457,7 @@ const SECFilings = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
               <div className="absolute -inset-px bg-gradient-to-br from-white/[0.08] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[28px] pointer-events-none" />
               <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-brand-yellow/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              
+
               <span className="text-[10px] font-black tracking-[0.2em] text-[#8E8E93] uppercase block mb-3 group-hover:text-white/60 transition-colors">Total Filings</span>
               <div className="flex items-baseline justify-center md:justify-start gap-2 mb-2 relative z-10">
                 <span className="text-4xl font-extrabold text-white tracking-tight group-hover:text-brand-yellow transition-colors duration-300">{totalItems}</span>
@@ -447,7 +467,7 @@ const SECFilings = () => {
             </motion.div>
 
             {/* Revenue Card */}
-            <motion.div 
+            <motion.div
               whileHover={{
                 y: -6,
                 borderColor: "rgba(255, 215, 0, 0.35)",
@@ -461,7 +481,7 @@ const SECFilings = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
               <div className="absolute -inset-px bg-gradient-to-br from-white/[0.08] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[28px] pointer-events-none" />
               <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-brand-yellow/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              
+
               <span className="text-[10px] font-black tracking-[0.2em] text-[#8E8E93] uppercase block mb-3 group-hover:text-white/60 transition-colors">Revenue (9-MO 2024)</span>
               <div className="flex items-baseline justify-center md:justify-start gap-1.5 mb-2 relative z-10">
                 <span className="text-4xl font-extrabold text-white tracking-tight group-hover:text-brand-yellow transition-colors duration-300">$31M</span>
@@ -471,7 +491,7 @@ const SECFilings = () => {
             </motion.div>
 
             {/* EBITDA Card */}
-            <motion.div 
+            <motion.div
               whileHover={{
                 y: -6,
                 borderColor: "rgba(255, 215, 0, 0.35)",
@@ -485,7 +505,7 @@ const SECFilings = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
               <div className="absolute -inset-px bg-gradient-to-br from-white/[0.08] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[28px] pointer-events-none" />
               <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-brand-yellow/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              
+
               <span className="text-[10px] font-black tracking-[0.2em] text-[#8E8E93] uppercase block mb-3 group-hover:text-white/60 transition-colors">EBITDA (9-MO 2024)</span>
               <div className="flex items-baseline justify-center md:justify-start gap-1.5 mb-2 relative z-10">
                 <span className="text-4xl font-extrabold text-white tracking-tight group-hover:text-brand-yellow transition-colors duration-300">$5M</span>
@@ -495,7 +515,7 @@ const SECFilings = () => {
             </motion.div>
           </div>
 
-               {/* Error state */}
+          {/* Error state */}
           {error && !loading && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -533,11 +553,10 @@ const SECFilings = () => {
                       onClick={() => {
                         setActiveTab(tab.id as any);
                       }}
-                      className={`w-36 h-10 flex items-center justify-center rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 border ${
-                        isActive
+                      className={`w-36 h-10 flex items-center justify-center rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 border ${isActive
                           ? "bg-transparent border-[#f5c518] text-[#f5c518] shadow-[0_4px_20px_rgba(245,197,24,0.05)]"
                           : "bg-transparent border-white/[0.05] text-white/40 hover:text-white hover:border-white/20"
-                      }`}
+                        }`}
                     >
                       {tab.label}
                     </button>
@@ -588,23 +607,25 @@ const SECFilings = () => {
                 {filings.map((item, i) => {
                   if (!item) return null;
                   const docType = String(item.form_type || item.type || "10-Q");
-                  
+
                   // Map any 6-K or 6-K/A to 8-K for UI, and select appropriate icon
                   let displayType = docType;
                   let IconComponent = FileText;
-                  
+
                   // Color coding based on type
                   let colorClasses = {
                     badge: "border-blue-500/20 text-blue-400 bg-blue-500/5",
                     button: "border-blue-500/20 text-blue-400 hover:bg-blue-500/10",
+                    textHover: "hover:text-blue-400",
                   };
-                  
+
                   if (docType.includes("10-Q")) {
                     displayType = "10-Q";
                     IconComponent = TrendingUp;
                     colorClasses = {
                       badge: "border-[#f5c518]/20 text-[#f5c518] bg-[#f5c518]/5",
                       button: "border-[#f5c518]/20 text-[#f5c518] hover:bg-[#f5c518]/10",
+                      textHover: "hover:text-[#f5c518]",
                     };
                   } else if (docType.includes("10-K")) {
                     displayType = "10-K";
@@ -612,6 +633,15 @@ const SECFilings = () => {
                     colorClasses = {
                       badge: "border-blue-500/20 text-blue-400 bg-blue-500/5",
                       button: "border-blue-500/20 text-blue-400 hover:bg-blue-500/10",
+                      textHover: "hover:text-blue-400",
+                    };
+                  } else if (docType.includes("20-F")) {
+                    displayType = "20-F";
+                    IconComponent = FileText;
+                    colorClasses = {
+                      badge: "border-blue-500/20 text-blue-400 bg-blue-500/5",
+                      button: "border-blue-500/20 text-blue-400 hover:bg-blue-500/10",
+                      textHover: "hover:text-blue-400",
                     };
                   } else if (docType.includes("8-K") || docType.includes("6-K")) {
                     displayType = "8-K";
@@ -619,6 +649,7 @@ const SECFilings = () => {
                     colorClasses = {
                       badge: "border-emerald-500/20 text-emerald-400 bg-emerald-500/5",
                       button: "border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/10",
+                      textHover: "hover:text-emerald-400",
                     };
                   } else if (docType.toLowerCase().includes("13g") || docType.toLowerCase().includes("schedule")) {
                     displayType = "S-13G";
@@ -626,8 +657,12 @@ const SECFilings = () => {
                     colorClasses = {
                       badge: "border-purple-500/20 text-purple-400 bg-purple-500/5",
                       button: "border-purple-500/20 text-purple-400 hover:bg-purple-500/10",
+                      textHover: "hover:text-purple-400",
                     };
                   }
+
+                  const displayTitle = getFilingTitle(displayType, item.date);
+                  const slug = generateSlug(displayTitle, item.documentId);
 
                   return (
                     <motion.div
@@ -647,9 +682,13 @@ const SECFilings = () => {
 
                         {/* Content */}
                         <div className="flex-1">
-                          <h3 className="text-white text-base md:text-lg font-bold tracking-tight mb-2">
-                            {getFilingTitle(displayType, item.date)}
-                          </h3>
+                          <Link href={`/sec-filings/${slug}`}
+                            className={`block text-white ${colorClasses.textHover} transition-colors`}
+                          >
+                            <h3 className="text-current text-base md:text-lg font-bold tracking-tight mb-2 transition-colors">
+                              {displayTitle}
+                            </h3>
+                          </Link>
                           <p className="text-white/40 text-xs md:text-sm leading-relaxed max-w-4xl font-medium">
                             {item.description || "No description available."}
                           </p>
@@ -667,15 +706,12 @@ const SECFilings = () => {
                         </div>
 
                         {/* View Button */}
-                        <a
-                          href={item.pdf_file?.url || "#"}
-                          target={item.pdf_file?.url ? "_blank" : "_self"}
-                          rel="noopener noreferrer"
+                        <Link href={`/sec-filings/${slug}`}
                           className={`inline-flex items-center justify-center gap-2 px-5 h-10 rounded-xl border text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${colorClasses.button}`}
                         >
                           <Download size={12} className="stroke-[3]" />
                           <span className="leading-none">View Filing</span>
-                        </a>
+                        </Link>
                       </div>
                     </motion.div>
                   );
@@ -719,11 +755,10 @@ const SECFilings = () => {
                     <button
                       key={p}
                       onClick={() => goToPage(p as number)}
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold transition-all cursor-pointer ${
-                        p === currentPage
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold transition-all cursor-pointer ${p === currentPage
                           ? "border border-[#f5c518] text-[#f5c518] bg-[#f5c518]/5 shadow-[0_0_15px_rgba(245,197,24,0.1)]"
                           : "border border-white/[0.08] bg-[#0c0d12]/40 text-white/40 hover:text-white hover:border-white/20"
-                      }`}
+                        }`}
                     >
                       {p}
                     </button>
@@ -753,10 +788,10 @@ const SECFilings = () => {
               {/* Note text */}
               <p className="text-white/60 text-[13px] md:text-sm leading-relaxed font-medium">
                 All filings are available on the SEC EDGAR system. DigiPowerX files under the ticker symbol <strong className="text-white font-bold">DGXX</strong>. For the complete filing history, visit the{" "}
-                <a 
-                  href="https://www.sec.gov/edgar/searchedgar/companysearch" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.sec.gov/edgar/searchedgar/companysearch"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#f5c518] hover:text-[#ffd84d] underline font-bold transition-colors"
                 >
                   EDGAR company page.

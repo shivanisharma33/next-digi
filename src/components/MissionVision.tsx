@@ -1,7 +1,11 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { Target, Compass, Zap, ShieldCheck, Globe2, Cpu } from 'lucide-react';
 import { CTASection } from './Footer';
-import MissionVisionHeroVisual3D from './MissionVisionHeroVisual3D';
+import dynamic from 'next/dynamic';
+
+const MissionVisionHeroVisual3D = dynamic(() => import('./MissionVisionHeroVisual3D'), { ssr: false });
 
 
 

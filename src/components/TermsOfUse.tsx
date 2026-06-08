@@ -1,8 +1,12 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Eye, Lock, FileText, CheckCircle2, ChevronRight, CornerDownRight } from 'lucide-react';
 import { CTASection } from './Footer';
-import NeuralCube3D from './NeuralCube3D';
+import dynamic from 'next/dynamic';
+
+const NeuralCube3D = dynamic(() => import('./NeuralCube3D'), { ssr: false });
 
 const TermsOfUse = () => {
   const [activeSection, setActiveSection] = useState("sec-1");

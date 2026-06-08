@@ -1,9 +1,16 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import NeoCloudzClusterCanvas from './NeoCloudzClusterCanvas';
-import DigiPowerXMap from './DigiPowerXMap';
-import ModularUnitVisual from './ModularUnitVisual';
-import USDataCenter3D from './USDataCenter3D';
+import dynamic from 'next/dynamic';
+
+const VisualPlaceholder = () => (
+  <div className="w-full h-full bg-black/40 rounded-lg animate-pulse" />
+);
+const NeoCloudzClusterCanvas = dynamic(() => import('./NeoCloudzClusterCanvas'), { ssr: false, loading: VisualPlaceholder });
+const DigiPowerXMap = dynamic(() => import('./DigiPowerXMap'), { ssr: false, loading: VisualPlaceholder });
+const ModularUnitVisual = dynamic(() => import('./ModularUnitVisual'), { ssr: false, loading: VisualPlaceholder });
+const USDataCenter3D = dynamic(() => import('./USDataCenter3D'), { ssr: false, loading: VisualPlaceholder });
 
 const WorldMapVisual = () => {
   return (

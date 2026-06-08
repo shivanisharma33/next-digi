@@ -1,6 +1,16 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import WaveVisual from './WaveVisual';
+import LottieReact from 'lottie-react';
+import contactAnimation from '../assets/contact-us.json';
+
+// Vite's dev server pre-bundles lottie-react from its UMD "browser" build, whose
+// default-export interop yields the module object instead of the component (so
+// <Lottie/> would render an object and crash). Resolve the actual component
+// defensively so it works under both dev (UMD) and the production ESM build.
+const Lottie: typeof LottieReact =
+  (LottieReact as unknown as { default?: typeof LottieReact }).default ?? LottieReact;
 
 type FormState = {
   firstName: string;
@@ -133,13 +143,6 @@ export default function Contact() {
           max-width: 500px; margin: 0 auto 52px;
         }
 
-        .ct-info-cards {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 14px;
-          margin-bottom: 32px;
-          text-align: left;
-        }
         .ct-info-card {
           display: flex; flex-direction: column; gap: 14px;
           padding: 24px 24px 26px;
@@ -166,14 +169,6 @@ export default function Contact() {
         }
         .ct-info-value {
           font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.01em;
-        }
-
-        .ct-body {
-          display: grid;
-          grid-template-columns: 340px 1fr;
-          gap: 16px;
-          text-align: left;
-          margin-bottom: 16px;
         }
 
         .ct-left {
@@ -251,6 +246,15 @@ export default function Contact() {
           background: transparent;
         }
 
+        .ct-left-lottie {
+          position: relative;
+          z-index: 1;
+          width: 86%;
+          max-width: 380px;
+          /* lift the artwork above the testimonial overlay at the bottom */
+          margin-bottom: 64px;
+        }
+
         .ct-form-panel {
           border: 0.5px solid var(--border);
           border-radius: var(--radius-lg);
@@ -321,11 +325,7 @@ export default function Contact() {
         }
         .ct-response-note strong { color: var(--text-muted); font-weight: 600; }
 
-        .ct-bottom {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
+
         .ct-email-card {
           display: flex; align-items: center; gap: 16px;
           padding: 18px 22px;
@@ -364,12 +364,9 @@ export default function Contact() {
         .ct-call-card svg { width: 15px; height: 15px; }
 
         @media (max-width: 780px) {
-          .ct-info-cards { grid-template-columns: 1fr; }
-          .ct-body { grid-template-columns: 1fr; }
           .ct-left { min-height: 300px; }
           .ct-form-panel { padding: 24px 20px; }
           .form-grid { grid-template-columns: 1fr; }
-          .ct-bottom { grid-template-columns: 1fr; }
           .contact-section { padding: 100px 20px 80px; }
         }
       `}} />
@@ -389,7 +386,7 @@ export default function Contact() {
           <p className="ct-sub">Tell us what you want to build or automate. Our team will review your needs and respond with clear next steps.</p>
 
           {/* 3 contact info cards */}
-          <div className="ct-info-cards">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8 text-left">
             <a className="ct-info-card" href="mailto:ir@digipowerx.com">
               <div className="ct-info-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><polyline points="2,4 12,13 22,4" /></svg>
@@ -399,7 +396,7 @@ export default function Contact() {
             </a>
             <a className="ct-info-card" href="tel:8884749222">
               <div className="ct-info-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z" /></svg>
               </div>
               <div className="ct-info-label">Sales &amp; Support</div>
               <div className="ct-info-value">888-474-9222</div>
@@ -409,17 +406,22 @@ export default function Contact() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
               </div>
               <div className="ct-info-label">Headquarters</div>
-              <div className="ct-info-value">Dallas, Texas, USA</div>
+              <div className="ct-info-value">Miami, Florida, USA</div>
             </div>
           </div>
 
           {/* 2-col body */}
-          <div className="ct-body">
+          <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6 text-left mb-4">
 
             {/* Left: visual + testimonial */}
             <div className="ct-left">
               <div className="ct-left-placeholder">
-                <WaveVisual />
+                <Lottie
+                  animationData={contactAnimation}
+                  loop
+                  autoplay
+                  className="ct-left-lottie"
+                />
               </div>
               <div className="ct-left-overlay"></div>
               <div className="ct-quote">
@@ -579,7 +581,7 @@ export default function Contact() {
           </div>
 
           {/* Bottom row */}
-          <div className="ct-bottom">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
             <a className="ct-email-card" href="mailto:ir@digipowerx.com">
               <div className="ct-email-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><polyline points="2,4 12,13 22,4" /></svg>
@@ -590,7 +592,7 @@ export default function Contact() {
               </div>
             </a>
             <a className="ct-call-card" href="tel:8884749222">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z" /></svg>
               Book an Intro Call
             </a>
           </div>

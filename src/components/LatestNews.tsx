@@ -1,7 +1,10 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Calendar, Tag, Download, Newspaper } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowUpRight, Calendar, Tag, Download, Newspaper, FileText } from 'lucide-react';
+import Link from 'next/link';
+import { generateSlug } from '../utils/slugify';
 
 /* ─── Strapi config (same as PressRelease page) ─── */
 const STRAPI_BASE = 'https://thankful-miracle-1ed8bdfdaf.strapiapp.com';
@@ -59,7 +62,7 @@ function categorize(title: string): string {
   return 'Announcement';
 }
 
-function getExcerpt(content: string, maxLen = 140): string {
+function getExcerpt(content: string, maxLen = 350): string {
   if (!content) return '';
   const lines = content.split('\n').filter((l) => l.trim().length > 0);
   const body = lines.length > 1 ? lines.slice(1).join(' ') : lines[0];
@@ -103,6 +106,8 @@ const NewsCard = ({
     const rect = cardRef.current.getBoundingClientRect();
     setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
+
+  const slug = generateSlug(release.title, release.documentId);
 
   return (
     <motion.div
@@ -148,9 +153,14 @@ const NewsCard = ({
         </div>
 
         {/* Title */}
-        <h3 className="text-[17px] sm:text-lg font-semibold text-white/90 leading-[1.35] mb-4 tracking-tight group-hover:text-white transition-colors duration-300 line-clamp-2">
-          {release.title}
-        </h3>
+        <Link
+          href={`/press-releases/${slug}`}
+          className="block group/title text-white/90 hover:text-[#ffc629] transition-colors"
+        >
+          <h3 className="text-[17px] sm:text-lg font-semibold text-current leading-[1.35] mb-4 tracking-tight transition-colors duration-300 line-clamp-2">
+            {release.title}
+          </h3>
+        </Link>
 
         {/* Excerpt */}
         <p className="text-white/30 text-[13px] leading-relaxed mb-6 flex-1 line-clamp-3 group-hover:text-white/40 transition-colors duration-300">
@@ -159,30 +169,22 @@ const NewsCard = ({
 
         {/* Bottom action */}
         <div className="pt-5 border-t border-white/[0.05] flex items-center justify-between">
-          {release.pdf_file?.url ? (
-            <a
-              href={release.pdf_file.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 hover:text-[#ffc629] transition-all duration-300 group/link"
-            >
-              <div className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover/link:border-[#ffc629]/50 group-hover/link:bg-[#ffc629]/10 transition-all duration-300">
-                <Download size={12} />
-              </div>
-              Download PDF
-            </a>
-          ) : (
-            <span className="flex items-center gap-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 group-hover:text-white/50 transition-all duration-300">
-              <div className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/20 transition-all duration-300">
-                <Newspaper size={12} />
-              </div>
-              Press Release
-            </span>
-          )}
+          <Link
+            href={`/press-releases/${slug}`}
+            className="flex items-center gap-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 hover:text-[#ffc629] transition-all duration-300 group/link"
+          >
+            <div className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover/link:border-[#ffc629]/50 group-hover/link:bg-[#ffc629]/10 transition-all duration-300">
+              <FileText size={12} />
+            </div>
+            View Release
+          </Link>
 
-          <div className="w-8 h-8 rounded-full border border-white/[0.06] flex items-center justify-center text-white/20 group-hover:border-[#ffc629]/40 group-hover:text-[#ffc629] group-hover:bg-[#ffc629]/10 transition-all duration-500">
+          <Link
+            href={`/press-releases/${slug}`}
+            className="w-8 h-8 rounded-full border border-white/[0.06] flex items-center justify-center text-white/20 group-hover:border-[#ffc629]/40 group-hover:text-[#ffc629] group-hover:bg-[#ffc629]/10 transition-all duration-500"
+          >
             <ArrowUpRight size={14} />
-          </div>
+          </Link>
         </div>
       </div>
     </motion.div>
@@ -234,7 +236,7 @@ const LatestNews = () => {
   if (!loading && releases.length === 0) return null;
 
   return (
-    <section className="relative bg-[#050505] py-20 sm:py-28 px-4 sm:px-6 overflow-hidden">
+    <section className="relative bg-[#050505] pt-20 pb-10 sm:pt-28 sm:pb-12 px-4 sm:px-6 overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Subtle grid pattern */}
@@ -301,7 +303,7 @@ const LatestNews = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Link
-              to="/press-release"
+              href="/press-releases"
               className="group/cta inline-flex items-center gap-3 px-6 py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white hover:border-[#ffc629]/30 hover:bg-[#ffc629]/[0.04] transition-all duration-500"
             >
               View All Releases

@@ -1,10 +1,12 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 
-/* ─── Types ─────────────────────────────────────── */
+/* â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 interface Vec3 { x: number; y: number; z: number; }
 
 interface DataPacket {
-  progress: number;   // 0→1 along the path
+  progress: number;   // 0â†’1 along the path
   speed: number;
   fromRack: number;
   toRack: number;
@@ -26,7 +28,7 @@ interface OrbitalRing {
   alpha: number;
 }
 
-/* ─── Perspective helper ─────────────────────────── */
+/* â”€â”€â”€ Perspective helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const FOV = 500;
 const project = (v: Vec3, cx: number, cy: number): { sx: number; sy: number; scale: number } => {
   const z = v.z + FOV;
@@ -34,7 +36,7 @@ const project = (v: Vec3, cx: number, cy: number): { sx: number; sy: number; sca
   return { sx: cx + v.x * scale, sy: cy + v.y * scale, scale };
 };
 
-/* ─── Rotate a point around Y then X ────────────── */
+/* â”€â”€â”€ Rotate a point around Y then X â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const rotateYX = (v: Vec3, ry: number, rx: number): Vec3 => {
   // Rotate Y
   let x = v.x * Math.cos(ry) + v.z * Math.sin(ry);
@@ -46,7 +48,7 @@ const rotateYX = (v: Vec3, ry: number, rx: number): Vec3 => {
   return { x, y: y2, z: z2 };
 };
 
-/* ─── Envelope path builder (2D screen-space) ───── */
+/* â”€â”€â”€ Envelope path builder (2D screen-space) â”€â”€â”€â”€â”€ */
 const drawEnvelope = (
   ctx: CanvasRenderingContext2D,
   sx: number, sy: number,
@@ -88,7 +90,7 @@ const drawEnvelope = (
   ctx.restore();
 };
 
-/* ─── Draw a 3D box (8 corners, 12 edges) ──────── */
+/* â”€â”€â”€ Draw a 3D box (8 corners, 12 edges) â”€â”€â”€â”€â”€â”€â”€â”€ */
 const drawBox = (
   ctx: CanvasRenderingContext2D,
   cx: number, cy: number,
@@ -152,9 +154,9 @@ const drawBox = (
   return projected;
 };
 
-/* ─────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Main Component
-──────────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 export default function EmailAlertsVisual() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -190,7 +192,7 @@ export default function EmailAlertsVisual() {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    /* ── Scene objects ── */
+    /* â”€â”€ Scene objects â”€â”€ */
     const RACKS: ServerRack[] = [];
     const PACKETS: DataPacket[] = [];
     const ORBS: OrbitalRing[] = [];
@@ -254,7 +256,7 @@ export default function EmailAlertsVisual() {
       });
     };
 
-    /* ── Resize ── */
+    /* â”€â”€ Resize â”€â”€ */
     const handleResize = () => {
       if (!canvas || !containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
@@ -271,7 +273,7 @@ export default function EmailAlertsVisual() {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    /* ── Draw perspective floor grid ── */
+    /* â”€â”€ Draw perspective floor grid â”€â”€ */
     const drawFloorGrid = (cx: number, cy: number) => {
       const gridHW = 380;
       const gridHD = 240;
@@ -304,7 +306,7 @@ export default function EmailAlertsVisual() {
       }
     };
 
-    /* ── Draw orbital rings ── */
+    /* â”€â”€ Draw orbital rings â”€â”€ */
     const drawOrbitalRing = (orb: OrbitalRing, cx: number, cy: number) => {
       const segments = 64;
       const points: { sx: number; sy: number }[] = [];
@@ -333,7 +335,7 @@ export default function EmailAlertsVisual() {
       ctx.stroke();
     };
 
-    /* ── Main loop ── */
+    /* â”€â”€ Main loop â”€â”€ */
     const animate = () => {
       tick++;
       baseCamRy += 0.0006;  // very slow camera drift
@@ -349,7 +351,7 @@ export default function EmailAlertsVisual() {
       const cx = W / 2;
       const cy = H * 0.52;
 
-      // ── Radial background glow ──
+      // â”€â”€ Radial background glow â”€â”€
       const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, W * 0.55);
       bg.addColorStop(0, 'rgba(245,197,24,0.05)');
       bg.addColorStop(0.5, 'rgba(10,10,14,0.0)');
@@ -357,10 +359,10 @@ export default function EmailAlertsVisual() {
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, W, H);
 
-      // ── Floor grid ──
+      // â”€â”€ Floor grid â”€â”€
       drawFloorGrid(cx, cy);
 
-      // ── Orbital rings ──
+      // â”€â”€ Orbital rings â”€â”€
       ORBS.forEach(orb => {
         orb.rx += orb.vrx;
         orb.ry += orb.vry;
@@ -368,13 +370,13 @@ export default function EmailAlertsVisual() {
         drawOrbitalRing(orb, cx, cy);
       });
 
-      // ── Compute rack screen positions ──
+      // â”€â”€ Compute rack screen positions â”€â”€
       const rackScreenPos: { sx: number; sy: number; scale: number }[] = RACKS.map(rack => {
         const rotated = rotateYX({ x: rack.x, y: rack.y - rack.h / 2, z: rack.z }, camRy, camRx);
         return project(rotated, cx, cy);
       });
 
-      // ── Connection lines between racks ──
+      // â”€â”€ Connection lines between racks â”€â”€
       ctx.lineWidth = 0.4;
       RACKS.forEach((rA, i) => {
         RACKS.forEach((rB, j) => {
@@ -391,7 +393,7 @@ export default function EmailAlertsVisual() {
         });
       });
 
-      // ── Server racks ──
+      // â”€â”€ Server racks â”€â”€
       RACKS.forEach((rack, ri) => {
         rack.lightTimer++;
         if (rack.lightTimer > 40 + Math.random() * 40) {
@@ -438,7 +440,7 @@ export default function EmailAlertsVisual() {
         ctx.fillText(rack.label, labelPt.sx, labelPt.sy - 6 * labelPt.scale);
       });
 
-      // ── Data packets (flying envelopes) ──
+      // â”€â”€ Data packets (flying envelopes) â”€â”€
       PACKETS.forEach((pkt, pi) => {
         pkt.progress += pkt.speed;
 
@@ -491,10 +493,10 @@ export default function EmailAlertsVisual() {
         drawEnvelope(ctx, pt.sx, pt.sy, envSize, pkt.alpha * 0.85, tick * 0.08 + pi);
       });
 
-      // ── Spawn new packets occasionally ──
+      // â”€â”€ Spawn new packets occasionally â”€â”€
       if (tick % 90 === 0 && PACKETS.length < 10) spawnPacket();
 
-      // ── Center broadcast tower / pillar ──
+      // â”€â”€ Center broadcast tower / pillar â”€â”€
       const towerH = 130;
       const towerPos: Vec3 = { x: 0, y: 60, z: -10 };
       drawBox(ctx, cx, cy, towerPos, 20, towerH, 20, camRy, camRx,

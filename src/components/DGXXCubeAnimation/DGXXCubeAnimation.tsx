@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, type CSSProperties } from "react";
 import { dgxxLogo } from "./dgxxLogo";
 

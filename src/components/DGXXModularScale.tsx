@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
@@ -34,7 +36,7 @@ const DGXXModularScale: React.FC = () => {
   const [scale, setScale] = useState<Scale>('pod');
   const [powerValue, setPowerValue] = useState(5);
   const [activeModules, setActiveModules] = useState(1);
-  const [delta, setDelta] = useState('▲ MODULAR');
+  const [delta, setDelta] = useState('â–² MODULAR');
   const [bars, setBars] = useState<number[]>(() =>
     Array.from({ length: 6 }, () => 30 + Math.random() * 70)
   );
@@ -43,11 +45,11 @@ const DGXXModularScale: React.FC = () => {
   useEffect(() => {
     let power: number, modules: number, deltaTxt: string, barCount: number;
     if (scale === 'pod') {
-      power = 5; modules = 1; deltaTxt = '▲ MODULAR'; barCount = 6;
+      power = 5; modules = 1; deltaTxt = 'â–² MODULAR'; barCount = 6;
     } else if (scale === 'cluster') {
-      power = 20; modules = 5; deltaTxt = '▲ 4× SCALE'; barCount = 10;
+      power = 20; modules = 5; deltaTxt = 'â–² 4Ã— SCALE'; barCount = 10;
     } else {
-      power = 40; modules = 9; deltaTxt = '▲ 10× SCALE'; barCount = 14;
+      power = 40; modules = 9; deltaTxt = 'â–² 10Ã— SCALE'; barCount = 14;
     }
 
     setActiveModules(modules);
@@ -485,7 +487,7 @@ const DGXXModularScale: React.FC = () => {
         <div className="panel">
           <div className="panel-label">
             <span>Pod Power Output</span>
-            <span className="verified-tag">✓ VERIFIED</span>
+            <span className="verified-tag">âœ“ VERIFIED</span>
           </div>
           <div className="panel-value">
             {powerValue}
@@ -507,28 +509,28 @@ const DGXXModularScale: React.FC = () => {
         <div className="panel">
           <div className="panel-label">
             <span>Deployment Time</span>
-            <span className="verified-tag">✓ VERIFIED</span>
+            <span className="verified-tag">âœ“ VERIFIED</span>
           </div>
           <div className="panel-value">
             2-4<span className="unit">months</span>
           </div>
           <div className="panel-sub">
             <span>vs traditional 12-18 mo</span>
-            <span className="delta">▼ 75% FASTER</span>
+            <span className="delta">â–¼ 75% FASTER</span>
           </div>
         </div>
 
         <div className="panel">
           <div className="panel-label">
             <span>Efficiency (PUE)</span>
-            <span className="verified-tag">✓ VERIFIED</span>
+            <span className="verified-tag">âœ“ VERIFIED</span>
           </div>
           <div className="panel-value">
-            1.1<span className="unit">– 1.4</span>
+            1.1<span className="unit">â€“ 1.4</span>
           </div>
           <div className="panel-sub">
-            <span>Liquid-cooled · Tier III</span>
-            <span className="delta">▲ BEST-IN-CLASS</span>
+            <span>Liquid-cooled Â· Tier III</span>
+            <span className="delta">â–² BEST-IN-CLASS</span>
           </div>
         </div>
       </div>

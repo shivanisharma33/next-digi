@@ -1,8 +1,10 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
- * CareersHeroVisual3D — Breathtaking Quantum Reactor Core & Talent Network Hub
+ * CareersHeroVisual3D â€” Breathtaking Quantum Reactor Core & Talent Network Hub
  * An extremely premium, high-fidelity 3D wireframe constellation built with Three.js.
  * Features a multi-layered central reactor, sci-fi orbital rings, rising talent energy sparks,
  * dynamic data pulse streamers, and smooth mouse-reactive gravity fields.
@@ -17,7 +19,7 @@ const CareersHeroVisual3D: React.FC = () => {
     let W = container.clientWidth || 800;
     let H = container.clientHeight || 600;
 
-    // ─── Scene & Camera Setup ───
+    // â”€â”€â”€ Scene & Camera Setup â”€â”€â”€
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x050608, 0.04);
 
@@ -25,7 +27,7 @@ const CareersHeroVisual3D: React.FC = () => {
     camera.position.set(0, 0.4, 7.5);
     camera.lookAt(0, 0, 0);
 
-    // ─── WebGL Renderer ───
+    // â”€â”€â”€ WebGL Renderer â”€â”€â”€
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
@@ -46,7 +48,7 @@ const CareersHeroVisual3D: React.FC = () => {
       return obj;
     };
 
-    // ─── Lighting System ───
+    // â”€â”€â”€ Lighting System â”€â”€â”€
     // Soft ambient glow
     scene.add(reg(new THREE.AmbientLight(0xffffff, 0.08)));
 
@@ -68,7 +70,7 @@ const CareersHeroVisual3D: React.FC = () => {
     const mainGroup = new THREE.Group();
     scene.add(mainGroup);
 
-    // ─── Core Geometries ───
+    // â”€â”€â”€ Core Geometries â”€â”€â”€
     const boxGeo = reg(new THREE.BoxGeometry(1, 1, 1));
     const edgesGeo = reg(new THREE.EdgesGeometry(boxGeo));
 
@@ -81,7 +83,7 @@ const CareersHeroVisual3D: React.FC = () => {
     const icosaOuterGeo = reg(new THREE.IcosahedronGeometry(1.2, 1));
     const icosaOuterEdges = reg(new THREE.EdgesGeometry(icosaOuterGeo));
 
-    // ─── Brand Color Materials ───
+    // â”€â”€â”€ Brand Color Materials â”€â”€â”€
     const coreAmberWire = reg(new THREE.LineBasicMaterial({ color: 0xffb000, transparent: true, opacity: 0.95, linewidth: 2 }));
     const secondaryGoldWire = reg(new THREE.LineBasicMaterial({ color: 0xffd000, transparent: true, opacity: 0.6 }));
     const neonPinkWire = reg(new THREE.LineBasicMaterial({ color: 0xff0066, transparent: true, opacity: 0.45 }));
@@ -97,7 +99,7 @@ const CareersHeroVisual3D: React.FC = () => {
       wireframe: false
     }));
 
-    // ─── Multi-Layered Central Quantum Reactor ───
+    // â”€â”€â”€ Multi-Layered Central Quantum Reactor â”€â”€â”€
     const hubGroup = new THREE.Group();
     mainGroup.add(hubGroup);
 
@@ -126,7 +128,7 @@ const CareersHeroVisual3D: React.FC = () => {
     hubShieldWire.scale.set(1.15, 1.15, 1.15);
     hubGroup.add(hubShieldWire);
 
-    // ─── Sci-Fi Holographic Orbit Rings ───
+    // â”€â”€â”€ Sci-Fi Holographic Orbit Rings â”€â”€â”€
     const ringGroup = new THREE.Group();
     hubGroup.add(ringGroup);
 
@@ -157,7 +159,7 @@ const CareersHeroVisual3D: React.FC = () => {
     scene.add(ind1);
     scene.add(ind2);
 
-    // ─── Satellite Talent Nodes ───
+    // â”€â”€â”€ Satellite Talent Nodes â”€â”€â”€
     interface SatNode {
       group: THREE.Group;
       dir: THREE.Vector3;
@@ -235,11 +237,11 @@ const CareersHeroVisual3D: React.FC = () => {
       });
     }
 
-    // ─── Dynamic Grid Lines Group ───
+    // â”€â”€â”€ Dynamic Grid Lines Group â”€â”€â”€
     const linesGroup = new THREE.Group();
     mainGroup.add(linesGroup);
 
-    // ─── Advanced Data Pulse Trails ───
+    // â”€â”€â”€ Advanced Data Pulse Trails â”€â”€â”€
     const pulseSphGeo = reg(new THREE.SphereGeometry(0.04, 6, 6));
     const pulseGoldMat = reg(new THREE.MeshBasicMaterial({ color: 0xffd000, transparent: true, opacity: 0.95 }));
     const pulsePinkMat = reg(new THREE.MeshBasicMaterial({ color: 0xff0066, transparent: true, opacity: 0.95 }));
@@ -271,7 +273,7 @@ const CareersHeroVisual3D: React.FC = () => {
       });
     }
 
-    // ─── Rising Energy Sparks System (Ember Ascent) ───
+    // â”€â”€â”€ Rising Energy Sparks System (Ember Ascent) â”€â”€â”€
     const sparkCount = 80;
     const sparkPositions = new Float32Array(sparkCount * 3);
     const sparkSpeeds: number[] = [];
@@ -319,7 +321,7 @@ const CareersHeroVisual3D: React.FC = () => {
     const sparkPoints = new THREE.Points(sparkGeo, sparkMat);
     mainGroup.add(sparkPoints);
 
-    // ─── Ambient Space Dust ───
+    // â”€â”€â”€ Ambient Space Dust â”€â”€â”€
     const dustCount = 50;
     const dustPositions = new Float32Array(dustCount * 3);
     for (let i = 0; i < dustCount; i++) {
@@ -341,7 +343,7 @@ const CareersHeroVisual3D: React.FC = () => {
     }));
     mainGroup.add(new THREE.Points(dustGeo, dustMat));
 
-    // ─── Connection Lines Rebuilder ───
+    // â”€â”€â”€ Connection Lines Rebuilder â”€â”€â”€
     const rebuildLines = () => {
       while (linesGroup.children.length) {
         const c = linesGroup.children[0] as THREE.Line;
@@ -349,7 +351,7 @@ const CareersHeroVisual3D: React.FC = () => {
         c.geometry.dispose();
       }
 
-      // Hub ↔ Satellites
+      // Hub â†” Satellites
       for (const sat of satellites) {
         const pts = [new THREE.Vector3(0, 0, 0), sat.group.position.clone()];
         const geo = new THREE.BufferGeometry().setFromPoints(pts);
@@ -359,7 +361,7 @@ const CareersHeroVisual3D: React.FC = () => {
       }
     };
 
-    // ─── Mouse Position Tracking ───
+    // â”€â”€â”€ Mouse Position Tracking â”€â”€â”€
     const mouse = { x: 0, y: 0 };
     const target = { x: 0, y: 0 };
     let mouseActive = false;
@@ -391,7 +393,7 @@ const CareersHeroVisual3D: React.FC = () => {
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
 
-    // ─── Responsive Viewport Resizing ───
+    // â”€â”€â”€ Responsive Viewport Resizing â”€â”€â”€
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { width, height } = entry.contentRect;
@@ -405,7 +407,7 @@ const CareersHeroVisual3D: React.FC = () => {
     });
     resizeObserver.observe(container);
 
-    // ─── Main Master Animation Loop ───
+    // â”€â”€â”€ Main Master Animation Loop â”€â”€â”€
     let frameId: number;
     const clock = new THREE.Clock();
 
@@ -554,7 +556,7 @@ const CareersHeroVisual3D: React.FC = () => {
 
     animate();
 
-    // ─── Complete System Garbage Collection ───
+    // â”€â”€â”€ Complete System Garbage Collection â”€â”€â”€
     return () => {
       cancelAnimationFrame(frameId);
       container.removeEventListener('mousemove', handleMouseMove);

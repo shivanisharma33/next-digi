@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -12,6 +14,7 @@ const USDataCenter3D: React.FC<USDataCenter3DProps> = ({ className }) => {
     const container = containerRef.current;
     if (!container) return;
 
+    const isMobile = window.innerWidth < 768;
     const canvas = document.createElement('canvas');
     canvas.style.width = '100%';
     canvas.style.height = '100%';
@@ -657,6 +660,9 @@ const USDataCenter3D: React.FC<USDataCenter3DProps> = ({ className }) => {
       if (isDragging) {
         dragOffsetY = (e.clientX - dragStartX) * 0.008;
         dragOffsetX = (e.clientY - dragStartY) * 0.004;
+        if (isMobile) {
+          animate();
+        }
       } else {
         const rect = container.getBoundingClientRect();
         mouseX = (e.clientX - rect.left) / rect.width - 0.5;
@@ -694,6 +700,9 @@ const USDataCenter3D: React.FC<USDataCenter3DProps> = ({ className }) => {
       camera.bottom = -frustum;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
+      if (isMobile) {
+        animate();
+      }
     };
     window.addEventListener('resize', handleResize);
 
@@ -708,10 +717,12 @@ const USDataCenter3D: React.FC<USDataCenter3DProps> = ({ className }) => {
     let elapsed = 0;
     let frameId = 0;
 
-    const animate = () => {
+    function animate() {
       const dt = clock.getDelta();
       elapsed += dt;
-      frameId = requestAnimationFrame(animate);
+      if (!isMobile) {
+        frameId = requestAnimationFrame(animate);
+      }
 
       const targetRotY = mouseX * 0.3 + dragOffsetY + currentRotY;
       const targetRotX = -mouseY * 0.1 + dragOffsetX + currentRotX;
@@ -839,14 +850,14 @@ const USDataCenter3D: React.FC<USDataCenter3DProps> = ({ className }) => {
       <div className="absolute top-3 left-3 right-3 flex justify-between items-center text-[7px] font-mono tracking-widest text-[#FFD60A]/60 pointer-events-none uppercase z-20 select-none">
         <div className="flex items-center gap-1.5">
           <span className="w-1 h-1 bg-[#FFD60A] rounded-full animate-ping" />
-          <span>DGXX · 147 NODES</span>
+          <span>DGXX Â· 147 NODES</span>
         </div>
         <div>TIER IV CERTIFIED</div>
       </div>
 
       <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center text-[7px] font-mono tracking-widest text-[#FFD60A]/60 pointer-events-none uppercase z-20 select-none">
         <div>PUE: 1.12</div>
-        <div>847MW · DRAG TO ROTATE</div>
+        <div>847MW Â· DRAG TO ROTATE</div>
       </div>
     </div>
   );

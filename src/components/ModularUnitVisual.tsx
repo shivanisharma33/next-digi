@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 import "./ModularUnitVisual.css";
 
@@ -51,6 +53,7 @@ const ModularUnitVisual = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const isMobile = window.innerWidth < 768;
     let width = 0;
     let height = 0;
     let dpr = 1;
@@ -67,6 +70,7 @@ const ModularUnitVisual = () => {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (isMobile) draw();
     };
 
     resize();
@@ -189,6 +193,7 @@ const ModularUnitVisual = () => {
         ctx.shadowBlur = 0;
       });
 
+      if (isMobile) return;
       rafId = requestAnimationFrame(draw);
     };
 
@@ -216,7 +221,7 @@ const ModularUnitVisual = () => {
         </div>
         <div>
           <div className="muv-stat-label">Thermal</div>
-          <div className="muv-stat-value">24°C</div>
+          <div className="muv-stat-value">24Â°C</div>
         </div>
       </div>
 

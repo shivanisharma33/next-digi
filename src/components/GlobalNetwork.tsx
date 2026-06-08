@@ -1,14 +1,18 @@
+"use client";
+
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CTASection } from './Footer';
-import DgxGlobe from './DgxGlobe';
-import GlobalNetworkHeroVisual3D from './GlobalNetworkHeroVisual3D';
-import EnergyHeroCanvas from './EnergyHeroCanvas';
-import UnifiedOpsHub3D from './UnifiedOpsHub3D';
-import InvestorHeroVisual3D from './InvestorHeroVisual3D';
-import CubeGridNetwork3D from './CubeGridNetwork3D';
+import dynamic from 'next/dynamic';
 import './GlobalNetwork.css';
+
+const DgxGlobe = dynamic(() => import('./DgxGlobe'), { ssr: false });
+const GlobalNetworkHeroVisual3D = dynamic(() => import('./GlobalNetworkHeroVisual3D'), { ssr: false });
+const EnergyHeroCanvas = dynamic(() => import('./EnergyHeroCanvas'), { ssr: false });
+const UnifiedOpsHub3D = dynamic(() => import('./UnifiedOpsHub3D'), { ssr: false });
+const InvestorHeroVisual3D = dynamic(() => import('./InvestorHeroVisual3D'), { ssr: false });
+const CubeGridNetwork3D = dynamic(() => import('./CubeGridNetwork3D'), { ssr: false });
 
 const BRAND = '#f5c518';
 const BG = '#0b0b0d';
@@ -249,15 +253,13 @@ const GlobalNetwork = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 w-full sm:w-auto justify-center sm:justify-start">
-              <Link
-                to="/contact"
+              <Link href="/contact"
                 className="px-12 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md transition-all hover:brightness-110 active:scale-95 shadow-[0_10px_40px_rgba(245,197,24,0.2)] text-center"
               >
                 Talk to Team
               </Link>
-              <Link
-                to="/energy"
-                className="px-12 py-5 border border-white/20 text-white font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10 text-center"
+              <Link href="/energy"
+                className="px-12 py-5 border border-brand-yellow text-white font-semibold uppercase tracking-[0.2em] text-[11px] rounded-md bg-white/5 backdrop-blur-sm transition-all hover:bg-brand-yellow/10 text-center"
               >
                 Power Infrastructure
               </Link>
@@ -316,9 +318,9 @@ const GlobalNetwork = () => {
 
           {/* Section heading block */}
           <div className="flex flex-col items-center text-center mb-12 md:mb-20">
-            <div className="inline-flex items-center px-6 py-2.5 rounded-full border border-black/10 bg-black/5 backdrop-blur-sm mb-8">
+            <div className="inline-flex items-center px-6 py-2.5 rounded-full border border-gray-100 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-shadow duration-500 cursor-default mb-8">
               <div className="w-10 h-[1.5px] bg-[#f5c518] mr-4"></div>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-black/80">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-black">
                 Network Flow
               </span>
             </div>
@@ -479,7 +481,6 @@ const GlobalNetwork = () => {
           {/* Section heading block */}
           <div className="flex flex-col items-center text-center mb-10 md:mb-20">
             <div className="inline-flex items-center px-6 py-2 rounded-full border border-white/10 bg-white/5 mb-8">
-              <span className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em] mr-4">02 /</span>
               <div className="w-12 h-[1px] bg-[#f5c518] mr-4"></div>
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/80">Network Layers</span>
             </div>
@@ -577,8 +578,8 @@ const GlobalNetwork = () => {
 
           {/* Section heading block */}
           <div className="flex flex-col items-center text-center mb-10 md:mb-20">
-            <div className="inline-flex items-center px-6 py-2 rounded-full border border-black/10 bg-black/5 mb-8">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-black/60">Network Pipeline</span>
+            <div className="inline-flex items-center px-6 py-2.5 rounded-full border border-gray-100 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-shadow duration-500 cursor-default mb-8">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-black">Network Pipeline</span>
             </div>
             <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-black mb-6 relative z-10">
               Reach is Built<br />

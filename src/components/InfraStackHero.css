@@ -190,13 +190,13 @@
 
 #infra-stack-hero .ish-btn.secondary {
   background: rgba(255, 255, 255, 0.02);
-  border-color: rgba(244, 245, 247, 0.15);
+  border-color: var(--yellow);
   color: var(--white);
   backdrop-filter: blur(8px);
 }
 
 #infra-stack-hero .ish-btn.secondary:hover {
-  border-color: var(--yellow);
+  border-color: var(--ybright);
   color: var(--yellow);
   background: rgba(255, 198, 41, 0.05);
   transform: translateY(-3px);

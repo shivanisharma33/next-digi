@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 
 export default function NeoCloudzClusterCanvas() {
@@ -9,6 +11,7 @@ export default function NeoCloudzClusterCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const isMobile = window.innerWidth < 768;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let W = 0;
     let H = 0;
@@ -155,7 +158,7 @@ export default function NeoCloudzClusterCanvas() {
       ctx.fillStyle = "rgba(0,217,110,.6)";
       ctx.font = "700 10px 'JetBrains Mono', ui-monospace, monospace";
       ctx.textAlign = "left";
-      ctx.fillText("● neocloudz-cluster-01 // live telemetry", tx + 12, ty + 15);
+      ctx.fillText("\u25CF neocloudz-cluster-01 // live telemetry", tx + 12, ty + 15);
 
       const utilAvg = Math.round(82 + 8 * Math.sin(t * 0.7));
       const tempAvg = Math.round(59 + 4 * Math.sin(t * 0.5));
@@ -164,8 +167,8 @@ export default function NeoCloudzClusterCanvas() {
       const fabUtil = 62 + Math.round(8 * Math.sin(t * 1.2));
 
       const lines: [string, string][] = [
-        ["rgba(0,217,110,.95)", "cluster_id: ncz-prod-b200-01  |  nodes: 32× B200  |  fabric: 400G InfiniBand NDR"],
-        ["rgba(245,197,24,.78)", `util_avg: ${utilAvg}%   |  temp_avg: ${tempAvg}°C  |  vram: 6.14 / 6.40 TB`],
+        ["rgba(0,217,110,.95)", `cluster_id: ncz-prod-b200-01  |  nodes: 32\u00D7 B200  |  fabric: 400G InfiniBand NDR`],
+        ["rgba(245,197,24,.78)", `util_avg: ${utilAvg}%   |  temp_avg: ${tempAvg}\u00B0C  |  vram: 6.14 / 6.40 TB`],
         ["rgba(77,200,255,.72)", `throughput: ${tps}k tok/s  |  job: llm-finetune-7b  |  step: ${step}`],
         ["rgba(255,255,255,.32)", `interconnect: healthy  |  fabric_util: ${fabUtil}%  |  nccl: OK  |  power: 1.24MW`],
       ];
@@ -178,11 +181,15 @@ export default function NeoCloudzClusterCanvas() {
 
     const loop = () => {
       if (visible) draw();
+      if (isMobile) return;
       t += 0.014;
       rafId = requestAnimationFrame(loop);
     };
 
-    const onResize = () => size();
+    const onResize = () => {
+      size();
+      if (isMobile) draw();
+    };
     window.addEventListener("resize", onResize, { passive: true });
     size();
 

@@ -1,3 +1,5 @@
+"use client";
+
 
 import React, { useState, useEffect, useRef } from 'react';
 import './InfraHero.css';
@@ -42,14 +44,14 @@ const InfraHero = () => {
         <div className="infra-left">
           <div className="infra-tag">
             <span className="infra-dot"></span>
-            NASDAQ : DGXX · AI Infrastructure Platform
+            NASDAQ : DGXX Â· AI Infrastructure Platform
           </div>
           <h1 className="infra-title">
             layer <span>AI</span><br />
             runs on.
           </h1>
           <p className="infra-desc">
-            DigiPowerX integrates power infrastructure, Tier III-ready data centers, and bare-metal GPU compute platforms — engineered to support the next generation of AI training, inference, and high-performance computing workloads.
+            DigiPowerX integrates power infrastructure, Tier III-ready data centers, and bare-metal GPU compute platforms â€” engineered to support the next generation of AI training, inference, and high-performance computing workloads.
           </p>
           <div className="infra-actions">
             <a href="/energy" className="infra-btn yellow">Explore Infrastructure</a>

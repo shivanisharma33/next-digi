@@ -1,5 +1,7 @@
+"use client";
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import colocationRacks from '../assets/colocation-racks.png';
 
 const Colocation = () => {
@@ -15,10 +17,9 @@ const Colocation = () => {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mb-8 flex flex-col items-center"
         >
-          <div className="inline-flex items-center gap-4 bg-[#e5e5e5] rounded-full px-5 py-1.5 shadow-sm border border-black/5">
-            <span className="text-[9px] font-semibold tracking-widest text-black/60">02 /</span>
-            <div className="h-[1px] w-12 bg-[#f5c518]" />
-            <span className="text-[9px] font-semibold tracking-[0.2em] text-black/80 uppercase">COLOCATION</span>
+          <div className="inline-flex items-center gap-3 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100 rounded-full px-6 py-2.5 hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-shadow duration-500 cursor-default">
+            <div className="h-[2px] w-12 bg-[#f5c518] rounded-full" />
+            <span className="text-[9px] font-semibold tracking-[0.2em] text-black uppercase">COLOCATION</span>
           </div>
         </motion.div>
 
@@ -72,10 +73,10 @@ const Colocation = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <Link to="/contact" className="bg-[#f5c518] text-black px-6 py-3.5 rounded font-semibold text-[12px] uppercase tracking-widest hover:bg-[#ffda47] transition-all w-full sm:w-auto text-center shadow-lg shadow-[#f5c518]/20">
+              <Link href="/contact" className="bg-[#f5c518] text-black px-6 py-3.5 rounded font-semibold text-[12px] uppercase tracking-widest hover:bg-[#ffda47] transition-all w-full sm:w-auto text-center shadow-lg shadow-[#f5c518]/20">
                 REQUEST COLOCATION QUOTE
               </Link>
-              <Link to="/documents-charters" className="bg-[#cccccc] text-black px-6 py-3.5 rounded font-bold text-[12px] hover:bg-gray-400 transition-all w-full sm:w-auto text-center">
+              <Link href="/documents-charters" className="bg-[#cccccc] text-black px-6 py-3.5 rounded font-bold text-[12px] hover:bg-gray-400 transition-all w-full sm:w-auto text-center">
                 Download Spec Sheet
               </Link>
             </div>
@@ -94,7 +95,7 @@ const Colocation = () => {
               <div className="absolute w-[80%] aspect-square bg-[#f5c518]/[0.05] rounded-full blur-[80px] pointer-events-none" />
 
               <img
-                src={colocationRacks}
+                src={colocationRacks.src}
                 alt="Supermicro Colocation Server Racks"
                 className="w-full h-full object-contain max-h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:scale-[1.03] transition-transform duration-700 ease-out"
                 loading="lazy"

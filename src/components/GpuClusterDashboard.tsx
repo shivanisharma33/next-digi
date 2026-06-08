@@ -1,13 +1,15 @@
+"use client";
+
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 type GpuState = 'high' | 'med' | 'low' | 'idle' | 'error';
 interface GpuNode { id: number; util: number; vram: number; power: number; temp: number; state: GpuState; job: string | null; }
 interface LogEntry { c: string; m: string; }
 interface TimedLogEntry extends LogEntry { ts: string; key: string; }
 type LogTab = 'logs' | 'jobs' | 'alerts';
 
-// ─── Constants ───────────────────────────────────────────────────────────────
+// â”€â”€â”€ Constants â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const GPU_COUNT = 64;
 const MAX_LOG = 40;
 let keyIdx = 0;
@@ -20,7 +22,7 @@ function nowTs() {
   return [n.getHours(), n.getMinutes(), n.getSeconds()].map(x => String(x).padStart(2, '0')).join(':');
 }
 
-// ─── Initial GPU generation ───────────────────────────────────────────────────
+// â”€â”€â”€ Initial GPU generation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function genGpus(): GpuNode[] {
   return Array.from({ length: GPU_COUNT }, (_, i) => {
     if (i === 12) return { id: i, util: 0, vram: 80, power: 0, temp: 95, state: 'error', job: null };
@@ -32,16 +34,16 @@ function genGpus(): GpuNode[] {
   });
 }
 
-// ─── Log data ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Log data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const INIT_LOGS: LogEntry[] = [
-  { c: 'green', m: '[OK]   Cluster initialized: 64× NVIDIA Blackwell' },
+  { c: 'green', m: '[OK]   Cluster initialized: 64Ã— NVIDIA Blackwell' },
   { c: '', m: '[INFO] InfiniBand 400G fabric: HEALTHY' },
   { c: 'green', m: '[OK]   NVLink 4.0 mesh: ALL NODES CONNECTED' },
-  { c: 'blue', m: '[NET]  Spine-leaf topology active — 2× Quantum-2 switches' },
-  { c: '', m: '[INFO] Job scheduler: SLURM v23.11 — 14 jobs queued' },
+  { c: 'blue', m: '[NET]  Spine-leaf topology active â€” 2Ã— Quantum-2 switches' },
+  { c: '', m: '[INFO] Job scheduler: SLURM v23.11 â€” 14 jobs queued' },
   { c: 'green', m: '[OK]   NVMe-oF storage: 4.8PB available' },
   { c: '', m: '[INFO] Checkpoint: step_4291 written to /mnt/ckpt/run-01' },
-  { c: 'amber', m: '[WARN] GPU-12: thermal sensor spike — monitoring' },
+  { c: 'amber', m: '[WARN] GPU-12: thermal sensor spike â€” monitoring' },
   { c: 'blue', m: '[SCHED] llm-finetune-70b allocated to nodes 00-07' },
   { c: 'green', m: '[OK]   Throughput: 2.94 samples/sec (peak)' },
 ];
@@ -49,32 +51,32 @@ const INIT_LOGS: LogEntry[] = [
 const JOBS_LOG: LogEntry[] = [
   { c: 'green', m: 'JOB-5821  llm-finetune-70b       RUNNING   GPUs:00-31  4h 12m' },
   { c: 'green', m: 'JOB-5819  stable-diffusion-xl     RUNNING   GPUs:32-47  1h 58m' },
-  { c: 'blue',  m: 'JOB-5823  bert-large-pretraining  QUEUED    GPUs:—       waiting' },
+  { c: 'blue',  m: 'JOB-5823  bert-large-pretraining  QUEUED    GPUs:â€”       waiting' },
   { c: 'green', m: 'JOB-5816  whisper-large-v3        RUNNING   GPUs:48-55  6h 03m' },
-  { c: '',      m: 'JOB-5815  codellama-34b           COMPLETE  GPUs:—       done' },
-  { c: 'blue',  m: 'JOB-5824  gpt-moe-inference       QUEUED    GPUs:—       waiting' },
+  { c: '',      m: 'JOB-5815  codellama-34b           COMPLETE  GPUs:â€”       done' },
+  { c: 'blue',  m: 'JOB-5824  gpt-moe-inference       QUEUED    GPUs:â€”       waiting' },
   { c: 'green', m: 'JOB-5820  llava-next-video        RUNNING   GPUs:56-63  2h 41m' },
 ];
 
 const ALERTS_LOG: LogEntry[] = [
-  { c: 'amber', m: '[WARN] GPU-12: temp 95°C — above safe threshold' },
+  { c: 'amber', m: '[WARN] GPU-12: temp 95Â°C â€” above safe threshold' },
   { c: 'amber', m: '[WARN] GPU-12: power delivery fault detected' },
   { c: '', m: '[INFO] GPU-12 excluded from scheduler pool' },
   { c: 'green', m: '[OK]   All other 63 GPUs: nominal' },
   { c: 'amber', m: '[WARN] InfiniBand port 14: intermittent CRC errors (rate < 0.001%)' },
   { c: 'green', m: '[OK]   Storage RAID: no degraded volumes' },
-  { c: '', m: '[INFO] Thermal alert threshold: 90°C — 1 active alert' },
+  { c: '', m: '[INFO] Thermal alert threshold: 90Â°C â€” 1 active alert' },
 ];
 
 const HELP_LINES: LogEntry[] = [
-  { c: 'green', m: '  nvidia-smi      — GPU device summary' },
-  { c: 'green', m: '  cluster status  — full cluster health report' },
-  { c: 'green', m: '  jobs list       — active & queued jobs' },
-  { c: 'green', m: '  top gpus        — top 5 utilized GPUs' },
-  { c: 'green', m: '  clear           — clear log output' },
+  { c: 'green', m: '  nvidia-smi      â€” GPU device summary' },
+  { c: 'green', m: '  cluster status  â€” full cluster health report' },
+  { c: 'green', m: '  jobs list       â€” active & queued jobs' },
+  { c: 'green', m: '  top gpus        â€” top 5 utilized GPUs' },
+  { c: 'green', m: '  clear           â€” clear log output' },
 ];
 
-// ─── GPU Node Cell ────────────────────────────────────────────────────────────
+// â”€â”€â”€ GPU Node Cell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const STATE_BG: Record<GpuState, string> = {
   high:  'rgba(0,232,120,0.18)',
   med:   'rgba(245,197,24,0.16)',
@@ -94,7 +96,7 @@ const STATE_TEXT: Record<GpuState, string> = {
 };
 
 function GpuCell({ g, hovered, onHover }: { g: GpuNode; hovered: boolean; onHover: (id: number | null) => void }) {
-  const label = g.state === 'error' ? 'ERR' : g.state === 'idle' ? '—' : `${g.util}%`;
+  const label = g.state === 'error' ? 'ERR' : g.state === 'idle' ? 'â€”' : `${g.util}%`;
   return (
     <div
       onMouseEnter={() => onHover(g.id)}
@@ -143,7 +145,7 @@ function GpuCell({ g, hovered, onHover }: { g: GpuNode; hovered: boolean; onHove
             ['Util', g.state === 'error' ? 'ERROR' : `${g.util}%`],
             ['VRAM', `${g.vram} / 180 GB`],
             ['Power', `${g.power} W`],
-            ['Temp', `${g.temp}°C`],
+            ['Temp', `${g.temp}Â°C`],
             ['Job', g.job || 'none'],
           ].map(([k, v]) => (
             <div key={k} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 2 }}>
@@ -157,7 +159,7 @@ function GpuCell({ g, hovered, onHover }: { g: GpuNode; hovered: boolean; onHove
   );
 }
 
-// ─── Sparkbar ─────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Sparkbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function Sparkbar({ label, val, color = '#00e878' }: { label: string; val: number; color?: string }) {
   return (
     <div style={{ flex: 1 }}>
@@ -172,7 +174,7 @@ function Sparkbar({ label, val, color = '#00e878' }: { label: string; val: numbe
   );
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const GpuClusterDashboard: React.FC = () => {
   const [gpus, setGpus] = useState<GpuNode[]>(() => genGpus());
   const [spark, setSpark] = useState({ net: 94, nvl: 71, stor: 58 });
@@ -235,7 +237,7 @@ const GpuClusterDashboard: React.FC = () => {
   const submitCmd = useCallback((raw: string) => {
     const val = raw.trim().toLowerCase();
     if (!val) return;
-    const echo: TimedLogEntry = { c: 'echo', m: val, ts: '❯', key: nk() };
+    const echo: TimedLogEntry = { c: 'echo', m: val, ts: 'â¯', key: nk() };
     let lines: LogEntry[] = [];
     if (val === 'help') lines = HELP_LINES;
     else if (val === 'clear') { setLog([]); return; }
@@ -245,8 +247,8 @@ const GpuClusterDashboard: React.FC = () => {
       { c: '', m: `[INFO] Active GPUs: ${gpusRef.current.filter(g => g.state !== 'idle' && g.state !== 'error').length}/64` },
       { c: 'amber', m: '[WARN] 1 GPU in error state (GPU-12)' },
     ];
-    else if (val === 'top gpus') lines = gpusRef.current.filter(g => g.state === 'high').sort((a,b) => b.util - a.util).slice(0,5).map(g => ({ c: 'green', m: `GPU-${String(g.id).padStart(2,'0')}  ${g.util}%  ${g.vram}GB VRAM  ${g.temp}°C  ${g.power}W` }));
-    else lines = [{ c: 'red', m: `command not found: ${val} — type 'help'` }];
+    else if (val === 'top gpus') lines = gpusRef.current.filter(g => g.state === 'high').sort((a,b) => b.util - a.util).slice(0,5).map(g => ({ c: 'green', m: `GPU-${String(g.id).padStart(2,'0')}  ${g.util}%  ${g.vram}GB VRAM  ${g.temp}Â°C  ${g.power}W` }));
+    else lines = [{ c: 'red', m: `command not found: ${val} â€” type 'help'` }];
     setLog(prev => { const next = [...prev, echo, ...lines.map(l => ({ ...l, ts: '  ', key: nk() }))]; if (next.length > MAX_LOG) next.splice(0, next.length - MAX_LOG); return next; });
   }, []);
 
@@ -260,7 +262,7 @@ const GpuClusterDashboard: React.FC = () => {
           <div style={{ display: 'flex', gap: 5 }}>
             {['#ef4444','#f5c518','#00e878'].map(c => <div key={c} style={{ width: 9, height: 9, borderRadius: '50%', background: c, opacity: 0.7 }} />)}
           </div>
-          <span style={{ fontSize: 10, color: 'rgba(0,232,120,0.5)', marginLeft: 8 }}>neocloudz-cluster-01 — gpu-monitor — live</span>
+          <span style={{ fontSize: 10, color: 'rgba(0,232,120,0.5)', marginLeft: 8 }}>neocloudz-cluster-01 â€” gpu-monitor â€” live</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#00e878', boxShadow: '0 0 6px #00e878', animation: 'pulse 2s infinite' }} />
@@ -273,7 +275,7 @@ const GpuClusterDashboard: React.FC = () => {
         <div style={{ padding: '14px 16px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
           {/* Panel header */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-            <span style={{ fontSize: 9, color: 'rgba(0,232,120,0.6)', letterSpacing: '0.2em' }}>▸ GPU CLUSTER · {GPU_COUNT} NODES · BLACKWELL</span>
+            <span style={{ fontSize: 9, color: 'rgba(0,232,120,0.6)', letterSpacing: '0.2em' }}>â–¸ GPU CLUSTER Â· {GPU_COUNT} NODES Â· BLACKWELL</span>
             <div style={{ display: 'flex', gap: 16 }}>
               {[
                 { v: metrics.active, k: 'active' },
@@ -288,7 +290,7 @@ const GpuClusterDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* 8×8 GPU grid */}
+          {/* 8Ã—8 GPU grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 3 }}>
             {gpus.map(g => <GpuCell key={g.id} g={g} hovered={hoveredGpu === g.id} onHover={setHoveredGpu} />)}
           </div>
@@ -296,10 +298,10 @@ const GpuClusterDashboard: React.FC = () => {
           {/* Metrics row */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginTop: 10 }}>
             {[
-              { k: 'GPU Util', v: `${metrics.avgUtil}%`, sub: 'avg · 64 GPUs', c: '#00e878' },
-              { k: 'VRAM', v: `${metrics.avgVram}GB`, sub: 'avg · 180GB max', c: '#f5c518' },
-              { k: 'Power', v: `${metrics.avgPower}W`, sub: 'avg · 700W TDP', c: '#3b82f6' },
-              { k: 'Temp', v: `${metrics.avgTemp}°C`, sub: 'avg · limit 90°C', c: metrics.avgTemp > 80 ? '#ef4444' : 'rgba(255,255,255,0.7)' },
+              { k: 'GPU Util', v: `${metrics.avgUtil}%`, sub: 'avg Â· 64 GPUs', c: '#00e878' },
+              { k: 'VRAM', v: `${metrics.avgVram}GB`, sub: 'avg Â· 180GB max', c: '#f5c518' },
+              { k: 'Power', v: `${metrics.avgPower}W`, sub: 'avg Â· 700W TDP', c: '#3b82f6' },
+              { k: 'Temp', v: `${metrics.avgTemp}Â°C`, sub: 'avg Â· limit 90Â°C', c: metrics.avgTemp > 80 ? '#ef4444' : 'rgba(255,255,255,0.7)' },
             ].map(m => (
               <div key={m.k} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 4, padding: '8px 10px' }}>
                 <div style={{ fontSize: 8, color: 'rgba(255,255,255,0.3)', marginBottom: 3, letterSpacing: '0.1em' }}>{m.k}</div>
@@ -329,7 +331,7 @@ const GpuClusterDashboard: React.FC = () => {
                 borderBottom: tab === t ? '1px solid #00e878' : '1px solid transparent',
                 textTransform: 'uppercase', transition: 'color 0.2s',
               }}>
-                {t}{t === 'alerts' ? ' ●' : ''}
+                {t}{t === 'alerts' ? ' â—' : ''}
               </button>
             ))}
           </div>
@@ -344,7 +346,7 @@ const GpuClusterDashboard: React.FC = () => {
             ))}
             <div style={{ display: 'flex', gap: 10 }}>
               <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.2)', width: 50 }}>{nowTs()}</span>
-              <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.25)' }}>monitoring<span style={{ animation: 'blink 1s step-end infinite' }}>█</span></span>
+              <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.25)' }}>monitoring<span style={{ animation: 'blink 1s step-end infinite' }}>â–ˆ</span></span>
             </div>
           </div>
 
@@ -355,7 +357,7 @@ const GpuClusterDashboard: React.FC = () => {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') { submitCmd(input); setInput(''); } }}
-              placeholder="type 'help' for commands…"
+              placeholder="type 'help' for commandsâ€¦"
               style={{ flex: 1, background: 'none', border: 'none', outline: 'none', fontSize: 10, color: 'rgba(255,255,255,0.7)', fontFamily: 'monospace' }}
               spellCheck={false}
             />
@@ -370,7 +372,7 @@ const GpuClusterDashboard: React.FC = () => {
               <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.3)' }}>{l}</span>
             </div>
           ))}
-          <span style={{ marginLeft: 'auto', fontSize: 8, color: 'rgba(255,255,255,0.15)', letterSpacing: '0.08em' }}>64× B200 · NVLink 4.0 · IB 400G · NeoCloudz</span>
+          <span style={{ marginLeft: 'auto', fontSize: 8, color: 'rgba(255,255,255,0.15)', letterSpacing: '0.08em' }}>64Ã— B200 Â· NVLink 4.0 Â· IB 400G Â· NeoCloudz</span>
         </div>
       </div>
 

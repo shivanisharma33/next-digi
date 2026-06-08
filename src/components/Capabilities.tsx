@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Factory, Landmark, Wind, Globe, ShieldCheck } from 'lucide-react';
@@ -111,7 +113,6 @@ const Capabilities = () => {
             viewport={{ once: true }}
             className="inline-flex items-center gap-4 bg-white shadow-sm border border-gray-100 rounded-full px-6 py-2.5 mb-12 hover:shadow-md transition-shadow duration-500"
           >
-            <span className="text-[10px] font-semibold tracking-widest text-gray-400">03 /</span>
             <div className="h-[2px] w-12 bg-[#f5c518]" />
             <span className="text-[10px] font-semibold tracking-[0.25em] text-black uppercase">CAPABILITIES</span>
           </motion.div>
@@ -159,6 +160,53 @@ const Capabilities = () => {
             />
           ))}
         </div>
+
+        {/* ── CTA Conversion Block ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mt-16 md:mt-20 relative rounded-2xl overflow-hidden border border-[#f5c518]/20 bg-gradient-to-br from-white to-[#f5c518]/5 p-10 md:p-14 flex flex-col items-center text-center"
+        >
+          {/* Subtle corner accent */}
+          <div className="absolute top-0 right-0 w-48 h-48 bg-[#f5c518]/10 rounded-bl-full pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#f5c518]/5 rounded-tr-full pointer-events-none" />
+
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full border border-[#f5c518]/30 bg-[#f5c518]/10">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#f5c518]" />
+            <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-[#c8a400]">Ready to Deploy</span>
+          </div>
+
+          <h3 className="text-black font-semibold text-[clamp(1.5rem,3vw,2.5rem)] leading-tight tracking-tight mb-4 uppercase relative z-10">
+            Ready to deploy at <span className="text-[#f5c518]">this scale?</span>
+          </h3>
+          <p className="text-gray-500 text-[15px] max-w-xl leading-relaxed mb-9 relative z-10">
+            Our infrastructure team is ready to scope your requirements and deliver a custom proposal for colocation, build-to-suit, or GPU compute capacity.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 relative z-10">
+            <a
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2.5 bg-[#f5c518] text-black px-8 py-3.5 rounded-xl text-[11px] font-bold uppercase tracking-widest hover:bg-[#ffda47] transition-all duration-300 shadow-lg shadow-[#f5c518]/25 hover:shadow-xl hover:shadow-[#f5c518]/35 hover:-translate-y-0.5 active:scale-95"
+            >
+              Request Infrastructure Quote
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            </a>
+            <a
+              href="/documents-charters"
+              className="inline-flex items-center justify-center gap-2.5 border border-black/15 text-black px-8 py-3.5 rounded-xl text-[11px] font-bold uppercase tracking-widest hover:border-[#f5c518] hover:text-[#c8a400] transition-all duration-300 active:scale-95"
+            >
+              Download Spec Sheet
+            </a>
+          </div>
+
+          {/* Social proof micro-line */}
+          <p className="mt-7 text-gray-400 text-[12px] relative z-10">
+            Trusted by enterprise clients across AI, HPC &amp; cloud workloads · Typical response within <strong className="text-gray-500">12 hours</strong>
+          </p>
+        </motion.div>
 
       </div>
     </section>

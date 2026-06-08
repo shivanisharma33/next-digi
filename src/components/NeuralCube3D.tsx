@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -13,7 +15,7 @@ const NeuralCube3D: React.FC = () => {
 
     // --- 1. CORE SETUP ---
     const scene = new THREE.Scene();
-    
+
     const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
     const updateCameraZ = () => {
       const aspect = camera.aspect;
@@ -367,7 +369,7 @@ const NeuralCube3D: React.FC = () => {
     <div className="w-full h-full relative overflow-hidden flex items-center justify-center pointer-events-none select-none">
       {/* Premium golden/amber radial tech glow */}
       <div className="absolute w-[450px] h-[450px] md:w-[680px] md:h-[680px] rounded-full bg-gradient-to-br from-[#f5c518]/15 via-[#f5c518]/2 to-transparent blur-[110px] md:blur-[150px] opacity-80 z-0" />
-      
+
       {/* 3D WebGL Canvas Container */}
       <div ref={containerRef} className="absolute inset-0 w-full h-full z-10" />
     </div>

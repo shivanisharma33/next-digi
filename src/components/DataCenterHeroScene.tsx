@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 
 const DataCenterHeroScene: React.FC = () => {
@@ -37,12 +39,16 @@ const DataCenterHeroScene: React.FC = () => {
       grainCv.height = Math.max(1, Math.floor(CH));
     }
     resize();
-    const ro = new ResizeObserver(() => resize());
+    const ro = new ResizeObserver(() => {
+      resize();
+      if (isMobile) draw();
+    });
     ro.observe(stage);
 
+    const isMobile = window.innerWidth < 1024;
     let T = 0;
-    let phase = 0;
-    let state: 'opening' | 'hold' | 'closing' | 'closed' = 'opening';
+    let phase = isMobile ? 1 : 0;
+    let state: 'opening' | 'hold' | 'closing' | 'closed' = isMobile ? 'hold' : 'opening';
     let hold = 0;
     let cameraDolly = 0;
     let cameraZoom = 1;
@@ -985,14 +991,14 @@ const DataCenterHeroScene: React.FC = () => {
 
     function draw() {
       SCALE = Math.min(CW / 1100, CH / 620, 1.9);
-      if (SCALE < 0.5) SCALE = 0.5;
+      if (SCALE < 0.35) SCALE = 0.35;
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, CW, CH);
       T += 0.016;
       cameraDolly = Math.sin(T * 0.15) * 8;
       cameraZoom = 1 + Math.sin(T * 0.4) * 0.012;
       grainTimer += 0.016;
-      if (grainTimer > 0.1) {
+      if (grainTimer > 0.1 && !isMobile) {
         updateGrain();
         grainTimer = 0;
       }
@@ -1105,11 +1111,14 @@ const DataCenterHeroScene: React.FC = () => {
       updateAndDrawParticles();
       colorGrade();
       vignette();
+      if (isMobile) return;
       rafId = requestAnimationFrame(draw);
     }
 
     draw();
-    updateGrain();
+    if (!isMobile) {
+      updateGrain();
+    }
 
     return () => {
       cancelAnimationFrame(rafId);
@@ -1120,7 +1129,7 @@ const DataCenterHeroScene: React.FC = () => {
   return (
     <div
       ref={stageRef}
-      className="stage relative w-full h-full min-h-[520px] lg:min-h-[620px] rounded-[32px] overflow-hidden bg-black shadow-3xl"
+      className="stage relative w-full h-full rounded-[32px] overflow-hidden bg-black shadow-3xl"
     >
       <canvas ref={bgRef} id="bg" className="absolute inset-0 w-full h-full" />
       <canvas ref={dcRef} id="dc" className="absolute inset-0 w-full h-full" />

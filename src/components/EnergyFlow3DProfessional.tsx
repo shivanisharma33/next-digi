@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Cpu, Zap, Thermometer, Shield, RefreshCw, Activity, Layers } from 'lucide-react';
@@ -832,7 +834,7 @@ const EnergyFlow3DProfessional: React.FC = () => {
       <div className="absolute top-5 left-5 right-5 flex justify-between items-center text-[8px] md:text-[9px] font-mono tracking-widest text-white/45 pointer-events-none uppercase">
         <div className="flex items-center gap-2">
           <Activity size={10} className="text-[#f5c518] animate-pulse" />
-          <span>GRID_CORE: ONLINE // TEMP: {metrics.coreTemp}°C</span>
+          <span>GRID_CORE: ONLINE // TEMP: {metrics.coreTemp}Â°C</span>
         </div>
         <div className="hidden sm:block">
           FLOW_VELOCITY: {metrics.flowRate} L/S // MATRIX: ACTIVE
@@ -909,7 +911,7 @@ const EnergyFlow3DProfessional: React.FC = () => {
         <div className="p-3 bg-[#08090c]/50 border border-white/5 rounded-lg backdrop-blur-sm">
           <div className="text-[7px] text-white/40 uppercase tracking-widest leading-none mb-1">Reactor Temp</div>
           <div className="text-sm md:text-base font-bold text-white leading-none">
-            {metrics.coreTemp}°C
+            {metrics.coreTemp}Â°C
           </div>
           {/* Simulated tiny bar */}
           <div className="w-full h-1 bg-white/10 rounded-full mt-2 overflow-hidden">

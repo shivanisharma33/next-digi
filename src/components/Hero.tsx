@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import visual from "../assets/ChatGPT Image May 15, 2026, 05_30_05 PM.png";
@@ -70,7 +72,7 @@ export default function Hero() {
             <button className="rounded-xl bg-white px-9 py-4 text-[11px] font-bold uppercase tracking-widest text-black transition-all hover:bg-white/90 active:scale-95">
               Launch Console
             </button>
-            <button className="rounded-xl border border-white/10 bg-white/5 px-9 py-4 text-[11px] font-bold uppercase tracking-widest text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95">
+            <button className="rounded-xl border border-brand-yellow bg-white/5 px-9 py-4 text-[11px] font-bold uppercase tracking-widest text-white backdrop-blur-xl transition-all hover:bg-brand-yellow/10 active:scale-95">
               View Roadmap
             </button>
           </div>

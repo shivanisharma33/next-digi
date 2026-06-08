@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import "./PowerInIntelligenceOut.css";
 
@@ -15,13 +17,13 @@ const PowerInIntelligenceOut = () => {
             POWER IN.<br />
             <span className="pio-amber">INTELLIGENCE</span> OUT.
           </h1>
-          <div className="pio-sub">From Megawatts to Models — One Continuous Stack</div>
+          <div className="pio-sub">From Megawatts to Models â€” One Continuous Stack</div>
         </div>
 
         <div className="pio-rule" />
 
         <div className="pio-pipeline">
-          {/* 01 · POWER GENERATION */}
+          {/* 01 Â· POWER GENERATION */}
           <div className="pio-stage">
             <div className="pio-box">
               <span className="pio-tag">01 / SOURCE</span>
@@ -99,7 +101,7 @@ const PowerInIntelligenceOut = () => {
                   <circle cx="52" cy="155" r="0.6" fill="#F5B106" />
                   <circle cx="56" cy="155" r="0.6" fill="#F5B106" />
                   <rect x="48" y="160" width="12" height="4" fill="#F5B106" />
-                  <text x="54" y="163.3" textAnchor="middle" fontSize="2.8" fill="#000" fontWeight="800">⚡ HV</text>
+                  <text x="54" y="163.3" textAnchor="middle" fontSize="2.8" fill="#000" fontWeight="800">âš¡ HV</text>
 
                   <rect x="22" y="118" width="9" height="7" fill="url(#windowGlow-s1)" />
                   <rect x="33" y="118" width="9" height="7" fill="url(#windowGlow-s1)" opacity="0.7" />
@@ -377,7 +379,7 @@ const PowerInIntelligenceOut = () => {
                   <rect x="225" y="150" width="5" height="20" fill="#1a1a1a" />
                   <rect x="290" y="150" width="5" height="20" fill="#1a1a1a" />
                   <rect x="251" y="158" width="16" height="8" fill="#F5B106" />
-                  <text x="259" y="163.5" textAnchor="middle" fontSize="5" fill="#000" fontWeight="800">⚡HV</text>
+                  <text x="259" y="163.5" textAnchor="middle" fontSize="5" fill="#000" fontWeight="800">âš¡HV</text>
                 </g>
               </svg>
               <div className="pio-grade" />
@@ -385,11 +387,11 @@ const PowerInIntelligenceOut = () => {
             </div>
             <div className="pio-card">
               <div className="pio-ctop">
-                <span className="pio-cstage">Stage 01 — Source</span>
+                <span className="pio-cstage">Stage 01 â€” Source</span>
                 <span className="pio-cdot"><i className="pio-on" /><i /><i /></span>
               </div>
               <h3>Power Generation</h3>
-              <div className="pio-cmeta">Natural Gas · Solar · Grid</div>
+              <div className="pio-cmeta">Natural Gas Â· Solar Â· Grid</div>
               <div className="pio-cbar" />
               <div className="pio-cspec"><span>Capacity</span><b>400MW+</b></div>
             </div>
@@ -402,7 +404,7 @@ const PowerInIntelligenceOut = () => {
             <span className="pio-pulse" />
           </div>
 
-          {/* 02 · HV SUBSTATION */}
+          {/* 02 Â· HV SUBSTATION */}
           <div className="pio-stage">
             <div className="pio-box">
               <span className="pio-tag">02 / TRANSFORM</span>
@@ -522,13 +524,13 @@ const PowerInIntelligenceOut = () => {
             </div>
             <div className="pio-card">
               <div className="pio-ctop">
-                <span className="pio-cstage">Stage 02 — Transform</span>
+                <span className="pio-cstage">Stage 02 â€” Transform</span>
                 <span className="pio-cdot"><i className="pio-on" /><i className="pio-on" /><i /></span>
               </div>
               <h3>HV Substation</h3>
-              <div className="pio-cmeta">2N Redundant · Owned</div>
+              <div className="pio-cmeta">2N Redundant Â· Owned</div>
               <div className="pio-cbar" />
-              <div className="pio-cspec"><span>Topology</span><b>2N · ON-SITE</b></div>
+              <div className="pio-cspec"><span>Topology</span><b>2N Â· ON-SITE</b></div>
             </div>
           </div>
 
@@ -539,7 +541,7 @@ const PowerInIntelligenceOut = () => {
             <span className="pio-pulse" />
           </div>
 
-          {/* 03 · DATA CENTER */}
+          {/* 03 Â· DATA CENTER */}
           <div className="pio-stage">
             <div className="pio-box">
               <span className="pio-tag">03 / FACILITY</span>
@@ -691,11 +693,11 @@ const PowerInIntelligenceOut = () => {
             </div>
             <div className="pio-card">
               <div className="pio-ctop">
-                <span className="pio-cstage">Stage 03 — Facility</span>
+                <span className="pio-cstage">Stage 03 â€” Facility</span>
                 <span className="pio-cdot"><i className="pio-on" /><i className="pio-on" /><i className="pio-on" /></span>
               </div>
               <h3>Data Center</h3>
-              <div className="pio-cmeta">Tier III · TIA-942</div>
+              <div className="pio-cmeta">Tier III Â· TIA-942</div>
               <div className="pio-cbar" />
               <div className="pio-cspec"><span>Uptime</span><b>99.982%</b></div>
             </div>
@@ -708,7 +710,7 @@ const PowerInIntelligenceOut = () => {
             <span className="pio-pulse" />
           </div>
 
-          {/* 04 · GPU CLUSTER */}
+          {/* 04 Â· GPU CLUSTER */}
           <div className="pio-stage">
             <div className="pio-box">
               <span className="pio-tag">04 / COMPUTE</span>
@@ -851,7 +853,7 @@ const PowerInIntelligenceOut = () => {
             </div>
             <div className="pio-card">
               <div className="pio-ctop">
-                <span className="pio-cstage">Stage 04 — Compute</span>
+                <span className="pio-cstage">Stage 04 â€” Compute</span>
                 <span className="pio-cdot"><i className="pio-on" /><i className="pio-on" /><i className="pio-on" /></span>
               </div>
               <h3>GPU Cluster</h3>
@@ -868,7 +870,7 @@ const PowerInIntelligenceOut = () => {
             <span className="pio-pulse" />
           </div>
 
-          {/* 05 · NEOCLOUDZ */}
+          {/* 05 Â· NEOCLOUDZ */}
           <div className="pio-stage pio-out">
             <div className="pio-box">
               <span className="pio-tag">05 / DELIVERY</span>
@@ -1073,11 +1075,11 @@ const PowerInIntelligenceOut = () => {
             </div>
             <div className="pio-card">
               <div className="pio-ctop">
-                <span className="pio-cstage">Output — Delivery</span>
+                <span className="pio-cstage">Output â€” Delivery</span>
                 <span className="pio-cdot"><i className="pio-on" /><i className="pio-on" /><i className="pio-on" /></span>
               </div>
               <h3>NeoCloudz</h3>
-              <div className="pio-cmeta">Bare Metal · &lt;60s Provision</div>
+              <div className="pio-cmeta">Bare Metal Â· &lt;60s Provision</div>
               <div className="pio-cbar" />
               <div className="pio-cspec"><span>Provision</span><b>&lt; 60 SEC</b></div>
             </div>
@@ -1085,7 +1087,7 @@ const PowerInIntelligenceOut = () => {
         </div>
 
         <div className="pio-footer-note">
-          One Continuous Stack — <b>From Power</b> to <b>Provisioned Compute</b>
+          One Continuous Stack â€” <b>From Power</b> to <b>Provisioned Compute</b>
         </div>
       </div>
 

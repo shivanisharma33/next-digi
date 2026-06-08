@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -241,7 +243,7 @@ const HeroVisual3D = () => {
       camera.updateProjectionMatrix();
       renderer.setSize(W, H);
     };
-    
+
     // Call it once on load
     onResize();
     window.addEventListener('resize', onResize);

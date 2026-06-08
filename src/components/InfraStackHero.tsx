@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import "./InfraStackHero.css";
 
 export default function InfraStackHero() {
@@ -41,10 +41,10 @@ export default function InfraStackHero() {
           </p>
 
           <div className="ish-cta">
-            <Link to="/about" className="ish-btn primary">
+            <Link href="/about" className="ish-btn primary">
               Explore Our Stack ↓
             </Link>
-            <Link to="/contact" className="ish-btn secondary">
+            <Link href="/contact" className="ish-btn secondary">
               Talk to Our Team
             </Link>
           </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -431,6 +433,9 @@ const MissionVisionHeroVisual3D: React.FC = () => {
 
         camera.updateProjectionMatrix();
         renderer.setSize(W, H);
+        if (isMobile) {
+          animate();
+        }
       }
     });
     resizeObserver.observe(container);
@@ -439,8 +444,10 @@ const MissionVisionHeroVisual3D: React.FC = () => {
     let frameId: number;
     const clock = new THREE.Clock();
 
-    const animate = () => {
-      frameId = requestAnimationFrame(animate);
+    function animate() {
+      if (!initialIsMobile) {
+        frameId = requestAnimationFrame(animate);
+      }
       const elapsedTime = clock.getElapsedTime();
 
       // Smooth mouse parallax translation

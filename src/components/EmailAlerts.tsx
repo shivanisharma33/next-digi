@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -13,7 +15,9 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import { CTASection } from './Footer';
-import FuturisticDataRain from './FuturisticDataRain';
+import dynamic from 'next/dynamic';
+
+const FuturisticDataRain = dynamic(() => import('./FuturisticDataRain'), { ssr: false });
 
 const EmailAlerts = () => {
   const [email, setEmail] = useState("");
@@ -43,34 +47,66 @@ const EmailAlerts = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionLogs, setSubmissionLogs] = useState<string[]>([]);
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
+  const handleSubscribe = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!email) return;
 
-    setIsSubmitting(true);
-    setSubmissionLogs([]);
+  setIsSubmitting(true);
+  setSubmissionLogs([]);
 
-    // Simulated technical transmission log sequence
-    const logs = [
-      "ESTABLISHING SMTP SECURE CONNECTIONS...",
-      "VERIFYING NODE INTEGRITY...",
-      "COMPILING SUBSCRIPTION PAYLOAD DATA...",
-      "ENCRYPTING CHANNELS (SHA-512)...",
-      "TRANSMISSION COMPLETED SUCCESSFULLY."
-    ];
+  // Simulated technical logs before actual network request
+  const preLogs = [
+    "ESTABLISHING SMTP SECURE CONNECTIONS...",
+    "VERIFYING NODE INTEGRITY...",
+    "COMPILING SUBSCRIPTION PAYLOAD DATA...",
+    "ENCRYPTING CHANNELS (SHA-512)..."
+  ];
+  preLogs.forEach((log, idx) => {
+    setTimeout(() => {
+      setSubmissionLogs(prev => [...prev, log]);
+    }, (idx + 1) * 400);
+  });
 
-    logs.forEach((log, idx) => {
-      setTimeout(() => {
-        setSubmissionLogs(prev => [...prev, log]);
-        if (idx === logs.length - 1) {
-          setTimeout(() => {
-            setIsSubmitting(false);
-            setIsSubmitted(true);
-          }, 800);
-        }
-      }, (idx + 1) * 400);
-    });
+  // Prepare payload matching API schema
+  const payload = {
+    email,
+    firstName,
+    lastName,
+    company,
+    pressReleases: subPress,
+    secFilings: subSec,
+    stockDetailEndOfDay: subStock,
   };
+  console.log('Sending payload to API:', payload);
+
+  try {
+    const response = await fetch(
+      "https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/email-alerts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ data: payload })
+      }
+    );
+    if (!response.ok) {
+        const errText = await response.text();
+        console.error('API error response:', errText);
+        throw new Error(`Server responded with ${response.status}: ${errText}`);
+      }
+    // Optionally process response data
+    await response.json();
+    setSubmissionLogs(prev => [...prev, "TRANSMISSION COMPLETED SUCCESSFULLY."]);
+    setIsSubmitted(true);
+  } catch (err: any) {
+    const errorMessage = err?.message || "Unknown error";
+    setSubmissionLogs(prev => [...prev, `ERROR: ${errorMessage}`]);
+  } finally {
+    // Ensure the submitting flag is cleared after the simulated logs finish
+    setTimeout(() => setIsSubmitting(false), preLogs.length * 400 + 1200);
+  }
+};
 
   return (
     <div className="bg-[#050608] min-h-screen text-white selection:bg-brand-yellow selection:text-black">

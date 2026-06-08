@@ -1,16 +1,18 @@
+"use client";
+
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { 
-  Zap, 
-  Cpu, 
-  Activity, 
-  Server, 
-  Droplets, 
-  ShieldCheck, 
-  Target, 
-  ChevronRight, 
-  Radio, 
+import Link from 'next/link';
+import {
+  Zap,
+  Cpu,
+  Activity,
+  Server,
+  Droplets,
+  ShieldCheck,
+  Target,
+  ChevronRight,
+  Radio,
   Network,
   Database,
   BarChart3,
@@ -20,9 +22,10 @@ import {
   Box
 } from 'lucide-react';
 import { CTASection } from './Footer';
-import NeuralCube3D from './NeuralCube3D';
-import NeoCloudzHeroVisual3D from './NeoCloudzHeroVisual3D';
-import GpuClusterDashboard from './GpuClusterDashboard';
+import dynamic from 'next/dynamic';
+
+const NeoCloudzHeroVisual3D = dynamic(() => import('./NeoCloudzHeroVisual3D'), { ssr: false });
+const GpuClusterDashboard = dynamic(() => import('./GpuClusterDashboard'), { ssr: false });
 
 // =========================================================
 // LIVE CLUSTER TELEMETRY VISUAL
@@ -72,7 +75,7 @@ const ClusterTelemetry = () => {
             <path id="path4" d="M 850 50 L 850 450" stroke="#00e878" strokeWidth="1" fill="none" />
             <path id="path5" d="M 300 200 L 400 400 L 700 350" stroke="#00e878" strokeWidth="1" fill="none" />
           </g>
-          
+
           {/* Animated Particles */}
           {[...Array(4)].map((_, i) => (
             <circle key={`p1-${i}`} r="3.5" fill="#00e878" filter="url(#glow-green-intense)" className="opacity-100">
@@ -95,18 +98,18 @@ const ClusterTelemetry = () => {
               </animateMotion>
             </circle>
           ))}
-          
+
           {/* Static Nodes */}
           <circle cx="300" cy="200" r="4.5" fill="#00e878" filter="url(#glow-green-intense)" className="opacity-80" />
           <circle cx="500" cy="150" r="4.5" fill="#00e878" filter="url(#glow-green-intense)" className="opacity-80" />
           <circle cx="400" cy="250" r="4.5" fill="#00e878" filter="url(#glow-green-intense)" className="opacity-80" />
         </svg>
 
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-2.5 w-full max-w-5xl relative z-10">
+        <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 gap-2 w-full max-w-5xl relative z-10">
           {nodes.map((node) => (
-            <div 
+            <div
               key={node.id}
-              className="bg-black/95 border border-[#00e878]/30 rounded-[4px] p-2.5 flex flex-col justify-between h-[72px] relative"
+              className="bg-black/95 border border-[#00e878]/30 rounded-[4px] p-2 flex flex-col justify-between h-[72px] relative"
             >
               <div className="flex flex-col gap-0.5">
                 <div className="text-[10px] font-mono font-bold text-[#00e878]">{Math.round(node.util)}%</div>
@@ -115,10 +118,10 @@ const ClusterTelemetry = () => {
 
               {/* Status Bar */}
               <div className="h-[3px] w-full bg-white/5 rounded-full overflow-hidden mt-1.5">
-                <motion.div 
+                <motion.div
                   initial={false}
                   animate={{ width: `${node.util}%` }}
-                  className="h-full bg-[#00e878]" 
+                  className="h-full bg-[#00e878]"
                   style={{ boxShadow: '0 0 10px rgba(0, 232, 120, 0.6)' }}
                 />
               </div>
@@ -132,7 +135,7 @@ const ClusterTelemetry = () => {
         <div className="bg-[#0a0f0c] px-6 py-4 flex items-center border-b border-[#00e878]/10">
           <span className="text-[#00e878]/60 font-bold tracking-tight">neocloudz-cluster-01 // live telemetry</span>
         </div>
-        
+
         <div className="p-8 space-y-4">
           <div className="flex flex-wrap items-center gap-x-3">
             <span className="text-[#00e878]/60">cluster_id:</span> <span className="text-[#00e878] font-bold">ncz-prod-b200-01</span>
@@ -141,7 +144,7 @@ const ClusterTelemetry = () => {
             <span className="text-white/10 mx-1">|</span>
             <span className="text-[#00e878]/60">fabric:</span> <span className="text-[#00e878] font-bold">400G InfiniBand</span>
           </div>
-          
+
           <div className="flex flex-wrap items-center gap-x-3">
             <span className="text-[#f5c518]/60">util_avg:</span> <span className="text-[#f5c518] font-bold">80%</span>
             <span className="text-white/10 mx-1">|</span>
@@ -174,7 +177,7 @@ const ClusterTelemetry = () => {
 const NeoCloudz = () => {
   return (
     <div className="bg-[#050505] text-white overflow-x-hidden font-sans selection:bg-[#00e878]/20">
-      
+
       {/* ── HERO SECTION ── */}
       <section className="relative min-h-screen flex items-center pt-28 md:pt-32 lg:pt-36 pb-10 md:pb-14 px-6 overflow-hidden">
         {/* Subtle dot grid */}
@@ -205,10 +208,10 @@ const NeoCloudz = () => {
             </p>
 
             <div className="flex flex-wrap gap-8">
-              <Link to="/contact" className="px-10 py-4 md:px-14 md:py-6 bg-[#00e878] text-black font-semibold text-[11px] uppercase tracking-[0.3em] rounded-sm hover:bg-white transition-all shadow-[0_10px_50px_rgba(0,232,120,0.3)]">
+              <Link href="/contact" className="px-10 py-4 md:px-14 md:py-6 bg-[#00e878] text-black font-semibold text-[11px] uppercase tracking-[0.3em] rounded-sm hover:bg-white transition-all shadow-[0_10px_50px_rgba(0,232,120,0.3)]">
                 Request Capacity
               </Link>
-              <Link to="/investors" className="px-10 py-4 md:px-14 md:py-6 border border-white/10 bg-white/5 backdrop-blur-md font-semibold text-[11px] uppercase tracking-[0.3em] rounded-sm hover:bg-white/10 transition-all">
+              <Link href="/investors" className="px-10 py-4 md:px-14 md:py-6 border border-brand-yellow bg-white/5 backdrop-blur-md font-semibold text-[11px] uppercase tracking-[0.3em] rounded-sm hover:bg-brand-yellow/10 transition-all">
                 Investor Info
               </Link>
             </div>
@@ -235,7 +238,7 @@ const NeoCloudz = () => {
             { val: "<60s", label: "Provisioning", sub: "Target bare-metal setup time", status: "LIVE" },
             { val: "16×", label: "Module Density", sub: "B200 nodes per cluster module", status: "DENSE" }
           ].map((card, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -320,7 +323,7 @@ const NeoCloudz = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {[
               {
                 title: "TRAINING",
@@ -365,7 +368,7 @@ const NeoCloudz = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group relative bg-[#080808] border border-white/5 p-16 rounded-2xl hover:border-[#00e878]/30 transition-all overflow-hidden"
+                className={`group relative bg-[#080808] border border-white/5 p-6 md:p-10 lg:p-16 rounded-2xl hover:border-[#00e878]/30 transition-all overflow-hidden ${i === 2 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#00e878]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[#00e878]/10 transition-all" />
                 <div className="flex items-center gap-6 mb-8">
@@ -404,7 +407,7 @@ const NeoCloudz = () => {
 
         <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
-            
+
             {/* Left: Content & Vertical Specs */}
             <div className="lg:col-span-5 space-y-16">
               <div className="space-y-8">
@@ -429,7 +432,7 @@ const NeoCloudz = () => {
                   { label: "INTERCONNECT FABRIC", val: "400G INFINIBAND NDR" },
                   { label: "STORAGE PROTOCOL", val: "NVME-OVER-FABRIC (NVMEOF)" },
                 ].map((spec, i) => (
-                  <motion.div 
+                  <motion.div
                     key={i}
                     whileHover={{ x: 10 }}
                     className="group flex flex-col gap-1 cursor-default"
@@ -444,42 +447,42 @@ const NeoCloudz = () => {
             {/* Right: Command Center Metric Modules */}
             <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                { 
-                  icon: ShieldCheck, 
-                  val: "BARE METAL", 
-                  label: "Hardware Integrity", 
+                {
+                  icon: ShieldCheck,
+                  val: "BARE METAL",
+                  label: "Hardware Integrity",
                   desc: "Dedicated hardware units with no hypervisor overhead or noisy neighbor interference.",
                   meta: "SLA: 99.99%"
                 },
-                { 
-                  icon: Server, 
-                  val: "H100/B200", 
-                  label: "Module Density", 
+                {
+                  icon: Server,
+                  val: "H100/B200",
+                  label: "Module Density",
                   desc: "High-density multi-node clusters optimized for distributed training workloads.",
                   meta: "16x NODES/CLUSTER"
                 },
-                { 
-                  icon: Zap, 
-                  val: "<$0.05", 
-                  label: "Energy Efficiency", 
+                {
+                  icon: Zap,
+                  val: "<$0.05",
+                  label: "Energy Efficiency",
                   desc: "Strategic Alabama facility location provides a permanent power cost advantage.",
                   meta: "PER KWH COST"
                 },
-                { 
-                  icon: Maximize2, 
-                  val: "400G NDR", 
-                  label: "Fabric Throughput", 
+                {
+                  icon: Maximize2,
+                  val: "400G NDR",
+                  label: "Fabric Throughput",
                   desc: "Unrestricted node-to-node communication for high-performance NCCL operations.",
                   meta: "LOW-LATENCY"
                 }
               ].map((m, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   whileHover={{ y: -5, borderColor: 'rgba(0, 232, 120, 0.4)' }}
                   className="bg-white/[0.02] border border-white/5 rounded-3xl p-10 backdrop-blur-md group relative overflow-hidden transition-all"
                 >
                   <div className="absolute top-0 right-0 w-24 h-24 bg-[#00e878]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[#00e878]/10 transition-all" />
-                  
+
                   <div className="flex justify-between items-start mb-12">
                     <div className="w-12 h-12 rounded-2xl bg-[#00e878]/10 flex items-center justify-center text-[#00e878] group-hover:bg-[#00e878] group-hover:text-black transition-all">
                       <m.icon size={20} />
@@ -522,7 +525,7 @@ const NeoCloudz = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-px bg-white/10 border border-white/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-white/10 border border-white/10">
             {[
               { stepNum: "01", t: "REQUEST", l: "Workload Profile", d: "Define cluster size, GPU type, interconnect, and storage requirements." },
               { stepNum: "02", t: "PROVISION", l: "Allocate Hardware", d: "Dedicated bare-metal nodes allocated with InfiniBand fabric configured." },
@@ -530,13 +533,13 @@ const NeoCloudz = () => {
               { stepNum: "04", t: "MONITOR", l: "Full Telemetry", d: "GPU utilization, temp, and memory stream in real time to dashboard." },
               { stepNum: "05", t: "SCALE", l: "Expand On Demand", d: "Additional nodes allocated as training jobs grow or demand increases." }
             ].map((s, i) => (
-              <motion.div 
+              <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="p-12 bg-[#050505] group hover:bg-black transition-all relative overflow-hidden"
+                className="p-6 md:p-8 lg:p-12 bg-[#050505] group hover:bg-black transition-all relative overflow-hidden"
               >
                 <span className="text-[10px] font-mono font-medium text-white/10 group-hover:text-[#00e878] transition-colors mb-8 block">{s.stepNum}</span>
                 <div className="text-[10px] font-semibold text-[#00e878] tracking-[0.5em] mb-4">{s.t}</div>

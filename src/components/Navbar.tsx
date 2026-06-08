@@ -1,21 +1,25 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import { ChevronDown, Menu, X, ArrowRight, Activity, Cpu, Network, Shield, Landmark, Eye, HelpCircle, FileText, Bell } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import logoImg from '../assets/Digi new color logo.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const location = useLocation();
+  const pathname = usePathname();
+  const router = useRouter();
 
   // Close menu on navigation
   useEffect(() => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
     document.body.style.overflow = '';
-  }, [location.pathname]);
+  }, [pathname]);
 
   // Handle scroll effect
   useEffect(() => {
@@ -37,6 +41,14 @@ const Navbar = () => {
       document.body.style.overflow = '';
     };
   }, [isMenuOpen]);
+
+  const handleMobileClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+    setTimeout(() => {
+      router.push(path);
+    }, 250);
+  };
 
   const navLinks = [
     { name: 'About Us', hasDropdown: false, path: '/about' },
@@ -66,13 +78,24 @@ const Navbar = () => {
       sublinks: [
         { name: 'Mission & Vision', path: '/mission-vision', desc: 'Strategic priorities and targets', icon: <Cpu className="w-4 h-4 text-brand-yellow" /> },
         { name: 'Leadership', path: '/leadership', desc: 'Meet our executive leadership team', icon: <Activity className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Press Release', path: '/press-release', desc: 'Latest media and company releases', icon: <Network className="w-4 h-4 text-brand-yellow" /> },
+        { name: 'Press Release', path: '/press-releases', desc: 'Latest media and company releases', icon: <Network className="w-4 h-4 text-brand-yellow" /> },
         { name: 'Careers', path: '/careers', desc: 'Join our high-performance mission', icon: <Shield className="w-4 h-4 text-brand-yellow" /> },
         { name: 'Partnership', path: '/partnership', desc: 'Collaborate and build the future together', icon: <HelpCircle className="w-4 h-4 text-brand-yellow" /> },
       ]
     },
     { name: 'NeoCloudz', hasDropdown: false, path: '/neocloudz', href: 'https://www.neocloudz.com/' },
   ];
+
+  const isLinkActive = (link: typeof navLinks[0]) => {
+    if (link.path && pathname === link.path) return true;
+    if (link.hasDropdown && link.sublinks) {
+      return link.sublinks.some(sub => pathname === sub.path);
+    }
+    return false;
+  };
+
+  const activeClass = "nav-link flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-widest text-brand-yellow px-4.5 py-2 nav-glass-bubble";
+  const inactiveClass = "nav-link flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow px-4.5 py-2 nav-inactive-bubble";
 
   const menuVariants = {
     closed: {
@@ -105,38 +128,46 @@ const Navbar = () => {
         }`}>
 
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0 relative z-[120]">
-          <img src={logoImg} alt="DigiPowerX Logo" className="h-20 md:h-24 w-auto object-contain transition-all duration-300 brightness-0 invert" />
+        <Link href="/" className="flex-shrink-0 relative z-[120]">
+          <img src={logoImg.src || logoImg} alt="DigiPowerX Logo" className="h-20 md:h-24 w-auto object-contain transition-all duration-300 brightness-0 invert" />
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-6 xl:gap-8 flex-shrink-0">
+        <div className="hidden lg:flex items-center gap-2 xl:gap-4 flex-shrink-0">
           {navLinks.filter(l => l.name !== 'NeoCloudz').map(link => {
+            const active = isLinkActive(link);
+            const linkClass = active ? activeClass : inactiveClass;
+
             if (link.hasDropdown) {
               return (
                 <div key={link.name} className="relative group">
-                  <button className="nav-link flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow transition-colors py-4">
+                  <button className={linkClass}>
                     {link.name} <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-300" />
                   </button>
                   <div className="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-[110]">
                     <div className="bg-black/95 border border-white/10 backdrop-blur-xl p-4 min-w-[240px] shadow-2xl flex flex-col gap-3 rounded-lg">
-                      {link.sublinks?.map(sub => (
-                        <Link
-                          key={sub.name}
-                          to={sub.path}
-                          className="flex items-start gap-3 p-2 rounded hover:bg-white/5 transition-colors group/item"
-                        >
-                          <div className="mt-0.5">{sub.icon}</div>
-                          <div>
-                            <div className="text-[11px] font-bold uppercase tracking-widest text-white hover:text-brand-yellow transition-colors">
-                              {sub.name}
+                      {link.sublinks?.map(sub => {
+                        const subActive = pathname === sub.path;
+                        return (
+                          <Link
+                            key={sub.name}
+                            href={sub.path}
+                            className={`flex items-start gap-3 p-2 rounded transition-colors group/item ${subActive ? 'bg-white/10 border border-brand-yellow/20' : 'hover:bg-white/5'
+                              }`}
+                          >
+                            <div className="mt-0.5">{sub.icon}</div>
+                            <div>
+                              <div className={`text-[11px] font-bold uppercase tracking-widest transition-colors ${subActive ? 'text-brand-yellow' : 'text-white hover:text-brand-yellow group-hover/item:text-brand-yellow'
+                                }`}>
+                                {sub.name}
+                              </div>
+                              <div className="text-[9px] text-white/40 font-medium normal-case mt-0.5 leading-snug">
+                                {sub.desc}
+                              </div>
                             </div>
-                            <div className="text-[9px] text-white/40 font-medium normal-case mt-0.5 leading-snug">
-                              {sub.desc}
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -157,7 +188,7 @@ const Navbar = () => {
                       ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
                       : isUsdc
                         ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
-                        : "nav-link flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow transition-colors"
+                        : linkClass
                   }
                 >
                   {link.name}
@@ -170,13 +201,13 @@ const Navbar = () => {
             return (
               <Link
                 key={link.name}
-                to={link.path || '#'}
+                href={link.path || '#'}
                 className={
                   isNeo
                     ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
                     : isUsdc
                       ? "bg-brand-yellow text-black px-4 py-2 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-md shadow-brand-yellow/25 rounded whitespace-nowrap"
-                      : "nav-link flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow transition-colors"
+                      : linkClass
                 }
               >
                 {link.name}
@@ -195,7 +226,7 @@ const Navbar = () => {
           >
             NeoCloudz
           </a>
-          <Link to="/contact" className="hidden sm:inline-flex btn-global btn-primary">
+          <Link href="/contact" className="hidden sm:inline-flex btn-global btn-primary">
             Talk to Us
           </Link>
 
@@ -242,13 +273,15 @@ const Navbar = () => {
 
                 {navLinks.map((link) => {
                   const isOpen = activeDropdown === link.name;
+                  const active = isLinkActive(link);
                   return (
                     <div key={link.name} className="border-b border-white/5 pb-2">
                       {link.hasDropdown ? (
                         <div className="flex flex-col">
                           <button
                             onClick={() => toggleDropdown(link.name)}
-                            className="w-full flex items-center justify-between text-lg sm:text-xl font-bold text-white uppercase tracking-wider py-2 text-left cursor-pointer hover:text-brand-yellow transition-colors"
+                            className={`w-full flex items-center justify-between text-lg sm:text-xl font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl transition-all ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20 shadow-[0_0_15px_rgba(245,197,24,0.1)]' : 'text-white hover:text-brand-yellow'
+                              }`}
                           >
                             <span>{link.name}</span>
                             <ChevronDown
@@ -260,17 +293,21 @@ const Navbar = () => {
                           {/* Sublinks Container */}
                           <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-2' : 'grid-rows-[0fr] opacity-0 overflow-hidden'}`}>
                             <div className="overflow-hidden flex flex-col gap-2 pl-3 border-l border-brand-yellow/30">
-                              {link.sublinks?.map(sub => (
-                                <Link
-                                  key={sub.name}
-                                  to={sub.path}
-                                  className="flex items-center gap-3 py-2 text-sm font-semibold text-white/60 hover:text-brand-yellow transition-colors uppercase tracking-widest"
-                                  onClick={() => setIsMenuOpen(false)}
-                                >
-                                  {sub.icon}
-                                  <span>{sub.name}</span>
-                                </Link>
-                              ))}
+                              {link.sublinks?.map(sub => {
+                                const subActive = pathname === sub.path;
+                                return (
+                                  <Link
+                                    key={sub.name}
+                                    href={sub.path}
+                                    className={`flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors uppercase tracking-widest ${subActive ? 'text-brand-yellow bg-white/5' : 'text-white/60 hover:text-brand-yellow'
+                                      }`}
+                                    onClick={(e) => handleMobileClick(e, sub.path)}
+                                  >
+                                    {sub.icon}
+                                    <span>{sub.name}</span>
+                                  </Link>
+                                );
+                              })}
                             </div>
                           </div>
                         </div>
@@ -284,7 +321,8 @@ const Navbar = () => {
                               ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
                               : link.name === 'USDC'
                                 ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
-                                : "flex items-center justify-between text-lg sm:text-xl font-bold text-white py-2 uppercase tracking-wider hover:text-brand-yellow transition-colors"
+                                : `flex items-center justify-between text-lg sm:text-xl font-bold py-2.5 px-4 rounded-xl transition-all uppercase tracking-wider ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20' : 'text-white hover:text-brand-yellow'
+                                }`
                           }
                           onClick={() => setIsMenuOpen(false)}
                         >
@@ -293,15 +331,16 @@ const Navbar = () => {
                         </a>
                       ) : (
                         <Link
-                          to={link.path || '#'}
+                          href={link.path || '#'}
                           className={
                             link.name === 'NeoCloudz'
                               ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
                               : link.name === 'USDC'
                                 ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
-                                : "flex items-center justify-between text-lg sm:text-xl font-bold text-white py-2 uppercase tracking-wider hover:text-brand-yellow transition-colors"
+                                : `flex items-center justify-between text-lg sm:text-xl font-bold py-2.5 px-4 rounded-xl transition-all uppercase tracking-wider ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20' : 'text-white hover:text-brand-yellow'
+                                }`
                           }
-                          onClick={() => setIsMenuOpen(false)}
+                          onClick={(e) => handleMobileClick(e, link.path || '#')}
                         >
                           <span>{link.name}</span>
                           <ArrowRight size={14} className={link.name === 'NeoCloudz' ? "text-black" : link.name === 'USDC' ? "text-black" : "text-brand-yellow"} />
@@ -317,7 +356,7 @@ const Navbar = () => {
                 <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-6">
                   <div className="flex flex-col gap-0.5">
                     <span className="text-[8px] uppercase tracking-[0.25em] font-bold text-white/45">Headquarters</span>
-                    <span className="text-[11px] font-bold text-white uppercase">Dallas, Texas</span>
+                    <span className="text-[11px] font-bold text-white uppercase">Miami, Florida</span>
                   </div>
                   <div className="flex flex-col gap-0.5">
                     <span className="text-[8px] uppercase tracking-[0.25em] font-bold text-white/45">System Posture</span>
@@ -330,16 +369,16 @@ const Navbar = () => {
 
                 <div className="flex flex-col gap-3">
                   <Link
-                    to="/contact"
+                    href="/contact"
                     className="w-full btn-global btn-primary"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => handleMobileClick(e, '/contact')}
                   >
                     Talk to Our Team
                   </Link>
                   <Link
-                    to="/investors"
+                    href="/investors"
                     className="w-full btn-global btn-secondary"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => handleMobileClick(e, '/investors')}
                   >
                     Investor Relations
                   </Link>

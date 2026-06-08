@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
@@ -12,7 +14,7 @@ const DataCenter3D: React.FC = () => {
   const [logs, setLogs] = useState<string[]>([
     '[16:05:48] USDC GRID: 55MW NOMINAL POWER SUPPLY DETECTED',
     '[16:05:49] COOLANT VALVE A-01: 98.4% CAPACITY (FLOW RATE: 8.2 L/S)',
-    '[16:05:51] SYSTEM DIAGNOSTICS: TEMPERATURE STABILIZED AT 18.4°C',
+    '[16:05:51] SYSTEM DIAGNOSTICS: TEMPERATURE STABILIZED AT 18.4Â°C',
     '[16:05:54] COMPUTE: AI GPU CLUSTERS LOAD AT 94.2% UTILIZATION',
   ]);
 
@@ -24,7 +26,7 @@ const DataCenter3D: React.FC = () => {
   useEffect(() => {
     const logPool = [
       'USDC CORE: SHIELD STATUS NOMINAL // PUE COMPLIANT',
-      'COOLING SYS: CHILLER FLOW TEMPERATURE AT 16.8°C SUPPLY',
+      'COOLING SYS: CHILLER FLOW TEMPERATURE AT 16.8Â°C SUPPLY',
       'MODULE POWER: LOAD SHIFT ACTIVE ON BACKUP SOLAR PYLON',
       'SECURITY SYS: ACCESS CONTROL LOG LEVEL 0 (SECURE)',
       'NOC MONITORS: PACKET DELIVERY SPEED AT 400G INTERCONNECT',
@@ -1156,11 +1158,11 @@ const DataCenter3D: React.FC = () => {
       <div className="absolute top-5 left-5 right-5 flex justify-between items-start text-[8px] font-mono tracking-[0.25em] text-white/35 pointer-events-none uppercase z-20 select-none">
         <div className="flex flex-col gap-1 text-left">
           <div>LOC: ALABAMA_CAMPUS // GRID_NOMINAL</div>
-          <div className="text-white/20">LAT: 32.776° N // LON: -86.828° W</div>
+          <div className="text-white/20">LAT: 32.776Â° N // LON: -86.828Â° W</div>
         </div>
         <div className="flex flex-col gap-1 text-right">
-          <div className="text-[#f5c518] font-bold animate-pulse">● USDC COMPLIANT: &lt;1.15 PUE</div>
-          <div className="text-white/20">CAPACITY: 22MW → 120MW EXP</div>
+          <div className="text-[#f5c518] font-bold animate-pulse">â— USDC COMPLIANT: &lt;1.15 PUE</div>
+          <div className="text-white/20">CAPACITY: 22MW â†’ 120MW EXP</div>
         </div>
       </div>
 

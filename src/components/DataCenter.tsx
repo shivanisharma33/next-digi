@@ -1,6 +1,8 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import {
   Zap,
   Cpu,
@@ -11,7 +13,7 @@ import {
   Wind,
   ShieldCheck,
   Target,
-  ChevronRight,
+  BarChart4,
   Radio,
   Layers,
   ArrowRight,
@@ -24,10 +26,13 @@ import {
 } from 'lucide-react';
 
 import { CTASection } from './Footer';
-import NeuralCube3D from './NeuralCube3D';
-import DataCenter3D from './DataCenter3D';
-import DataCenterHeroScene from './DataCenterHeroScene';
-import StackedLayersVisual from './StackedLayersVisual';
+import dynamic from 'next/dynamic';
+
+const NeuralCube3D = dynamic(() => import('./NeuralCube3D'), { ssr: false });
+const DataCenter3D = dynamic(() => import('./DataCenter3D'), { ssr: false });
+const DataCenterHeroScene = dynamic(() => import('./DataCenterHeroScene'), { ssr: false });
+const StackedLayersVisual = dynamic(() => import('./StackedLayersVisual'), { ssr: false });
+
 
 // =========================================================
 // COOLING VISUAL COMPONENT
@@ -130,10 +135,10 @@ const DataCenter = () => {
               </p>
 
               <div className="flex flex-wrap gap-4 w-full sm:w-auto justify-center lg:justify-start">
-                <Link to="/contact" className="px-10 py-5 bg-[#f5c518] text-black font-semibold text-[10px] uppercase tracking-[0.3em] rounded-sm hover:bg-white hover:text-black transition-all shadow-[0_10px_40px_rgba(245,197,24,0.2)] text-center">
+                <Link href="/contact" className="px-10 py-5 bg-[#f5c518] text-black font-semibold text-[10px] uppercase tracking-[0.3em] rounded-sm hover:bg-white hover:text-black transition-all shadow-[0_10px_40px_rgba(245,197,24,0.2)] text-center">
                   Talk to Team
                 </Link>
-                <Link to="/investors" className="px-10 py-5 border border-white/10 bg-white/5 backdrop-blur-md font-semibold text-[10px] uppercase tracking-[0.3em] rounded-sm hover:bg-white/10 transition-all text-center">
+                <Link href="/investors" className="px-10 py-5 border border-white/10 bg-white/5 backdrop-blur-md font-semibold text-[10px] uppercase tracking-[0.3em] rounded-sm hover:bg-white/10 transition-all text-center">
                   Investor Info
                 </Link>
               </div>
@@ -144,7 +149,7 @@ const DataCenter = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-7 w-full h-[250px] sm:h-[350px] lg:h-[550px]"
+              className="lg:col-span-7 w-full h-[320px] sm:h-[420px] lg:h-[550px] xl:h-[620px]"
             >
               <DataCenterHeroScene />
             </motion.div>
@@ -202,7 +207,7 @@ const DataCenter = () => {
             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl mb-8">
               <span className="w-8 h-[2px] bg-[#f5c518] shrink-0" />
               <span className="w-1.5 h-[2px] bg-white/20 shrink-0" />
-              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/80">01 / Facility Architecture</span>
+              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/80">Facility Architecture</span>
             </div>
             <h2 className="text-[clamp(2.5rem,6vw,6rem)] font-semibold leading-[0.9] tracking-tighter uppercase text-white mb-8">
               BUILT FOR AI, <br />
@@ -284,10 +289,10 @@ const DataCenter = () => {
       <section className="bg-[#f7f7f5] py-16 px-6 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col items-center text-center mb-20">
-            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-black/10 bg-black/5 backdrop-blur-xl mb-8">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-gray-100 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-shadow duration-500 cursor-default mb-8">
               <span className="w-8 h-[2px] bg-[#f5c518] shrink-0" />
               <span className="w-1.5 h-[2px] bg-black/20 shrink-0" />
-              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-black/80">02 / Technical Specification</span>
+              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-black">Technical Specification</span>
             </div>
             <h2 className="text-[clamp(2.5rem,6vw,6rem)] font-semibold leading-[0.9] tracking-tighter uppercase text-black mb-8">
               FULL-STACK FACILITY <br />

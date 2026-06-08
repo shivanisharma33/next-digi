@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -61,11 +63,10 @@ const HowWeWork = () => {
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-4 bg-[#e5e5e5] rounded-full px-5 py-1.5 shadow-sm border border-black/5 mb-10"
+            className="inline-flex items-center gap-3 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100 rounded-full px-6 py-2.5 hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-shadow duration-500 cursor-default mb-10"
           >
-            <span className="text-[9px] font-semibold tracking-widest text-black/60">05 /</span>
-            <div className="h-[1px] w-12 bg-[#f5c518]" />
-            <span className="text-[9px] font-semibold tracking-[0.2em] text-black/80 uppercase">HOW WE WORK</span>
+            <div className="h-[2px] w-12 bg-[#f5c518] rounded-full" />
+            <span className="text-[9px] font-semibold tracking-[0.2em] text-black uppercase">HOW WE WORK</span>
           </motion.div>
 
           <motion.h2
@@ -102,6 +103,7 @@ const HowWeWork = () => {
             />
           ))}
         </div>
+
 
       </div>
     </section>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import {
@@ -16,9 +18,11 @@ import {
   CheckCircle2,
   Sparkles,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { CTASection } from './Footer';
-import PartnershipHeroVisual3D from './PartnershipHeroVisual3D';
+import dynamic from 'next/dynamic';
+
+const PartnershipHeroVisual3D = dynamic(() => import('./PartnershipHeroVisual3D'), { ssr: false });
 
 /* ──────────────────────── helpers ──────────────────────── */
 
@@ -123,16 +127,14 @@ const Partnership = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-12 relative z-10">
-              <Link
-                to="/contact"
+              <Link href="/contact"
                 className="w-full sm:w-auto btn-global btn-primary group"
               >
                 <span className="font-bold">Partner With Us</span>
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link
-                to="/about"
-                className="border border-white/10 bg-white/[0.03] text-white px-10 py-4 font-semibold text-[12px] uppercase tracking-[0.2em] rounded hover:bg-white/10 transition-all backdrop-blur-sm text-center w-full sm:w-auto"
+              <Link href="/about"
+                className="border border-brand-yellow bg-white/[0.03] text-white px-10 py-4 font-semibold text-[12px] uppercase tracking-[0.2em] rounded hover:bg-brand-yellow/10 transition-all backdrop-blur-sm text-center w-full sm:w-auto"
               >
                 Learn About Us
               </Link>
@@ -282,8 +284,7 @@ const Partnership = () => {
             </p>
 
             <div className="flex justify-center mt-12 relative z-10">
-              <Link
-                to="/contact"
+              <Link href="/contact"
                 className="btn-global btn-primary group"
               >
                 <span>Become a Partner</span>

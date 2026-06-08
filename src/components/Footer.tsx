@@ -1,58 +1,35 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import logoImg from '../assets/Digi new color logo.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#050505] pt-10 pb-8 px-4 md:px-8 border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-[#050505] pt-6 pb-8 px-4 md:px-8 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-[1800px] mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-24 mb-24">
 
           {/* Brand Column */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <div className="mb-8">
-                <img src={logoImg} alt="DigiPowerX Logo" className="h-20 md:h-16 w-auto brightness-0 invert opacity-90" />
+              <div className="mb-1 ml-[-12px] md:ml-[-9px] -mt-3 md:-mt-5">
+                <img src={logoImg.src || logoImg} alt="DigiPowerX Logo" className="h-24 md:h-18 w-auto brightness-0 invert opacity-90 relative -top-[8px]" />
               </div>
 
               <p className="text-white/50 text-[15px] leading-relaxed mb-8 max-w-sm">
                 DigiPowerX is an innovative energy infrastructure company that develops cutting-edge data centers to drive the expansion of sustainable energy assets.
               </p>
 
-              <div className="mb-10">
+              <div className="flex flex-col gap-4 mb-10">
                 <a href="mailto:ir@digipowerx.com" className="text-white hover:text-[#f5c518] font-medium text-[15px] transition-colors flex items-center gap-3">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#f5c518]"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                   ir@digipowerx.com
                 </a>
-              </div>
-
-              <div className="flex gap-4">
-                {/* Social Icons */}
-                <a href="https://x.com/DigipowerX" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                  </svg>
-                </a>
-                <a href="https://www.linkedin.com/company/digi-power-x/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                  </svg>
-                </a>
-                <a href="https://www.facebook.com/DigiPowerX/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                </a>
-                <a href="https://www.instagram.com/digipowerx/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                  </svg>
-                </a>
-                <a href="https://www.youtube.com/@DigiPowerX" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                  </svg>
+                <a href="tel:8884749222" className="text-white hover:text-[#f5c518] font-medium text-[15px] transition-colors flex items-center gap-3">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#f5c518]"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16v.92z"></path></svg>
+                  888-474-9222
                 </a>
               </div>
             </div>
@@ -63,10 +40,10 @@ const Footer = () => {
             <div>
               <h4 className="text-[11px] font-bold tracking-[0.1em] uppercase text-white mb-6">Company</h4>
               <ul className="space-y-3 text-[14px] font-medium text-white/50">
-                <li><Link to="/" className="hover:text-[#f5c518] transition-colors">Home</Link></li>
-                <li><Link to="/investors" className="hover:text-[#f5c518] transition-colors">Investor Relations</Link></li>
-                <li><Link to="/press-release" className="hover:text-[#f5c518] transition-colors">Press Release</Link></li>
-                <li><Link to="/careers" className="hover:text-[#f5c518] transition-colors">Career</Link></li>
+                <li><Link href="/" className="hover:text-[#f5c518] transition-colors">Home</Link></li>
+                <li><Link href="/investors" className="hover:text-[#f5c518] transition-colors">Investor Relations</Link></li>
+                <li><Link href="/press-releases" className="hover:text-[#f5c518] transition-colors">Press Release</Link></li>
+                <li><Link href="/careers" className="hover:text-[#f5c518] transition-colors">Career</Link></li>
 
               </ul>
             </div>
@@ -74,42 +51,75 @@ const Footer = () => {
             <div>
               <h4 className="text-[11px] font-bold tracking-[0.1em] uppercase text-white mb-6">Financials</h4>
               <ul className="space-y-3 text-[14px] font-medium text-white/50">
-                <li><Link to="/investors" className="hover:text-[#f5c518] transition-colors">Stock Information</Link></li>
-                <li><Link to="/sec-filings" className="hover:text-[#f5c518] transition-colors">SEC Filings</Link></li>
+                <li><Link href="/investors" className="hover:text-[#f5c518] transition-colors">Stock Information</Link></li>
+                <li><Link href="/sec-filings" className="hover:text-[#f5c518] transition-colors">SEC Filings</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-[11px] font-bold tracking-[0.1em] uppercase text-white mb-6">Governance</h4>
               <ul className="space-y-3 text-[14px] font-medium text-white/50">
-                <li><Link to="/documents-charters" className="hover:text-[#f5c518] transition-colors">Documents & Charters</Link></li>
-                <li><Link to="/leadership" className="hover:text-[#f5c518] transition-colors">Leadership & Committees</Link></li>
+                <li><Link href="/documents-charters" className="hover:text-[#f5c518] transition-colors">Documents & Charters</Link></li>
+                <li><Link href="/leadership" className="hover:text-[#f5c518] transition-colors">Leadership & Committees</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-[11px] font-bold tracking-[0.1em] uppercase text-white mb-6">IR Resources</h4>
               <ul className="space-y-3 text-[14px] font-medium text-white/50">
-                <li><Link to="/email-alerts" className="hover:text-[#f5c518] transition-colors">Email Alerts</Link></li>
-                <li><Link to="/contact" className="hover:text-[#f5c518] transition-colors">Contact Us</Link></li>
+                <li><Link href="/email-alerts" className="hover:text-[#f5c518] transition-colors">Email Alerts</Link></li>
+                <li><Link href="/contact" className="hover:text-[#f5c518] transition-colors">Contact Us</Link></li>
               </ul>
             </div>
           </div>
         </div>
 
         {/* Footer Bottom Line */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-6">
+        <div className="pt-8 border-t border-white/10 flex flex-col lg:flex-row justify-between items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
             <span className="text-[13px] font-medium text-white/40">© {new Date().getFullYear()} DigiPowerX</span>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-[#00e878] rounded-full animate-pulse shadow-[0_0_8px_rgba(0,232,120,0.8)]" />
               <span className="text-[13px] font-medium text-white/40">All Systems Operational</span>
             </div>
+            <div className="flex items-center gap-2 text-white/40">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#f5c518]"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span className="text-[13px] font-medium text-white/40">Miami, Florida, USA</span>
+            </div>
+          </div>
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-4">
+            <a href="https://x.com/DigipowerX" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/company/digi-power-x/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/DigiPowerX/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/digipowerx/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/@DigiPowerX" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            </a>
           </div>
 
           <div className="text-[13px] font-medium text-white/40 flex flex-wrap items-center justify-center gap-6">
-            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>
             <a href="https://trust.digipowerx.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Trust Center</a>
           </div>
         </div>
@@ -409,7 +419,7 @@ const CTASection = () => {
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
-                    to="/contact"
+                    href="/contact"
                     className="btn-global btn-primary"
                   >
                     <span>Talk to Our Team</span>
@@ -418,7 +428,7 @@ const CTASection = () => {
                     </svg>
                   </Link>
                   <Link
-                    to="/documents-charters"
+                    href="/documents-charters"
                     className="btn-global btn-secondary"
                   >
                     <span>Capability Deck</span>

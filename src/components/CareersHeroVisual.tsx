@@ -1,6 +1,8 @@
+"use client";
+
 import { useEffect, useRef } from 'react';
 
-/* ─── Careers Hero Visual ─── 
+/* â”€â”€â”€ Careers Hero Visual â”€â”€â”€ 
    A constellation talent-network animation:
    - Glowing nodes that pulse and breathe
    - Dynamic connection lines between nearby nodes
@@ -118,7 +120,7 @@ export default function CareersHeroVisual() {
       const mouseInside = mouse.x >= rect.left && mouse.x <= rect.right &&
                           mouse.y >= rect.top && mouse.y <= rect.bottom;
 
-      // ─── Update nodes ───
+      // â”€â”€â”€ Update nodes â”€â”€â”€
       for (const node of nodes) {
         // Gentle drift
         node.x += node.vx;
@@ -163,7 +165,7 @@ export default function CareersHeroVisual() {
         node.pulsePhase += node.pulseSpeed;
       }
 
-      // ─── Draw connection lines ───
+      // â”€â”€â”€ Draw connection lines â”€â”€â”€
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
@@ -193,7 +195,7 @@ export default function CareersHeroVisual() {
         }
       }
 
-      // ─── Draw mouse connection lines to nearby nodes ───
+      // â”€â”€â”€ Draw mouse connection lines to nearby nodes â”€â”€â”€
       if (mouseInside) {
         for (const node of nodes) {
           const dist = Math.hypot(mx - node.x, my - node.y);
@@ -209,9 +211,9 @@ export default function CareersHeroVisual() {
         }
       }
 
-      // ─── Draw nodes ───
+      // â”€â”€â”€ Draw nodes â”€â”€â”€
       for (const node of nodes) {
-        const pulse = Math.sin(node.pulsePhase) * 0.5 + 0.5; // 0→1
+        const pulse = Math.sin(node.pulsePhase) * 0.5 + 0.5; // 0â†’1
         const currentRadius = node.radius * (1 + pulse * 0.5);
         const col = node.isGold ? GOLD : WHITE;
         const alpha = node.brightness * (0.6 + pulse * 0.4);
@@ -240,7 +242,7 @@ export default function CareersHeroVisual() {
         ctx.fill();
       }
 
-      // ─── Update & draw sparks ───
+      // â”€â”€â”€ Update & draw sparks â”€â”€â”€
       for (let i = 0; i < sparks.length; i++) {
         const s = sparks[i];
         s.x += s.vx;
@@ -284,7 +286,7 @@ export default function CareersHeroVisual() {
         }
       }
 
-      // ─── Mouse cursor glow ───
+      // â”€â”€â”€ Mouse cursor glow â”€â”€â”€
       if (mouseInside) {
         const cursorGlow = ctx.createRadialGradient(mx, my, 0, mx, my, 80);
         cursorGlow.addColorStop(0, `rgba(${GOLD.r},${GOLD.g},${GOLD.b},0.06)`);

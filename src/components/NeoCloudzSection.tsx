@@ -1,7 +1,14 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import NeoCloudzClusterCanvas from './NeoCloudzClusterCanvas';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const NeoCloudzClusterCanvas = dynamic(() => import('./NeoCloudzClusterCanvas'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-black/40 rounded-lg animate-pulse" />,
+});
 
 const Terminal = () => {
   const [lines, setLines] = useState<string[]>([]);
@@ -92,7 +99,6 @@ const NeoCloudzSection = () => {
             className="mb-10"
           >
             <div className="inline-flex items-center gap-5 bg-transparent border border-white/20 rounded-full px-6 py-2 hover:border-[#00e878]/40 transition-colors duration-500">
-              <span className="text-[10px] font-bold tracking-widest text-white/80">04 /</span>
               <div className="h-[1px] w-12 bg-[#00e878]/60" />
               <span className="text-[10px] font-bold tracking-[0.2em] text-[#00e878] uppercase">WHOLLY OWNED SUBSIDIARY</span>
             </div>
@@ -153,7 +159,7 @@ const NeoCloudzSection = () => {
               <a href="https://www.neocloudz.com/" target="_blank" rel="noopener noreferrer" className="bg-[#00e878] text-[#050505] px-8 py-3.5 rounded-lg font-semibold text-[13px] uppercase tracking-widest hover:bg-[#00e878]/90 hover:shadow-[0_0_20px_rgba(0,232,120,0.3)] transition-all w-full sm:w-auto text-center inline-flex items-center justify-center">
                 VISIT NEOCLOUDZ
               </a>
-              <Link to="/contact" className="bg-transparent border border-white/20 text-white px-8 py-3.5 rounded-lg font-bold text-[14px] hover:bg-white/5 transition-all w-full sm:w-auto text-center">
+              <Link href="/contact" className="bg-transparent border border-brand-yellow text-white px-8 py-3.5 rounded-lg font-bold text-[14px] hover:bg-brand-yellow/10 transition-all w-full sm:w-auto text-center">
                 Talk to Sales
               </Link>
             </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 
 const HeroBackground = () => {
@@ -64,7 +66,7 @@ const HeroBackground = () => {
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, W, H);
 
-      // Rack rows — two parallel lines of GPU racks receding
+      // Rack rows â€” two parallel lines of GPU racks receding
       const rackCount = 14;
       for (let side = 0; side < 2; side++) {
         const sideOffset = side === 0 ? -1 : 1;

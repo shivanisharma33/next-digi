@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -114,7 +116,7 @@ const LiquidCooling3D = () => {
         opacity: 1.0 * opacity
       });
 
-      // ── Outer Cabinet ──
+      // â”€â”€ Outer Cabinet â”€â”€
       // Top and Bottom Caps (Charcoal)
       const capGeo = new THREE.BoxGeometry(cfg.width, 0.15, cfg.depth);
 
@@ -143,7 +145,7 @@ const LiquidCooling3D = () => {
       backPanel.position.z = -cfg.depth / 2 + 0.01;
       rack.add(backPanel);
 
-      // ── Glass Front Door ──
+      // â”€â”€ Glass Front Door â”€â”€
       const doorGeo = new THREE.BoxGeometry(cfg.width - 0.08, cfg.height, 0.02);
       const door = new THREE.Mesh(doorGeo, matGlass);
       door.position.set(0, 0, cfg.depth / 2 + 0.01);
@@ -155,7 +157,7 @@ const LiquidCooling3D = () => {
       handle.position.set(cfg.width / 2 - 0.09, 0, cfg.depth / 2 + 0.02);
       rack.add(handle);
 
-      // ── Server Units/Blades ──
+      // â”€â”€ Server Units/Blades â”€â”€
       const bladeCount = cfg.isCenter ? 14 : 11;
       const bladeHeight = (cfg.height - 0.2) / bladeCount;
 
@@ -281,7 +283,7 @@ const LiquidCooling3D = () => {
         }
       }
 
-      // ── Integrated Inner Liquid Coolant Pipes (Liquid Cooled Accent) ──
+      // â”€â”€ Integrated Inner Liquid Coolant Pipes (Liquid Cooled Accent) â”€â”€
       const matPipes = new THREE.MeshStandardMaterial({
         color: 0x33333b,
         metalness: 0.8,
@@ -312,7 +314,7 @@ const LiquidCooling3D = () => {
 
 
 
-    // ── Liquid Coolant Flow Particles ──
+    // â”€â”€ Liquid Coolant Flow Particles â”€â”€
     const flowCount = 45;
     const flowParticles: { mesh: THREE.Mesh; progress: number; speed: number; rackIndex: number; isCold: boolean }[] = [];
 
@@ -417,7 +419,7 @@ const LiquidCooling3D = () => {
     };
     window.addEventListener('resize', onResize);
 
-    // ── Animation Loop ──
+    // â”€â”€ Animation Loop â”€â”€
     const animate = () => {
       const frameId = requestAnimationFrame(animate);
 

@@ -1,5 +1,8 @@
+"use client";
+
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from 'next/link';
+import Image from 'next/image';
 import {
   motion,
   useMotionValueEvent,
@@ -20,6 +23,8 @@ interface Layer {
   cta: string;
   href: string;
   src: string;
+  width: number;
+  height: number;
   alt: string;
   topPct: number;
   widthPct: number;
@@ -44,7 +49,9 @@ const LAYERS: Layer[] = [
     ],
     cta: "Explore NeoCloudz",
     href: "https://www.neocloudz.com/",
-    src: "/layers/1.svg",
+    src: "/layers/layer-1.png",
+    width: 2390,
+    height: 1760,
     alt: "Stylized cloud shapes representing the NeoCloudz GPU compute platform.",
     topPct: 0,
     widthPct: 58,
@@ -67,7 +74,9 @@ const LAYERS: Layer[] = [
     ],
     cta: "Explore liquid cooling",
     href: "/data-centers",
-    src: "/layers/2.svg",
+    src: "/layers/layer-2.png",
+    width: 2682,
+    height: 1600,
     alt: "Isometric grid of GPU server racks with liquid-cooled cold plates.",
     topPct: 14,
     widthPct: 100,
@@ -90,7 +99,9 @@ const LAYERS: Layer[] = [
     ],
     cta: "Explore US Data Centers",
     href: "/data-centers",
-    src: "/layers/3.svg",
+    src: "/layers/layer-3.png",
+    width: 2682,
+    height: 1600,
     alt: "Modular data center campus with figures and storage elements on the platform.",
     topPct: 32,
     widthPct: 100,
@@ -113,7 +124,9 @@ const LAYERS: Layer[] = [
     ],
     cta: "Explore owned power",
     href: "/energy",
-    src: "/layers/4.svg",
+    src: "/layers/layer-4.png",
+    width: 2378,
+    height: 1760,
     alt: "Solar arrays, wind turbines and substations powering the infrastructure.",
     topPct: 45,
     widthPct: 100,
@@ -324,11 +337,14 @@ const LayeredInfrastructure = () => {
                           transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
                         }}
                       >
-                        <img
+                        <Image
                           src={layer.src}
                           alt={layer.alt}
-                          loading="lazy"
-                          className="pointer-events-none block w-full select-none"
+                          width={layer.width}
+                          height={layer.height}
+                          {...(layer.id === 1 ? { priority: true } : { loading: "lazy" })}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1000px"
+                          className="pointer-events-none block w-full h-auto select-none"
                         />
                       </button>
                     );
@@ -498,8 +514,7 @@ const LayeredInfrastructure = () => {
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    to={activeLayer.href}
+                  <Link href={activeLayer.href}
                     className="group relative mt-6 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-wide"
                   >
                     <span className="relative pb-1">
@@ -558,8 +573,7 @@ const LayeredInfrastructure = () => {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  to={activeLayer.href}
+                <Link href={activeLayer.href}
                   className="mt-5 inline-flex items-center gap-3 border-b border-[#181717] pb-1 font-mono text-xs uppercase tracking-wide"
                 >
                   {activeLayer.cta}

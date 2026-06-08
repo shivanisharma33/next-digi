@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 
 interface FiberBeam {
@@ -52,7 +54,7 @@ export default function FuturisticDataRain() {
     const PARTICLES: CyberParticle[] = [];
     const STREAMS: HexStream[] = [];
 
-    const hexChars = '0123456789ABCDEFØX#[]_'.split('');
+    const hexChars = '0123456789ABCDEFÃ˜X#[]_'.split('');
 
     const initScene = () => {
       BEAMS.length = 0;

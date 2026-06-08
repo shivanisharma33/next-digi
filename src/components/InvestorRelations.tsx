@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from 'next/link';
+import { generateSlug } from "../utils/slugify";
 import {
   TrendingUp,
   FileText,
@@ -23,9 +26,11 @@ import {
   AreaChart,
 } from "recharts";
 import StockPriceCard from './StockPriceCard';
-import InvestorHeroVisual3D from './InvestorHeroVisual3D';
-import CubeGridNetwork3D from "./CubeGridNetwork3D";
-import InvestorPulseGraph from './InvestorPulseGraph';
+import dynamic from 'next/dynamic';
+
+const InvestorHeroVisual3D = dynamic(() => import('./InvestorHeroVisual3D'), { ssr: false });
+const CubeGridNetwork3D = dynamic(() => import('./CubeGridNetwork3D'), { ssr: false });
+const InvestorPulseGraph = dynamic(() => import('./InvestorPulseGraph'), { ssr: false });
 
 interface StockDataPoint {
   date: string;
@@ -62,7 +67,7 @@ interface StockData {
 }
 
 const ResourceCard = ({ title, desc, icon: Icon, to }: { title: string; desc: string; icon: any; to: string }) => (
-  <Link to={to} className="group relative bg-[#0a0a0a] border border-white/5 p-8 rounded-[2rem] overflow-hidden hover:border-[#ffc629]/30 transition-all duration-500 block text-center sm:text-left flex flex-col items-center sm:items-start">
+  <Link href={to} className="group relative bg-[#0a0a0a] border border-white/5 p-8 rounded-[2rem] overflow-hidden hover:border-[#ffc629]/30 transition-all duration-500 block text-center sm:text-left flex flex-col items-center sm:items-start">
     <div className="relative z-10 w-full">
       <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 group-hover:text-[#ffc629] group-hover:bg-[#ffc629]/10 transition-all mx-auto sm:mx-0 mb-6">
         <Icon size={24} />
@@ -76,6 +81,19 @@ const ResourceCard = ({ title, desc, icon: Icon, to }: { title: string; desc: st
   </Link>
 );
 
+const formatDate = (isoString: string) => {
+  try {
+    const d = new Date(isoString + "T00:00:00");
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  } catch (e) {
+    return isoString;
+  }
+};
+
 const InvestorRelations = () => {
   const [activeRange, setActiveRange] = useState<"1D" | "1W" | "1M" | "3M" | "6M" | "ALL">("1M");
   const [liveStockData, setLiveStockData] = useState<StockData | null>(null);
@@ -86,12 +104,33 @@ const InvestorRelations = () => {
   const [cachedData, setCachedData] = useState<Record<string, StockDataPoint[]>>({});
   const cachedDataRef = useRef<Record<string, StockDataPoint[]>>({});
 
-  const news = [
-    { date: "May 15, 2026", title: "Digi Power X Reports First Quarter 2026 Financial Results" },
-    { date: "May 11, 2026", title: "Digi Power X to Announce 2026 Q1 Financial Results and Provide Operations Update" },
-    { date: "May 08, 2026", title: "Digi Power X Announces Upsizing of At-the-Market Offering Program" },
-    { date: "Apr 25, 2026", title: "New AI Infrastructure Site Reaches Full 60MW Operational Capacity" }
-  ];
+  const [pressReleases, setPressReleases] = useState<any[]>([]);
+  const [isLoadingReleases, setIsLoadingReleases] = useState(true);
+  const [releasesError, setReleasesError] = useState<string | null>(null);
+
+  // Fetch 4 Latest Press Releases
+  useEffect(() => {
+    const fetchLatestReleases = async () => {
+      try {
+        setIsLoadingReleases(true);
+        setReleasesError(null);
+        const url = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/press-releases?populate[pdf_file][fields]=url,name&fields=title,date,content&sort[0]=date:desc&pagination[page]=1&pagination[pageSize]=4";
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`API returned status ${res.status}`);
+        }
+        const json = await res.json();
+        setPressReleases(json.data || []);
+      } catch (err: any) {
+        console.error("Error fetching press releases:", err);
+        setReleasesError(err.message || "Failed to load press releases");
+      } finally {
+        setIsLoadingReleases(false);
+      }
+    };
+
+    fetchLatestReleases();
+  }, []);
 
   // Fetch Live Stock Data using Client-side direct fetching
   useEffect(() => {
@@ -100,9 +139,9 @@ const InvestorRelations = () => {
         setIsLoadingStock(true);
         setStockError(null);
 
-        const apiKey = import.meta.env.VITE_MASSIVE_API_KEY;
+        const apiKey = process.env.NEXT_PUBLIC_MASSIVE_API_KEY;
         if (!apiKey) {
-          throw new Error('API Key missing in .env (VITE_MASSIVE_API_KEY)');
+          throw new Error('API Key missing in .env.local (NEXT_PUBLIC_MASSIVE_API_KEY)');
         }
 
         const symbol = 'DGXX';
@@ -249,7 +288,7 @@ const InvestorRelations = () => {
 
         const batchSize = 10;
         const results: (unknown | null)[] = [];
-        const apiKey = import.meta.env.VITE_MASSIVE_API_KEY;
+        const apiKey = process.env.NEXT_PUBLIC_MASSIVE_API_KEY;
         const symbol = 'DGXX';
 
         for (let i = 0; i < dates.length; i += batchSize) {
@@ -421,7 +460,7 @@ const InvestorRelations = () => {
               className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-12"
             >
               <a
-                href="/images/DigiPowerX April 2026 (1).pdf"
+                href=""
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 bg-[#ffc629] px-7 py-4 rounded-xl text-black text-[11px] font-black uppercase tracking-[0.2em] hover:bg-white transition-all shadow-[0_0_40px_rgba(255,198,41,0.25)] hover:shadow-[0_0_50px_rgba(255,198,41,0.4)]"
@@ -429,8 +468,7 @@ const InvestorRelations = () => {
                 Latest Presentation
                 <Download size={14} className="group-hover:translate-y-0.5 transition-transform" />
               </a>
-              <Link
-                to="/sec-filings"
+              <Link href="/sec-filings"
                 className="group inline-flex items-center gap-3 bg-white/[0.03] border border-white/10 px-7 py-4 rounded-xl text-white text-[11px] font-black uppercase tracking-[0.2em] hover:bg-white/[0.06] hover:border-white/20 transition-all backdrop-blur-sm"
               >
                 SEC Filings
@@ -530,25 +568,80 @@ const InvestorRelations = () => {
 
             {/* Price & News Sidebar */}
             <div className="space-y-6">
-              <Link to="/investors" className="block">
+              <Link href="/investors" className="block">
       <StockPriceCard liveStockData={liveStockData} isLoadingStock={isLoadingStock} stockError={stockError} />
     </Link>
 
               <div className="bg-[#080808] border border-white/5 rounded-[2.5rem] p-8">
                 <h3 className="text-xs font-black uppercase tracking-widest text-white/30 mb-6 pb-3 border-b border-white/5 text-center lg:text-left">Latest Press Releases</h3>
-                <div className="space-y-6">
-                  {news.map((item, idx) => (
-                    <Link to="/press-release" key={idx} className="group cursor-pointer block text-center lg:text-left">
-                      <div className="text-[9px] font-bold text-[#ffc629] mb-1">{item.date}</div>
-                      <div className="text-sm font-semibold text-white group-hover:text-[#ffc629] transition-colors line-clamp-2 leading-snug">{item.title}</div>
-                      <div className="mt-2 text-[9px] font-bold uppercase tracking-widest text-white/20 flex items-center justify-center lg:justify-start gap-1 group-hover:text-white transition-colors">
-                        Read More <ArrowUpRight size={10} />
+                
+                {isLoadingReleases ? (
+                  <div className="space-y-6 animate-pulse">
+                    {[...Array(4)].map((_, idx) => (
+                      <div key={idx} className="block text-center lg:text-left space-y-2">
+                        <div className="h-2 w-16 bg-white/5 rounded mx-auto lg:mx-0"></div>
+                        <div className="h-4 w-full bg-white/5 rounded"></div>
+                        <div className="h-4 w-3/4 bg-white/5 rounded mx-auto lg:mx-0"></div>
+                        <div className="h-2.5 w-14 bg-white/5 rounded mx-auto lg:mx-0"></div>
                       </div>
-                    </Link>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : releasesError ? (
+                  <div className="text-center py-6 text-white/30 text-xs">
+                    <p className="mb-2">Failed to load announcements</p>
+                    <button 
+                      onClick={() => {
+                        setPressReleases([]);
+                        setReleasesError(null);
+                        setIsLoadingReleases(true);
+                        const fetchLatestReleases = async () => {
+                          try {
+                            const url = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/press-releases?populate[pdf_file][fields]=url,name&fields=title,date,content&sort[0]=date:desc&pagination[page]=1&pagination[pageSize]=4";
+                            const res = await fetch(url);
+                            if (!res.ok) throw new Error();
+                            const json = await res.json();
+                            setPressReleases(json.data || []);
+                          } catch {
+                            setReleasesError("Failed to load press releases");
+                          } finally {
+                            setIsLoadingReleases(false);
+                          }
+                        };
+                        fetchLatestReleases();
+                      }}
+                      className="px-3 py-1 bg-white/5 border border-white/10 hover:border-[#ffc629]/40 rounded text-[9px] uppercase tracking-wider text-[#ffc629] transition-colors"
+                    >
+                      Retry
+                    </button>
+                  </div>
+                ) : pressReleases.length === 0 ? (
+                  <div className="text-center py-6 text-white/30 text-xs">
+                    No press releases found.
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    {pressReleases.map((item, idx) => {
+                      const dateStr = formatDate(item.date);
+                      const slug = generateSlug(item.title, item.documentId);
+                      
+                      return (
+                        <Link href={`/press-releases/${slug}`}
+                          key={item.documentId || idx}
+                          className="group cursor-pointer block text-center lg:text-left"
+                        >
+                          <div className="text-[9px] font-bold text-[#ffc629] mb-1">{dateStr}</div>
+                          <div className="text-sm font-semibold text-white group-hover:text-[#ffc629] transition-colors line-clamp-2 leading-snug">{item.title}</div>
+                          <div className="mt-2 text-[9px] font-bold uppercase tracking-widest text-white/20 flex items-center justify-center lg:justify-start gap-1 group-hover:text-white transition-colors">
+                            Read More <ArrowUpRight size={10} />
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+                
                 <div className="mt-8 pt-6 border-t border-white/5 text-center">
-                  <Link to="/press-release" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 hover:text-white transition-colors flex items-center justify-center gap-2">
+                  <Link href="/press-releases" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 hover:text-white transition-colors flex items-center justify-center gap-2">
                     View All Announcements <ChevronRight size={14} />
                   </Link>
                 </div>
@@ -573,7 +666,7 @@ const InvestorRelations = () => {
             <ResourceCard title="SEC Filings" desc="Access financial statements, quarterly reports, and compliance documents." icon={FileText} to="/sec-filings" />
             <ResourceCard title="Events & Presentations" desc="View upcoming earnings webcasts and past investor presentations." icon={Calendar} to="/documents-charters" />
             <ResourceCard title="Stock Information" desc="Detailed historical performance and real-time market metrics." icon={TrendingUp} to="/investors" />
-            <ResourceCard title="Press Releases" desc="Latest news and official corporate announcements from DigiPowerX." icon={Newspaper} to="/press-release" />
+            <ResourceCard title="Press Releases" desc="Latest news and official corporate announcements from DigiPowerX." icon={Newspaper} to="/press-releases" />
             <ResourceCard title="Governance" desc="Information regarding our board of directors and corporate practices." icon={Shield} to="/leadership" />
             <ResourceCard title="Contact IR" desc="Get in touch with our dedicated Investor Relations support team." icon={Mail} to="/contact" />
           </div>

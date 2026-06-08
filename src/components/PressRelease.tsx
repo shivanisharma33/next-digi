@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,7 +15,9 @@ import {
   FileText,
 } from "lucide-react";
 import { CTASection } from "./Footer";
-import PressReleaseHeroVisual3D from "./PressReleaseHeroVisual3D";
+import DGXXPressReleaseVisual from "./DGXXPressReleaseVisual";
+import Link from 'next/link';
+import { generateSlug } from "../utils/slugify";
 
 /* ─── Strapi API base ─── */
 const STRAPI_BASE = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com";
@@ -76,7 +80,7 @@ function categorize(title: string): string {
   return "Announcement";
 }
 
-function getExcerpt(content: string, maxLen = 180): string {
+function getExcerpt(content: string, maxLen = 350): string {
   if (!content) return "";
   // Remove the first line if it's just a repeat of the title / location header
   const lines = content.split("\n").filter((l) => l.trim().length > 0);
@@ -88,6 +92,7 @@ function getExcerpt(content: string, maxLen = 180): string {
 
 /* ─── Card ─── */
 const PressReleaseCard = ({
+  documentId,
   date,
   title,
   category,
@@ -95,6 +100,7 @@ const PressReleaseCard = ({
   pdfUrl,
   delay,
 }: {
+  documentId: string;
   date: string;
   title: string;
   category: string;
@@ -110,6 +116,8 @@ const PressReleaseCard = ({
     const rect = cardRef.current.getBoundingClientRect();
     setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
+
+  const slug = generateSlug(title, documentId);
 
   return (
     <motion.div
@@ -167,47 +175,31 @@ const PressReleaseCard = ({
           </div>
         </div>
 
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-5 leading-[1.2] tracking-tight group-hover:text-white transition-colors">
-          {title}
-        </h3>
+        <Link href={`/press-releases/${slug}`}
+          className="block group/title text-white hover:text-[#ffc629] transition-colors"
+        >
+          <h3 className="text-xl md:text-2xl font-semibold text-current mb-5 leading-[1.2] tracking-tight transition-colors line-clamp-2">
+            {title}
+          </h3>
+        </Link>
 
         <p className="text-white/30 text-[13px] leading-relaxed mb-6 sm:mb-10 line-clamp-3 font-medium group-hover:text-white/50 transition-colors flex-1">
           {summary}
         </p>
 
         <div className="flex items-center justify-between pt-6 border-t border-white/5 gap-4">
-          {pdfUrl ? (
-            <a
-              href={pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-[#ffc629] transition-all group/btn"
-            >
-              <div className="relative w-8 h-8 rounded-full border border-white/10 flex items-center justify-center overflow-hidden transition-all group-hover/btn:border-[#ffc629]">
-                <motion.div className="absolute inset-0 bg-[#ffc629] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
-                <Download
-                  size={14}
-                  className="relative z-10 group-hover/btn:text-black transition-colors"
-                />
-              </div>
-              Download PDF
-            </a>
-          ) : (
-            <a
-              href="#"
-              onClick={(e) => e.preventDefault()}
-              className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-[#ffc629] transition-all group/btn"
-            >
-              <div className="relative w-8 h-8 rounded-full border border-white/10 flex items-center justify-center overflow-hidden transition-all group-hover/btn:border-[#ffc629]">
-                <motion.div className="absolute inset-0 bg-[#ffc629] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
-                <ArrowUpRight
-                  size={14}
-                  className="relative z-10 group-hover/btn:text-black transition-colors"
-                />
-              </div>
-              Read More
-            </a>
-          )}
+          <Link href={`/press-releases/${slug}`}
+            className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-[#ffc629] transition-all group/btn"
+          >
+            <div className="relative w-8 h-8 rounded-full border border-white/10 flex items-center justify-center overflow-hidden transition-all group-hover/btn:border-[#ffc629]">
+              <motion.div className="absolute inset-0 bg-[#ffc629] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+              <FileText
+                size={14}
+                className="relative z-10 group-hover/btn:text-black transition-colors"
+              />
+            </div>
+            View Release
+          </Link>
         </div>
       </div>
     </motion.div>
@@ -306,8 +298,8 @@ const PressRelease = () => {
       {/* ═══════════════════════════════════════════ */}
       {/* HERO SECTION */}
       {/* ═══════════════════════════════════════════ */}
-      <section className="relative min-h-0 lg:min-h-[70vh] overflow-hidden bg-[#050505] flex items-center pt-32 pb-8 lg:pt-15 lg:pb-16 px-4 sm:px-6">
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-0">
+      <section className="relative min-h-0 lg:min-h-[70vh] overflow-hidden bg-[#050505] flex items-center pt-32 pb-8 lg:pt-36 lg:pb-16 px-4 sm:px-6">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-0 px-4">
           {/* LEFT: Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -329,12 +321,12 @@ const PressRelease = () => {
               transition={{ duration: 1, ease: "easeOut" }}
               className="flex flex-col items-center lg:items-start w-full"
             >
-              <h1 className="leading-[1.1] tracking-[-0.04em] mb-10 text-center lg:text-left">
-                <span className="block text-[clamp(40px,7vw,100px)] font-semibold text-white">
-                  Official Press
+              <h1 className="text-[clamp(2.5rem,5.5vw,5rem)] font-semibold leading-[1.05] tracking-tighter uppercase mb-6 text-center lg:text-left">
+                <span className="block text-white mb-2">
+                  Official
                 </span>
-                <span className="block text-[clamp(40px,7vw,100px)] font-semibold text-[#ffc629]">
-                  Release Archive
+                <span className="block text-[#ffc629]">
+                  Press Release
                 </span>
               </h1>
 
@@ -358,14 +350,14 @@ const PressRelease = () => {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: 3D Animation */}
+          {/* RIGHT: Glass-stack animation */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full h-[320px] sm:h-[380px] lg:h-[550px] lg:min-h-[750px] relative -mt-6 md:-mt-16 lg:-mt-20 overflow-hidden"
+            className="w-full h-[320px] sm:h-[380px] lg:h-[500px] lg:min-h-[600px] relative -mt-6 md:-mt-16 lg:-mt-4 overflow-hidden"
           >
-            <PressReleaseHeroVisual3D />
+            <DGXXPressReleaseVisual />
           </motion.div>
         </div>
       </section>
@@ -418,6 +410,7 @@ const PressRelease = () => {
                 {releases.map((release, index) => (
                   <PressReleaseCard
                     key={release.documentId}
+                    documentId={release.documentId}
                     date={formatDate(release.date)}
                     title={release.title}
                     category={categorize(release.title)}

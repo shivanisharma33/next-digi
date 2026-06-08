@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import Image from 'next/image';
 import {
   Shield,
   Users,
@@ -10,8 +13,10 @@ import {
   X,
   Mail
 } from 'lucide-react';
-import LeadershipHeroVisual3D from './LeadershipHeroVisual3D';
+import dynamic from 'next/dynamic';
 import { CTASection } from './Footer';
+
+const LeadershipHeroVisual3D = dynamic(() => import('./LeadershipHeroVisual3D'), { ssr: false });
 
 // Leadership Portraits from public/images
 const Leadership = () => {
@@ -176,10 +181,13 @@ const Leadership = () => {
                 className="group cursor-pointer"
               >
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-8 border border-white/10">
-                  <img
+                  <Image
                     src={exec.img}
                     alt={exec.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                    fill
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
@@ -246,10 +254,13 @@ const Leadership = () => {
                     <div className="flex items-center gap-6 w-full">
                       <div className={`w-16 h-16 rounded-full overflow-hidden border flex-shrink-0 bg-white/5 transition-all duration-500 ${isExpanded ? 'border-brand-yellow/40 ring-4 ring-brand-yellow/10' : 'border-white/10'
                         }`}>
-                        <img
+                        <Image
                           src={member.img}
                           alt={member.name}
-                          className={`w-full h-full object-cover transition-all duration-500 scale-[1.02] ${isExpanded ? 'grayscale-0' : 'grayscale group-hover:grayscale-0 group-hover:scale-110'
+                          fill
+                          loading="lazy"
+                          sizes="64px"
+                          className={`object-cover transition-all duration-500 scale-[1.02] ${isExpanded ? 'grayscale-0' : 'grayscale group-hover:grayscale-0 group-hover:scale-110'
                             }`}
                         />
                       </div>
@@ -280,7 +291,7 @@ const Leadership = () => {
                         >
                           <div className="pt-6 mt-6 border-t border-white/10 flex flex-col md:flex-row gap-6 items-start text-white/70">
                             <div className="w-24 h-24 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0 bg-white/5 self-center md:self-start shadow-xl">
-                              <img src={member.img} alt={member.name} className="w-full h-full object-cover scale-[1.02]" />
+                              <Image src={member.img} alt={member.name} fill loading="lazy" sizes="96px" className="object-cover scale-[1.02]" />
                             </div>
                             <div className="flex-1 space-y-4">
                               <p className="text-base font-medium leading-relaxed text-white/80">
@@ -294,7 +305,7 @@ const Leadership = () => {
                                   </svg>
                                   LinkedIn
                                 </a>
-                                <Link to="/contact" className="flex items-center gap-2 bg-white/5 border border-white/10 text-white px-5 py-2.5 rounded-xl font-semibold text-[10px] uppercase tracking-widest hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                                <Link href="/contact" className="flex items-center gap-2 bg-white/5 border border-white/10 text-white px-5 py-2.5 rounded-xl font-semibold text-[10px] uppercase tracking-widest hover:bg-white/10 hover:border-white/20 transition-all duration-300">
                                   <Mail size={12} className="text-white/60" />
                                   Contact
                                 </Link>
@@ -330,8 +341,8 @@ const Leadership = () => {
             </button>
 
             <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <img src={selectedLeader.img} alt={selectedLeader.name} className="w-full h-full object-cover" />
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                <Image src={selectedLeader.img} alt={selectedLeader.name} fill sizes="(max-width: 1024px) 100vw, 600px" className="object-cover" />
               </div>
               <div className="space-y-8">
                 <div>
@@ -349,7 +360,7 @@ const Leadership = () => {
                     </svg>
                     LinkedIn
                   </a>
-                  <Link to="/contact" className="flex items-center gap-3 bg-white/5 border border-white/10 text-white px-8 py-4 rounded-xl font-semibold text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
+                  <Link href="/contact" className="flex items-center gap-3 bg-white/5 border border-white/10 text-white px-8 py-4 rounded-xl font-semibold text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
                     <Mail size={18} />
                     Contact
                   </Link>

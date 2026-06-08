@@ -1,11 +1,19 @@
+"use client";
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Footer, CTASection } from './Footer';
 import { Zap, Shield, BatteryCharging, Activity, Server, Cpu } from 'lucide-react';
-import EnergyFlowDiagram from './EnergyFlowDiagram';
-import CubeGridNetwork3D from './CubeGridNetwork3D';
-import DGXXModularScale from './DGXXModularScale';
+import dynamic from 'next/dynamic';
+
+const DGXXModularScale = dynamic(() => import('./DGXXModularScale'), { ssr: false });
+const CubeGridNetwork3D = dynamic(() => import('./CubeGridNetwork3D'), { ssr: false });
+const EnergyFlowDiagram = dynamic(() => import('./EnergyFlowDiagram'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-black/40 rounded-lg animate-pulse" />,
+});
+
 
 const Infrastructure = () => {
   return (
@@ -62,7 +70,7 @@ const Infrastructure = () => {
             <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
               <div className="h-[2px] w-12 bg-gradient-to-r from-[#f5c518] to-transparent" />
               <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/40">
-                400MW+ Pipeline · Texarkana
+                400MW+ Pipeline
               </span>
             </div>
 
@@ -75,15 +83,15 @@ const Infrastructure = () => {
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:w-auto mb-8 lg:mb-0">
               <Link
-                to="/contact"
+                href="/contact"
                 className="group w-full sm:w-auto px-10 py-4 bg-[#f5c518] text-black text-center font-bold uppercase tracking-[0.2em] text-[10px] rounded-md transition-all hover:bg-[#ffd84d] hover:shadow-[0_0_40px_rgba(245,197,24,0.4)] active:scale-95 relative overflow-hidden"
               >
                 <span className="relative z-10">Inquire Capacity →</span>
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </Link>
               <Link
-                to="/about"
-                className="w-full sm:w-auto px-10 py-4 border border-white/10 text-white text-center font-bold uppercase tracking-[0.2em] text-[10px] rounded-md bg-white/5 backdrop-blur-md transition-all hover:bg-white/10 hover:border-[#f5c518]/30"
+                href="/about"
+                className="w-full sm:w-auto px-10 py-4 border border-brand-yellow text-white text-center font-bold uppercase tracking-[0.2em] text-[10px] rounded-md bg-white/5 backdrop-blur-md transition-all hover:bg-brand-yellow/10 hover:border-brand-yellow"
               >
                 Learn More
               </Link>
@@ -141,9 +149,9 @@ const Infrastructure = () => {
 
           {/* Top Badge */}
           <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center px-6 py-2.5 rounded-full border border-black/10 bg-[#f5f5f5] shadow-sm">
+            <div className="inline-flex items-center px-6 py-2.5 rounded-full border border-gray-100 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-shadow duration-500 cursor-default">
               <Zap size={14} className="text-[#f5c518] mr-3" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-black/80">
+              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-black">
                 Energy Flow Matrix
               </span>
             </div>
@@ -214,7 +222,6 @@ const Infrastructure = () => {
           {/* Top Badge */}
           <div className="flex justify-center mb-8">
             <div className="inline-flex items-center px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-              <span className="text-[10px] font-mono text-[#f5c518] uppercase tracking-[0.2em] mr-3">01 /</span>
               <div className="w-8 h-[1px] bg-white/20 mr-3"></div>
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white">
                 Energy Stack Layers
@@ -238,10 +245,10 @@ const Infrastructure = () => {
           </div>
 
           {/* 3-Column Layers Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 
             {/* Column 1: Generation */}
-            <div className="bg-dark-surface-2 p-10 md:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-dark-surface-2 p-6 md:p-8 lg:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-[#f5c518] transition-all duration-500" />
 
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#f5c518]/10 transition-all duration-500">
@@ -270,7 +277,7 @@ const Infrastructure = () => {
             </div>
 
             {/* Column 2: Substation */}
-            <div className="bg-dark-surface-2 p-10 md:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-dark-surface-2 p-6 md:p-8 lg:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-[#f5c518] transition-all duration-500" />
 
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#f5c518]/10 transition-all duration-500">
@@ -299,7 +306,7 @@ const Infrastructure = () => {
             </div>
 
             {/* Column 3: Compute */}
-            <div className="bg-dark-surface-2 p-10 md:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-dark-surface-2 p-6 md:p-8 lg:p-12 rounded-3xl border border-dark-border-subtle hover:border-[#f5c518]/30 transition-all duration-500 group relative overflow-hidden sm:col-span-2 lg:col-span-1">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-[#f5c518] transition-all duration-500" />
 
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#f5c518]/10 transition-all duration-500">
@@ -406,7 +413,7 @@ const Infrastructure = () => {
 
           <div className="max-w-[1400px] mx-auto relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
-              { val: "~$0.04/kWh", label: "STRUCTURAL COST ADVANTAGE", desc: "Target power production cost cited for North Texarkana site, beating market rates." },
+              { val: "~$0.04/kWh", label: "STRUCTURAL COST ADVANTAGE", desc: "Target power production cost cited for North Tonawanda site, beating market rates." },
               { val: "Behind-the-Meter", label: "TRANSMISSION EFFICIENCY", desc: "Direct distribution program drastically reduces grid transmission and delivery fees." },
               { val: "2N Redundancy", label: "REVENUE OPTIONALITY", desc: "Dual-path interconnection enables Tier III equivalent uptime for critical AI loads." },
               { val: "400MW+", label: "PIPELINE CAPACITY", desc: "Combined existing and expansion energy capacity designated for compute conversion." }

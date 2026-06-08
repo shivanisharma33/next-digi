@@ -1,12 +1,14 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, 
-  FileText, 
-  ChevronRight, 
-  Download, 
-  Lock, 
-  ShieldCheck, 
+import {
+  Search,
+  FileText,
+  ChevronRight,
+  Download,
+  Lock,
+  ShieldCheck,
   X,
   Printer,
   Calendar,
@@ -14,7 +16,9 @@ import {
   Terminal
 } from 'lucide-react';
 import { CTASection } from './Footer';
-import DocumentsVisual3D from './DocumentsVisual3D';
+import dynamic from 'next/dynamic';
+
+const DocumentsVisual3D = dynamic(() => import('./DocumentsVisual3D'), { ssr: false });
 
 /* ─── Motion Stagger Variants ─── */
 const parentVariants = {
@@ -161,7 +165,7 @@ const DocumentsCharters = () => {
   // Search and category filtering
   const filteredDocs = documents.filter(doc => {
     const matchesSearch = doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          doc.description.toLowerCase().includes(searchQuery.toLowerCase());
+      doc.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "All Categories" || doc.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -175,10 +179,10 @@ const DocumentsCharters = () => {
 
   return (
     <div className="bg-[#050608] min-h-screen text-white selection:bg-brand-yellow selection:text-black">
-      
+
       {/* Centered Hero Section with 3D Neural Overlay */}
       <section className="relative min-h-[40vh] md:min-h-[60vh] flex flex-col items-center justify-center pt-32 pb-12 md:pt-48 md:pb-20 px-6 overflow-hidden">
-        
+
         {/* Background Grid Accent */}
         <div className="absolute inset-0 z-0 opacity-15">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,197,24,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,197,24,0.08)_1px,transparent_1px)] bg-[size:40px_40px]" />
@@ -199,7 +203,7 @@ const DocumentsCharters = () => {
             animate="visible"
             className="flex flex-col items-center w-full"
           >
-            <motion.div 
+            <motion.div
               variants={badgeVariants}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-6 md:mb-8"
             >
@@ -210,7 +214,7 @@ const DocumentsCharters = () => {
             </motion.div>
 
             <div className="overflow-hidden mb-6 md:mb-8">
-              <motion.h1 
+              <motion.h1
                 variants={titleVariants}
                 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white"
               >
@@ -218,7 +222,7 @@ const DocumentsCharters = () => {
               </motion.h1>
             </div>
 
-            <motion.p 
+            <motion.p
               variants={descVariants}
               className="text-white/60 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium tracking-wide"
             >
@@ -231,22 +235,22 @@ const DocumentsCharters = () => {
       {/* Interactive Search Console & Grid */}
       <section className="py-12 md:py-20 relative border-t border-white/5 bg-[#0a0a0c]">
         <div className="container mx-auto px-6 max-w-[1400px]">
-          
+
           {/* Controls Bar */}
           <div className="max-w-6xl mx-auto mb-16">
             <GlassCard className="p-1">
               <div className="grid grid-cols-1 md:grid-cols-3 items-center">
-                
+
                 {/* Search Bar */}
                 <div className="p-6 border-b md:border-b-0 md:border-r border-white/5 col-span-2">
                   <h3 className="text-[10px] font-mono font-semibold uppercase tracking-widest text-brand-yellow mb-2 text-center md:text-left">Search Ledger</h3>
                   <div className="flex items-center justify-center md:justify-start gap-3">
                     <Search size={18} className="text-white/40" />
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Title or Keyword" 
+                      placeholder="Title or Keyword"
                       className="bg-transparent border-none outline-none text-white text-base font-semibold w-full placeholder:text-white/20 focus:ring-0 text-center md:text-left"
                     />
                   </div>
@@ -256,7 +260,7 @@ const DocumentsCharters = () => {
                 <div className="p-6">
                   <h3 className="text-[10px] font-mono font-semibold uppercase tracking-widest text-brand-yellow mb-2 text-center md:text-left">Category</h3>
                   <div className="flex flex-wrap gap-2">
-                    <select 
+                    <select
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value)}
                       className="bg-transparent border-none outline-none text-white text-base font-semibold w-full appearance-none cursor-pointer focus:ring-0 text-center md:text-left"
@@ -304,17 +308,17 @@ const DocumentsCharters = () => {
 
                 {/* Bottom Actions */}
                 <div className="flex items-center justify-between pt-6 border-t border-white/5 mt-auto w-full">
-                  <a 
+                  <a
                     href={doc.pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[10px] font-mono font-semibold uppercase tracking-widest text-white/60 hover:text-brand-yellow flex items-center gap-1.5 transition-colors group/btn"
                   >
-                    Read More 
+                    Read More
                     <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                   </a>
 
-                  <a 
+                  <a
                     href={doc.pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -330,7 +334,7 @@ const DocumentsCharters = () => {
             {filteredDocs.length === 0 && (
               <div className="col-span-full text-center py-20 border border-white/5 bg-white/[0.01] rounded-3xl space-y-4">
                 <div className="text-white/30 text-lg font-medium">No governance documents matched your filter parameters</div>
-                <button 
+                <button
                   onClick={() => {
                     setSearchQuery("");
                     setSelectedCategory("All Categories");
@@ -402,7 +406,7 @@ const DocumentsCharters = () => {
 
               {/* Document Text Body Area */}
               <div className="p-8 md:p-12 overflow-y-auto space-y-8 flex-1">
-                
+
                 {/* Meta details */}
                 <div className="flex flex-wrap items-center gap-4 justify-between border-b border-white/5 pb-6">
                   <div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
@@ -5,8 +7,8 @@ const YELLOW = 0xFFD60A;
 const YELLOW_BRIGHT = 0xFFE45C;
 
 const VALUES = [
-  { name: 'Sustainability', desc: 'Renewable-matched 24/7 — verified, not offset.', pos: [0, 5.5, 0] as [number, number, number] },
-  { name: 'Speed', desc: '2.4ms latency — built for AI workloads.', pos: [4.76, 2.75, 0] as [number, number, number] },
+  { name: 'Sustainability', desc: 'Renewable-matched 24/7 â€” verified, not offset.', pos: [0, 5.5, 0] as [number, number, number] },
+  { name: 'Speed', desc: '2.4ms latency â€” built for AI workloads.', pos: [4.76, 2.75, 0] as [number, number, number] },
   { name: 'Scale', desc: '400MW+ capacity across operating sites.', pos: [4.76, -2.75, 0] as [number, number, number] },
   { name: 'Innovation', desc: 'Liquid cooling, custom power, in-house silicon.', pos: [0, -5.5, 0] as [number, number, number] },
   { name: 'Security', desc: 'Defense-grade physical and digital protection.', pos: [-4.76, -2.75, 0] as [number, number, number] },
@@ -23,9 +25,9 @@ const FACE_POSITIONS: { pos: [number, number, number]; rot: [number, number, num
   { pos: [0, -1.001, 0], rot: [Math.PI / 2, 0, 0] },      // 5: bottom
 ];
 
-// Maps value index → hub face index for the connection dot
+// Maps value index â†’ hub face index for the connection dot
 const DOT_IDX_MAP = [4, 3, 3, 5, 2, 2];
-// Maps value index → hub face index for the rotating highlight
+// Maps value index â†’ hub face index for the rotating highlight
 const VALUE_TO_FACE = [4, 3, 3, 5, 2, 2];
 
 interface ValueCubeData {
@@ -64,7 +66,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
       return obj;
     };
 
-    // ── Renderer ──────────────────────────────────────────────────────────
+    // â”€â”€ Renderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(W, H);
@@ -76,7 +78,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
 
-    // ── Scene & orthographic camera ───────────────────────────────────────
+    // â”€â”€ Scene & orthographic camera â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const scene = new THREE.Scene();
     const frustum = 8;
     const camera = new THREE.OrthographicCamera(
@@ -85,7 +87,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
     camera.position.set(3, 3, 14);
     camera.lookAt(0, 0, 0);
 
-    // ── Lighting ──────────────────────────────────────────────────────────
+    // â”€â”€ Lighting â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
     const keyLight = new THREE.DirectionalLight(0xffffff, 0.7);
     keyLight.position.set(8, 12, 8);
@@ -97,7 +99,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
     const root = new THREE.Group();
     scene.add(root);
 
-    // ── Hub ───────────────────────────────────────────────────────────────
+    // â”€â”€ Hub â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const hubGroup = new THREE.Group();
     const HUB = 2.0;
     root.add(hubGroup);
@@ -199,7 +201,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
       return line;
     });
 
-    // ── Value cubes ───────────────────────────────────────────────────────
+    // â”€â”€ Value cubes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const makeWireCube = (size: number): THREE.Group => {
       const g = new THREE.Group();
 
@@ -342,7 +344,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
       };
     });
 
-    // ── Mouse interaction ──────────────────────────────────────────────────
+    // â”€â”€ Mouse interaction â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const mouse = new THREE.Vector2();
     const raycaster = new THREE.Raycaster();
     let mouseX = 0, mouseY = 0;
@@ -379,7 +381,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
 
-    // ── Animation loop ─────────────────────────────────────────────────────
+    // â”€â”€ Animation loop â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     let elapsed = 0;
     let lastTime = performance.now();
     let frameId = 0;
@@ -396,7 +398,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
       root.rotation.y += (mouseX * 0.2 - root.rotation.y) * 0.04;
       root.rotation.x += (-mouseY * 0.08 - root.rotation.x) * 0.04;
 
-      // Hub fade-in (0 → 0.8s)
+      // Hub fade-in (0 â†’ 0.8s)
       const hubFadeT = Math.min(1, elapsed / 0.8);
       hubEdgesMat.opacity = 0.85 * hubFadeT;
       hubFillMat.opacity = 0.35 * hubFadeT;
@@ -446,7 +448,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
       // (suppress unused-variable warning for innerLines)
       void innerLines;
 
-      // Value cubes — staggered activation starting at 0.8s
+      // Value cubes â€” staggered activation starting at 0.8s
       valueCubes.forEach((vc, i) => {
         const activateAt = 0.8 + i * 0.35;
         const activationT = Math.min(1, Math.max(0, (elapsed - activateAt) / 0.6));
@@ -456,7 +458,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
         vc.activationT = activationT;
         if (activationT >= 1) vc.activated = true;
 
-        // Line draws from hub dot → cube
+        // Line draws from hub dot â†’ cube
         const drawT = Math.min(1, Math.max(0, (elapsed - activateAt + 0.1) / 0.4));
         const endPt = vc.hubDotPos.clone().lerp(vc.cubePos, drawT);
         const posArr = vc.lineGeo.attributes.position.array as Float32Array;
@@ -507,7 +509,7 @@ const AboutHeroDataCenter3D: React.FC = () => {
         vc.wireCube.scale.setScalar(s);
         vc.solidCube.scale.setScalar(s);
 
-        // Data pulse traveling hub → cube
+        // Data pulse traveling hub â†’ cube
         if (vc.activated) {
           const pulseT = ((elapsed * (isHovered ? 1.2 : 0.6)) + vc.pulsePhase) % 1;
           const pulsePos = vc.hubDotPos.clone().lerp(vc.cubePos, pulseT);

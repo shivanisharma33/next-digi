@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from 'react';
 
 const DgxGlobe = () => {
@@ -9,6 +11,7 @@ const DgxGlobe = () => {
     const x = cv.getContext('2d');
     if (!x) return;
 
+    const isMobile = window.innerWidth < 768;
     let W = 0, H = 0, CX = 0, CY = 0, R = 0, DPR = 1;
     let rafId = 0;
     let pulseInterval: number | undefined;
@@ -88,7 +91,9 @@ const DgxGlobe = () => {
       const L = links[(Math.random() * links.length) | 0];
       pulses.push({ a: L[0], b: L[1], t: 0, sp: 0.012 + Math.random() * 0.02 });
     };
-    pulseInterval = window.setInterval(spawnPulse, 160);
+    if (!isMobile) {
+      pulseInterval = window.setInterval(spawnPulse, 160);
+    }
 
     type SatObj = { off: number; sz: number; bright: boolean };
     type Ring = { rad: number; sp: number; sats: number; ph: number; satObj: SatObj[] };
@@ -363,6 +368,7 @@ const DgxGlobe = () => {
 
       drawRings(true);
 
+      if (isMobile) return;
       rafId = requestAnimationFrame(frame);
     };
     frame();

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -15,7 +17,9 @@ import {
   Loader2
 } from 'lucide-react';
 import { CTASection } from './Footer';
-import CareersHeroVisual3D from './CareersHeroVisual3D';
+import dynamic from 'next/dynamic';
+
+const CareersHeroVisual3D = dynamic(() => import('./CareersHeroVisual3D'), { ssr: false });
 
 /* ─── Strapi API base ─── */
 const STRAPI_BASE = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com";

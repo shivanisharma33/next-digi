@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -25,7 +27,6 @@ const WhatWeDo = () => {
       >
 
         <div className="inline-flex items-center gap-3 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100 rounded-full px-6 py-2.5 hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-shadow duration-500 cursor-default">
-          <span className="text-[9px] font-semibold tracking-[0.2em] text-black">01 /</span>
           <div className="h-[2px] w-12 bg-[#f5c518] rounded-full" />
           <span className="text-[9px] font-semibold tracking-[0.2em] text-black uppercase">WHAT WE DO</span>
         </div>
@@ -37,7 +38,7 @@ const WhatWeDo = () => {
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase mb-8 text-black relative z-10"
+        className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[1.1] md:leading-[0.95] tracking-tighter uppercase mb-8 text-black relative z-10"
       >
         BUILT FROM <br />
         THE GROUND UP.<br />
@@ -48,7 +49,7 @@ const WhatWeDo = () => {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-            className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#f5c518] origin-left opacity-60"
+            className="absolute bottom-0 md:-bottom-2 left-0 w-full h-[3px] bg-[#f5c518] origin-left opacity-60"
           />
         </span> AT EVERY LAYER.
       </motion.h2>
@@ -93,6 +94,42 @@ const WhatWeDo = () => {
           ))}
         </div>
       </div>
+
+      {/* ── Inline CTA Strip ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="w-full relative z-10 border-b border-gray-100"
+      >
+        <div className="max-w-[1400px] mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          {/* Left: nudge copy */}
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:block w-[3px] h-10 bg-[#f5c518] rounded-full flex-shrink-0" />
+            <div>
+              <p className="text-black font-semibold text-[15px] leading-tight">Ready to see the full stack in action?</p>
+              <p className="text-gray-500 text-[13px] mt-0.5">Explore our data center campuses or talk directly to our team.</p>
+            </div>
+          </div>
+          {/* Right: action buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+            <a
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2.5 bg-[#f5c518] text-black px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest hover:bg-[#ffda47] transition-all duration-300 shadow-md shadow-[#f5c518]/20 hover:shadow-lg hover:shadow-[#f5c518]/30 hover:-translate-y-0.5"
+            >
+              Schedule a Tour
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
+            </a>
+            <a
+              href="/energy"
+              className="inline-flex items-center justify-center gap-2.5 border border-black/15 text-black px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest hover:border-[#f5c518] hover:text-[#c8a400] transition-all duration-300"
+            >
+              View Infrastructure
+            </a>
+          </div>
+        </div>
+      </motion.div>
 
     </section>
   );

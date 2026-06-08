@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from 'react';
 
 interface Props {
@@ -33,7 +35,7 @@ const ServicesHeroVisual3D = ({ activeMode: _activeMode = 'all' }: Props) => {
     resize();
     window.addEventListener('resize', resize);
 
-    // ISO projection: +X → lower-right, +Y → lower-left, +Z → up
+    // ISO projection: +X â†’ lower-right, +Y â†’ lower-left, +Z â†’ up
     const iso = (ix: number, iy: number, iz = 0) => ({
       x: w * 0.38 + (ix - iy) * C30 * SCALE,
       y: h * 0.68 + (ix + iy) * S30 * SCALE - iz * SCALE,
@@ -103,7 +105,7 @@ const ServicesHeroVisual3D = ({ activeMode: _activeMode = 'all' }: Props) => {
     };
 
     // Track rails (constant X lines, extend along Y from +12 to -12)
-    // Decreasing Y moves upper-right on screen → tracks go lower-left to upper-right ✓
+    // Decreasing Y moves upper-right on screen â†’ tracks go lower-left to upper-right âœ“
     const TRACK_XS = [-2, 0, 2];
     const drawTracks = () => {
       TRACK_XS.forEach(tx => {
@@ -129,7 +131,7 @@ const ServicesHeroVisual3D = ({ activeMode: _activeMode = 'all' }: Props) => {
       });
     };
 
-    // Solid flow cubes (move in -Y → upper-right on screen)
+    // Solid flow cubes (move in -Y â†’ upper-right on screen)
     type FlowCube = { tx: number; y: number; speed: number; s: number };
     const flowCubes: FlowCube[] = [];
     TRACK_XS.forEach(tx => {

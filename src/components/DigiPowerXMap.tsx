@@ -1,5 +1,8 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { motion } from "framer-motion";
 import "./DigiPowerXMap.css";
 
 type SiteKind = "gas" | "urban" | "campus" | "mega";
@@ -54,6 +57,11 @@ const DigiPowerXMap = () => {
   const [loaderGone, setLoaderGone] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setFailed(true);
+      setLoaderGone(true);
+      return;
+    }
     const canvas = canvasRef.current;
     const container = containerRef.current;
     const labelLayer = labelsRef.current;
@@ -712,16 +720,16 @@ const DigiPowerXMap = () => {
 
       <div className="dpxmap-legend">
         <span className="dpxmap-cap">Network Status</span>
-        <span>Operational · In Development</span>
+        <span>Operational Â· In Development</span>
         <span>North American Footprint</span>
       </div>
 
       <div className="dpxmap-meta">
         <div className="dpxmap-row">
           <span className="dpxmap-live" />
-          Power + Compute Network · <b>Live</b>
+          Power + Compute Network Â· <b>Live</b>
         </div>
-        <div className="dpxmap-row">4 Sites · North America</div>
+        <div className="dpxmap-row">4 Sites Â· North America</div>
       </div>
 
       {!loaderGone && (
@@ -731,10 +739,103 @@ const DigiPowerXMap = () => {
       )}
 
       {failed && (
-        <div className="dpxmap-fallback">
-          <span className="dpxmap-fb-title">DigiPower X Network</span>
-          <span>DigiPower X · 4 Sites · North America</span>
-          <span className="dpxmap-fb-hint">WebGL required for live map</span>
+        <div className="absolute inset-0 bg-black z-[4]">
+          <div className="relative w-full h-full flex items-center justify-center p-0">
+            {/* High-Fidelity World Map Background */}
+            <div className="absolute inset-0 opacity-20 mix-blend-screen pointer-events-none">
+              <img
+                src="/about-map.avif"
+                alt="Map Background"
+                className="w-full h-full object-cover grayscale brightness-[0.25]"
+              />
+            </div>
+
+            <svg viewBox="0 0 1000 500" className="relative w-full h-full z-10 select-none">
+              {/* Abstract World Path */}
+              <path
+                fill="#111"
+                d="M150,120 L220,100 L300,120 L350,200 L320,280 L250,350 L180,300 L150,200 Z M450,100 L550,80 L650,120 L700,200 L650,300 L550,350 L450,300 Z"
+                className="opacity-40"
+              />
+
+              {/* Highlighted USA Silhouette */}
+              <g transform="translate(60, 130) scale(1.2)">
+                <path
+                  d="M0,20 L10,15 L25,20 L40,10 L60,15 L80,10 L100,20 L115,40 L125,70 L110,100 L90,110 L70,105 L50,110 L30,105 L15,115 L0,100 L-10,60 Z"
+                  fill="none"
+                  stroke="#f5c518"
+                  strokeWidth="1.5"
+                  strokeOpacity="0.8"
+                />
+                <path d="M20,20 L20,110 M40,15 L40,110 M60,15 L60,105 M80,10 L80,105 M100,20 L100,110" stroke="#f5c518" strokeWidth="0.5" strokeOpacity="0.1" fill="none" />
+              </g>
+
+              {/* Connection Arcs */}
+              <g fill="none" stroke="#f5c518" strokeWidth="1.5" strokeLinecap="round">
+                <motion.path
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.8 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  d="M210,175 Q380,50 500,320"
+                />
+                <motion.path
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.6 }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  d="M210,175 Q500,150 780,350"
+                  strokeDasharray="6 4"
+                />
+              </g>
+
+              {/* Animated Particles */}
+              <circle r="3" fill="#f5c518" filter="blur(2px)">
+                <animateMotion dur="3s" repeatCount="indefinite" path="M210,175 Q380,50 500,320" />
+              </circle>
+              <circle r="2" fill="#f5c518">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M210,175 Q500,150 780,350" />
+              </circle>
+
+              {/* Focal Nodes */}
+              {[
+                { x: 210, y: 175 }, { x: 210, y: 210 }, { x: 500, y: 320 }, { x: 780, y: 350 }
+              ].map((node, i) => (
+                <g key={i}>
+                  <circle cx={node.x} cy={node.y} r="4" fill="#f5c518">
+                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx={node.x} cy={node.y} r="12" fill="#f5c518" opacity="0.15" />
+                </g>
+              ))}
+            </svg>
+
+            {/* HTML Labels */}
+            <div className="absolute inset-0 pointer-events-none z-20">
+              <div className="absolute top-[22%] left-[16%] flex flex-col items-center">
+                <div className="bg-black/90 border border-[#f5c518]/60 px-2.5 py-1 rounded shadow-xl backdrop-blur-sm">
+                  <span className="text-[8px] font-black text-white uppercase tracking-widest">Buffalo, NY</span>
+                </div>
+                <div className="w-px h-10 bg-gradient-to-b from-[#f5c518]/60 to-transparent" />
+              </div>
+              <div className="absolute top-[42%] left-[23%] flex items-center">
+                <div className="w-10 h-px bg-gradient-to-r from-transparent to-[#f5c518]/60" />
+                <div className="bg-black/90 border border-[#f5c518]/60 px-2.5 py-1 rounded shadow-xl ml-1 whitespace-nowrap backdrop-blur-sm">
+                  <span className="text-[8px] font-black text-white uppercase tracking-widest">North Tonawanda, NY</span>
+                </div>
+              </div>
+              <div className="absolute top-[70%] left-[45%] flex flex-col items-center">
+                <div className="w-px h-8 bg-gradient-to-t from-[#f5c518]/60 to-transparent" />
+                <div className="bg-black/90 border border-[#f5c518]/60 px-2.5 py-1 rounded shadow-xl backdrop-blur-sm">
+                  <span className="text-[8px] font-black text-white uppercase tracking-widest">Columbiana, AL</span>
+                </div>
+              </div>
+              <div className="absolute top-[76%] left-[68%] flex flex-col items-center">
+                <div className="w-px h-10 bg-gradient-to-t from-[#f5c518]/60 to-transparent" />
+                <div className="bg-black/90 border border-[#f5c518]/60 px-3 py-1.5 rounded shadow-xl text-center backdrop-blur-sm">
+                  <span className="text-[8px] font-black text-white uppercase tracking-widest block leading-tight">North Carolina<br/>Development Site</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

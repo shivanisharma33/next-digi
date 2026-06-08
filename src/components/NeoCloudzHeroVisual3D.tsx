@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -114,7 +116,7 @@ const NeoCloudzHeroVisual3D: React.FC = () => {
       for (let n = 0; n < numNodes; n++) {
         const mesh = new THREE.Mesh(nodeGeo, nodeMat);
         ringSys.add(mesh);
-        
+
         const initialAngle = (n / numNodes) * Math.PI * 2;
 
         ringNodes.push({
@@ -184,7 +186,7 @@ const NeoCloudzHeroVisual3D: React.FC = () => {
       transparent: true,
       opacity: 0.35
     }));
-    
+
     interface AmbientPoint {
       mesh: THREE.Mesh;
       velocity: THREE.Vector3;
@@ -275,7 +277,7 @@ const NeoCloudzHeroVisual3D: React.FC = () => {
       // Synapse linkages (Random firing links between random orbital nodes)
       synapseLines.forEach((line) => {
         const mat = line.material as THREE.LineBasicMaterial;
-        
+
         if (Math.random() > 0.98 && mat.opacity === 0.0) {
           const nodeA = ringNodes[Math.floor(Math.random() * ringNodes.length)];
           const nodeB = ringNodes[Math.floor(Math.random() * ringNodes.length)];
@@ -301,7 +303,7 @@ const NeoCloudzHeroVisual3D: React.FC = () => {
       // Ambient dust drift
       ambientPoints.forEach((p) => {
         p.mesh.position.add(p.velocity);
-        
+
         const bound = p.range / 2;
         if (Math.abs(p.mesh.position.x) > bound) p.mesh.position.x = -Math.sign(p.mesh.position.x) * bound;
         if (Math.abs(p.mesh.position.y) > bound) p.mesh.position.y = -Math.sign(p.mesh.position.y) * bound;
