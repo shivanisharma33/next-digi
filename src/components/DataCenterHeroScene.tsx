@@ -720,7 +720,7 @@ const DataCenterHeroScene: React.FC = () => {
 
     let grainImageData: ImageData | null = null;
     function updateGrain() {
-      if (grainCv.width === 0) return;
+      if (!grainCv || !grainCtx || grainCv.width === 0) return;
       if (!grainImageData || grainImageData.width !== grainCv.width || grainImageData.height !== grainCv.height) {
         grainImageData = grainCtx.createImageData(grainCv.width, grainCv.height);
       }

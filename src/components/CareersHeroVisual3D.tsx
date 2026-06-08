@@ -393,7 +393,9 @@ const CareersHeroVisual3D: React.FC = () => {
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
 
-    // â”€â”€â”€ Responsive Viewport Resizing â”€â”€â”€
+    const initialIsMobile = window.innerWidth < 768;
+
+    // ——— Responsive Viewport Resizing ———
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { width, height } = entry.contentRect;
@@ -403,16 +405,21 @@ const CareersHeroVisual3D: React.FC = () => {
         camera.aspect = W / H;
         camera.updateProjectionMatrix();
         renderer.setSize(W, H);
+        if (window.innerWidth < 768) {
+          animate();
+        }
       }
     });
     resizeObserver.observe(container);
 
-    // â”€â”€â”€ Main Master Animation Loop â”€â”€â”€
+    // ——— Main Master Animation Loop ———
     let frameId: number;
     const clock = new THREE.Clock();
 
     const animate = () => {
-      frameId = requestAnimationFrame(animate);
+      if (!initialIsMobile) {
+        frameId = requestAnimationFrame(animate);
+      }
       const t = clock.getElapsedTime();
 
       // Decay mouse speed influence

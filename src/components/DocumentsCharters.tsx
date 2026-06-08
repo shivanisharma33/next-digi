@@ -30,7 +30,7 @@ const parentVariants = {
       delayChildren: 0.1
     }
   }
-};
+} as const;
 
 const badgeVariants = {
   hidden: { opacity: 0, y: -25 },
@@ -43,7 +43,7 @@ const badgeVariants = {
       damping: 14
     }
   }
-};
+} as const;
 
 const titleVariants = {
   hidden: { opacity: 0, y: 35 },
@@ -55,7 +55,7 @@ const titleVariants = {
       ease: [0.215, 0.61, 0.355, 1]
     }
   }
-};
+} as const;
 
 const descVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -67,7 +67,7 @@ const descVariants = {
       ease: "easeOut"
     }
   }
-};
+} as const;
 
 // Sleek Glassmorphic Container
 const GlassCard = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (

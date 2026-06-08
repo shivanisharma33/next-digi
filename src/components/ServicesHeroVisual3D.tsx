@@ -22,6 +22,8 @@ const ServicesHeroVisual3D = ({ activeMode: _activeMode = 'all' }: Props) => {
     const C30 = Math.cos(Math.PI / 6); // ~0.866
     const S30 = Math.sin(Math.PI / 6); // 0.5
 
+    const initialIsMobile = window.innerWidth < 768;
+
     const resize = () => {
       dpr = Math.min(devicePixelRatio || 1, 2);
       w = container.clientWidth;
@@ -31,6 +33,9 @@ const ServicesHeroVisual3D = ({ activeMode: _activeMode = 'all' }: Props) => {
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (window.innerWidth < 768) {
+        draw();
+      }
     };
     resize();
     window.addEventListener('resize', resize);
@@ -214,7 +219,9 @@ const ServicesHeroVisual3D = ({ activeMode: _activeMode = 'all' }: Props) => {
       ctx.fillStyle = vg;
       ctx.fillRect(0, 0, w, h);
 
-      raf = requestAnimationFrame(draw);
+      if (!initialIsMobile) {
+        raf = requestAnimationFrame(draw);
+      }
     };
 
     raf = requestAnimationFrame(draw);

@@ -357,6 +357,8 @@ const InvestorHeroVisual3D: React.FC = () => {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
+    const initialIsMobile = window.innerWidth < 768;
+
     const handleResize = () => {
       if (!container) return;
       W = container.clientWidth;
@@ -364,14 +366,20 @@ const InvestorHeroVisual3D: React.FC = () => {
       camera.aspect = W / H;
       camera.updateProjectionMatrix();
       renderer.setSize(W, H);
+      if (window.innerWidth < 768) {
+        animateLoop();
+      }
     };
     window.addEventListener('resize', handleResize);
 
     // --- 7. ANIMATION LOOP ---
     const clock = new THREE.Clock();
+    let frameId: number;
 
     const animateLoop = () => {
-      const frameId = requestAnimationFrame(animateLoop);
+      if (!initialIsMobile) {
+        frameId = requestAnimationFrame(animateLoop);
+      }
       const elapsed = clock.getElapsedTime();
 
       // Smooth camera parallax dampening
@@ -399,10 +407,9 @@ const InvestorHeroVisual3D: React.FC = () => {
       });
 
       renderer.render(scene, camera);
-      return frameId;
     };
 
-    const frameId = animateLoop();
+    animateLoop();
 
     // --- 8. STRICT GARBAGE COLLECTION ---
     return () => {

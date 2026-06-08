@@ -165,8 +165,10 @@ const LeadershipHeroVisual3D: React.FC = () => {
     };
     container.addEventListener('mousemove', handleMouseMove);
 
+    const initialIsMobile = window.innerWidth < 768;
+
     const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
+      for (const entry of entries) {
         const { width, height } = entry.contentRect;
         if (width === 0 || height === 0) continue;
         W = width;
@@ -174,6 +176,9 @@ const LeadershipHeroVisual3D: React.FC = () => {
         camera.aspect = W / H;
         camera.updateProjectionMatrix();
         renderer.setSize(W, H);
+        if (window.innerWidth < 768) {
+          animate();
+        }
       }
     });
     resizeObserver.observe(container);
@@ -183,7 +188,9 @@ const LeadershipHeroVisual3D: React.FC = () => {
     const clock = new THREE.Clock();
 
     const animate = () => {
-      frameId = requestAnimationFrame(animate);
+      if (!initialIsMobile) {
+        frameId = requestAnimationFrame(animate);
+      }
       const elapsedTime = clock.getElapsedTime();
 
       // Smooth mouse parallax translation

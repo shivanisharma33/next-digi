@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               <div className="mb-1 ml-[-12px] md:ml-[-9px] -mt-3 md:-mt-5">
-                <img src={logoImg.src || logoImg} alt="DigiPowerX Logo" className="h-24 md:h-18 w-auto brightness-0 invert opacity-90 relative -top-[8px]" />
+                <img src={typeof logoImg === 'string' ? logoImg : logoImg.src} alt="DigiPowerX Logo" className="h-24 md:h-18 w-auto brightness-0 invert opacity-90 relative -top-[8px]" />
               </div>
 
               <p className="text-white/50 text-[15px] leading-relaxed mb-8 max-w-sm">
