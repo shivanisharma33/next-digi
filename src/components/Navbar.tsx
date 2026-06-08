@@ -101,14 +101,14 @@ const Navbar = () => {
     closed: {
       x: "100%",
       transition: {
-        duration: 0.35,
-        ease: [0.16, 1, 0.3, 1]
+        duration: 0.2,
+        ease: [0.4, 0, 1, 1]
       }
     },
     open: {
       x: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.25,
         ease: [0.16, 1, 0.3, 1]
       }
     }
@@ -250,8 +250,8 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="fixed inset-0 bg-black/75 backdrop-blur-md z-[110] lg:hidden"
+              transition={{ duration: 0.15 }}
+              className="fixed inset-0 bg-black/75 backdrop-blur-sm z-[110] lg:hidden"
               onClick={() => setIsMenuOpen(false)}
             />
 
