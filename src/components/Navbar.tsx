@@ -98,8 +98,8 @@ const Navbar = () => {
     return false;
   };
 
-  const activeClass = "nav-link flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-widest text-brand-yellow px-4.5 py-2 nav-glass-bubble";
-  const inactiveClass = "nav-link flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow px-4.5 py-2 nav-inactive-bubble";
+  const activeClass = "nav-link flex items-center gap-1 xl:gap-1.5 text-[11px] xl:text-[13px] font-bold uppercase tracking-widest text-brand-yellow px-2.5 xl:px-4.5 py-1.5 xl:py-2 nav-glass-bubble";
+  const inactiveClass = "nav-link flex items-center gap-1 xl:gap-1.5 text-[11px] xl:text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow px-2.5 xl:px-4.5 py-1.5 xl:py-2 nav-inactive-bubble";
 
   const menuVariants: Variants = {
     closed: {
@@ -130,16 +130,16 @@ const Navbar = () => {
       <div className={`absolute inset-0 transition-all duration-300 -z-10 ${scrolled ? 'bg-black/90 backdrop-blur-md shadow-lg' : 'bg-black'
         } border-b border-white/10`} />
 
-      <div className={`relative z-[120] max-w-[1800px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4 transition-all duration-300 ${scrolled ? 'py-1' : 'py-2'
+      <div className={`relative z-[120] max-w-[1800px] mx-auto px-4 md:px-6 lg:px-4 xl:px-8 flex items-center justify-between gap-2 lg:gap-3 xl:gap-4 transition-all duration-300 ${scrolled ? 'py-1' : 'py-2'
         }`}>
 
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 relative z-[120]" onClick={() => setIsMenuOpen(false)}>
-          <img src={logoImg.src} alt="DigiPowerX Logo" className="h-20 md:h-24 w-auto object-contain transition-all duration-300 brightness-0 invert" />
+          <img src={logoImg.src} alt="DigiPowerX Logo" className="h-20 md:h-24 lg:h-14 xl:h-18 2xl:h-22 w-auto object-contain transition-all duration-300 brightness-0 invert" />
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-2 xl:gap-4 flex-shrink-0">
+        <div className="hidden lg:flex items-center gap-1 xl:gap-2 2xl:gap-4 flex-shrink-0">
           {navLinks.filter(l => l.name !== 'NeoCloudz').map(link => {
             const active = isLinkActive(link);
             const linkClass = active ? activeClass : inactiveClass;
@@ -228,11 +228,11 @@ const Navbar = () => {
             href="https://www.neocloudz.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden lg:inline-flex btn-global btn-primary"
+            className="hidden lg:inline-flex btn-global btn-primary lg:px-4 lg:py-2 lg:text-[10px] xl:px-6 xl:py-3.5 xl:text-[11px]"
           >
             NeoCloudz
           </a>
-          <Link href="/contact" className="hidden sm:inline-flex btn-global btn-primary">
+          <Link href="/contact" className="hidden sm:inline-flex btn-global btn-primary lg:px-4 lg:py-2 lg:text-[10px] xl:px-6 xl:py-3.5 xl:text-[11px]">
             Talk to Us
           </Link>
 
