@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronDown, Menu, X, ArrowRight, Activity, Cpu, Network, Shield, Landmark, Eye, HelpCircle, FileText, Bell } from 'lucide-react';
 import { m, AnimatePresence, type Variants } from 'framer-motion';
 import Link from 'next/link';
@@ -48,16 +48,14 @@ const menuVariants: Variants = {
     x: "100%",
     transition: {
       duration: 0.25,
-      ease: [0.36, 0.07, 0.19, 0.97]
+      ease: [0.32, 0.72, 0, 1]
     }
   },
   open: {
     x: 0,
     transition: {
-      type: "spring",
-      stiffness: 320,
-      damping: 28,
-      mass: 0.8
+      duration: 0.35,
+      ease: [0.32, 0.72, 0, 1]
     }
   }
 };
@@ -66,6 +64,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const scrollYRef = useRef(0);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -73,8 +72,11 @@ const Navbar = () => {
   useEffect(() => {
     setIsMenuOpen(false);
     setActiveDropdown(null);
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
     document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
   }, [pathname]);
 
   // Handle scroll effect
@@ -86,18 +88,31 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent body scroll when menu is open
+  // Prevent body scroll when menu is open (iOS-safe: position:fixed technique)
   useEffect(() => {
     if (isMenuOpen) {
+      scrollYRef.current = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollYRef.current}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
       document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
     } else {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
       document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
+      if (scrollYRef.current) {
+        window.scrollTo(0, scrollYRef.current);
+      }
     }
     return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
       document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
     };
   }, [isMenuOpen]);
 
@@ -238,7 +253,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden p-2 bg-brand-yellow text-black rounded-full shadow-xl hover:bg-white transition-all active:scale-90 flex items-center justify-center cursor-pointer"
+            className="lg:hidden p-2 bg-brand-yellow text-black rounded-full shadow-xl hover:bg-white transition-colors duration-200 active:scale-90 flex items-center justify-center cursor-pointer"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
           >
@@ -251,23 +266,30 @@ const Navbar = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <>
-            {/* Backdrop Blur Overlay */}
+            {/* Backdrop Overlay (no backdrop-blur — causes severe iOS lag) */}
             <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="fixed inset-0 bg-black/80 z-[110] lg:hidden touch-none"
+              className="fixed inset-0 bg-black/85 z-[110] lg:hidden touch-none"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
               onClick={() => setIsMenuOpen(false)}
             />
 
-            {/* Menu Drawer */}
+            {/* Menu Drawer – iOS-optimized: GPU-composited, no backdrop-filter, tween animation */}
             <m.div
               variants={menuVariants}
               initial="closed"
               animate="open"
               exit="closed"
-              className="fixed top-0 right-0 h-full w-full sm:w-[85%] max-w-[420px] bg-[#07080a] border-l border-white/10 z-[115] flex flex-col pt-24 pb-10 px-6 sm:px-8 overflow-y-auto lg:hidden shadow-[-10px_0_30px_rgba(0,0,0,0.5)] overscroll-contain will-change-transform"
+              className="fixed top-0 right-0 h-full w-full sm:w-[85%] max-w-[420px] bg-[#07080a] border-l border-white/10 z-[115] flex flex-col pt-24 pb-10 px-6 sm:px-8 overflow-y-auto lg:hidden overscroll-contain"
+              style={{
+                willChange: 'transform',
+                WebkitOverflowScrolling: 'touch',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+              } as React.CSSProperties}
             >
               {/* Subtle visual glow in background of menu */}
               <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-brand-yellow/5 rounded-full blur-[100px] pointer-events-none" />
@@ -286,8 +308,9 @@ const Navbar = () => {
                         <div className="flex flex-col">
                           <button
                             onClick={() => toggleDropdown(link.name)}
-                            className={`w-full flex items-center justify-between text-lg sm:text-xl font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl transition-all ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20 shadow-[0_0_15px_rgba(245,197,24,0.1)]' : 'text-white hover:text-brand-yellow'
+                            className={`w-full flex items-center justify-between text-lg sm:text-xl font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl transition-colors duration-200 ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20' : 'text-white hover:text-brand-yellow'
                               }`}
+                            style={{ WebkitTapHighlightColor: 'transparent' }}
                           >
                             <span>{link.name}</span>
                             <ChevronDown
@@ -296,16 +319,24 @@ const Navbar = () => {
                             />
                           </button>
 
-                          {/* Sublinks Container */}
-                          <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-2' : 'grid-rows-[0fr] opacity-0 overflow-hidden'}`}>
-                            <div className="overflow-hidden flex flex-col gap-2 pl-3 border-l border-brand-yellow/30">
+                          {/* Sublinks Container — max-height approach is smoother on iOS than grid-rows */}
+                          <div
+                            className="overflow-hidden"
+                            style={{
+                              maxHeight: isOpen ? '500px' : '0px',
+                              opacity: isOpen ? 1 : 0,
+                              marginTop: isOpen ? '0.5rem' : '0',
+                              transition: 'max-height 0.3s cubic-bezier(0.32,0.72,0,1), opacity 0.25s ease, margin-top 0.25s ease',
+                            }}
+                          >
+                            <div className="flex flex-col gap-2 pl-3 border-l border-brand-yellow/30">
                               {link.sublinks?.map(sub => {
                                 const subActive = pathname === sub.path;
                                 return (
                                   <Link
                                     key={sub.name}
                                     href={sub.path}
-                                    className={`flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors uppercase tracking-widest ${subActive ? 'text-brand-yellow bg-white/5' : 'text-white/60 hover:text-brand-yellow'
+                                    className={`flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors duration-200 uppercase tracking-widest ${subActive ? 'text-brand-yellow bg-white/5' : 'text-white/60 hover:text-brand-yellow'
                                       }`}
                                     onClick={(e) => handleMobileClick(e, sub.path)}
                                   >
@@ -324,12 +355,13 @@ const Navbar = () => {
                           rel="noopener noreferrer"
                           className={
                             link.name === 'NeoCloudz'
-                              ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
+                              ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-colors duration-200 my-1.5 shadow-md shadow-brand-yellow/10"
                               : link.name === 'USDC'
-                                ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
-                                : `flex items-center justify-between text-lg sm:text-xl font-bold py-2.5 px-4 rounded-xl transition-all uppercase tracking-wider ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20' : 'text-white hover:text-brand-yellow'
+                                ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-colors duration-200 my-1.5 shadow-md shadow-brand-yellow/10"
+                                : `flex items-center justify-between text-lg sm:text-xl font-bold py-2.5 px-4 rounded-xl transition-colors duration-200 uppercase tracking-wider ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20' : 'text-white hover:text-brand-yellow'
                                 }`
                           }
+                          style={{ WebkitTapHighlightColor: 'transparent' }}
                           onClick={() => setIsMenuOpen(false)}
                         >
                           <span>{link.name}</span>
@@ -340,12 +372,13 @@ const Navbar = () => {
                           href={link.path || '#'}
                           className={
                             link.name === 'NeoCloudz'
-                              ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
+                              ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-colors duration-200 my-1.5 shadow-md shadow-brand-yellow/10"
                               : link.name === 'USDC'
-                                ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-all my-1.5 shadow-md shadow-brand-yellow/10"
-                                : `flex items-center justify-between text-lg sm:text-xl font-bold py-2.5 px-4 rounded-xl transition-all uppercase tracking-wider ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20' : 'text-white hover:text-brand-yellow'
+                                ? "flex items-center justify-between text-base font-bold text-black bg-brand-yellow py-3 px-4 rounded uppercase tracking-wider hover:bg-white transition-colors duration-200 my-1.5 shadow-md shadow-brand-yellow/10"
+                                : `flex items-center justify-between text-lg sm:text-xl font-bold py-2.5 px-4 rounded-xl transition-colors duration-200 uppercase tracking-wider ${active ? 'text-brand-yellow bg-white/5 border border-brand-yellow/20' : 'text-white hover:text-brand-yellow'
                                 }`
                           }
+                          style={{ WebkitTapHighlightColor: 'transparent' }}
                           onClick={(e) => handleMobileClick(e, link.path || '#')}
                         >
                           <span>{link.name}</span>

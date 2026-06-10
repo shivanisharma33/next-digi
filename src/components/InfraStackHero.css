@@ -20,7 +20,7 @@
   /* Remove the full viewport constraint to avoid bottom extra space */
   display: flex;
   align-items: flex-start;
-  padding: clamp(120px, 8.5vw, 160px) clamp(18px, 4vw, 72px) 24px;
+  padding: clamp(140px, 10vw, 180px) clamp(18px, 4vw, 72px) 24px;
   /* Reduced bottom padding */
   background: transparent;
   color: var(--white);
@@ -907,39 +907,100 @@
 
 @media (max-width: 640px) {
   #infra-stack-hero {
-    padding: 100px 14px 40px;
+    padding: 140px 16px 32px;
+    min-height: auto;
+    align-items: flex-start;
   }
 
+  #infra-stack-hero .ish-inner {
+    gap: 16px;
+  }
+
+  #infra-stack-hero .ish-left {
+    max-width: 100%;
+  }
+
+  #infra-stack-hero .ish-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    padding: 7px 14px 7px 12px;
+    margin-bottom: 20px;
+    margin-top: 4px;
+    gap: 8px;
+  }
+
+  #infra-stack-hero .ish-headline {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    margin-bottom: 18px;
+    line-height: 1.05;
+  }
+
+  #infra-stack-hero .ish-sub {
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 100%;
+    margin-bottom: 28px;
+    border-left: none;
+    padding-left: 0;
+  }
+
+  #infra-stack-hero .ish-cta {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+    width: 100%;
+    align-items: center;
+  }
+
+  #infra-stack-hero .ish-btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 12px;
+  }
+
+  /* Stats: compact horizontal 3-column on all phones */
   #infra-stack-hero .ish-stats {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
     text-align: center;
   }
 
   #infra-stack-hero .ish-stat {
-    padding: 16px 20px;
+    padding: 14px 8px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 10px;
   }
 
   #infra-stack-hero .ish-stat-value {
+    font-size: 22px;
     justify-content: center;
   }
 
+  #infra-stack-hero .ish-stat-unit {
+    font-size: 9px;
+  }
+
   #infra-stack-hero .ish-stat-label {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    margin-top: 6px;
     text-align: center;
   }
 
   #infra-stack-hero .ish-stat:first-child {
-    padding-left: 20px;
+    padding-left: 8px;
   }
 
   #infra-stack-hero .ish-stat:last-child {
     border-right: 1px solid rgba(255, 255, 255, 0.05);
-    padding-right: 20px;
+    padding-right: 8px;
   }
 
   #infra-stack-hero .ish-right {
@@ -958,6 +1019,108 @@
 
   #infra-stack-hero .ish-ptitle {
     font-size: 11px;
+  }
+}
+
+/* ── Very small phones (iPhone SE, Galaxy S series compact) ── */
+@media (max-width: 400px) {
+  #infra-stack-hero {
+    padding: 130px 14px 24px;
+  }
+
+  #infra-stack-hero .ish-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    padding: 6px 12px 6px 10px;
+    margin-bottom: 16px;
+    gap: 6px;
+  }
+
+  #infra-stack-hero .ish-eyebrow .ish-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  #infra-stack-hero .ish-headline {
+    font-size: clamp(1.75rem, 10vw, 2.2rem);
+    margin-bottom: 14px;
+  }
+
+  #infra-stack-hero .ish-sub {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  #infra-stack-hero .ish-cta {
+    margin-bottom: 28px;
+    gap: 8px;
+  }
+
+  #infra-stack-hero .ish-btn {
+    padding: 12px 20px;
+    font-size: 11px;
+  }
+
+  #infra-stack-hero .ish-stats {
+    gap: 6px;
+  }
+
+  #infra-stack-hero .ish-stat {
+    padding: 10px 6px;
+    border-radius: 8px;
+  }
+
+  #infra-stack-hero .ish-stat-value {
+    font-size: 18px;
+  }
+
+  #infra-stack-hero .ish-stat-unit {
+    font-size: 8px;
+  }
+
+  #infra-stack-hero .ish-stat-label {
+    font-size: 7px;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  #infra-stack-hero .ish-stat:first-child {
+    padding-left: 6px;
+  }
+
+  #infra-stack-hero .ish-stat:last-child {
+    padding-right: 6px;
+  }
+}
+
+/* ── Tiny phones (iPhone SE 1st gen, 320px width) ── */
+@media (max-width: 360px) {
+  #infra-stack-hero {
+    padding: 120px 12px 20px;
+  }
+
+  #infra-stack-hero .ish-headline {
+    font-size: 1.65rem;
+    margin-bottom: 12px;
+  }
+
+  #infra-stack-hero .ish-sub {
+    font-size: 12.5px;
+    margin-bottom: 20px;
+  }
+
+  #infra-stack-hero .ish-btn {
+    padding: 11px 16px;
+    font-size: 10px;
+  }
+
+  #infra-stack-hero .ish-stat-value {
+    font-size: 16px;
+  }
+
+  #infra-stack-hero .ish-stat-label {
+    font-size: 6.5px;
   }
 }
 
