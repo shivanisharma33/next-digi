@@ -20,7 +20,7 @@ const Infrastructure = () => {
     <div className="bg-dark-base min-h-screen text-white font-sans selection:bg-[#f5c518]/30 overflow-x-hidden">
 
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] lg:min-h-[100vh] flex flex-col items-center justify-center pt-32 pb-12 md:pt-40 md:pb-24 px-6 overflow-hidden">
+      <section className="relative min-h-[100vh] min-h-[100svh] flex flex-col items-center justify-center pt-44 pb-12 md:pt-52 md:pb-24 px-6 overflow-hidden">
 
         {/* Ambient Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[#f5c518]/[0.06] rounded-full blur-[140px] pointer-events-none" />

@@ -20,7 +20,7 @@
   /* Remove the full viewport constraint to avoid bottom extra space */
   display: flex;
   align-items: flex-start;
-  padding: clamp(140px, 10vw, 180px) clamp(18px, 4vw, 72px) 24px;
+  padding: clamp(170px, 12vw, 210px) clamp(18px, 4vw, 72px) 24px;
   /* Reduced bottom padding */
   background: transparent;
   color: var(--white);
@@ -907,7 +907,7 @@
 
 @media (max-width: 640px) {
   #infra-stack-hero {
-    padding: 140px 16px 32px;
+    padding: 180px 20px 40px;
     min-height: auto;
     align-items: flex-start;
   }
@@ -1025,7 +1025,7 @@
 /* ── Very small phones (iPhone SE, Galaxy S series compact) ── */
 @media (max-width: 400px) {
   #infra-stack-hero {
-    padding: 130px 14px 24px;
+    padding: 170px 14px 28px;
   }
 
   #infra-stack-hero .ish-eyebrow {
@@ -1097,7 +1097,7 @@
 /* ── Tiny phones (iPhone SE 1st gen, 320px width) ── */
 @media (max-width: 360px) {
   #infra-stack-hero {
-    padding: 120px 12px 20px;
+    padding: 160px 12px 24px;
   }
 
   #infra-stack-hero .ish-headline {
