@@ -17,7 +17,7 @@ import {
 import dynamic from 'next/dynamic';
 import { CTASection } from './Footer';
 
-const LeadershipHeroVisual3D = dynamic(() => import('./LeadershipHeroVisual3D'), { ssr: false });
+const DGXXLeadershipVisual = dynamic(() => import('./DGXXLeadershipVisual'), { ssr: false });
 
 // Leadership Portraits from public/images
 const executives = [
@@ -258,7 +258,7 @@ const Leadership = () => {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="w-full h-[340px] sm:h-[380px] lg:h-[550px] lg:min-h-[600px] relative overflow-hidden"
           >
-            <LeadershipHeroVisual3D />
+            <DGXXLeadershipVisual />
           </m.div>
         </div>
       </section>
@@ -354,7 +354,7 @@ const Leadership = () => {
                   >
                     {/* Header Row */}
                     <div className="flex items-center gap-6 w-full">
-                      <div className={`w-16 h-16 rounded-full overflow-hidden border flex-shrink-0 bg-white/5 transition-all duration-500 ${isExpanded ? 'border-brand-yellow/40 ring-4 ring-brand-yellow/10' : 'border-white/10'
+                      <div className={`relative w-16 h-16 rounded-full overflow-hidden border flex-shrink-0 bg-white/5 transition-all duration-500 ${isExpanded ? 'border-brand-yellow/40 ring-4 ring-brand-yellow/10' : 'border-white/10'
                         }`}>
                         <Image
                           src={member.img}
@@ -392,7 +392,7 @@ const Leadership = () => {
                           className="overflow-hidden w-full"
                         >
                           <div className="pt-6 mt-6 border-t border-white/10 flex flex-col md:flex-row gap-6 items-start text-white/70">
-                            <div className="w-24 h-24 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0 bg-white/5 self-center md:self-start shadow-xl">
+                            <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0 bg-white/5 self-center md:self-start shadow-xl">
                               <Image src={member.img} alt={member.name} fill loading="lazy" sizes="96px" className="object-cover scale-[1.02]" />
                             </div>
                             <div className="flex-1 space-y-4">
