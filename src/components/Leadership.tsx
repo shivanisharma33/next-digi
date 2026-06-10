@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import { m, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -115,6 +116,107 @@ const boardMembers = [
   }
 ];
 
+/* ─── Portal-based Bio Modal ─────────────────────────────────────────────── */
+function LeaderBioModal({ leader, onClose }: { leader: any; onClose: () => void }) {
+  const portalRef = useRef<HTMLElement | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    portalRef.current = document.body;
+    setMounted(true);
+    // Prevent background scroll while modal is open
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  if (!mounted || !portalRef.current) return null;
+
+  return ReactDOM.createPortal(
+    <AnimatePresence>
+      {leader && (
+        <m.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          style={{ position: 'fixed', inset: 0, zIndex: 9999 }}
+          className="flex items-center justify-center bg-black/95 backdrop-blur-2xl"
+          onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+        >
+          {/* Close button */}
+          <button
+            onClick={onClose}
+            style={{ position: 'absolute', top: '2rem', right: '2rem' }}
+            className="text-white/50 hover:text-white transition-colors p-2"
+            aria-label="Close"
+          >
+            <X size={36} />
+          </button>
+
+          {/* Modal content – no outer padding that causes whitespace */}
+          <m.div
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center px-6 py-16 md:px-12"
+          >
+            {/* Photo */}
+            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+              <Image
+                src={leader.img}
+                alt={leader.name}
+                fill
+                sizes="(max-width: 1024px) 100vw, 600px"
+                className="object-cover"
+              />
+            </div>
+
+            {/* Info */}
+            <div className="space-y-6">
+              <div>
+                <div className="h-1 w-24 bg-brand-yellow mb-6" />
+                <h3 className="text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-none tracking-tighter uppercase text-white mb-3">
+                  {leader.name}
+                </h3>
+                <div className="text-base font-semibold text-brand-yellow uppercase tracking-[0.2em]">
+                  {leader.role}
+                </div>
+              </div>
+              <p className="text-base md:text-lg text-white/60 font-medium leading-relaxed italic">
+                &ldquo;{leader.bio}&rdquo;
+              </p>
+              <div className="flex gap-4 pt-4">
+                <a
+                  href="https://www.linkedin.com/company/digi-power-x/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 bg-white text-black px-6 py-3 rounded-xl font-semibold text-xs uppercase tracking-widest hover:bg-brand-yellow transition-all"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0h.003z" />
+                  </svg>
+                  LinkedIn
+                </a>
+                <Link
+                  href="/contact"
+                  className="flex items-center gap-3 bg-white/5 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold text-xs uppercase tracking-widest hover:bg-white/10 transition-all"
+                >
+                  <Mail size={16} />
+                  Contact
+                </Link>
+              </div>
+            </div>
+          </m.div>
+        </m.div>
+      )}
+    </AnimatePresence>,
+    portalRef.current
+  );
+}
+
+/* ─── Main Leadership Component ──────────────────────────────────────────── */
 const Leadership = () => {
   const [selectedLeader, setSelectedLeader] = useState<any>(null);
   const [expandedBoardMember, setExpandedBoardMember] = useState<number | null>(null);
@@ -324,52 +426,10 @@ const Leadership = () => {
         </div>
       </section>
 
-      {/* Leader Bio Modal */}
-      <AnimatePresence>
-        {selectedLeader && (
-          <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center p-6 md:p-12 bg-black/95 backdrop-blur-2xl"
-          >
-            <button
-              onClick={() => setSelectedLeader(null)}
-              className="absolute top-12 right-12 text-white/50 hover:text-white transition-colors"
-            >
-              <X size={40} />
-            </button>
-
-            <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <Image src={selectedLeader.img} alt={selectedLeader.name} fill sizes="(max-width: 1024px) 100vw, 600px" className="object-cover" />
-              </div>
-              <div className="space-y-8">
-                <div>
-                  <div className="h-1 w-24 bg-brand-yellow mb-8" />
-                  <h3 className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-8 relative z-10 leading-none mb-4">{selectedLeader.name}</h3>
-                  <div className="text-xl font-semibold text-brand-yellow uppercase tracking-[0.2em]">{selectedLeader.role}</div>
-                </div>
-                <p className="text-lg md:text-xl text-white/60 font-medium leading-relaxed italic">
-                  "{selectedLeader.bio}"
-                </p>
-                <div className="flex gap-6 pt-8">
-                  <a href="https://www.linkedin.com/company/digi-power-x/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-xl font-semibold text-xs uppercase tracking-widest hover:bg-brand-yellow transition-all">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                    </svg>
-                    LinkedIn
-                  </a>
-                  <Link href="/contact" className="flex items-center gap-3 bg-white/5 border border-white/10 text-white px-8 py-4 rounded-xl font-semibold text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
-                    <Mail size={18} />
-                    Contact
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </m.div>
-        )}
-      </AnimatePresence>
+      {/* Leader Bio Modal – rendered via portal to escape overflow-hidden stacking context */}
+      {selectedLeader && (
+        <LeaderBioModal leader={selectedLeader} onClose={() => setSelectedLeader(null)} />
+      )}
 
       {/* Committees Section */}
       <section className="py-20 lg:py-24 bg-[#050608] text-white relative border-t border-white/5 overflow-hidden">
