@@ -1,11 +1,39 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
+
+const steps = [
+  {
+    number: "01.",
+    title: "Site & Power",
+    description: "Land acquisition, utility coordination, and owned generation asset development."
+  },
+  {
+    number: "02.",
+    title: "Substation Build",
+    description: "HV/MV substation engineering, construction, and commissioning to facility spec."
+  },
+  {
+    number: "03.",
+    title: "DC Construction",
+    description: "Turnkey facility build — structural, MEP, cooling, and fire suppression systems."
+  },
+  {
+    number: "04.",
+    title: "GPU Deployment",
+    description: "Rack installation, network fabric, NVIDIA H200 commissioning and burn-in."
+  },
+  {
+    number: "05.",
+    title: "NeoCloudz Live",
+    description: "Bare-metal compute delivered to customers via NeoCloudz — fully managed."
+  }
+];
 
 const ProcessStep = ({ number, title, description, delay }: { number: string, title: string, description: string, delay: number }) => {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -20,38 +48,11 @@ const ProcessStep = ({ number, title, description, delay }: { number: string, ti
 
       {/* Hover bottom line */}
       <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#f5c518] group-hover:w-full transition-all duration-500" />
-    </motion.div>
+    </m.div>
   );
 };
 
 const HowWeWork = () => {
-  const steps = [
-    {
-      number: "01.",
-      title: "Site & Power",
-      description: "Land acquisition, utility coordination, and owned generation asset development."
-    },
-    {
-      number: "02.",
-      title: "Substation Build",
-      description: "HV/MV substation engineering, construction, and commissioning to facility spec."
-    },
-    {
-      number: "03.",
-      title: "DC Construction",
-      description: "Turnkey facility build — structural, MEP, cooling, and fire suppression systems."
-    },
-    {
-      number: "04.",
-      title: "GPU Deployment",
-      description: "Rack installation, network fabric, NVIDIA H200 commissioning and burn-in."
-    },
-    {
-      number: "05.",
-      title: "NeoCloudz Live",
-      description: "Bare-metal compute delivered to customers via NeoCloudz — fully managed."
-    }
-  ];
 
   return (
     <section className="bg-white pt-10 pb-0 relative border-t border-gray-50">
@@ -59,7 +60,7 @@ const HowWeWork = () => {
 
         {/* Header section */}
         <div className="flex flex-col items-center text-center px-6 mb-20">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -67,9 +68,9 @@ const HowWeWork = () => {
           >
             <div className="h-[2px] w-12 bg-[#f5c518] rounded-full" />
             <span className="text-[9px] font-semibold tracking-[0.2em] text-black uppercase">HOW WE WORK</span>
-          </motion.div>
+          </m.div>
 
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -78,9 +79,9 @@ const HowWeWork = () => {
           >
             FROM SITE TO <br />
             <span className="text-[#f5c518]">LIVE</span> INFRA.
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -88,14 +89,14 @@ const HowWeWork = () => {
             className="text-gray-500 text-[14px] md:text-[16px] max-w-3xl leading-relaxed font-medium"
           >
             DigiPowerX facilities are purpose-built for the density and reliability demands of AI infrastructure — not retrofitted from legacy enterprise data centers.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Process Steps Row */}
         <div className="border-y border-gray-100 flex flex-wrap lg:flex-nowrap">
           {steps.map((step, index) => (
             <ProcessStep
-              key={index}
+              key={step.number}
               number={step.number}
               title={step.title}
               description={step.description}

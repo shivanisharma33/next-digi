@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import LottieReact from 'lottie-react';
 import contactAnimation from '../assets/contact-us.json';
+import { STRAPI_URL } from '../lib/config';
 
 // Vite's dev server pre-bundles lottie-react from its UMD "browser" build, whose
 // default-export interop yields the module object instead of the component (so
@@ -56,7 +57,7 @@ export default function Contact() {
         message: form.message
       };
 
-      const res = await fetch("https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/contact-forms", {
+      const res = await fetch(`${STRAPI_URL}/api/contact-forms`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -434,7 +435,7 @@ export default function Contact() {
               <div className="ct-form-title">Start a Conversation</div>
               <AnimatePresence mode="wait">
                 {!submitted ? (
-                  <motion.form
+                  <m.form
                     key="form"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -546,9 +547,9 @@ export default function Contact() {
                         <div className="ct-response-note">Response: usually under <strong>12 hours</strong></div>
                       </div>
                     </div>
-                  </motion.form>
+                  </m.form>
                 ) : (
-                  <motion.div
+                  <m.div
                     key="success"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -574,7 +575,7 @@ export default function Contact() {
                     >
                       Send another message
                     </button>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>

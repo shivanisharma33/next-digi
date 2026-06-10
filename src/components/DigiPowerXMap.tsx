@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import "./DigiPowerXMap.css";
 
 type SiteKind = "gas" | "urban" | "campus" | "mega";
@@ -772,13 +772,13 @@ const DigiPowerXMap = () => {
 
               {/* Connection Arcs */}
               <g fill="none" stroke="#f5c518" strokeWidth="1.5" strokeLinecap="round">
-                <motion.path
+                <m.path
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 0.8 }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                   d="M210,175 Q380,50 500,320"
                 />
-                <motion.path
+                <m.path
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 0.6 }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}

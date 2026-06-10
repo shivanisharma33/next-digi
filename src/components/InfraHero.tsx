@@ -4,17 +4,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './InfraHero.css';
 
+const layers = [
+  { id: 4, title: "NeoCloudz Compute", num: "04", desc: "Enterprise-grade B200 GPU clusters for massive AI training & low-latency inference." },
+  { id: 3, title: "Liquid Cooled Rows", num: "03", desc: "Tier III-ready data center modules designed for 100kW+ rack density with sub-1.1 PUE." },
+  { id: 2, title: "Technical Matrix", num: "02", desc: "Software-defined networking layer managing cross-site connectivity and load balancing." },
+  { id: 1, title: "BTM Power Ingest", num: "01", desc: "Behind-the-meter energy integration providing high-uptime power at industrial rates." }
+];
+
 const InfraHero = () => {
   const [activeLayer, setActiveLayer] = useState(4);
   const pxFieldRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
-
-  const layers = [
-    { id: 4, title: "NeoCloudz Compute", num: "04", desc: "Enterprise-grade B200 GPU clusters for massive AI training & low-latency inference." },
-    { id: 3, title: "Liquid Cooled Rows", num: "03", desc: "Tier III-ready data center modules designed for 100kW+ rack density with sub-1.1 PUE." },
-    { id: 2, title: "Technical Matrix", num: "02", desc: "Software-defined networking layer managing cross-site connectivity and load balancing." },
-    { id: 1, title: "BTM Power Ingest", num: "01", desc: "Behind-the-meter energy integration providing high-uptime power at industrial rates." }
-  ];
 
   useEffect(() => {
     const glowPos = { 4: 18, 3: 35, 2: 52, 1: 78 };

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import visual from "../assets/ChatGPT Image May 15, 2026, 05_30_05 PM.png";
 
 export default function Hero() {
@@ -33,7 +33,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto grid w-full max-w-[1500px] grid-cols-1 items-center gap-24 px-6 lg:grid-cols-2 lg:px-16">
 
         {/* LEFT SIDE: Technical Narrative */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -76,10 +76,10 @@ export default function Hero() {
               View Roadmap
             </button>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* RIGHT SIDE: Architectural Visual */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95, x: 50 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
@@ -92,7 +92,7 @@ export default function Hero() {
               className="relative w-full h-auto object-contain opacity-90 transition-opacity duration-500 hover:opacity-100"
             />
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

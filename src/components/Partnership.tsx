@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import {
   Handshake,
   Cpu,
@@ -37,7 +37,7 @@ const SectionBadge = ({ label }: { label: string }) => (
 );
 
 const FadeUp = ({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) => (
-  <motion.div
+  <m.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -45,7 +45,7 @@ const FadeUp = ({ children, delay = 0, className = '' }: { children: React.React
     className={className}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 /* ──────────────────────── data ──────────────────────── */
@@ -105,7 +105,7 @@ const Partnership = () => {
 
         <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-center lg:pt-12 px-4 mb-0 lg:mb-16">
           {/* Left Column: Text Narratives */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -139,10 +139,10 @@ const Partnership = () => {
                 Learn About Us
               </Link>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right Column: 3D Animation Visualizer */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
@@ -151,7 +151,7 @@ const Partnership = () => {
             <div className="w-full h-full relative z-10">
               <PartnershipHeroVisual3D />
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -174,7 +174,7 @@ const Partnership = () => {
           {/* Benefits Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {benefits.map((benefit, i) => (
-              <FadeUp key={i} delay={i * 0.08}>
+              <FadeUp key={benefit.text} delay={i * 0.08}>
                 <div
                   className="group relative p-8 rounded-2xl bg-dark-surface-2/40 border border-dark-border-subtle hover:border-brand-yellow/30 transition-all duration-500 h-full"
                   onMouseMove={(e) => {
@@ -224,7 +224,7 @@ const Partnership = () => {
           {/* Models Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {partnershipModels.map((model, i) => (
-              <FadeUp key={i} delay={i * 0.1}>
+              <FadeUp key={model.tag} delay={i * 0.1}>
                 <div className="group relative p-10 md:p-12 rounded-2xl bg-dark-surface-2 border border-dark-border-subtle hover:border-brand-yellow/20 transition-all duration-700 overflow-hidden h-full">
                   {/* Background gradient */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${model.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />

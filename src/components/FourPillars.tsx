@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 const VisualPlaceholder = () => (
@@ -46,13 +46,13 @@ const WorldMapVisual = () => {
 
         {/* Connection Arcs */}
         <g fill="none" stroke="#f5c518" strokeWidth="1.5" strokeLinecap="round">
-          <motion.path
+          <m.path
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.8 }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             d="M210,175 Q380,50 500,320"
           />
-          <motion.path
+          <m.path
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.6 }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -174,8 +174,8 @@ const FourPillars = () => {
                 <div className="w-[30%] h-full flex flex-col justify-end items-center pb-4 relative">
                   <div className="absolute top-[10%] w-[80%] aspect-[4/3] bg-[#2d3a33] rounded-t-xl flex flex-col items-center justify-center border-x-4 border-t-4 border-[#3a4a42] relative overflow-hidden">
                     <div className="flex gap-4 mb-2">
-                      <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="w-8 h-8 border-4 border-dashed border-[#f5c518] rounded-full" />
-                      <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="w-8 h-8 border-4 border-dashed border-[#f5c518] rounded-full" />
+                      <m.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="w-8 h-8 border-4 border-dashed border-[#f5c518] rounded-full" />
+                      <m.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="w-8 h-8 border-4 border-dashed border-[#f5c518] rounded-full" />
                     </div>
                     <div className="text-[8px] font-mono text-[#f5c518] opacity-60">COOLING TOWER</div>
                     <div className="absolute top-2 right-2 flex items-center gap-1">
@@ -192,7 +192,7 @@ const FourPillars = () => {
 
                 <div className="w-[15%] h-[80%] bg-[#1a1f1d] rounded-lg border-2 border-[#2d3a33] flex flex-col items-center py-4 gap-4 relative">
                   <div className="w-10 h-10 rounded-full border-2 border-[#f5c518]/40 flex items-center justify-center">
-                    <motion.div animate={{ rotate: -360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-6 h-6 border-2 border-t-[#f5c518] border-transparent rounded-full" />
+                    <m.div animate={{ rotate: -360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-6 h-6 border-2 border-t-[#f5c518] border-transparent rounded-full" />
                   </div>
                   <div className="flex flex-col gap-1 w-[70%]">
                     {[...Array(6)].map((_, i) => (
@@ -208,7 +208,7 @@ const FourPillars = () => {
                       {[...Array(12)].map((_, j) => (
                         <div key={j} className="flex-1 flex gap-1">
                           <div className="w-1 h-full bg-green-500/10 rounded-full overflow-hidden">
-                            <motion.div animate={{ y: [-10, 10] }} transition={{ duration: 1, repeat: Infinity, delay: j * 0.1 }} className="w-full h-2 bg-green-500" />
+                            <m.div animate={{ y: [-10, 10] }} transition={{ duration: 1, repeat: Infinity, delay: j * 0.1 }} className="w-full h-2 bg-green-500" />
                           </div>
                           <div className="flex-1 flex gap-0.5">
                             {[...Array(4)].map((_, k) => (

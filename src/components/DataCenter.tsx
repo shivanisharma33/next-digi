@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Link from 'next/link';
 import {
   Zap,
@@ -82,15 +82,15 @@ const CoolingVisual = () => {
         <path id="path-blue" d="M 190 230 L 190 320 M 190 430 L 190 480 L 410 480 L 410 400 M 470 300 L 520 280 L 560 280" fill="none" stroke="#3b82f6" strokeWidth="2.5" opacity="0.6" />
 
         {[0, 1.3, 2.6].map((delay, i) => (
-          <motion.circle key={`red-${i}`} r="4" fill="#ef4444" filter="url(#glow-red)">
+          <m.circle key={`red-${i}`} r="4" fill="#ef4444" filter="url(#glow-red)">
             <animateMotion dur="4s" begin={`${delay}s`} repeatCount="indefinite" path="M 560 140 L 490 140 L 490 110 L 380 110 L 280 110" />
-          </motion.circle>
+          </m.circle>
         ))}
 
         {[0, 2, 4].map((delay, i) => (
-          <motion.circle key={`blue-${i}`} r="4" fill="#3b82f6" filter="url(#glow-blue)">
+          <m.circle key={`blue-${i}`} r="4" fill="#3b82f6" filter="url(#glow-blue)">
             <animateMotion dur="6s" begin={`${delay}s`} repeatCount="indefinite" path="M 190 230 L 190 320 M 190 430 L 190 480 L 410 480 L 410 400 M 470 300 L 520 280 L 560 280" />
-          </motion.circle>
+          </m.circle>
         ))}
       </svg>
     </div>
@@ -111,7 +111,7 @@ const DataCenter = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
 
             {/* Left Content column */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -142,17 +142,17 @@ const DataCenter = () => {
                   Investor Info
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Right 3D Visual column */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="lg:col-span-7 w-full h-[320px] sm:h-[420px] lg:h-[550px] xl:h-[620px]"
             >
               <DataCenterHeroScene />
-            </motion.div>
+            </m.div>
 
           </div>
         </div>
@@ -179,7 +179,7 @@ const DataCenter = () => {
                 { label: 'Output Layer:', text: 'AI-ready compute delivered to production environments.' },
                 { label: 'Supports 200kW+ per-rack GPU power density.', text: '' },
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
+                <li key={item.label} className="flex items-start gap-3">
                   <ArrowRight size={16} className="mt-0.5 shrink-0 text-[#f5c518]" />
                   <p className="text-white text-sm font-semibold">
                     <span className="mr-2 text-[#f5c518]">{item.label}</span>
@@ -255,8 +255,8 @@ const DataCenter = () => {
                 ]
               }
             ].map((section, i) => (
-              <motion.div
-                key={i}
+              <m.div
+                key={section.tag}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
@@ -269,7 +269,7 @@ const DataCenter = () => {
                   <p className="text-white/40 text-[13px] leading-relaxed mb-10 font-medium">{section.desc}</p>
                   <div className="space-y-4">
                     {section.bullets.map((bullet, idx) => (
-                      <div key={idx} className="flex items-start gap-3 group/item">
+                      <div key={bullet} className="flex items-start gap-3 group/item">
                         <span className="text-[#f5c518] text-xs mt-1 shrink-0 group-hover/item:translate-x-1 transition-transform">→</span>
                         <span className="text-white/60 text-[12px] font-bold leading-relaxed">{bullet}</span>
                       </div>
@@ -277,7 +277,7 @@ const DataCenter = () => {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#f5c518] group-hover:w-full transition-all duration-700" />
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -318,8 +318,8 @@ const DataCenter = () => {
               { layer: 'Power Base', dir: 'Owned generation and utility-connected sites across the U.S. footprint', spec: '400MW+ owned & pipeline' },
               { layer: 'Connectivity', dir: 'Diverse carrier access and dark fiber pathway', spec: 'Multi-carrier ready' },
             ].map((row, i) => (
-              <motion.div
-                key={i}
+              <m.div
+                key={row.layer}
                 whileHover={{ backgroundColor: 'rgba(245,197,24,0.02)', x: 10 }}
                 className="group grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 py-8 px-4 border-b border-black/5 transition-all cursor-pointer relative overflow-hidden"
               >
@@ -333,7 +333,7 @@ const DataCenter = () => {
                 <div className="col-span-3 lg:text-right">
                   <div className="text-lg font-mono font-bold text-[#f5c518] tracking-tight">{row.spec}</div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -399,8 +399,8 @@ const DataCenter = () => {
                 color: 'from-purple-500/20 to-transparent'
               }
             ].map((card, i) => (
-              <motion.div
-                key={i}
+              <m.div
+                key={card.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -415,7 +415,7 @@ const DataCenter = () => {
                   <h3 className="text-xl font-semibold text-white uppercase tracking-tighter mb-4 group-hover:text-[#f5c518] transition-colors">{card.title}</h3>
                   <p className="text-white/40 text-sm leading-relaxed font-medium group-hover:text-white/60 transition-colors">{card.desc}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

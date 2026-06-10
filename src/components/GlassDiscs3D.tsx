@@ -85,11 +85,12 @@ const GlassDiscs3D = () => {
     }
 
     // Animation
+    let frameId = 0;
     const animate = () => {
       const time = Date.now() * 0.001;
-      
+
       baseGroup.rotation.y = time * 0.1;
-      
+
       discs.forEach((disc, i) => {
         disc.position.y = 1.5 + Math.sin(time + i) * 0.5;
         disc.rotation.y += 0.01;
@@ -97,7 +98,7 @@ const GlassDiscs3D = () => {
       });
 
       renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
     };
 
     const handleResize = () => {
@@ -112,6 +113,7 @@ const GlassDiscs3D = () => {
     animate();
 
     return () => {
+      cancelAnimationFrame(frameId);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       if (container.contains(renderer.domElement)) {

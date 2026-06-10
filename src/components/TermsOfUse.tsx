@@ -1,28 +1,28 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Shield, Eye, Lock, FileText, CheckCircle2, ChevronRight, CornerDownRight } from 'lucide-react';
 import { CTASection } from './Footer';
 import dynamic from 'next/dynamic';
 
 const NeuralCube3D = dynamic(() => import('./NeuralCube3D'), { ssr: false });
 
+const sections = [
+  { id: "sec-1", num: "01", name: "Use of the Site" },
+  { id: "sec-2", num: "02", name: "Intellectual Property" },
+  { id: "sec-3", num: "03", name: "No Investment Advice" },
+  { id: "sec-4", num: "04", name: "Third-Party Links" },
+  { id: "sec-5", num: "05", name: "Disclaimer of Warranties" },
+  { id: "sec-6", num: "06", name: "Limitation of Liability" },
+  { id: "sec-7", num: "07", name: "Indemnification" },
+  { id: "sec-8", num: "08", name: "Privacy Policy Link" },
+  { id: "sec-9", num: "09", name: "Changes to the Terms" },
+  { id: "sec-10", num: "10", name: "Governing Law" }
+];
+
 const TermsOfUse = () => {
   const [activeSection, setActiveSection] = useState("sec-1");
-
-  const sections = [
-    { id: "sec-1", num: "01", name: "Use of the Site" },
-    { id: "sec-2", num: "02", name: "Intellectual Property" },
-    { id: "sec-3", num: "03", name: "No Investment Advice" },
-    { id: "sec-4", num: "04", name: "Third-Party Links" },
-    { id: "sec-5", num: "05", name: "Disclaimer of Warranties" },
-    { id: "sec-6", num: "06", name: "Limitation of Liability" },
-    { id: "sec-7", num: "07", name: "Indemnification" },
-    { id: "sec-8", num: "08", name: "Privacy Policy Link" },
-    { id: "sec-9", num: "09", name: "Changes to the Terms" },
-    { id: "sec-10", num: "10", name: "Governing Law" }
-  ];
 
   const handleScrollTo = (id: string) => {
     setActiveSection(id);
@@ -61,7 +61,7 @@ const TermsOfUse = () => {
         </div>
 
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8"
@@ -70,25 +70,25 @@ const TermsOfUse = () => {
             <span className="text-[9px] uppercase tracking-[0.4em] font-mono text-brand-yellow font-semibold">
               SECURE REGULATORY VAULT
             </span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1 
+          <m.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-8"
           >
             TERMS OF <span className="text-brand-yellow">USE</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p 
+          <m.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-white/60 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium tracking-wide"
           >
             Please read these Terms of Use carefully before accessing or using DigiPowerX.com.
-          </motion.p>
+          </m.p>
         </div>
       </section>
 

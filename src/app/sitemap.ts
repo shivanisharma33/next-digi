@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { generateSlug } from '../utils/slugify';
+import { STRAPI_URL, SITE_URL } from '../lib/config';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://digipowerx.com';
+  const baseUrl = SITE_URL;
 
   const staticPages = [
     '',
@@ -33,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let pressReleaseUrls: any[] = [];
   try {
-    const res = await fetch('https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/press-releases?fields=title,documentId&pagination[pageSize]=100');
+    const res = await fetch(`${STRAPI_URL}/api/press-releases?fields=title,documentId&pagination[pageSize]=100`);
     if (res.ok) {
       const json = await res.json();
       pressReleaseUrls = (json.data || []).map((item: any) => {
@@ -52,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let secFilingUrls: any[] = [];
   try {
-    const res = await fetch('https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/sec-filings?fields=type,date,documentId&pagination[pageSize]=100');
+    const res = await fetch(`${STRAPI_URL}/api/sec-filings?fields=type,date,documentId&pagination[pageSize]=100`);
     if (res.ok) {
       const json = await res.json();
       secFilingUrls = (json.data || []).map((item: any) => {

@@ -1,16 +1,17 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
+
+const nodes = [
+  { label: 'GENERATION', dotColor: '#f5c518', position: 'low' },
+  { label: 'SWITCHYARD', dotColor: '#f5c518', position: 'high' },
+  { label: 'SUBSTATION', dotColor: '#00d1ff', position: 'low' },
+  { label: 'DATA CENTER', dotColor: '#00d1ff', position: 'high' },
+  { label: 'GPU LOAD', dotColor: '#00ff9d', position: 'low', isGreen: true },
+];
 
 const PowerFlowVisual = () => {
-  const nodes = [
-    { label: 'GENERATION', dotColor: '#f5c518', position: 'low' },
-    { label: 'SWITCHYARD', dotColor: '#f5c518', position: 'high' },
-    { label: 'SUBSTATION', dotColor: '#00d1ff', position: 'low' },
-    { label: 'DATA CENTER', dotColor: '#00d1ff', position: 'high' },
-    { label: 'GPU LOAD', dotColor: '#00ff9d', position: 'low', isGreen: true },
-  ];
 
   // Coordinates for SVG lines (relative to grid cells)
   // Each cell is 20% width. Center is at 10, 30, 50, 70, 90.
@@ -38,7 +39,7 @@ const PowerFlowVisual = () => {
           viewBox="0 0 100 100" 
           preserveAspectRatio="none"
         >
-          <motion.path
+          <m.path
             d={pathD}
             fill="none"
             stroke="#3d3419" 
@@ -50,7 +51,7 @@ const PowerFlowVisual = () => {
           />
           
           {/* Animated Flow Packet */}
-          <motion.path
+          <m.path
             d={pathD}
             fill="none"
             stroke="#f5c518"
@@ -66,14 +67,14 @@ const PowerFlowVisual = () => {
         {/* Nodes and Boxes - Using Flexbox Grid for perfect alignment */}
         <div className="relative w-full h-full z-20 flex justify-between items-center">
           {nodes.map((node, i) => (
-            <div 
-              key={i} 
+            <div
+              key={node.label}
               className="flex-1 flex flex-col items-center px-1"
               style={{ 
                 transform: `translateY(${node.position === 'high' ? '-20%' : '20%'})` 
               }}
             >
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
@@ -87,7 +88,7 @@ const PowerFlowVisual = () => {
               >
                 {/* Central Glowing Dot */}
                 <div className="relative mb-1 md:mb-4">
-                  <motion.div
+                  <m.div
                     animate={{ scale: [1, 1.15, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                     className="w-1.5 md:w-3 h-1.5 md:h-3 rounded-full relative z-20 shadow-[0_0_10px_rgba(0,0,0,0.5)]"
@@ -109,7 +110,7 @@ const PowerFlowVisual = () => {
                 >
                   {node.label}
                 </span>
-              </motion.div>
+              </m.div>
             </div>
           ))}
         </div>

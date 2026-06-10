@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, animate } from 'framer-motion';
+import { m, useScroll, useTransform, useSpring, useInView, useMotionValue, animate } from 'framer-motion';
 import Link from 'next/link';
 import {
   Zap,
@@ -41,14 +41,14 @@ const Magnetic = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ x: springX, y: springY }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -73,7 +73,7 @@ const StatCounter = ({ value, suffix = "", duration = 2 }: { value: number; suff
 const ShimmerText = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <span className={`relative inline-block ${className}`}>
     <span className="text-white">{children}</span>
-    <motion.span
+    <m.span
       initial={{ x: "-100%" }}
       animate={{ x: "100%" }}
       transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
@@ -96,7 +96,7 @@ const BentoCard = ({ children, className = "", delay = 0 }: { children: React.Re
   };
 
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       initial={{ opacity: 0, y: 30 }}
@@ -113,7 +113,7 @@ const BentoCard = ({ children, className = "", delay = 0 }: { children: React.Re
       />
       <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -188,7 +188,7 @@ const About = () => {
 
         <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start lg:pt-12 px-4 mb-16">
           {/* Left Column: Premium Text Narratives */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -220,10 +220,10 @@ const About = () => {
                 Investor Relations
               </Link>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right Column: U.S. Infrastructure Map Visual */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
@@ -238,12 +238,12 @@ const About = () => {
                 loading="lazy"
               />
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Bottom HUD Stats Bar */}
         <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -255,12 +255,12 @@ const About = () => {
               { val: "04", label: "Operating and Development Sites" },
               { val: "400MW+", label: "Total Portfolio Capacity" }
             ].map((stat, i) => (
-              <div key={i} className="text-center">
+              <div key={stat.val} className="text-center">
                 <div className="text-brand-yellow font-semibold text-xl mb-1 tracking-tighter">{stat.val}</div>
                 <div className="text-[8px] font-semibold text-white/30 uppercase tracking-widest">{stat.label}</div>
               </div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -304,7 +304,7 @@ const About = () => {
               }
             ].map((item, i) => (
               <div
-                key={i}
+                key={item.tag}
                 className={`p-8 lg:p-10 flex flex-col items-center text-center md:items-start md:text-left gap-5 ${i !== 2 ? 'md:border-r border-white/10' : ''}`}
               >
                 <div className="text-brand-yellow text-[10px] font-semibold uppercase tracking-[0.3em]">{item.tag}</div>
@@ -367,8 +367,8 @@ const About = () => {
                 desc: "200MW North Carolina development site adjacent to major utility infrastructure — the next phase of growth."
               }
             ].map((card, i) => (
-              <motion.div
-                key={i}
+              <m.div
+                key={card.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
@@ -381,7 +381,7 @@ const About = () => {
                 <p className="text-gray-500 text-xs md:text-sm leading-relaxed font-medium">
                   {card.desc}
                 </p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

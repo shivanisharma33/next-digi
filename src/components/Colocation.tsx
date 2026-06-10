@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Link from 'next/link';
 import colocationRacks from '../assets/colocation-racks.png';
 
@@ -10,7 +10,7 @@ const Colocation = () => {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-20 relative z-10 flex flex-col items-center">
 
         {/* Top Label */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -21,10 +21,10 @@ const Colocation = () => {
             <div className="h-[2px] w-12 bg-[#f5c518] rounded-full" />
             <span className="text-[9px] font-semibold tracking-[0.2em] text-black uppercase">COLOCATION</span>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Title */}
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -33,9 +33,9 @@ const Colocation = () => {
         >
           YOUR HARDWARE <br />
           OUR <span className="text-[#f5c518]">INFRASTRUCTURE</span>
-        </motion.h2>
+        </m.h2>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -43,12 +43,12 @@ const Colocation = () => {
           className="text-gray-500 text-[14px] md:text-[16px] max-w-3xl text-center mb-10 leading-relaxed font-medium"
         >
           Bring your own servers into DigiPowerX-owned Tier III facilities. Get direct access to our owned power, high-density cooling, and InfiniBand interconnects — without the hyperscaler premium.
-        </motion.p>
+        </m.p>
 
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           {/* Left Side: Bullet Points and Buttons */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -80,10 +80,10 @@ const Colocation = () => {
                 Download Spec Sheet
               </Link>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right Side: Visual */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -101,7 +101,7 @@ const Colocation = () => {
                 loading="lazy"
               />
             </div>
-          </motion.div>
+          </m.div>
 
         </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -19,106 +19,106 @@ import { CTASection } from './Footer';
 const LeadershipHeroVisual3D = dynamic(() => import('./LeadershipHeroVisual3D'), { ssr: false });
 
 // Leadership Portraits from public/images
+const executives = [
+  {
+    name: "Michel Amar",
+    role: "Chief Executive Officer",
+    img: "/images/96.jpg",
+    bio: "Michel Amar is a French-American businessman and entrepreneur known for his success in innovative technology, such as blockchain and electronics, as well as developing branded fashion. With a Bachelor's degree in accounting and business management, Michel has worked and consulted with some of the most famous international brands, playing a vital role in their profitability and continued relevance."
+  },
+  {
+    name: "Alec Amar",
+    role: "President",
+    img: "/images/95.jpg",
+    bio: "Mr. Amar is an entrepreneur and infrastructure executive with deep experience in energy, high-density data-center development, and advanced digital infrastructure. Under Mr. Amar's leadership, DigiPowerX has expanded into multiple U.S. markets with a growing portfolio of high-power data-center properties."
+  },
+  {
+    name: "Jagan Jeyapal",
+    role: "Chief Technology Officer",
+    img: "/images/ChatGPT Image May 18, 2026, 04_04_34 PM.png",
+    bio: "Technical visionary driving the architecture of DigiPowerX's high-performance computing platforms and sustainable infrastructure solutions."
+  },
+  {
+    name: "Paul Ciullo",
+    role: "Chief Financial Officer",
+    img: "/images/ChatGPT Image May 18, 2026, 04_04_37 PM.png",
+    bio: "Financial strategist overseeing the company's fiscal health and capital allocation for massive infrastructure scaling."
+  },
+  {
+    name: "Daniel Rotunno",
+    role: "VP of Operations",
+    img: "/images/ChatGPT Image May 18, 2026, 04_04_39 PM.png",
+    bio: "Operations expert managing the complex logistics and site deployments for modular data centers."
+  },
+  {
+    name: "Luke Marchiori",
+    role: "Chief Renewable Energy Officer",
+    img: "/images/ChatGPT Image May 18, 2026, 04_04_40 PM.png",
+    bio: "Leading the integration of clean power sources with high-density compute facilities."
+  },
+  {
+    name: "Jim McCabe",
+    role: "Advisor",
+    img: "/images/ChatGPT Image May 18, 2026, 04_04_42 PM.png",
+    bio: "Real estate and infrastructure development veteran with 15+ years of experience leading hyperscale site acquisitions and construction."
+  },
+  {
+    name: "Eddie Cloud",
+    role: "Infrastructure and Development Lead",
+    img: "/images/ChatGPT Image May 18, 2026, 04_04_43 PM.png",
+    bio: "Specialist in thermal dynamics and structural engineering, pioneering innovative liquid cooling architectures for high-density AI clusters."
+  },
+  {
+    name: "Venkat Rangasamy",
+    role: "VP of AI Infrastructure",
+    img: "/images/ChatGPT Image May 18, 2026, 04_04_45 PM.png",
+    bio: "Energy sector expert specializing in grid-scale renewable integration, microgrids, and high-voltage substation designs."
+  },
+  {
+    name: "Hans Vestberg",
+    role: "Senior Advisor",
+    img: "/images/97.jpg",
+    bio: "Cybersecurity strategist safeguarding DigiPowerX's high-performance compute networks, physical assets, and data sovereignty."
+  }
+];
+
+const boardMembers = [
+  {
+    name: "Michel Amar",
+    role: "Chairman of the Board",
+    img: "/images/michal (1).webp",
+    bio: "Michel Amar is a French-American businessman and entrepreneur known for his success in innovative technology, such as blockchain and electronics, as well as developing branded fashion."
+  },
+  {
+    name: "Alec Amar",
+    role: "Board Member",
+    img: "/images/alec.webp",
+    bio: "Mr. Amar is an entrepreneur and infrastructure executive with deep experience in energy, high-density data-center development, and advanced digital infrastructure."
+  },
+  {
+    name: "Gerard Rotonda",
+    role: "Board Member",
+    img: "/images/hans.webp",
+    bio: "Mr. Rotonda was the Chief Financial Officer for Deutsche Bank Wealth Management Americas. He has over 30 years of experience in business development and financial analysis."
+  },
+  {
+    name: "Adam S. Rossman",
+    role: "Board Member",
+    img: "/images/eddie.webp",
+    bio: "Mr. Rossman is a business and real estate attorney with extensive experience in commercial real estate and trademark licensing."
+  },
+  {
+    name: "Ajay Gupta",
+    role: "Board Member",
+    img: "/images/venkat.webp",
+    bio: "Seasoned wealth management executive and Principal of Robbins Gupta Holdings. Advisor to global financial organizations."
+  }
+];
+
 const Leadership = () => {
   const [selectedLeader, setSelectedLeader] = useState<any>(null);
   const [expandedBoardMember, setExpandedBoardMember] = useState<number | null>(null);
   const [expandedCommittee, setExpandedCommittee] = useState<number | null>(null);
-
-  const executives = [
-    {
-      name: "Michel Amar",
-      role: "Chief Executive Officer",
-      img: "/images/96.jpg",
-      bio: "Michel Amar is a French-American businessman and entrepreneur known for his success in innovative technology, such as blockchain and electronics, as well as developing branded fashion. With a Bachelor's degree in accounting and business management, Michel has worked and consulted with some of the most famous international brands, playing a vital role in their profitability and continued relevance."
-    },
-    {
-      name: "Alec Amar",
-      role: "President",
-      img: "/images/95.jpg",
-      bio: "Mr. Amar is an entrepreneur and infrastructure executive with deep experience in energy, high-density data-center development, and advanced digital infrastructure. Under Mr. Amar's leadership, DigiPowerX has expanded into multiple U.S. markets with a growing portfolio of high-power data-center properties."
-    },
-    {
-      name: "Jagan Jeyapal",
-      role: "Chief Technology Officer",
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_34 PM.png",
-      bio: "Technical visionary driving the architecture of DigiPowerX's high-performance computing platforms and sustainable infrastructure solutions."
-    },
-    {
-      name: "Paul Ciullo",
-      role: "Chief Financial Officer",
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_37 PM.png",
-      bio: "Financial strategist overseeing the company's fiscal health and capital allocation for massive infrastructure scaling."
-    },
-    {
-      name: "Daniel Rotunno",
-      role: "VP of Operations",
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_39 PM.png",
-      bio: "Operations expert managing the complex logistics and site deployments for modular data centers."
-    },
-    {
-      name: "Luke Marchiori",
-      role: "Chief Renewable Energy Officer",
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_40 PM.png",
-      bio: "Leading the integration of clean power sources with high-density compute facilities."
-    },
-    {
-      name: "Jim McCabe",
-      role: "Advisor",
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_42 PM.png",
-      bio: "Real estate and infrastructure development veteran with 15+ years of experience leading hyperscale site acquisitions and construction."
-    },
-    {
-      name: "Eddie Cloud",
-      role: "Infrastructure and Development Lead",
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_43 PM.png",
-      bio: "Specialist in thermal dynamics and structural engineering, pioneering innovative liquid cooling architectures for high-density AI clusters."
-    },
-    {
-      name: "Venkat Rangasamy",
-      role: "VP of AI Infrastructure",
-      img: "/images/ChatGPT Image May 18, 2026, 04_04_45 PM.png",
-      bio: "Energy sector expert specializing in grid-scale renewable integration, microgrids, and high-voltage substation designs."
-    },
-    {
-      name: "Hans Vestberg",
-      role: "Senior Advisor",
-      img: "/images/97.jpg",
-      bio: "Cybersecurity strategist safeguarding DigiPowerX's high-performance compute networks, physical assets, and data sovereignty."
-    }
-  ];
-
-  const boardMembers = [
-    {
-      name: "Michel Amar",
-      role: "Chairman of the Board",
-      img: "/images/michal (1).webp",
-      bio: "Michel Amar is a French-American businessman and entrepreneur known for his success in innovative technology, such as blockchain and electronics, as well as developing branded fashion."
-    },
-    {
-      name: "Alec Amar",
-      role: "Board Member",
-      img: "/images/alec.webp",
-      bio: "Mr. Amar is an entrepreneur and infrastructure executive with deep experience in energy, high-density data-center development, and advanced digital infrastructure."
-    },
-    {
-      name: "Gerard Rotonda",
-      role: "Board Member",
-      img: "/images/hans.webp",
-      bio: "Mr. Rotonda was the Chief Financial Officer for Deutsche Bank Wealth Management Americas. He has over 30 years of experience in business development and financial analysis."
-    },
-    {
-      name: "Adam S. Rossman",
-      role: "Board Member",
-      img: "/images/eddie.webp",
-      bio: "Mr. Rossman is a business and real estate attorney with extensive experience in commercial real estate and trademark licensing."
-    },
-    {
-      name: "Ajay Gupta",
-      role: "Board Member",
-      img: "/images/venkat.webp",
-      bio: "Seasoned wealth management executive and Principal of Robbins Gupta Holdings. Advisor to global financial organizations."
-    }
-  ];
 
   return (
     <div className="bg-black min-h-screen text-white selection:bg-brand-yellow selection:text-black">
@@ -128,7 +128,7 @@ const Leadership = () => {
 
         <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-0 px-4">
           {/* LEFT: Text */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -147,17 +147,17 @@ const Leadership = () => {
             <p className="text-xl text-white/50 max-w-xl leading-relaxed font-medium text-center lg:text-left">
               "Meet the experienced executives driving DigiPowerX's vision of revolutionizing AI infrastructure and sustainable data center operations."
             </p>
-          </motion.div>
+          </m.div>
 
           {/* RIGHT: 3D Animation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="w-full h-[340px] sm:h-[380px] lg:h-[550px] lg:min-h-[600px] relative overflow-hidden"
           >
             <LeadershipHeroVisual3D />
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -171,7 +171,7 @@ const Leadership = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {executives.map((exec, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -203,7 +203,7 @@ const Leadership = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -282,7 +282,7 @@ const Leadership = () => {
                     {/* Expandable Biography Section */}
                     <AnimatePresence initial={false}>
                       {isExpanded && (
-                        <motion.div
+                        <m.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
@@ -312,7 +312,7 @@ const Leadership = () => {
                               </div>
                             </div>
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -327,7 +327,7 @@ const Leadership = () => {
       {/* Leader Bio Modal */}
       <AnimatePresence>
         {selectedLeader && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -367,7 +367,7 @@ const Leadership = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -463,7 +463,7 @@ const Leadership = () => {
                     {/* Expandable Description and Members Section */}
                     <AnimatePresence initial={false}>
                       {isExpanded && (
-                        <motion.div
+                        <m.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
@@ -496,7 +496,7 @@ const Leadership = () => {
                               </div>
                             </div>
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>

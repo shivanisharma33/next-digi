@@ -1,12 +1,45 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Zap, Factory, Landmark, Wind, Globe, ShieldCheck } from 'lucide-react';
+
+const items = [
+  {
+    icon: Zap,
+    title: "Owned Power Generation",
+    description: "Direct ownership of the energy stack. Natural gas, solar, and utility grid interconnects provide total control over uptime and cost structure."
+  },
+  {
+    icon: Factory,
+    title: "Substation Infrastructure",
+    description: "Dedicated on-site power substations capable of delivering high-voltage capacity required for the next generation of GPU cluster training."
+  },
+  {
+    icon: Landmark,
+    title: "Tier III Data Centers",
+    description: "Engineered for 99.99% availability with N+1 redundancy across cooling, power, and connectivity — purpose-built for high-density compute."
+  },
+  {
+    icon: Wind,
+    title: "Precision Liquid Cooling",
+    description: "Direct-to-chip liquid cooling (DLC) and advanced heat rejection systems eliminate thermal bottlenecks and maximize GPU performance."
+  },
+  {
+    icon: Globe,
+    title: "400G Network Fabric",
+    description: "Low-latency InfiniBand and Ethernet fabric with sub-microsecond east-west speeds — optimized for distributed AI training at scale."
+  },
+  {
+    icon: ShieldCheck,
+    title: "Physical Security",
+    description: "Multi-layered perimeter defense, 24/7 on-site security forces, biometric access, and SOC 2 Type II compliance protecting critical infrastructure."
+  }
+];
 
 const CapabilityCard = ({ icon: Icon, title, description, delay }: { icon: any, title: string, description: string, delay: number }) => {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -36,44 +69,11 @@ const CapabilityCard = ({ icon: Icon, title, description, delay }: { icon: any, 
       <div className="mt-auto pt-6 w-full">
         <div className="h-[2px] w-6 bg-gray-100 group-hover:w-full group-hover:bg-[#f5c518] transition-all duration-500 origin-left" />
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
 const Capabilities = () => {
-  const items = [
-    {
-      icon: Zap,
-      title: "Owned Power Generation",
-      description: "Direct ownership of the energy stack. Natural gas, solar, and utility grid interconnects provide total control over uptime and cost structure."
-    },
-    {
-      icon: Factory,
-      title: "Substation Infrastructure",
-      description: "Dedicated on-site power substations capable of delivering high-voltage capacity required for the next generation of GPU cluster training."
-    },
-    {
-      icon: Landmark,
-      title: "Tier III Data Centers",
-      description: "Engineered for 99.99% availability with N+1 redundancy across cooling, power, and connectivity — purpose-built for high-density compute."
-    },
-    {
-      icon: Wind,
-      title: "Precision Liquid Cooling",
-      description: "Direct-to-chip liquid cooling (DLC) and advanced heat rejection systems eliminate thermal bottlenecks and maximize GPU performance."
-    },
-    {
-      icon: Globe,
-      title: "400G Network Fabric",
-      description: "Low-latency InfiniBand and Ethernet fabric with sub-microsecond east-west speeds — optimized for distributed AI training at scale."
-    },
-    {
-      icon: ShieldCheck,
-      title: "Physical Security",
-      description: "Multi-layered perimeter defense, 24/7 on-site security forces, biometric access, and SOC 2 Type II compliance protecting critical infrastructure."
-    }
-  ];
-
   return (
     <section className="bg-[#fcfcfc] pt-10 pb-16 md:pb-20 relative overflow-hidden">
 
@@ -97,7 +97,7 @@ const Capabilities = () => {
       </div>
 
       {/* Moving decorative elements */}
-      <motion.div
+      <m.div
         animate={{ y: [0, -40, 0], opacity: [0.1, 0.2, 0.1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-1/4 right-10 w-[400px] h-[400px] bg-[#f5c518] rounded-full blur-[160px] pointer-events-none"
@@ -107,7 +107,7 @@ const Capabilities = () => {
 
         {/* Header Section with enhanced typography */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-20">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -115,9 +115,9 @@ const Capabilities = () => {
           >
             <div className="h-[2px] w-12 bg-[#f5c518]" />
             <span className="text-[10px] font-semibold tracking-[0.25em] text-black uppercase">CAPABILITIES</span>
-          </motion.div>
+          </m.div>
 
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
@@ -127,7 +127,7 @@ const Capabilities = () => {
             FULL-STACK FACILITY <br className="hidden md:block" />
             <span className="text-[#f5c518] relative">
               SPECIFICATIONS.
-              <motion.div
+              <m.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
@@ -135,9 +135,9 @@ const Capabilities = () => {
                 className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#f5c518] origin-left opacity-60"
               />
             </span>
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -145,14 +145,14 @@ const Capabilities = () => {
             className="text-gray-500 text-[14px] md:text-[17px] max-w-4xl leading-relaxed font-medium"
           >
             From incoming high-voltage utility to GPU rack output — each layer of our owned facilities is designed with high-density AI workload performance as the primary constraint.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Grid Section with more spacing */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {items.map((item, index) => (
             <CapabilityCard
-              key={index}
+              key={item.title}
               icon={item.icon}
               title={item.title}
               description={item.description}
@@ -162,7 +162,7 @@ const Capabilities = () => {
         </div>
 
         {/* ── CTA Conversion Block ── */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -206,7 +206,7 @@ const Capabilities = () => {
           <p className="mt-7 text-gray-400 text-[12px] relative z-10">
             Trusted by enterprise clients across AI, HPC &amp; cloud workloads · Typical response within <strong className="text-gray-500">12 hours</strong>
           </p>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

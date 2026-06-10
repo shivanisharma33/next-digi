@@ -91,6 +91,7 @@ const STATE_BORDER: Record<GpuState, string> = {
   idle:  'rgba(255,255,255,0.08)',
   error: 'rgba(239,68,68,0.7)',
 };
+const LOG_COLOR: Record<string, string> = { green: '#00e878', amber: '#f5c518', blue: '#3b82f6', red: '#ef4444', echo: '#00e878', '': 'rgba(255,255,255,0.55)' };
 const STATE_TEXT: Record<GpuState, string> = {
   high: '#00e878', med: '#f5c518', low: '#3b82f6', idle: 'rgba(255,255,255,0.25)', error: '#ef4444',
 };
@@ -251,8 +252,6 @@ const GpuClusterDashboard: React.FC = () => {
     else lines = [{ c: 'red', m: `command not found: ${val} â€” type 'help'` }];
     setLog(prev => { const next = [...prev, echo, ...lines.map(l => ({ ...l, ts: '  ', key: nk() }))]; if (next.length > MAX_LOG) next.splice(0, next.length - MAX_LOG); return next; });
   }, []);
-
-  const LOG_COLOR: Record<string, string> = { green: '#00e878', amber: '#f5c518', blue: '#3b82f6', red: '#ef4444', echo: '#00e878', '': 'rgba(255,255,255,0.55)' };
 
   return (
     <div style={{ background: '#050806', border: '1px solid rgba(0,232,120,0.15)', borderRadius: 8, overflow: 'hidden', fontFamily: 'monospace', boxShadow: '0 0 60px rgba(0,232,120,0.06)' }}>

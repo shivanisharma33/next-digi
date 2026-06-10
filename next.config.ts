@@ -6,11 +6,17 @@ const nextConfig: NextConfig = {
       'lucide-react',
       'framer-motion',
       'recharts',
-      '@react-three/drei',
     ],
   },
   async redirects() {
     return [
+      // Canonicalize www → apex so SEO signals aren't split across two hosts.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.digipowerx.com' }],
+        destination: 'https://digipowerx.com/:path*',
+        permanent: true,
+      },
       { source: '/contact-us', destination: '/contact', permanent: true },
       { source: '/about-us', destination: '/about', permanent: true },
       { source: '/data-center', destination: '/data-centers', permanent: true },
@@ -36,15 +42,29 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    // Three.js objects expose `material` as `Material | Material[]`; this
-    // codebase's 3D scenes access single-material properties directly, which
-    // is runtime-safe but trips strict type-checking. Skip type errors during
-    // the production build (matches the eslint setting above).
-    ignoreBuildErrors: true,
+  async headers() {
+    // Baseline security headers applied to every response. A full
+    // Content-Security-Policy is intentionally omitted: the site relies on
+    // inline <style> blocks and WebGL, so a strict CSP needs dedicated testing
+    // before it can be enabled without breaking pages.
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+    ];
   },
 };
 

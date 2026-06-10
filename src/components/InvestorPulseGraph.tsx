@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const YELLOW = '#ffc629';
 const YELLOW_SOFT = '#ffdb6e';
@@ -150,7 +150,7 @@ const InvestorPulseGraph: React.FC = () => {
         />
 
         {/* Area fill under chart */}
-        <motion.path
+        <m.path
           d={`${GRAPH_PATH} L358.88,358.78 L14.65,358.78 Z`}
           fill="url(#areaGrad)"
           initial={{ opacity: 0 }}
@@ -164,7 +164,7 @@ const InvestorPulseGraph: React.FC = () => {
         />
 
         {/* Main graph line — animates draw + fade-out loop */}
-        <motion.path
+        <m.path
           d={GRAPH_PATH}
           stroke="url(#lineGrad)"
           strokeWidth="2.5"
@@ -186,7 +186,7 @@ const InvestorPulseGraph: React.FC = () => {
         />
 
         {/* Dotted forecast trail beyond endpoint */}
-        <motion.path
+        <m.path
           d={TRAIL_PATH}
           stroke={YELLOW}
           strokeWidth="1.5"
@@ -206,7 +206,7 @@ const InvestorPulseGraph: React.FC = () => {
         />
 
         {/* Small tracking dot at curve inflection (~point index 4: 177.61, 302.73 vicinity) */}
-        <motion.circle
+        <m.circle
           cx="186.51"
           cy="360.03"
           r="5"
@@ -226,7 +226,7 @@ const InvestorPulseGraph: React.FC = () => {
         />
 
         {/* Big endpoint dot with concentric pulse halo */}
-        <motion.circle
+        <m.circle
           cx="359.18"
           cy="187.38"
           r="22"
@@ -244,7 +244,7 @@ const InvestorPulseGraph: React.FC = () => {
           }}
           style={{ transformOrigin: '359.18px 187.38px' }}
         />
-        <motion.circle
+        <m.circle
           cx="359.18"
           cy="187.38"
           r="10"

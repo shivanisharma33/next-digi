@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export default function NeoCloudVisual() {
   return (
@@ -27,14 +27,14 @@ export default function NeoCloudVisual() {
         {/* GPU Grid */}
         <div className="grid grid-cols-4 gap-3 mb-8">
           {[...Array(16)].map((_, i) => (
-            <motion.div 
+            <m.div 
               key={i}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: i * 0.05 }}
               className="h-12 bg-white/5 border border-white/10 relative overflow-hidden group"
             >
-              <motion.div 
+              <m.div 
                 animate={{ height: ['20%', '80%', '40%', '90%', '60%'] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: i * 0.1 }}
                 className="absolute bottom-0 left-0 right-0 bg-[#f5c518]/20"
@@ -42,7 +42,7 @@ export default function NeoCloudVisual() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-[8px] text-white/20">GPU_{i}</span>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
@@ -55,7 +55,7 @@ export default function NeoCloudVisual() {
                 <span className="text-[#f5c518]">141.2 GB / 192 GB</span>
               </div>
               <div className="h-1 w-full bg-white/5 overflow-hidden">
-                <motion.div 
+                <m.div 
                   initial={{ width: 0 }}
                   animate={{ width: '74%' }}
                   transition={{ duration: 2 }}
@@ -69,7 +69,7 @@ export default function NeoCloudVisual() {
                 <span className="text-white">62.4°C</span>
               </div>
               <div className="h-1 w-full bg-white/5 overflow-hidden">
-                <motion.div 
+                <m.div 
                   initial={{ width: 0 }}
                   animate={{ width: '58%' }}
                   transition={{ duration: 2, delay: 0.2 }}
@@ -83,7 +83,7 @@ export default function NeoCloudVisual() {
                 <span className="text-white">384.2 Gbps</span>
               </div>
               <div className="h-1 w-full bg-white/5 overflow-hidden">
-                <motion.div 
+                <m.div 
                   initial={{ width: 0 }}
                   animate={{ width: '92%' }}
                   transition={{ duration: 2, delay: 0.4 }}

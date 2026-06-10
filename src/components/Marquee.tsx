@@ -1,15 +1,16 @@
 import React from 'react';
 
+const items = [
+  "400MW+ POWER CAPACITY",
+  "NVIDIA BLACKWELL",
+  "<1.3 PUE EFFICIENCY",
+  "100% U.S. OWNED & OPERATED",
+  "4 DATA CENTER CAMPUSES",
+  "2N POWER REDUNDANCY",
+  "LIQUID COOLING READY"
+];
+
 const Marquee = () => {
-  const items = [
-    "400MW+ POWER CAPACITY",
-    "NVIDIA BLACKWELL",
-    "<1.3 PUE EFFICIENCY",
-    "100% U.S. OWNED & OPERATED",
-    "4 DATA CENTER CAMPUSES",
-    "2N POWER REDUNDANCY",
-    "LIQUID COOLING READY"
-  ];
 
   return (
     <div className="relative bg-brand-dark py-5 overflow-hidden border-y border-white/10">
@@ -21,7 +22,7 @@ const Marquee = () => {
         {[...Array(4)].map((_, i) => (
           <div key={i} className="flex gap-16 items-center px-8">
             {items.map((item, index) => (
-              <div key={index} className="flex items-center gap-16">
+              <div key={item} className="flex items-center gap-16">
                 <span className={`text-[10px] font-black tracking-[0.3em] uppercase ${index % 2 === 1 ? 'text-brand-yellow' : 'text-gray-500'}`}>
                   {item}
                 </span>

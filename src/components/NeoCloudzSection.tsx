@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
@@ -10,32 +10,36 @@ const NeoCloudzClusterCanvas = dynamic(() => import('./NeoCloudzClusterCanvas'),
   loading: () => <div className="w-full h-full bg-black/40 rounded-lg animate-pulse" />,
 });
 
-const Terminal = () => {
-  const [lines, setLines] = useState<string[]>([]);
+const allLines = [
+  'GPU 0-7: NVIDIA B200 · 192GB HBM3e each',
+  '',
+  'neocloudz:~ $ nvidia-smi --query',
+  '',
+  'All systems nominal · PUE 1.12',
+  '',
+  '[INFO] Cluster: 16x B200 | InfiniBand: 400G',
+  '[INFO] VRAM per node: 192 GB | Total: 3.07 TB',
+  '[INFO] Provisioned in 00:00:47 — SLA: <60s ✔',
+  '',
+  'trainer.train()... [STEP 500] loss=1.0887',
+  '',
+  'neocloudz:~ $ provision b200 --count 8 --fabric ib400g',
+  'Allocating node cluster [██████████] 100%',
+  'InfiniBand fabric: 400Gb/s · ready',
+];
 
-  const allLines = [
-    'GPU 0-7: NVIDIA B200 · 192GB HBM3e each',
-    '',
-    'neocloudz:~ $ nvidia-smi --query',
-    '',
-    'All systems nominal · PUE 1.12',
-    '',
-    '[INFO] Cluster: 16x B200 | InfiniBand: 400G',
-    '[INFO] VRAM per node: 192 GB | Total: 3.07 TB',
-    '[INFO] Provisioned in 00:00:47 — SLA: <60s ✔',
-    '',
-    'trainer.train()... [STEP 500] loss=1.0887',
-    '',
-    'neocloudz:~ $ provision b200 --count 8 --fabric ib400g',
-    'Allocating node cluster [██████████] 100%',
-    'InfiniBand fabric: 400Gb/s · ready',
-  ];
+type TerminalLine = { id: number; text: string };
+
+const Terminal = () => {
+  const [lines, setLines] = useState<TerminalLine[]>([]);
+  const lineIdRef = React.useRef(0);
 
   useEffect(() => {
     let currentIdx = 0;
     const interval = setInterval(() => {
+      const id = lineIdRef.current++;
       setLines(prev => {
-        const nextLines = [...prev, allLines[currentIdx]];
+        const nextLines = [...prev, { id, text: allLines[currentIdx] }];
         if (nextLines.length > 15) nextLines.shift();
         return nextLines;
       });
@@ -63,12 +67,12 @@ const Terminal = () => {
 
       {/* Content */}
       <div className="p-6 md:p-8 space-y-[6px] relative z-10 overflow-y-auto h-full text-left">
-        {lines.map((line, idx) => (
-          <div key={idx} className={`${line.startsWith('[INFO]') ? 'text-[#00e878]/50' :
-            line.includes('neocloudz:~ $') ? 'text-[#00e878] font-bold drop-shadow-[0_0_5px_rgba(0,232,120,0.5)]' :
+        {lines.map((line) => (
+          <div key={line.id} className={`${line.text.startsWith('[INFO]') ? 'text-[#00e878]/50' :
+            line.text.includes('neocloudz:~ $') ? 'text-[#00e878] font-bold drop-shadow-[0_0_5px_rgba(0,232,120,0.5)]' :
               'text-[#00e878]/70'
             } whitespace-nowrap overflow-hidden text-ellipsis tracking-wide leading-relaxed`}>
-            {line}
+            {line.text}
           </div>
         ))}
         <div className="flex items-center gap-2 mt-2">
@@ -91,7 +95,7 @@ const NeoCloudzSection = () => {
         <div className="flex flex-col items-center text-center w-full mb-20">
 
           {/* Centered Pill */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -102,10 +106,10 @@ const NeoCloudzSection = () => {
               <div className="h-[1px] w-12 bg-[#00e878]/60" />
               <span className="text-[10px] font-bold tracking-[0.2em] text-[#00e878] uppercase">WHOLLY OWNED SUBSIDIARY</span>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Main Title (Inline) */}
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -115,10 +119,10 @@ const NeoCloudzSection = () => {
             <span className="text-white">MEET </span>
             <span className="text-[#00e878] drop-shadow-[0_0_15px_rgba(0,232,120,0.3)]">NEO</span>
             <span className="text-white"> CLOUDZ.</span>
-          </motion.h2>
+          </m.h2>
 
           {/* Description */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -126,14 +130,14 @@ const NeoCloudzSection = () => {
             className="text-gray-300 text-[15px] md:text-[17px] leading-relaxed max-w-[800px]"
           >
             NeoCloudz is DigiPowerX's GPU compute platform — delivering NVIDIA Blackwell bare-metal infrastructure directly from our owned data centers.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* === BOTTOM SPLIT SECTION === */}
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
 
           {/* Left Side: Bullet Points and Buttons */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -163,10 +167,10 @@ const NeoCloudzSection = () => {
                 Talk to Sales
               </Link>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right Side: Terminal */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -179,7 +183,7 @@ const NeoCloudzSection = () => {
               <div className="absolute bottom-[-1.5rem] right-[-1.5rem] w-20 h-20 border-b border-r border-[#00e878]/30 pointer-events-none" />
               <NeoCloudzClusterCanvas />
             </div>
-          </motion.div>
+          </m.div>
 
         </div>
 

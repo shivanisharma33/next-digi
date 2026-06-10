@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import {
   Search,
   MapPin,
@@ -19,10 +19,12 @@ import {
 import { CTASection } from './Footer';
 import dynamic from 'next/dynamic';
 
+import { STRAPI_URL } from '../lib/config';
+
 const CareersHeroVisual3D = dynamic(() => import('./CareersHeroVisual3D'), { ssr: false });
 
 /* ─── Strapi API base ─── */
-const STRAPI_BASE = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com";
+const STRAPI_BASE = STRAPI_URL;
 const OPEN_POSITIONS_API = `${STRAPI_BASE}/api/open-positions`;
 
 // Upgraded Glassmorphic Card Container
@@ -85,6 +87,37 @@ const mapStrapiToJob = (item: StrapiPosition): JobPosition => {
   };
 };
 
+const pathways = [
+  {
+    num: "01",
+    icon: Cpu,
+    title: "HPC Engineering",
+    description: "Architect the physical and digital backbone of global high-performance computing. Build high-density power grids and hyper-scale parallel clusters.",
+    skills: ["HPC Clusters", "Thermal Modeling", "Liquid Cooling", "RDMA Fabric"]
+  },
+  {
+    num: "02",
+    icon: ShieldCheck,
+    title: "Cyber Security",
+    description: "Enforce ultra-resilient zero-trust architectures for advanced computing pipelines. Shield high-value AI workloads from edge to core.",
+    skills: ["Zero-Trust Networking", "HPC Guardrails", "Kubernetes Sec", "Intrusion Defense"]
+  },
+  {
+    num: "03",
+    icon: Settings,
+    title: "AI Factory Ops",
+    description: "Manage hyper-scale data center ecosystems. Deliver mission-critical reliability and power efficiency for enterprise workloads.",
+    skills: ["SLA Automation", "GPU Overclocking", "Modular Grid Tech", "Kubernetes"]
+  },
+  {
+    num: "04",
+    icon: Users,
+    title: "Global Scaling",
+    description: "Scale the reach of modular computing resources. Formulate international power acquisitions and key corporate alliances.",
+    skills: ["Power Purchasing", "Global Logistics", "Capital Strategy", "Alliances"]
+  }
+];
+
 const Careers = () => {
   // Data State
   const [positions, setPositions] = useState<JobPosition[]>([]);
@@ -126,37 +159,6 @@ const Careers = () => {
     fetchPositions();
   }, []);
 
-  const pathways = [
-    {
-      num: "01",
-      icon: Cpu,
-      title: "HPC Engineering",
-      description: "Architect the physical and digital backbone of global high-performance computing. Build high-density power grids and hyper-scale parallel clusters.",
-      skills: ["HPC Clusters", "Thermal Modeling", "Liquid Cooling", "RDMA Fabric"]
-    },
-    {
-      num: "02",
-      icon: ShieldCheck,
-      title: "Cyber Security",
-      description: "Enforce ultra-resilient zero-trust architectures for advanced computing pipelines. Shield high-value AI workloads from edge to core.",
-      skills: ["Zero-Trust Networking", "HPC Guardrails", "Kubernetes Sec", "Intrusion Defense"]
-    },
-    {
-      num: "03",
-      icon: Settings,
-      title: "AI Factory Ops",
-      description: "Manage hyper-scale data center ecosystems. Deliver mission-critical reliability and power efficiency for enterprise workloads.",
-      skills: ["SLA Automation", "GPU Overclocking", "Modular Grid Tech", "Kubernetes"]
-    },
-    {
-      num: "04",
-      icon: Users,
-      title: "Global Scaling",
-      description: "Scale the reach of modular computing resources. Formulate international power acquisitions and key corporate alliances.",
-      skills: ["Power Purchasing", "Global Logistics", "Capital Strategy", "Alliances"]
-    }
-  ];
-
   // Dynamic Filtering Logic
   const filteredPositions = positions.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -180,7 +182,7 @@ const Careers = () => {
         <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-12">
           {/* LEFT: Text */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8"
@@ -189,9 +191,9 @@ const Careers = () => {
               <span className="text-[9px] uppercase tracking-[0.4em] font-mono text-brand-yellow font-semibold">
                 Now Recruiting Technical Nodes Globally
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -199,27 +201,27 @@ const Careers = () => {
             >
               <span className="block text-white">BUILDING THE</span>
               <span className="block text-brand-yellow">FUTURE OF COMPUTE</span>
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="text-white/60 text-sm md:text-lg max-w-xl mb-12 leading-relaxed font-medium tracking-wide text-center lg:text-left"
             >
               Join DigiPowerX in engineering zero-loss, liquid-cooled modular platforms powering the world's most massive AI clusters and high-density technical workloads.
-            </motion.p>
+            </m.p>
           </div>
 
           {/* RIGHT: 3D Animation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full h-[320px] sm:h-[380px] lg:h-[550px] lg:min-h-[580px] relative overflow-hidden"
           >
             <CareersHeroVisual3D />
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -242,8 +244,8 @@ const Careers = () => {
             {pathways.map((path, idx) => {
               const Icon = path.icon;
               return (
-                <motion.div
-                  key={idx}
+                <m.div
+                  key={path.num}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
@@ -272,7 +274,7 @@ const Careers = () => {
                       </span>
                     ))}
                   </div>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
@@ -432,7 +434,7 @@ const Careers = () => {
                     {/* Expandable Biography Section */}
                     <AnimatePresence initial={false}>
                       {isExpanded && (
-                        <motion.div
+                        <m.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
@@ -491,7 +493,7 @@ const Careers = () => {
 
                               <AnimatePresence mode="wait">
                                 {!isSubmitted ? (
-                                  <motion.form
+                                  <m.form
                                     key="apply-form"
                                     initial={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
@@ -548,9 +550,9 @@ const Careers = () => {
                                         </button>
                                       </div>
                                     </div>
-                                  </motion.form>
+                                  </m.form>
                                 ) : (
-                                  <motion.div
+                                  <m.div
                                     key="success-form"
                                     initial={{ opacity: 0, scale: 0.98 }}
                                     animate={{ opacity: 1, scale: 1 }}
@@ -574,13 +576,13 @@ const Careers = () => {
                                     >
                                       Reset Application Module
                                     </button>
-                                  </motion.div>
+                                  </m.div>
                                 )}
                               </AnimatePresence>
                             </div>
 
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>

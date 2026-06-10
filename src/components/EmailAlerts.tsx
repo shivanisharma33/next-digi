@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import {
   Mail,
   User,
@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { CTASection } from './Footer';
 import dynamic from 'next/dynamic';
+import { STRAPI_URL } from '../lib/config';
 
 const FuturisticDataRain = dynamic(() => import('./FuturisticDataRain'), { ssr: false });
 
@@ -81,7 +82,7 @@ const EmailAlerts = () => {
 
   try {
     const response = await fetch(
-      "https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/email-alerts",
+      `${STRAPI_URL}/api/email-alerts`,
       {
         method: "POST",
         headers: {
@@ -139,50 +140,50 @@ const EmailAlerts = () => {
         />
 
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-8 hover:border-brand-yellow/60 transition-colors cursor-default"
           >
-            <motion.div
+            <m.div
               animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
               transition={{ repeat: Infinity, repeatDelay: 4, duration: 0.6, ease: "easeInOut" }}
             >
               <Mail size={12} className="text-brand-yellow" />
-            </motion.div>
+            </m.div>
             <span className="text-[9px] uppercase tracking-[0.4em] font-mono text-brand-yellow font-semibold">
               REAL-TIME DISCLOSURE HUB
             </span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
             className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-tighter uppercase text-white mb-8 select-none"
           >
             EMAIL{' '}
-            <motion.span
+            <m.span
               animate={{ textShadow: ['0 0 10px rgba(245,197,24,0)', '0 0 20px rgba(245,197,24,0.3)', '0 0 10px rgba(245,197,24,0)'] }}
               transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
               className="text-brand-yellow drop-shadow-[0_0_15px_rgba(245,197,24,0.15)]"
             >
               ALERTS
-            </motion.span>
-          </motion.h1>
+            </m.span>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
             className="text-white/60 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium tracking-wide"
           >
             Sign up to receive important corporate updates, press releases, and SEC filings from DigiPowerX directly inside your computational node.
-          </motion.p>
+          </m.p>
 
           {/* Dotted anchor layout guide connector */}
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 48, opacity: 0.25 }}
             transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
@@ -202,7 +203,7 @@ const EmailAlerts = () => {
 
                 <AnimatePresence mode="wait">
                   {!isSubmitted ? (
-                    <motion.form
+                    <m.form
                       key="sub-form"
                       initial={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -372,9 +373,9 @@ const EmailAlerts = () => {
                         )}
                       </div>
 
-                    </motion.form>
+                    </m.form>
                   ) : (
-                    <motion.div
+                    <m.div
                       key="sub-success"
                       initial={{ opacity: 0, scale: 0.98 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -420,7 +421,7 @@ const EmailAlerts = () => {
                         Register Another Node
                       </button>
 
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
 
@@ -445,8 +446,8 @@ const EmailAlerts = () => {
                       { label: "CAN-SPAM Safeguard", val: "100% Compliant" },
                       { label: "Active Subscriber Nodes", val: "12,845 Nodes" },
                       { label: "Target Relay Latency", val: "< 150 ms" }
-                    ].map((stat, i) => (
-                      <div key={i} className="flex justify-between items-center border-b border-white/5 pb-3 last:border-0 last:pb-0">
+                    ].map((stat) => (
+                      <div key={stat.label} className="flex justify-between items-center border-b border-white/5 pb-3 last:border-0 last:pb-0">
                         <span className="text-[10px] font-mono uppercase text-white/30">{stat.label}</span>
                         <span className="text-xs font-semibold text-white/90">{stat.val}</span>
                       </div>

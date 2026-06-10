@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const WhatWeDo = () => {
   return (
@@ -18,7 +18,7 @@ const WhatWeDo = () => {
       />
 
       {/* Top Label */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -30,10 +30,10 @@ const WhatWeDo = () => {
           <div className="h-[2px] w-12 bg-[#f5c518] rounded-full" />
           <span className="text-[9px] font-semibold tracking-[0.2em] text-black uppercase">WHAT WE DO</span>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Main Heading */}
-      <motion.h2
+      <m.h2
         initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true }}
@@ -44,7 +44,7 @@ const WhatWeDo = () => {
         THE GROUND UP.<br />
         <span className="text-[#f5c518] relative inline-block">
           OWNED
-          <motion.div
+          <m.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
@@ -52,10 +52,10 @@ const WhatWeDo = () => {
             className="absolute bottom-0 md:-bottom-2 left-0 w-full h-[3px] bg-[#f5c518] origin-left opacity-60"
           />
         </span> AT EVERY LAYER.
-      </motion.h2>
+      </m.h2>
 
       {/* Subtext */}
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -64,7 +64,7 @@ const WhatWeDo = () => {
       >
         From land and power to physical infrastructure and compute — DigiPowerX controls<br className="hidden md:block" />
         the entire chain, eliminating third-party dependencies and compressing time-to-compute.
-      </motion.p>
+      </m.p>
 
       {/* Bottom Tabs / Grid */}
       <div className="w-full border-y border-gray-200 mt-auto bg-white/50 backdrop-blur-sm relative z-10">
@@ -74,12 +74,12 @@ const WhatWeDo = () => {
             { num: '02', text: 'BUILD THE DATA CENTERS' },
             { num: '03', text: 'OPERATE THE GPU CLUSTERS' },
           ].map((item, i) => (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 + (i * 0.1), duration: 0.6 }}
-              key={i}
+              key={item.num}
               className={`group relative flex justify-center items-center py-8 px-4 border-b md:border-b-0 border-gray-200 cursor-pointer overflow-hidden transition-all duration-500 hover:bg-gradient-to-t hover:from-[#f5c518]/10 hover:to-transparent ${i !== 2 ? 'md:border-r' : ''
                 } ${i === 0 ? 'md:border-l' : ''}`}
             >
@@ -90,46 +90,10 @@ const WhatWeDo = () => {
                 <span className="text-[10px] font-semibold text-[#f5c518] group-hover:scale-125 group-hover:-translate-y-1 transition-all duration-300">{item.num}</span>
                 <span className="text-[10px] font-semibold text-black tracking-[0.2em] uppercase group-hover:text-gray-600 transition-colors duration-300">{item.text}</span>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
-
-      {/* ── Inline CTA Strip ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="w-full relative z-10 border-b border-gray-100"
-      >
-        <div className="max-w-[1400px] mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          {/* Left: nudge copy */}
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:block w-[3px] h-10 bg-[#f5c518] rounded-full flex-shrink-0" />
-            <div>
-              <p className="text-black font-semibold text-[15px] leading-tight">Ready to see the full stack in action?</p>
-              <p className="text-gray-500 text-[13px] mt-0.5">Explore our data center campuses or talk directly to our team.</p>
-            </div>
-          </div>
-          {/* Right: action buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
-            <a
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2.5 bg-[#f5c518] text-black px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest hover:bg-[#ffda47] transition-all duration-300 shadow-md shadow-[#f5c518]/20 hover:shadow-lg hover:shadow-[#f5c518]/30 hover:-translate-y-0.5"
-            >
-              Schedule a Tour
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
-            </a>
-            <a
-              href="/energy"
-              className="inline-flex items-center justify-center gap-2.5 border border-black/15 text-black px-6 py-3 rounded-lg text-[11px] font-bold uppercase tracking-widest hover:border-[#f5c518] hover:text-[#c8a400] transition-all duration-300"
-            >
-              View Infrastructure
-            </a>
-          </div>
-        </div>
-      </motion.div>
 
     </section>
   );

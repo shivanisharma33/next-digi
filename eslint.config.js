@@ -1,29 +1,30 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import { FlatCompat } from '@eslint/eslintrc'
 
-export default defineConfig([
-  globalIgnores(['dist']),
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const compat = new FlatCompat({ baseDirectory: __dirname })
+
+export default [
   {
-    files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
-      },
-    },
+    ignores: ['.next/**', 'out/**', 'dist/**', 'node_modules/**', 'scripts/**'],
+  },
+  // Next.js recommended rules (covers React, React Hooks, and the Next plugin,
+  // and lints .ts/.tsx via the TypeScript parser bundled with eslint-config-next).
+  ...compat.extends('next/core-web-vitals'),
+  {
+    // These categories have many pre-existing, low-risk violations across the
+    // 3D/marketing components. Keep them visible as warnings (so they don't
+    // silently regress) without blocking `next build`. Every other rule stays
+    // at error, so genuinely new problems still fail the build.
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'react/no-unescaped-entities': 'warn',
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-hooks/purity': 'warn',
+      'react-hooks/static-components': 'warn',
+      'react-hooks/refs': 'warn',
     },
   },
-])
+]

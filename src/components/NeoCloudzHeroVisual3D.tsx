@@ -324,7 +324,7 @@ const NeoCloudzHeroVisual3D: React.FC = () => {
       ambientPoints.forEach((p) => {
         scene.remove(p.mesh);
         p.mesh.geometry.dispose();
-        p.mesh.material.dispose();
+        (p.mesh.material as THREE.Material).dispose();
       });
 
       ringNodes.forEach((node) => {

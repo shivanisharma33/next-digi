@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-const BASE_URL = 'https://www.digipowerx.com';
+const BASE_URL = 'https://digipowerx.com';
 
 // Static routes list
 const staticRoutes = [
@@ -133,7 +133,7 @@ async function run() {
   try {
     console.log('Fetching SEC filings...');
     const secRes = await fetchJson(
-      'https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/sec-filings?pagination[limit]=1000&fields=form_type,date,documentId'
+      'https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/sec-filings?pagination[limit]=1000&fields=type,form_type,date,documentId'
     );
     if (secRes && Array.isArray(secRes.data)) {
       secRes.data.forEach((item) => {

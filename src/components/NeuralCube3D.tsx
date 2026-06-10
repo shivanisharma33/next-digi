@@ -301,10 +301,10 @@ const NeuralCube3D: React.FC = () => {
         if (distToCursor < 1.0) {
           // Increase emissive/opacity when cursor is nearby
           pageMaterials[idx].opacity = 0.95;
-          pageBorders[idx].material.opacity = 0.85;
+          (pageBorders[idx].material as THREE.Material).opacity = 0.85;
         } else {
           pageMaterials[idx].opacity = 0.80;
-          pageBorders[idx].material.opacity = 0.38;
+          (pageBorders[idx].material as THREE.Material).opacity = 0.38;
         }
       });
 

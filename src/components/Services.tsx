@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Link from 'next/link';
 import { CTASection } from './Footer';
 import {
@@ -21,7 +21,7 @@ const GpuClusterDashboard = dynamic(() => import('./GpuClusterDashboard'), {
 
 /* ─── Shared Components ─── */
 const SectionLabel = ({ num, text, dark = false }: { num: string, text: string, dark?: boolean }) => (
-  <motion.div
+  <m.div
     initial={{ opacity: 0, y: -20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -31,7 +31,7 @@ const SectionLabel = ({ num, text, dark = false }: { num: string, text: string, 
       <div className="h-[2px] w-12 bg-[#f5c518]" />
       <span className={`text-[10px] font-semibold tracking-[0.25em] ${dark ? 'text-white' : 'text-black'} uppercase`}>{text}</span>
     </div>
-  </motion.div>
+  </m.div>
 );
 
 const FeatureItem = ({ text, dark = false }: { text: string, dark?: boolean }) => (
@@ -117,14 +117,14 @@ export default function Services() {
         {/* Main two-column grid */}
         <div className="flex-1 relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start lg:pt-12 py-2 md:py-10">
           {/* LEFT: Text + tabs */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="flex flex-col items-center text-center lg:items-start lg:text-left"
           >
             {/* Top Company Badge (Matching Reference Image) */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -134,9 +134,9 @@ export default function Services() {
               <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-[#f5c518]">
                 Services Platform
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -146,18 +146,18 @@ export default function Services() {
               <span className="text-[#f5c518] relative inline-block">
                 Capabilities
               </span>
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-gray-300 text-sm md:text-base max-w-xl mb-10 leading-relaxed font-semibold uppercase tracking-tight text-center lg:text-left"
             >
               Enterprise-grade AI infrastructure, designed for scale and high-density performance across all powered DigiPowerX sites.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -169,20 +169,20 @@ export default function Services() {
               <Link href="/investors" className="flex items-center justify-center gap-3 px-10 py-5 border border-brand-yellow text-white font-semibold text-[11px] uppercase tracking-[0.2em] rounded-md bg-white/5 backdrop-blur-md hover:bg-brand-yellow/10 hover:text-white transition-all group cursor-pointer text-center">
                 Investor Info <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
-            </motion.div>
+            </m.div>
 
 
-          </motion.div>
+          </m.div>
 
           {/* RIGHT: 3D Animation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full h-[280px] sm:h-[380px] lg:h-[550px] lg:min-h-[650px] relative overflow-hidden"
           >
             <DGXXCubeAnimation />
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -208,7 +208,7 @@ export default function Services() {
 
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
             {/* Power Card */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -247,10 +247,10 @@ export default function Services() {
                   <ArrowRight size={16} className="text-gray-300 group-hover:text-[#f5c518] group-hover:translate-x-2 transition-all" />
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Colocation Card */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -290,7 +290,7 @@ export default function Services() {
                   <ArrowRight size={16} className="text-gray-300 group-hover:text-[#f5c518] group-hover:translate-x-2 transition-all" />
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -302,7 +302,7 @@ export default function Services() {
           <SectionLabel num="02" text="Compute Layer" dark />
 
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -322,7 +322,7 @@ export default function Services() {
               <Link href="/neocloudz" className="px-10 py-5 bg-[#f5c518] text-black font-semibold uppercase tracking-widest text-[11px] hover:bg-white transition-all inline-block text-center">
                 NeoCloudz Platform
               </Link>
-            </motion.div>
+            </m.div>
             <div className="bg-black border border-white/10 overflow-hidden relative group shadow-2xl rounded-lg">
               <GpuClusterDashboard />
             </div>
@@ -358,7 +358,7 @@ export default function Services() {
                 const Icon = step.icon;
                 return (
                   <div
-                    key={i}
+                    key={step.label}
                     className="bg-[#0b0c10]/60 border border-white/[0.08] rounded-xl p-5 md:p-6 transition-all duration-300 hover:border-[#f5c518]/40 hover:-translate-y-1 hover:bg-[#0f1015]/80 hover:shadow-[0_10px_30px_rgba(245,197,24,0.05)] group relative overflow-hidden"
                   >
                     {/* Top Accent line */}
@@ -407,8 +407,8 @@ export default function Services() {
               }
 
               return (
-                <motion.div
-                  key={i}
+                <m.div
+                  key={item.desc}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -438,7 +438,7 @@ export default function Services() {
                       <div className="h-[4px] w-9 bg-[#f5c518] group-hover:w-14 transition-all duration-300 ease-out origin-left" />
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>

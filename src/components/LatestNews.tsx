@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowUpRight, Calendar, Tag, Download, Newspaper, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { generateSlug } from '../utils/slugify';
+import { STRAPI_URL } from '../lib/config';
 
 /* ─── Strapi config (same as PressRelease page) ─── */
-const STRAPI_BASE = 'https://thankful-miracle-1ed8bdfdaf.strapiapp.com';
+const STRAPI_BASE = STRAPI_URL;
 const PRESS_API = `${STRAPI_BASE}/api/press-releases`;
 
 interface StrapiPdf {
@@ -110,7 +111,7 @@ const NewsCard = ({
   const slug = generateSlug(release.title, release.documentId);
 
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       initial={{ opacity: 0, y: 40 }}
@@ -187,7 +188,7 @@ const NewsCard = ({
           </Link>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -259,7 +260,7 @@ const LatestNews = () => {
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14 sm:mb-16">
           <div>
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: -10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -272,9 +273,9 @@ const LatestNews = () => {
                 </span>
               </div>
               <div className="h-[1px] w-12 bg-gradient-to-r from-[#ffc629]/40 to-transparent" />
-            </motion.div>
+            </m.div>
 
-            <motion.h2
+            <m.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -282,9 +283,9 @@ const LatestNews = () => {
               className="text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-[1] tracking-[-0.03em] text-white"
             >
               Corporate <span className="text-[#ffc629]">Updates</span>
-            </motion.h2>
+            </m.h2>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -292,11 +293,11 @@ const LatestNews = () => {
               className="mt-5 text-white/35 text-[14px] sm:text-[15px] max-w-xl leading-relaxed"
             >
               The latest press releases, infrastructure milestones, and strategic announcements from DigiPowerX.
-            </motion.p>
+            </m.p>
           </div>
 
           {/* View All CTA */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -311,7 +312,7 @@ const LatestNews = () => {
                 <ArrowUpRight size={12} />
               </div>
             </Link>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Divider */}
@@ -327,7 +328,7 @@ const LatestNews = () => {
         </div>
 
         {/* Bottom accent line */}
-        <motion.div
+        <m.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}

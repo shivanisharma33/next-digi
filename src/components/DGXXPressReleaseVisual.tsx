@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { GLASS_LAYERS } from './dgxxGlassLayers';
 
 /**
@@ -17,7 +17,7 @@ const DGXXPressReleaseVisual: React.FC = () => {
   return (
     <div className="relative w-full h-full overflow-hidden">
       {/* Floating group — the whole stack drifts as one unit (transparent bg) */}
-      <motion.div
+      <m.div
         className="absolute inset-0"
         style={{ willChange: 'transform' }}
         animate={{
@@ -45,7 +45,7 @@ const DGXXPressReleaseVisual: React.FC = () => {
             }}
           />
         ))}
-      </motion.div>
+      </m.div>
     </div>
   );
 };

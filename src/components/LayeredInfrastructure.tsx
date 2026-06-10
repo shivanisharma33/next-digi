@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  motion,
+  m,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
@@ -284,7 +284,7 @@ const LayeredInfrastructure = () => {
                 {/* Visual Graphic Wrapper — stays centered; only markers/pointers move */}
                 <div className="absolute inset-0">
                   {/* Soft glow behind active layer */}
-                  <motion.div
+                  <m.div
                     aria-hidden
                     className="absolute left-1/2 -translate-x-1/2 rounded-full blur-3xl"
                     animate={{
@@ -419,7 +419,7 @@ const LayeredInfrastructure = () => {
                 }`}
             >
               {/* DESKTOP: small num + kicker chip — sits opposite the big block */}
-              <motion.div
+              <m.div
                 className={`hidden lg:absolute lg:flex lg:max-w-[340px] lg:flex-col ${infoOnLeft
                   ? "lg:right-12 lg:items-end lg:text-right"
                   : "lg:left-12 lg:items-start lg:text-left"
@@ -438,7 +438,7 @@ const LayeredInfrastructure = () => {
                     }
                 }
               >
-                <motion.div
+                <m.div
                   key={`chip-${activeLayer.id}`}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -454,11 +454,11 @@ const LayeredInfrastructure = () => {
                   <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#f5c518]">
                     {activeLayer.kicker}
                   </span>
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
 
               {/* DESKTOP: big info block — flips above the marker for late layers */}
-              <motion.div
+              <m.div
                 className={`hidden lg:absolute lg:flex lg:max-w-[360px] lg:flex-col ${infoOnLeft
                   ? "lg:right-12 lg:items-end lg:text-right"
                   : "lg:left-12 lg:items-start lg:text-left"
@@ -477,7 +477,7 @@ const LayeredInfrastructure = () => {
                     }
                 }
               >
-                <motion.div
+                <m.div
                   key={`below-${activeLayer.id}`}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -535,11 +535,11 @@ const LayeredInfrastructure = () => {
                       →
                     </span>
                   </Link>
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
 
               {/* MOBILE: stacked content below visual */}
-              <motion.div
+              <m.div
                 key={`mobile-${activeLayer.id}`}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -598,7 +598,7 @@ const LayeredInfrastructure = () => {
                     />
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </aside>
           </div>
         </div>

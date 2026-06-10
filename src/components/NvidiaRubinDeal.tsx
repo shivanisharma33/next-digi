@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowUpRight, Cpu, Zap, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 

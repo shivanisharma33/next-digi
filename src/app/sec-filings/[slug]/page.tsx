@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import FilingDetailPage from '../../../components/FilingDetailPage';
 import { extractDocumentId } from '../../../utils/slugify';
+import { STRAPI_URL } from '../../../lib/config';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   try {
-    const res = await fetch(`https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/sec-filings/${documentId}`);
+    const res = await fetch(`${STRAPI_URL}/api/sec-filings/${documentId}`);
     if (!res.ok) throw new Error();
     const json = await res.json();
     const filing = json.data;

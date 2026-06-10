@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import {
   Zap,
@@ -118,7 +118,7 @@ const ClusterTelemetry = () => {
 
               {/* Status Bar */}
               <div className="h-[3px] w-full bg-white/5 rounded-full overflow-hidden mt-1.5">
-                <motion.div
+                <m.div
                   initial={false}
                   animate={{ width: `${node.util}%` }}
                   className="h-full bg-[#00e878]"
@@ -187,7 +187,7 @@ const NeoCloudz = () => {
 
         <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:pt-12">
           {/* LEFT: Text */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -215,17 +215,17 @@ const NeoCloudz = () => {
                 Investor Info
               </Link>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* RIGHT: 3D Animation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full min-h-[400px] md:min-h-[500px] lg:min-h-[580px] relative"
           >
             <NeoCloudzHeroVisual3D />
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -238,8 +238,8 @@ const NeoCloudz = () => {
             { val: "<60s", label: "Provisioning", sub: "Target bare-metal setup time", status: "LIVE" },
             { val: "16×", label: "Module Density", sub: "B200 nodes per cluster module", status: "DENSE" }
           ].map((card, i) => (
-            <motion.div
-              key={i}
+            <m.div
+              key={card.val}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -252,7 +252,7 @@ const NeoCloudz = () => {
               </div>
               <div className="text-5xl font-semibold text-white tracking-tighter mb-4">{card.val}</div>
               <p className="text-[10px] font-medium text-white/30 tracking-widest leading-relaxed uppercase">{card.sub}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>
@@ -282,7 +282,7 @@ const NeoCloudz = () => {
                 { t: "Job Status", d: "Checkpoint tracking and throughput telemetry", icon: Target },
                 { t: "No Overhead", d: "No noisy neighbor or virtualization interference", icon: Zap }
               ].map((item, i) => (
-                <div key={i} className="flex gap-6 group">
+                <div key={item.t} className="flex gap-6 group">
                   <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-[#00e878] group-hover:bg-[#00e878] group-hover:text-black transition-all">
                     <item.icon size={18} />
                   </div>
@@ -362,8 +362,8 @@ const NeoCloudz = () => {
                 ]
               }
             ].map((w, i) => (
-              <motion.div
-                key={i}
+              <m.div
+                key={w.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -383,13 +383,13 @@ const NeoCloudz = () => {
                 <p className="text-white/40 text-[13px] font-semibold tracking-tight leading-relaxed mb-8 group-hover:text-white/60 transition-colors uppercase">{w.desc}</p>
                 <div className="space-y-4">
                   {w.items.map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-4 py-3 border-t border-white/5">
+                    <div key={item} className="flex items-center gap-4 py-3 border-t border-white/5">
                       <div className="w-1 h-1 rounded-full bg-[#00e878]" />
                       <span className="text-[10px] font-semibold text-white/60 tracking-widest uppercase">{item}</span>
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -432,14 +432,14 @@ const NeoCloudz = () => {
                   { label: "INTERCONNECT FABRIC", val: "400G INFINIBAND NDR" },
                   { label: "STORAGE PROTOCOL", val: "NVME-OVER-FABRIC (NVMEOF)" },
                 ].map((spec, i) => (
-                  <motion.div
-                    key={i}
+                  <m.div
+                    key={spec.label}
                     whileHover={{ x: 10 }}
                     className="group flex flex-col gap-1 cursor-default"
                   >
                     <span className="text-[10px] font-mono font-medium text-white/20 group-hover:text-[#00e878] transition-colors tracking-widest">{spec.label}</span>
                     <span className="text-[12px] font-semibold text-white tracking-widest uppercase">{spec.val}</span>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </div>
@@ -475,9 +475,9 @@ const NeoCloudz = () => {
                   desc: "Unrestricted node-to-node communication for high-performance NCCL operations.",
                   meta: "LOW-LATENCY"
                 }
-              ].map((m, i) => (
-                <motion.div
-                  key={i}
+              ].map((feature, i) => (
+                <m.div
+                  key={feature.label}
                   whileHover={{ y: -5, borderColor: 'rgba(0, 232, 120, 0.4)' }}
                   className="bg-white/[0.02] border border-white/5 rounded-3xl p-10 backdrop-blur-md group relative overflow-hidden transition-all"
                 >
@@ -485,21 +485,21 @@ const NeoCloudz = () => {
 
                   <div className="flex justify-between items-start mb-12">
                     <div className="w-12 h-12 rounded-2xl bg-[#00e878]/10 flex items-center justify-center text-[#00e878] group-hover:bg-[#00e878] group-hover:text-black transition-all">
-                      <m.icon size={20} />
+                      <feature.icon size={20} />
                     </div>
                     <span className="text-[9px] font-mono font-bold text-[#00e878]/40 tracking-widest uppercase border border-[#00e878]/20 px-3 py-1 rounded-full">
-                      {m.meta}
+                      {feature.meta}
                     </span>
                   </div>
 
                   <div className="space-y-4">
-                    <div className="text-3xl font-semibold text-white tracking-tighter uppercase group-hover:text-[#00e878] transition-colors">{m.val}</div>
-                    <div className="text-[11px] font-semibold text-[#00e878] tracking-[0.4em] uppercase">{m.label}</div>
+                    <div className="text-3xl font-semibold text-white tracking-tighter uppercase group-hover:text-[#00e878] transition-colors">{feature.val}</div>
+                    <div className="text-[11px] font-semibold text-[#00e878] tracking-[0.4em] uppercase">{feature.label}</div>
                     <p className="text-[11px] font-medium text-white/30 tracking-widest leading-relaxed uppercase pt-4 border-t border-white/5">
-                      {m.desc}
+                      {feature.desc}
                     </p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -533,8 +533,8 @@ const NeoCloudz = () => {
               { stepNum: "04", t: "MONITOR", l: "Full Telemetry", d: "GPU utilization, temp, and memory stream in real time to dashboard." },
               { stepNum: "05", t: "SCALE", l: "Expand On Demand", d: "Additional nodes allocated as training jobs grow or demand increases." }
             ].map((s, i) => (
-              <motion.div
-                key={i}
+              <m.div
+                key={s.stepNum}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -546,7 +546,7 @@ const NeoCloudz = () => {
                 <h3 className="text-xl font-semibold text-white mb-6 uppercase tracking-tight">{s.l}</h3>
                 <p className="text-[10px] font-medium text-white/30 tracking-widest leading-relaxed uppercase">{s.d}</p>
                 <div className="absolute bottom-0 left-0 h-1 bg-[#00e878] w-0 group-hover:w-full transition-all duration-700" />
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { CTASection } from './Footer';
 import dynamic from 'next/dynamic';
 import './GlobalNetwork.css';
@@ -229,7 +229,7 @@ const GlobalNetwork = () => {
         {/* Main two-column grid */}
         <div className="flex-1 relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:pt-12 py-2 md:py-10">
           {/* LEFT: Text */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -264,21 +264,21 @@ const GlobalNetwork = () => {
                 Power Infrastructure
               </Link>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* RIGHT: 3D Animation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full lg:absolute lg:right-0 lg:top-0 lg:w-[50vw] lg:h-full h-[240px] sm:h-[300px] md:h-[400px] lg:h-full z-0 overflow-hidden"
           >
             <DgxGlobe />
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Stats Bar (full width below grid) */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -289,9 +289,9 @@ const GlobalNetwork = () => {
             { val: "400MW+", label: "Pipeline Capacity in Development" },
             { val: "24/7", label: "Multi-region Network Operations" },
             { val: "<10ms", label: "Inter-site Backbone Latency Target" }
-          ].map((stat, i) => (
+          ].map((stat) => (
             <div
-              key={i}
+              key={stat.label}
               className="p-8 bg-dark-surface-2/60 border border-dark-border-subtle rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-dark-surface-3/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out flex flex-col items-center justify-center text-center"
             >
               {/* Top laser border transition */}
@@ -309,7 +309,7 @@ const GlobalNetwork = () => {
               </span>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </section>
 
       {/* Network Flow Section — mirrors /energy's "From Generation to GPU Load" */}
@@ -407,11 +407,11 @@ const GlobalNetwork = () => {
                 ],
                 Visual: UnifiedOpsHub3D,
               },
-            ].map((card, i) => {
+            ].map((card) => {
               const { Visual } = card;
               return (
                 <div
-                  key={i}
+                  key={card.num}
                   className="group relative bg-gradient-to-br from-dark-surface-2 to-dark-base rounded-3xl p-8 md:p-10 border border-dark-border-subtle hover:border-[#f5c518]/30 shadow-[0_12px_40px_rgba(0,0,0,0.18)] hover:shadow-[0_30px_80px_rgba(245,197,24,0.18)] transition-all duration-500 flex flex-col items-start overflow-hidden hover:-translate-y-1"
                 >
                   {/* Subtle Mesh Background for texture */}
@@ -644,7 +644,7 @@ const GlobalNetwork = () => {
               }
             ].map((card, i) => (
               <div
-                key={i}
+                key={card.title}
                 className="relative bg-dark-surface-2 p-8 rounded-[24px] flex flex-col items-start text-left border border-dark-border-subtle hover:border-[#f5c518]/40 transition-all duration-300 hover:shadow-[0_25px_50px_-12px_rgba(245,197,24,0.15)] hover:-translate-y-1 group cursor-pointer min-h-[300px] overflow-hidden"
               >
                 {/* Step Pill */}
@@ -694,11 +694,11 @@ const GlobalNetwork = () => {
               { val: "Diverse Path", label: "INTER-SITE FIBER ENGINEERED — WITH PHYSICAL ROUTE DIVERSITY FOR REPLICATION AND FAILOVER." },
               { val: "Single NOC", label: "MULTI-REGION OPERATIONS RUN — FROM A UNIFIED CONTROL PLANE, ONE TEAM, ONE PANE OF GLASS." },
               { val: "400MW+ Pipe", label: "PIPELINE CAPACITY IN DEVELOPMENT — EXTENDS THE NETWORK INTO NEW CUSTOMER GEOGRAPHIES." }
-            ].map((stat, i) => {
+            ].map((stat) => {
               const [title, desc] = stat.label.split(' — ');
               return (
                 <div
-                  key={i}
+                  key={stat.val}
                   className="p-8 bg-dark-surface-2/60 border border-dark-border-subtle rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-dark-surface-3/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out"
                 >
                   {/* Top laser border transition */}

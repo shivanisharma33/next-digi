@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Target, Compass, Zap, ShieldCheck, Globe2, Cpu } from 'lucide-react';
 import { CTASection } from './Footer';
 import dynamic from 'next/dynamic';
@@ -101,7 +101,7 @@ const MissionVision = () => {
 
         <div className="relative z-10 w-full flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-20 max-w-none">
           {/* LEFT: Text */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -123,7 +123,7 @@ const MissionVision = () => {
               </p>
             </div>
 
-            <motion.button
+            <m.button
               onClick={() => {
                 document.getElementById('vision-mission-details')?.scrollIntoView({ behavior: 'smooth' });
               }}
@@ -133,18 +133,18 @@ const MissionVision = () => {
             >
               <span>Explore Our Journey</span>
               <span className="text-sm font-semibold select-none">↗</span>
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
 
           {/* RIGHT: 3D Animation (Absolute background on mobile/tablet, right-aligned on desktop) */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 35 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="absolute right-0 top-0 w-full lg:w-[62vw] h-full z-0 overflow-hidden lg:overflow-visible pointer-events-none opacity-40 md:opacity-75 lg:opacity-100"
           >
             <MissionVisionHeroVisual3D />
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -153,7 +153,7 @@ const MissionVision = () => {
         <div className="container mx-auto px-6 max-w-[1400px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {/* ═══ MISSION CARD ═══ */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -191,10 +191,10 @@ const MissionVision = () => {
                   Our customers bring the models. We bring the megawatts, the cooling, the silicon, and the orchestration — delivered as one operational system, not a stack of vendors.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* ═══ VISION CARD ═══ */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -232,7 +232,7 @@ const MissionVision = () => {
                   By 2030, our pipeline targets multi-gigawatt AI factory capacity across U.S. markets — purpose-built, customer-controlled, and powered for the densest workloads on the planet.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -261,7 +261,7 @@ const MissionVision = () => {
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
-                <motion.div
+                <m.div
                   key={v.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -281,7 +281,7 @@ const MissionVision = () => {
 
                   {/* Body */}
                   <p className="text-white/40 text-[13px] leading-[1.7]">{v.body}</p>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   Newspaper,
   ArrowUpRight,
@@ -19,9 +19,10 @@ import DGXXPressReleaseVisual from "./DGXXPressReleaseVisual";
 import Link from 'next/link';
 import { generateSlug } from "../utils/slugify";
 import EarlyAccess from "./EarlyAccess";
+import { STRAPI_URL } from "../lib/config";
 
 /* ─── Strapi API base ─── */
-const STRAPI_BASE = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com";
+const STRAPI_BASE = STRAPI_URL;
 const PRESS_API = `${STRAPI_BASE}/api/press-releases`;
 const PAGE_SIZE = 9; // 3×3 grid
 
@@ -121,7 +122,7 @@ const PressReleaseCard = ({
   const slug = generateSlug(title, documentId);
 
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       initial={{ opacity: 0, y: 20 }}
@@ -142,7 +143,7 @@ const PressReleaseCard = ({
       />
 
       {/* Moving shimmer */}
-      <motion.div
+      <m.div
         animate={{ x: ["100%", "-100%"] }}
         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent skew-x-12 pointer-events-none"
@@ -193,7 +194,7 @@ const PressReleaseCard = ({
             className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-[#ffc629] transition-all group/btn"
           >
             <div className="relative w-8 h-8 rounded-full border border-white/10 flex items-center justify-center overflow-hidden transition-all group-hover/btn:border-[#ffc629]">
-              <motion.div className="absolute inset-0 bg-[#ffc629] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+              <m.div className="absolute inset-0 bg-[#ffc629] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
               <FileText
                 size={14}
                 className="relative z-10 group-hover/btn:text-black transition-colors"
@@ -203,7 +204,7 @@ const PressReleaseCard = ({
           </Link>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -242,33 +243,46 @@ const PressRelease = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const gridRef = useRef<HTMLDivElement>(null);
+  // Tracks the in-flight request so a newer fetch (fast pagination) cancels the
+  // older one and out-of-order responses can't overwrite the current page.
+  const abortRef = useRef<AbortController | null>(null);
 
   const fetchReleases = useCallback(async (page: number) => {
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     try {
       setLoading(true);
       setError(null);
 
       const url = `${PRESS_API}?populate[pdf_file][fields]=url,name&fields=title,date,content&sort[0]=date:desc&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}`;
-      const res = await fetch(url);
+      const res = await fetch(url, { signal: controller.signal });
 
       if (!res.ok) throw new Error(`API returned ${res.status}`);
 
       const json: StrapiResponse = await res.json();
 
-      setReleases(json.data);
-      setTotalPages(json.meta.pagination.pageCount);
-      setTotalItems(json.meta.pagination.total);
-      setCurrentPage(json.meta.pagination.page);
+      // Defend against error envelopes / missing pagination meta.
+      const data = Array.isArray(json?.data) ? json.data : [];
+      const pagination = json?.meta?.pagination;
+      setReleases(data);
+      setTotalPages(pagination?.pageCount ?? 1);
+      setTotalItems(pagination?.total ?? data.length);
+      setCurrentPage(pagination?.page ?? page);
     } catch (err: any) {
+      if (err?.name === "AbortError") return; // superseded by a newer request
       console.error("Failed to fetch press releases:", err);
       setError(err.message || "Failed to load press releases.");
     } finally {
-      setLoading(false);
+      // Only the most recent request should clear the loading state.
+      if (abortRef.current === controller) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     fetchReleases(1);
+    return () => abortRef.current?.abort();
   }, [fetchReleases]);
 
   const goToPage = (page: number) => {
@@ -302,7 +316,7 @@ const PressRelease = () => {
       <section className="relative min-h-0 lg:min-h-[70vh] overflow-hidden bg-[#050505] flex items-center pt-32 pb-8 lg:pt-36 lg:pb-16 px-4 sm:px-6">
         <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center lg:pt-0 px-4">
           {/* LEFT: Text */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -316,7 +330,7 @@ const PressRelease = () => {
               </span>
             </div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
@@ -337,7 +351,7 @@ const PressRelease = () => {
               </p>
 
               {totalItems > 0 && !loading && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="flex items-center gap-3 px-5 py-2 bg-white/[0.03] border border-white/5 rounded-full"
@@ -346,20 +360,20 @@ const PressRelease = () => {
                   <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/40">
                     {totalItems} Press Releases
                   </span>
-                </motion.div>
+                </m.div>
               )}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* RIGHT: Glass-stack animation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full h-[320px] sm:h-[380px] lg:h-[500px] lg:min-h-[600px] relative -mt-6 md:-mt-16 lg:-mt-4 overflow-hidden"
           >
             <DGXXPressReleaseVisual />
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -370,7 +384,7 @@ const PressRelease = () => {
         <div className="max-w-[1400px] mx-auto">
           {/* Error state */}
           {error && !loading && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="flex flex-col items-center justify-center py-20 gap-6"
@@ -385,7 +399,7 @@ const PressRelease = () => {
               >
                 Try Again
               </button>
-            </motion.div>
+            </m.div>
           )}
 
           {/* Loading skeleton */}
@@ -400,7 +414,7 @@ const PressRelease = () => {
           {/* Cards */}
           {!loading && !error && (
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={currentPage}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -420,7 +434,7 @@ const PressRelease = () => {
                     delay={0.05 * index}
                   />
                 ))}
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           )}
 
@@ -428,7 +442,7 @@ const PressRelease = () => {
           {/* PAGINATION */}
           {/* ═══════════════════════════════════════ */}
           {!loading && !error && totalPages > 1 && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -484,7 +498,7 @@ const PressRelease = () => {
                   <ChevronRight size={18} />
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </div>
       </section>

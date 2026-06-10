@@ -4,6 +4,7 @@ import '../index.css';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
+import MotionProvider from '../components/MotionProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -39,12 +40,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="bg-dark-base text-white overflow-x-hidden antialiased" suppressHydrationWarning>
-        <ScrollToTop />
-        <Navbar />
-        <main id="main-content">
-          {children}
-        </main>
-        <Footer />
+        <MotionProvider>
+          <ScrollToTop />
+          <Navbar />
+          <main id="main-content">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

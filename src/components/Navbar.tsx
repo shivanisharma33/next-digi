@@ -2,10 +2,65 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronDown, Menu, X, ArrowRight, Activity, Cpu, Network, Shield, Landmark, Eye, HelpCircle, FileText, Bell } from 'lucide-react';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { m, AnimatePresence, type Variants } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import logoImg from '../assets/Digi new color logo.png';
+
+const navLinks = [
+  { name: 'About Us', hasDropdown: false, path: '/about' },
+  {
+    name: 'Investors',
+    hasDropdown: true,
+    sublinks: [
+      { name: 'SEC Filings', path: '/sec-filings', desc: 'Regulatory financial declarations', icon: <FileText className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Documents & Charters', path: '/documents-charters', desc: 'Corporate governance materials', icon: <Landmark className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Investor Center', path: '/investors', desc: 'General investor hub & updates', icon: <Eye className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Email Alerts', path: '/email-alerts', desc: 'Live investor updates and notifications', icon: <Bell className="w-4 h-4 text-brand-yellow" /> },
+    ]
+  },
+  {
+    name: 'Infrastructure',
+    hasDropdown: true,
+    sublinks: [
+      { name: 'Energy', path: '/energy', desc: 'Owned high-density power generation', icon: <Cpu className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Global Network', path: '/global-network', desc: 'US footprint inter-site backbone', icon: <Network className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Data Centers', path: '/data-centers', desc: 'Tier III modular compute campuses', icon: <Shield className="w-4 h-4 text-brand-yellow" /> },
+    ]
+  },
+  { name: 'Services', hasDropdown: false, path: '/services' },
+  {
+    name: 'Company',
+    hasDropdown: true,
+    sublinks: [
+      { name: 'Mission & Vision', path: '/mission-vision', desc: 'Strategic priorities and targets', icon: <Cpu className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Leadership', path: '/leadership', desc: 'Meet our executive leadership team', icon: <Activity className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Press Release', path: '/press-releases', desc: 'Latest media and company releases', icon: <Network className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Careers', path: '/careers', desc: 'Join our high-performance mission', icon: <Shield className="w-4 h-4 text-brand-yellow" /> },
+      { name: 'Partnership', path: '/partnership', desc: 'Collaborate and build the future together', icon: <HelpCircle className="w-4 h-4 text-brand-yellow" /> },
+    ]
+  },
+  { name: 'NeoCloudz', hasDropdown: false, path: '/neocloudz', href: 'https://www.neocloudz.com/' },
+];
+
+const menuVariants: Variants = {
+  closed: {
+    x: "100%",
+    transition: {
+      duration: 0.25,
+      ease: [0.36, 0.07, 0.19, 0.97]
+    }
+  },
+  open: {
+    x: 0,
+    transition: {
+      type: "spring",
+      stiffness: 320,
+      damping: 28,
+      mass: 0.8
+    }
+  }
+};
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -54,42 +109,6 @@ const Navbar = () => {
     }, 250);
   };
 
-  const navLinks = [
-    { name: 'About Us', hasDropdown: false, path: '/about' },
-    {
-      name: 'Investors',
-      hasDropdown: true,
-      sublinks: [
-        { name: 'SEC Filings', path: '/sec-filings', desc: 'Regulatory financial declarations', icon: <FileText className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Documents & Charters', path: '/documents-charters', desc: 'Corporate governance materials', icon: <Landmark className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Investor Center', path: '/investors', desc: 'General investor hub & updates', icon: <Eye className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Email Alerts', path: '/email-alerts', desc: 'Live investor updates and notifications', icon: <Bell className="w-4 h-4 text-brand-yellow" /> },
-      ]
-    },
-    {
-      name: 'Infrastructure',
-      hasDropdown: true,
-      sublinks: [
-        { name: 'Energy', path: '/energy', desc: 'Owned high-density power generation', icon: <Cpu className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Global Network', path: '/global-network', desc: 'US footprint inter-site backbone', icon: <Network className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Data Centers', path: '/data-centers', desc: 'Tier III modular compute campuses', icon: <Shield className="w-4 h-4 text-brand-yellow" /> },
-      ]
-    },
-    { name: 'Services', hasDropdown: false, path: '/services' },
-    {
-      name: 'Company',
-      hasDropdown: true,
-      sublinks: [
-        { name: 'Mission & Vision', path: '/mission-vision', desc: 'Strategic priorities and targets', icon: <Cpu className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Leadership', path: '/leadership', desc: 'Meet our executive leadership team', icon: <Activity className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Press Release', path: '/press-releases', desc: 'Latest media and company releases', icon: <Network className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Careers', path: '/careers', desc: 'Join our high-performance mission', icon: <Shield className="w-4 h-4 text-brand-yellow" /> },
-        { name: 'Partnership', path: '/partnership', desc: 'Collaborate and build the future together', icon: <HelpCircle className="w-4 h-4 text-brand-yellow" /> },
-      ]
-    },
-    { name: 'NeoCloudz', hasDropdown: false, path: '/neocloudz', href: 'https://www.neocloudz.com/' },
-  ];
-
   const isLinkActive = (link: typeof navLinks[0]) => {
     if (link.path && pathname === link.path) return true;
     if (link.hasDropdown && link.sublinks) {
@@ -100,25 +119,6 @@ const Navbar = () => {
 
   const activeClass = "nav-link flex items-center gap-1 xl:gap-1.5 text-[11px] xl:text-[13px] font-bold uppercase tracking-widest text-brand-yellow px-2.5 xl:px-4.5 py-1.5 xl:py-2 nav-glass-bubble";
   const inactiveClass = "nav-link flex items-center gap-1 xl:gap-1.5 text-[11px] xl:text-[13px] font-semibold uppercase tracking-widest text-white/70 hover:text-brand-yellow px-2.5 xl:px-4.5 py-1.5 xl:py-2 nav-inactive-bubble";
-
-  const menuVariants: Variants = {
-    closed: {
-      x: "100%",
-      transition: {
-        duration: 0.25,
-        ease: [0.36, 0.07, 0.19, 0.97]
-      }
-    },
-    open: {
-      x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 320,
-        damping: 28,
-        mass: 0.8
-      }
-    }
-  };
 
   const toggleDropdown = (name: string) => {
     setActiveDropdown(activeDropdown === name ? null : name);
@@ -135,7 +135,7 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 relative z-[120]" onClick={() => setIsMenuOpen(false)}>
-          <img src={logoImg.src} alt="DigiPowerX Logo" className="h-20 md:h-24 lg:h-14 xl:h-18 2xl:h-22 w-auto object-contain transition-all duration-300 brightness-0 invert" />
+          <img src={logoImg.src} alt="DigiPowerX Logo" className="h-24 md:h-28 lg:h-20 xl:h-24 2xl:h-28 w-auto object-contain transition-all duration-300 brightness-0 invert" />
         </Link>
 
         {/* Desktop Links */}
@@ -252,7 +252,7 @@ const Navbar = () => {
         {isMenuOpen && (
           <>
             {/* Backdrop Blur Overlay */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -262,7 +262,7 @@ const Navbar = () => {
             />
 
             {/* Menu Drawer */}
-            <motion.div
+            <m.div
               variants={menuVariants}
               initial="closed"
               animate="open"
@@ -390,7 +390,7 @@ const Navbar = () => {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>

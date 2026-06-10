@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import {
   ChevronLeft,
   Calendar,
@@ -14,6 +14,7 @@ import {
   Zap
 } from 'lucide-react';
 import { extractDocumentId } from '../utils/slugify';
+import { STRAPI_URL } from '../lib/config';
 import PDFViewer from './PDFViewer';
 import { CTASection } from './Footer';
 
@@ -93,6 +94,8 @@ export default function FilingDetailPage() {
   const documentId = slug ? extractDocumentId(slug) : '';
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchDetail = async () => {
       if (!documentId) {
         setError('Invalid document slug');
@@ -103,14 +106,14 @@ export default function FilingDetailPage() {
       try {
         setLoading(true);
         setError(null);
-        
-        const url = `https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/sec-filings/${documentId}?populate=*`;
-        const res = await fetch(url);
-        
+
+        const url = `${STRAPI_URL}/api/sec-filings/${documentId}?populate=*`;
+        const res = await fetch(url, { signal: controller.signal });
+
         if (!res.ok) {
           throw new Error(`API returned ${res.status}`);
         }
-        
+
         const json = await res.json();
         if (json && json.data) {
           setFiling(json.data);
@@ -136,17 +139,20 @@ export default function FilingDetailPage() {
           throw new Error('Filing not found');
         }
       } catch (err: any) {
+        if (err?.name === 'AbortError') return; // route changed / unmounted
         console.error('Failed to fetch SEC filing detail:', err);
         setError(err.message || 'Failed to load SEC filing details.');
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     };
 
     fetchDetail();
-    
-    // Cleanup/reset document title on unmount
+
+    // Abort any in-flight request and reset the document title on unmount /
+    // documentId change so a stale response can't set the wrong title.
     return () => {
+      controller.abort();
       document.title = 'DigiPowerX - SEC Filings';
     };
   }, [documentId]);
@@ -247,7 +253,7 @@ export default function FilingDetailPage() {
 
         {/* Content & PDF viewer */}
         {!loading && !error && filing && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -287,7 +293,7 @@ export default function FilingDetailPage() {
                 title={filingTitle}
               />
             </div>
-          </motion.div>
+          </m.div>
         )}
       </div>
 

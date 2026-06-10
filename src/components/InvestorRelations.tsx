@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from 'next/link';
 import { generateSlug } from "../utils/slugify";
+import { STRAPI_URL } from "../lib/config";
 import {
   TrendingUp,
   FileText,
@@ -114,7 +115,7 @@ const InvestorRelations = () => {
       try {
         setIsLoadingReleases(true);
         setReleasesError(null);
-        const url = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/press-releases?populate[pdf_file][fields]=url,name&fields=title,date,content&sort[0]=date:desc&pagination[page]=1&pagination[pageSize]=4";
+        const url = `${STRAPI_URL}/api/press-releases?populate[pdf_file][fields]=url,name&fields=title,date,content&sort[0]=date:desc&pagination[page]=1&pagination[pageSize]=4`;
         const res = await fetch(url);
         if (!res.ok) {
           throw new Error(`API returned status ${res.status}`);
@@ -139,20 +140,16 @@ const InvestorRelations = () => {
         setIsLoadingStock(true);
         setStockError(null);
 
-        const apiKey = process.env.NEXT_PUBLIC_MASSIVE_API_KEY;
-        if (!apiKey) {
-          throw new Error('API Key missing in .env.local (NEXT_PUBLIC_MASSIVE_API_KEY)');
-        }
-
         const symbol = 'DGXX';
         const now = new Date();
         const today = now.toISOString().split('T')[0];
 
-        // API Endpoints
-        const snapshotUrl = `https://api.massive.com/v2/snapshot/locale/us/markets/stocks/tickers/${symbol}?apiKey=${apiKey}`;
-        const quoteUrl = `https://api.massive.com/v3/quotes/${symbol}?limit=1&order=desc&apiKey=${apiKey}`;
-        const lastTradeUrl = `https://api.massive.com/v3/trades/${symbol}?limit=1&order=desc&apiKey=${apiKey}`;
-        const dailyUrl = `https://api.massive.com/v1/open-close/${symbol}/${today}?adjusted=true&apiKey=${apiKey}`;
+        // Requests go through our server-side proxy (/api/stock) so the Massive
+        // API key is never exposed to the browser.
+        const snapshotUrl = `/api/stock?type=snapshot`;
+        const quoteUrl = `/api/stock?type=quote`;
+        const lastTradeUrl = `/api/stock?type=trade`;
+        const dailyUrl = `/api/stock?type=open-close&date=${today}`;
 
         const [snapshotRes, quoteRes, tradeRes, dailyRes] = await Promise.all([
           fetch(snapshotUrl).catch(() => null),
@@ -288,13 +285,11 @@ const InvestorRelations = () => {
 
         const batchSize = 10;
         const results: (unknown | null)[] = [];
-        const apiKey = process.env.NEXT_PUBLIC_MASSIVE_API_KEY;
-        const symbol = 'DGXX';
 
         for (let i = 0; i < dates.length; i += batchSize) {
           const batch = dates.slice(i, i + batchSize);
           const batchPromises = batch.map(dateString =>
-            fetch(`https://api.massive.com/v1/open-close/${symbol}/${dateString}?adjusted=true&apiKey=${apiKey}`)
+            fetch(`/api/stock?type=open-close&date=${dateString}`)
               .then(res => res.ok ? res.json() : null)
               .catch(() => null)
           );
@@ -415,14 +410,14 @@ const InvestorRelations = () => {
 
         <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-8 items-center">
           {/* LEFT: Text */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="flex flex-col items-center text-center lg:items-start lg:text-left"
           >
             {/* Top Company Badge (Matching Reference Image) */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -430,30 +425,30 @@ const InvestorRelations = () => {
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#ffc629] shadow-[0_0_8px_rgba(255,198,41,0.8)]"></span>
               <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#ffc629]">Investor Relations</span>
-            </motion.div>
+            </m.div>
 
             {/* Heading */}
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold uppercase tracking-tighter mb-6 text-white leading-[0.95]"
             >
               Investor <span className="bg-gradient-to-r from-[#ffc629] to-[#ffdb6e] bg-clip-text text-transparent">Center</span>
-            </motion.h1>
+            </m.h1>
 
             {/* Subtitle */}
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-base sm:text-lg text-white/50 leading-relaxed mb-10 max-w-xl"
             >
               Powering the future of industrial AI infrastructure. Access financial performance, governance, and the latest corporate developments from Digi Power X.
-            </motion.p>
+            </m.p>
 
             {/* CTAs */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -474,13 +469,13 @@ const InvestorRelations = () => {
                 SEC Filings
                 <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </Link>
-            </motion.div>
+            </m.div>
 
 
-          </motion.div>
+          </m.div>
 
           {/* RIGHT: Pulse Graph Visual */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -507,7 +502,7 @@ const InvestorRelations = () => {
               </div>
        
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -596,7 +591,7 @@ const InvestorRelations = () => {
                         setIsLoadingReleases(true);
                         const fetchLatestReleases = async () => {
                           try {
-                            const url = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/press-releases?populate[pdf_file][fields]=url,name&fields=title,date,content&sort[0]=date:desc&pagination[page]=1&pagination[pageSize]=4";
+                            const url = `${STRAPI_URL}/api/press-releases?populate[pdf_file][fields]=url,name&fields=title,date,content&sort[0]=date:desc&pagination[page]=1&pagination[pageSize]=4`;
                             const res = await fetch(url);
                             if (!res.ok) throw new Error();
                             const json = await res.json();

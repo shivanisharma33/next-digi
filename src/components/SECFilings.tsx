@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { m, AnimatePresence, type Variants } from 'framer-motion';
 import {
   FileText,
   Search,
@@ -18,13 +18,14 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { generateSlug } from '../utils/slugify';
+import { STRAPI_URL } from '../lib/config';
 import dynamic from 'next/dynamic';
 import { CTASection } from './Footer';
 
 const NeuralCube3D = dynamic(() => import('./NeuralCube3D'), { ssr: false });
 
 /* ─── Strapi API base ─── */
-const STRAPI_BASE = "https://thankful-miracle-1ed8bdfdaf.strapiapp.com";
+const STRAPI_BASE = STRAPI_URL;
 const SEC_FILINGS_API = `${STRAPI_BASE}/api/sec-filings`;
 const PAGE_SIZE = 9; // 3x3 grid
 
@@ -255,8 +256,15 @@ const SECFilings = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [activeTab, setActiveTab] = useState<"ALL" | "10-K" | "10-Q" | "8-K">("ALL");
   const gridRef = useRef<HTMLDivElement>(null);
+  // Tracks the in-flight request so switching tabs/pages cancels the previous
+  // one and out-of-order responses can't render against the wrong tab.
+  const abortRef = useRef<AbortController | null>(null);
 
   const fetchFilings = useCallback(async (page: number, typeFilter?: string) => {
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     try {
       setLoading(true);
       setError(null);
@@ -272,7 +280,7 @@ const SECFilings = () => {
       }
 
       const url = `${SEC_FILINGS_API}?populate=*&sort[0]=date:desc&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}${filterQuery}`;
-      const res = await fetch(url);
+      const res = await fetch(url, { signal: controller.signal });
 
       if (!res.ok) throw new Error(`API returned ${res.status}`);
 
@@ -286,16 +294,18 @@ const SECFilings = () => {
       setTotalItems(pagination?.total || 0);
       setCurrentPage(pagination?.page || page);
     } catch (err: any) {
+      if (err?.name === "AbortError") return; // superseded by a newer request
       console.error("Failed to fetch SEC filings:", err);
       setError(err.message || "Failed to load SEC filings.");
       setFilings([]);
     } finally {
-      setLoading(false);
+      if (abortRef.current === controller) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     fetchFilings(1, activeTab);
+    return () => abortRef.current?.abort();
   }, [fetchFilings, activeTab]);
 
   const goToPage = (page: number) => {
@@ -337,41 +347,41 @@ const SECFilings = () => {
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto text-center flex flex-col items-center flex-1 justify-center">
-          <motion.div
+          <m.div
             variants={parentVariants}
             initial="hidden"
             animate="visible"
             className="flex flex-col items-center w-full"
           >
             {/* Top Company Badge (Matching Reference Image) */}
-            <motion.div
+            <m.div
               variants={badgeVariants}
               className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-brand-yellow/30 bg-brand-yellow/5 backdrop-blur-sm mb-6 md:mb-10"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow shadow-[0_0_8px_#f5c518]"></span>
               <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-brand-yellow">Investors</span>
-            </motion.div>
+            </m.div>
 
             {/* Split Reveal Title */}
             <div className="overflow-hidden mb-8">
-              <motion.h1
+              <m.h1
                 variants={titleVariants}
                 className="text-[clamp(2.5rem,6vw,5.5rem)] font-extrabold leading-[0.95] tracking-tighter uppercase text-white relative z-10"
               >
                 <span className="block text-white mb-2">SEC</span>
                 <span className="block text-brand-yellow">Filings</span>
-              </motion.h1>
+              </m.h1>
             </div>
 
-            <motion.p
+            <m.p
               variants={descVariants}
               className="text-sm md:text-lg text-white/50 max-w-2xl mx-auto leading-relaxed mb-8 md:mb-14 font-medium"
             >
               Access all regulatory filings, annual reports, and quarterly disclosures for DigiPowerX Corporation (NASDAQ: DGXX).
-            </motion.p>
+            </m.p>
 
             {/* Premium Glassmorphic Stats HUD Grid - Enhanced 3D Glass & Spotlight Gradients */}
-            <motion.div
+            <m.div
               variants={hudVariants}
               className="w-full max-w-[960px] grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 px-4"
             >
@@ -380,9 +390,9 @@ const SECFilings = () => {
                 { val: "10-K", label: "ANNUAL FILING" },
                 { val: "10-Q", label: "QUARTERLY FILING" },
                 { val: "8-K", label: "CURRENT EVENTS" }
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
+              ].map((stat) => (
+                <m.div
+                  key={stat.val}
                   variants={cardVariants}
                   whileHover={{
                     y: -6,
@@ -405,10 +415,10 @@ const SECFilings = () => {
                   <div className="text-[9px] font-bold text-white/35 uppercase tracking-[0.25em] group-hover:text-white/75 transition-colors duration-300 relative z-10">
                     {stat.label}
                   </div>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
 
@@ -443,7 +453,7 @@ const SECFilings = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
 
             {/* Total Filings Card */}
-            <motion.div
+            <m.div
               whileHover={{
                 y: -6,
                 borderColor: "rgba(255, 215, 0, 0.35)",
@@ -464,10 +474,10 @@ const SECFilings = () => {
                 <span className="text-lg font-bold text-white/50">docs</span>
               </div>
               <span className="text-xs font-semibold text-[#8E8E93] group-hover:text-[#A3A3A3] transition-colors">Across 3 filing types</span>
-            </motion.div>
+            </m.div>
 
             {/* Revenue Card */}
-            <motion.div
+            <m.div
               whileHover={{
                 y: -6,
                 borderColor: "rgba(255, 215, 0, 0.35)",
@@ -488,10 +498,10 @@ const SECFilings = () => {
                 <span className="text-xl font-extrabold text-brand-yellow">+</span>
               </div>
               <span className="text-xs font-semibold text-[#8E8E93] group-hover:text-[#A3A3A3] transition-colors">As of Sep 30, 2024</span>
-            </motion.div>
+            </m.div>
 
             {/* EBITDA Card */}
-            <motion.div
+            <m.div
               whileHover={{
                 y: -6,
                 borderColor: "rgba(255, 215, 0, 0.35)",
@@ -512,12 +522,12 @@ const SECFilings = () => {
                 <span className="text-xl font-extrabold text-brand-yellow">+</span>
               </div>
               <span className="text-xs font-semibold text-[#8E8E93] group-hover:text-[#A3A3A3] transition-colors">As of Sep 30, 2024</span>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Error state */}
           {error && !loading && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="flex flex-col items-center justify-center py-20 gap-6"
@@ -532,7 +542,7 @@ const SECFilings = () => {
               >
                 Try Again
               </button>
-            </motion.div>
+            </m.div>
           )}
 
           {/* Tabs Filter and Row Info */}
@@ -596,7 +606,7 @@ const SECFilings = () => {
           {/* Cards */}
           {!loading && !error && filings.length > 0 && (
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={currentPage + activeTab}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -665,7 +675,7 @@ const SECFilings = () => {
                   const slug = generateSlug(displayTitle, item.documentId);
 
                   return (
-                    <motion.div
+                    <m.div
                       key={item.documentId || `filing-${i}`}
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -713,10 +723,10 @@ const SECFilings = () => {
                           <span className="leading-none">View Filing</span>
                         </Link>
                       </div>
-                    </motion.div>
+                    </m.div>
                   );
                 })}
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           )}
 

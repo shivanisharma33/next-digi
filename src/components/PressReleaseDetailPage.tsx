@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ChevronLeft, Calendar, Tag, AlertTriangle, Loader2 } from 'lucide-react';
 import { extractDocumentId } from '../utils/slugify';
+import { STRAPI_URL } from '../lib/config';
 import PDFViewer from './PDFViewer';
 import { CTASection } from './Footer';
 
@@ -62,6 +63,8 @@ export default function PressReleaseDetailPage() {
   const documentId = slug ? extractDocumentId(slug) : '';
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchDetail = async () => {
       if (!documentId) {
         setError('Invalid document slug');
@@ -72,10 +75,10 @@ export default function PressReleaseDetailPage() {
       try {
         setLoading(true);
         setError(null);
-        
-        const url = `https://thankful-miracle-1ed8bdfdaf.strapiapp.com/api/press-releases/${documentId}?populate[pdf_file][fields]=url,name`;
-        const res = await fetch(url);
-        
+
+        const url = `${STRAPI_URL}/api/press-releases/${documentId}?populate[pdf_file][fields]=url,name`;
+        const res = await fetch(url, { signal: controller.signal });
+
         if (!res.ok) {
           throw new Error(`API returned ${res.status}`);
         }
@@ -102,17 +105,20 @@ export default function PressReleaseDetailPage() {
           throw new Error('Document not found');
         }
       } catch (err: any) {
+        if (err?.name === 'AbortError') return; // route changed / unmounted
         console.error('Failed to fetch press release detail:', err);
         setError(err.message || 'Failed to load press release details.');
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     };
 
     fetchDetail();
-    
-    // Cleanup/reset document title on unmount
+
+    // Abort any in-flight request and reset the document title on unmount /
+    // documentId change so a stale response can't set the wrong title.
     return () => {
+      controller.abort();
       document.title = 'DigiPowerX - Newsroom';
     };
   }, [documentId]);
@@ -168,7 +174,7 @@ export default function PressReleaseDetailPage() {
 
         {/* Content & PDF viewer */}
         {!loading && !error && release && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -205,7 +211,7 @@ export default function PressReleaseDetailPage() {
                 title={release.title}
               />
             </div>
-          </motion.div>
+          </m.div>
         )}
       </div>
 

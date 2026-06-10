@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Footer, CTASection } from './Footer';
 import { Zap, Shield, BatteryCharging, Activity, Server, Cpu } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -40,7 +40,7 @@ const Infrastructure = () => {
         <div className="relative z-10 w-full max-w-[1700px] mx-auto flex flex-col lg:grid lg:grid-cols-12 items-start lg:pt-12 gap-12 lg:gap-8 pt-6 pb-12">
 
           {/* Left Column: Hero Text */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -96,10 +96,10 @@ const Infrastructure = () => {
                 Learn More
               </Link>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right Column: Cube Grid Network Animation */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -138,7 +138,7 @@ const Infrastructure = () => {
                 <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/60">DGXX · Modular Scale</span>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
         </div>
       </section>
@@ -183,7 +183,7 @@ const Infrastructure = () => {
                 { title: "Substation Control", text: "Owned switchgear and transformation infrastructure guarantees high-voltage capacity scaling on our own timeline.", icon: <Activity size={20} className="text-[#f5c518]" /> },
                 { title: "Compute Conversion", text: "Every megawatt generated is purposefully conditioned for high-density AI and HPC workloads.", icon: <Cpu size={20} className="text-[#f5c518]" /> }
               ].map((feature, i) => (
-                <div key={i} className="bg-[#f8f9fa] p-8 rounded-2xl border border-black/[0.04] shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-black/[0.08] transition-all duration-300 group">
+                <div key={feature.title} className="bg-[#f8f9fa] p-8 rounded-2xl border border-black/[0.04] shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-black/[0.08] transition-all duration-300 group">
                   <div className="flex items-start gap-5">
                     <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                       {feature.icon}
@@ -419,7 +419,7 @@ const Infrastructure = () => {
               { val: "400MW+", label: "PIPELINE CAPACITY", desc: "Combined existing and expansion energy capacity designated for compute conversion." }
             ].map((stat, i) => (
               <div
-                key={i}
+                key={stat.label}
                 className="p-8 bg-dark-surface-2/60 border border-dark-border-subtle rounded-2xl relative overflow-hidden group hover:border-[#f5c518]/30 hover:bg-dark-surface-3/80 shadow-2xl hover:shadow-[0_15px_30px_rgba(245,197,24,0.1)] transition-all duration-500 ease-out"
               >
                 {/* Top laser border transition */}

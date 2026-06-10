@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Link from 'next/link';
 import logoImg from '../assets/Digi new color logo.png';
 
@@ -317,7 +317,7 @@ const CTASection = () => {
         <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-20">
 
           {/* ═══ LEFT SIDE: Large heading + subtitle ═══ */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -350,10 +350,10 @@ const CTASection = () => {
             <p className="text-white/40 text-[15px] leading-[1.75] max-w-md">
               Whether you need co-location, a turnkey data center build, or bare-metal GPU compute — DigiPowerX has the infrastructure, the scale, and the team to deliver.
             </p>
-          </motion.div>
+          </m.div>
 
           {/* ═══ RIGHT SIDE: Feature card ═══ */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -439,7 +439,7 @@ const CTASection = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
         </div>
       </div>

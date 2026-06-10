@@ -50,8 +50,8 @@ const HeroVisual3D = () => {
     scene.add(accentLight);
 
     // Group container
-    const module = new THREE.Group();
-    scene.add(module);
+    const moduleGroup = new THREE.Group();
+    scene.add(moduleGroup);
 
     // Chassis
     const chassisGeo = new THREE.BoxGeometry(5.4, 0.9, 3.2);
@@ -61,7 +61,7 @@ const HeroVisual3D = () => {
       roughness: 0.35
     });
     const chassis = new THREE.Mesh(chassisGeo, chassisMat);
-    module.add(chassis);
+    moduleGroup.add(chassis);
 
     const edgeGeo = new THREE.BoxGeometry(5.42, 0.04, 3.22);
     const edgeMat = new THREE.MeshStandardMaterial({
@@ -73,7 +73,7 @@ const HeroVisual3D = () => {
     });
     const topEdge = new THREE.Mesh(edgeGeo, edgeMat);
     topEdge.position.y = 0.45;
-    module.add(topEdge);
+    moduleGroup.add(topEdge);
 
     const frontGeo = new THREE.BoxGeometry(5.2, 0.78, 0.06);
     const frontMat = new THREE.MeshStandardMaterial({
@@ -83,7 +83,7 @@ const HeroVisual3D = () => {
     });
     const front = new THREE.Mesh(frontGeo, frontMat);
     front.position.set(0, 0, 1.62);
-    module.add(front);
+    moduleGroup.add(front);
 
     // GPU Chips
     const chipGroup = new THREE.Group();
@@ -115,14 +115,14 @@ const HeroVisual3D = () => {
         chipGroup.add(led);
       }
     }
-    module.add(chipGroup);
+    moduleGroup.add(chipGroup);
 
     // Heatsinks
     const finMat = new THREE.MeshStandardMaterial({ color: 0x3a3e46, metalness: 0.95, roughness: 0.25 });
     for (let i = 0; i < 5; i++) {
       const fin = new THREE.Mesh(new THREE.BoxGeometry(5.0, 0.28, 0.04), finMat);
       fin.position.set(0, 0.6, -1.4 + i * 0.7);
-      module.add(fin);
+      moduleGroup.add(fin);
     }
 
     // LED Strips
@@ -130,14 +130,14 @@ const HeroVisual3D = () => {
     const ledStripMat = new THREE.MeshStandardMaterial({ color: 0xf5c518, emissive: 0xf5c518, emissiveIntensity: 1.6 });
     const ledStrip = new THREE.Mesh(ledStripGeo, ledStripMat);
     ledStrip.position.set(0, 0.18, 1.66);
-    module.add(ledStrip);
+    moduleGroup.add(ledStrip);
 
     // Front Ports
     const portMat = new THREE.MeshStandardMaterial({ color: 0x05060a, metalness: 0.9, roughness: 0.4 });
     for (let i = 0; i < 12; i++) {
       const port = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, 0.04), portMat);
       port.position.set(-2.0 + i * 0.36, -0.12, 1.66);
-      module.add(port);
+      moduleGroup.add(port);
     }
 
     // Status LEDs
@@ -153,7 +153,7 @@ const HeroVisual3D = () => {
       );
       statusLed.position.set(-1.2 + i * 0.45, 0.05, 1.665);
       statusLed.userData.basePhase = i * 0.8;
-      module.add(statusLed);
+      moduleGroup.add(statusLed);
       statusLeds.push(statusLed);
     }
 
@@ -162,7 +162,7 @@ const HeroVisual3D = () => {
     const baseMat = new THREE.MeshStandardMaterial({ color: 0x0a0c10, metalness: 0.9, roughness: 0.7 });
     const base = new THREE.Mesh(baseGeo, baseMat);
     base.position.y = -0.55;
-    module.add(base);
+    moduleGroup.add(base);
 
     // Accent ring
     const baseRingGeo = new THREE.TorusGeometry(3.2, 0.015, 8, 64);
@@ -170,7 +170,7 @@ const HeroVisual3D = () => {
     const baseRing = new THREE.Mesh(baseRingGeo, baseRingMat);
     baseRing.position.y = -0.51;
     baseRing.rotation.x = Math.PI / 2;
-    module.add(baseRing);
+    moduleGroup.add(baseRing);
 
     // Energy beams
     const beamGroup = new THREE.Group();
@@ -182,14 +182,14 @@ const HeroVisual3D = () => {
       beam.userData.phase = col;
       beamGroup.add(beam);
     }
-    module.add(beamGroup);
+    moduleGroup.add(beamGroup);
 
     // Data rings
     const ringMat = new THREE.MeshBasicMaterial({ color: 0xf5c518, transparent: true, opacity: 0.15 });
     const dataRing = new THREE.Mesh(new THREE.TorusGeometry(4.0, 0.008, 6, 80), ringMat);
     dataRing.rotation.x = Math.PI / 2.2;
     dataRing.position.y = 0.2;
-    module.add(dataRing);
+    moduleGroup.add(dataRing);
 
     const dataRing2 = new THREE.Mesh(
       new THREE.TorusGeometry(3.4, 0.005, 6, 80),
@@ -198,7 +198,7 @@ const HeroVisual3D = () => {
     dataRing2.rotation.x = Math.PI / 1.8;
     dataRing2.rotation.z = 0.4;
     dataRing2.position.y = 0.1;
-    module.add(dataRing2);
+    moduleGroup.add(dataRing2);
 
     // Orbit dots
     const orbitDots: THREE.Mesh[] = [];
@@ -211,12 +211,12 @@ const HeroVisual3D = () => {
       dot.userData.radius = 3.8 + Math.random() * 1.2;
       dot.userData.height = (Math.random() - 0.5) * 1.6;
       dot.userData.speed = 0.25 + Math.random() * 0.15;
-      module.add(dot);
+      moduleGroup.add(dot);
       orbitDots.push(dot);
     }
 
-    module.rotation.y = -0.4;
-    module.rotation.x = 0.1;
+    moduleGroup.rotation.y = -0.4;
+    moduleGroup.rotation.x = 0.1;
 
     let mouseX = 0, mouseY = 0;
     const handleMouseMove = (e: MouseEvent) => {
@@ -258,8 +258,8 @@ const HeroVisual3D = () => {
 
       const targetRotY = -0.4 + Math.sin(auto) * 0.6 + mouseX * 0.4;
       const targetRotX = 0.1 + mouseY * -0.2;
-      module.rotation.y += (targetRotY - module.rotation.y) * 0.04;
-      module.rotation.x += (targetRotX - module.rotation.x) * 0.04;
+      moduleGroup.rotation.y += (targetRotY - moduleGroup.rotation.y) * 0.04;
+      moduleGroup.rotation.x += (targetRotX - moduleGroup.rotation.x) * 0.04;
 
       chipGroup.children.forEach((child: any) => {
         if (child.userData.basePhase !== undefined && child.material.emissiveIntensity !== undefined) {
