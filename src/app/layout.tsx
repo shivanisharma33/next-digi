@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
 import MotionProvider from '../components/MotionProvider';
+import CookieBanner from '../components/CookieBanner';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -47,6 +48,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <CookieBanner />
         </MotionProvider>
       </body>
     </html>
